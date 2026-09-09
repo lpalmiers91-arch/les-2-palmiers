@@ -37,15 +37,16 @@ Le visiteur utilise **toujours sa propre adresse**. Resend n'est que le transpor
 - Champ **Nom** = le sous-domaine seul (`resend._domainkey`, `send`), pas le domaine complet.
 - DKIM : coller la valeur d'un seul bloc, sans espace ni retour à la ligne.
 
-## Séquence de mise en service
+## Séquence de mise en service — ✅ TERMINÉE (2026-09-09)
 
-1. **[toi]** Poser les 3 enregistrements DNS chez Hostinger.
-2. **[Claude]** `resend domains verify` → attendre le statut `verified` (quelques minutes).
-3. **[Claude]** Activer le SMTP custom dans Supabase Auth (`smtp_host=smtp.resend.com`, port 465, user `resend`, pass = clé send-only, admin_email `noreply@les2palmiers.site`, sender_name `Les 2 Palmiers`).
-4. **[Claude]** Appliquer les 5 templates (jusqu'ici bloqués : Supabase free tier refuse la personnalisation des templates tant qu'un SMTP custom n'est pas actif).
-5. **[Claude]** Test : créer un compte avec une vraie adresse, vérifier la réception.
+1. ✅ 3 enregistrements DNS posés chez Hostinger (via l'API Hostinger).
+2. ✅ Domaine `les2palmiers.site` **`verified`** dans Resend (DKIM + SPF + MX).
+3. ✅ SMTP custom actif dans Supabase Auth : `smtp.resend.com:465`, user `resend`, sender `Les 2 Palmiers <noreply@les2palmiers.site>`, `rate_limit_email_sent=30/h`, `site_url=https://les2palmiers.site`.
+4. ✅ Les 5 templates FR poussés (débloqué par l'activation du SMTP custom).
+5. ✅ Test d'envoi : e-mail `noreply@les2palmiers.site` → `weareuseia@gmail.com` = **`delivered`**.
 
-> État au 2026-09-09 : étape 1 en attente. `uri_allow_list` déjà configuré. Templates prêts dans `supabase/templates/` et référencés dans `supabase/config.toml`.
+`uri_allow_list` = `localhost:3000` + `127.0.0.1:3000` + `les2palmiers.site` + `www` + `*.vercel.app`.
+`enable_confirmations = true` (l'inscription exige la confirmation de l'e-mail).
 
 ## Les 5 modèles (`supabase/templates/`)
 
