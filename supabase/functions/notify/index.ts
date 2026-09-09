@@ -11,6 +11,8 @@ const RESEND_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 const EMAIL_FROM = Deno.env.get("EMAIL_FROM") ?? "Les 2 Palmiers <noreply@les2palmiers.site>";
 const EMAIL_PROVIDER = Deno.env.get("EMAIL_PROVIDER") ?? (RESEND_KEY ? "resend" : "log");
 const APP_URL = Deno.env.get("APP_URL") ?? "https://les2palmiers.site";
+// hôte dédié à l'espace équipe (si séparation par hôte activée)
+const STAFF_URL = Deno.env.get("STAFF_URL") ?? Deno.env.get("APP_URL") ?? "https://les2palmiers.site";
 
 Deno.serve(async (req) => {
   const pf = preflight(req);
@@ -40,9 +42,16 @@ Deno.serve(async (req) => {
   const prefs = (profile?.preferences ?? {}) as Record<string, unknown>;
   const prefChannels = (prefs.channels as string[] | undefined) ?? channels;
 
+  // destinataire équipe ou client ? (le lien e-mail doit pointer dans le bon espace)
+  const { data: roleRows } = await admin
+    .from("user_roles").select("role_id").eq("user_id", notif.user_id);
+  const isTeam = (roleRows ?? []).some((r) =>
+    ["admin", "staff", "coordinator"].includes(r.role_id as string),
+  );
+
   // 3. e-mail
   if (channels.includes("email") && prefChannels.includes("email") && email) {
-    results.email = await sendEmail(email, notif.title, notif.body ?? "", notif.data ?? {});
+    results.email = await sendEmail(email, notif.title, notif.body ?? "", notif.data ?? {}, isTeam);
   }
 
   // 4. push (VAPID) — stub : nécessite npm:web-push + clés VAPID
@@ -61,12 +70,31 @@ Deno.serve(async (req) => {
   return json({ ok: true, results });
 });
 
-async function sendEmail(to: string, subject: string, body: string, data: Record<string, unknown>): Promise<string> {
-  const link = data.conversation_id
-    ? `${APP_URL}/app/messages`
-    : data.reservation_id
-    ? `${APP_URL}/app/reservations`
-    : `${APP_URL}/app/notifications`;
+async function sendEmail(
+  to: string,
+  subject: string,
+  body: string,
+  data: Record<string, unknown>,
+  isTeam = false,
+): Promise<string> {
+  let link: string;
+  if (isTeam) {
+    link = data.conversation_id
+      ? `${STAFF_URL}/staff/messages/${data.conversation_id}`
+      : data.verification_id
+      ? `${STAFF_URL}/staff/verifications`
+      : data.reservation_id || data.contract_id
+      ? `${STAFF_URL}/staff/reservations`
+      : data.service_order_id
+      ? `${STAFF_URL}/staff/demandes`
+      : `${STAFF_URL}/staff`;
+  } else {
+    link = data.conversation_id
+      ? `${APP_URL}/app/messages`
+      : data.reservation_id
+      ? `${APP_URL}/app/reservations`
+      : `${APP_URL}/app/notifications`;
+  }
 
   const html = `<!doctype html><html lang="fr"><body style="margin:0;background:#f8f5ec;">
 <table role="presentation" width="100%" style="background:#f8f5ec;padding:32px 12px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;"><tr><td align="center">
