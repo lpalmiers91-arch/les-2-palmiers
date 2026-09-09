@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { easeOut } from "@/lib/motion";
+import { useT } from "@/lib/i18n/provider";
 
 const KEY = "l2p-consent-v1";
 type Choice = { necessary: true; analytics: boolean; at: string };
@@ -41,6 +42,7 @@ function persist(c: Choice) {
 }
 
 export function CookieConsent() {
+  const { t } = useT();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -68,10 +70,9 @@ export function CookieConsent() {
         >
           <div className="flex flex-col gap-3 rounded-[var(--radius-lg)] bg-ink px-4 py-3.5 text-bone shadow-[0_20px_50px_-18px_rgba(0,0,0,0.6)] sm:flex-row sm:items-center sm:gap-4 sm:px-5">
             <p className="text-center text-[13px] leading-snug text-bone/75 sm:text-left">
-              Cookies nécessaires au fonctionnement. Avec votre accord, une mesure
-              d&apos;audience anonyme.{" "}
+              {t("cookie.text")}{" "}
               <Link href="/legal/cookies" className="whitespace-nowrap text-bone/90 underline underline-offset-2">
-                En savoir plus
+                {t("cookie.learnMore")}
               </Link>
             </p>
             <div className="flex shrink-0 justify-center gap-2">
@@ -79,13 +80,13 @@ export function CookieConsent() {
                 onClick={() => decide(false)}
                 className="press h-9 rounded-full border border-bone/25 px-4 text-[12.5px] font-medium text-bone hover:bg-bone/10"
               >
-                Refuser
+                {t("cookie.decline")}
               </button>
               <button
                 onClick={() => decide(true)}
                 className="press h-9 rounded-full bg-brass px-4 text-[12.5px] font-medium text-ink hover:bg-brass-2"
               >
-                Accepter
+                {t("cookie.accept")}
               </button>
             </div>
           </div>

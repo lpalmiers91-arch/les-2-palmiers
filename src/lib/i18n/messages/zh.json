@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "apartment": "公寓",
+    "services": "服务",
+    "place": "周边",
+    "contact": "联系",
+    "clientArea": "客户中心",
+    "book": "预订",
+    "menu": "菜单",
+    "close": "关闭"
+  },
+  "common": {
+    "loading": "加载中…",
+    "save": "保存",
+    "saved": "已保存",
+    "send": "发送",
+    "cancel": "取消",
+    "retry": "重试",
+    "back": "返回",
+    "continue": "继续",
+    "error": "发生错误，请重试。",
+    "required": "必填项"
+  },
+  "hero": {
+    "eyebrow": "带家具公寓与礼宾服务 — 科托努",
+    "titleA": "尽情享受",
+    "titleB": "您的时光。",
+    "titleEm": "其余的交给我们。",
+    "lede": "一套非凡的公寓，一支将入住所需的一切送到您门前的团队：用车、晚餐、清洁、按摩、探索当地。",
+    "statGuests": "位住客",
+    "statBedrooms": "间卧室",
+    "statServices": "项上门服务",
+    "statAvailability": "全程陪伴",
+    "availabilityValue": "全天候"
+  },
+  "arrival": {
+    "title": "您的入住",
+    "arrival": "入住",
+    "departure": "退房",
+    "guests": "住客",
+    "checkAvailability": "查看可订日期",
+    "nightsIncluded": "{nights} 晚 · 含清洁",
+    "available": "可预订",
+    "unavailable": "这些日期不可预订"
+  },
+  "cookie": {
+    "text": "网站运行所必需的 Cookie。经您同意后，进行匿名访问量统计。",
+    "learnMore": "了解更多",
+    "accept": "接受",
+    "decline": "拒绝"
+  },
+  "install": {
+    "title": "安装 Les 2 Palmiers",
+    "bodyAndroid": "将应用添加到主屏幕，即可快速访问，离线也可用。",
+    "bodyIos": "点按“分享”，然后选择“添加到主屏幕”。",
+    "install": "安装"
+  },
+  "footer": {
+    "tagline": "梦想公寓与礼宾服务。{city}，{country}。",
+    "colStay": "住宿",
+    "colServices": "服务",
+    "colAround": "周边",
+    "privacy": "隐私政策",
+    "cookies": "Cookie",
+    "terms": "条款",
+    "legal": "法律声明"
+  },
+  "auth": {
+    "signinTitle": "登录",
+    "signinCta": "登录",
+    "signinFoot": "查看您的预订和服务。",
+    "signupTitle": "创建账户",
+    "signupCta": "创建我的账户",
+    "signupFoot": "只需几秒，使用您的电子邮箱。",
+    "resetTitle": "忘记密码",
+    "resetCta": "发送链接",
+    "resetFoot": "我们将向您发送重置链接。",
+    "fullName": "全名",
+    "email": "电子邮箱",
+    "password": "密码",
+    "passwordConfirm": "确认密码",
+    "passwordHint": "至少 8 个字符",
+    "forgot": "忘记了？",
+    "or": "或",
+    "magicLink": "获取登录链接",
+    "magicLinkHint": "无需密码 — 我们通过邮件向您发送链接。",
+    "magicLinkSent": "链接已发送。请打开邮箱并点击链接登录。",
+    "noAccount": "还没有账户？",
+    "haveAccount": "已有账户？",
+    "createOne": "创建账户",
+    "mismatch": "两次输入的密码不一致。",
+    "signupDone": "账户已创建。请查收邮件以确认您的邮箱地址。",
+    "resetDone": "如果该账户存在，链接已发送。",
+    "errEmailFirst": "请先输入您的电子邮箱。",
+    "errInvalid": "邮箱或密码错误。",
+    "errNotConfirmed": "请先确认您的电子邮箱（链接已通过邮件发送）。",
+    "errExists": "该邮箱已注册账户。",
+    "errRate": "尝试次数过多。请几分钟后再试。",
+    "errShort": "密码至少需要 8 个字符。"
+  }
+}

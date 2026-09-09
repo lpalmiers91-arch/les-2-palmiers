@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "apartment": "O apartamento",
+    "services": "Serviços",
+    "place": "O lugar",
+    "contact": "Contacto",
+    "clientArea": "Área do cliente",
+    "book": "Reservar",
+    "menu": "Menu",
+    "close": "Fechar"
+  },
+  "common": {
+    "loading": "A carregar…",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "send": "Enviar",
+    "cancel": "Cancelar",
+    "retry": "Tentar de novo",
+    "back": "Voltar",
+    "continue": "Continuar",
+    "error": "Ocorreu um erro. Tente novamente.",
+    "required": "Campo obrigatório"
+  },
+  "hero": {
+    "eyebrow": "Apartamento mobilado e concierge — Cotonou",
+    "titleA": "Aproveite ao máximo",
+    "titleB": "o seu tempo.",
+    "titleEm": "Nós tratamos do resto.",
+    "lede": "Um apartamento excecional e uma equipa que leva à sua porta tudo o que uma estadia precisa: um carro, um jantar, a limpeza, uma massagem, descobrir o país.",
+    "statGuests": "hóspedes",
+    "statBedrooms": "quartos",
+    "statServices": "serviços ao domicílio",
+    "statAvailability": "ao seu lado",
+    "availabilityValue": "24/7"
+  },
+  "arrival": {
+    "title": "A sua estadia",
+    "arrival": "Entrada",
+    "departure": "Saída",
+    "guests": "Hóspedes",
+    "checkAvailability": "Ver disponibilidade",
+    "nightsIncluded": "{nights} noites · limpeza incluída",
+    "available": "Disponível",
+    "unavailable": "Indisponível nestas datas"
+  },
+  "cookie": {
+    "text": "Cookies necessários ao funcionamento. Com o seu consentimento, uma medição de audiência anónima.",
+    "learnMore": "Saber mais",
+    "accept": "Aceitar",
+    "decline": "Recusar"
+  },
+  "install": {
+    "title": "Instalar Les 2 Palmiers",
+    "bodyAndroid": "Adicione a app ao ecrã principal para um acesso direto, mesmo offline.",
+    "bodyIos": "Toque em Partilhar e depois em «Adicionar ao ecrã principal».",
+    "install": "Instalar"
+  },
+  "footer": {
+    "tagline": "Apartamento de sonho e concierge. {city}, {country}.",
+    "colStay": "Estadia",
+    "colServices": "Serviços",
+    "colAround": "Em redor",
+    "privacy": "Privacidade",
+    "cookies": "Cookies",
+    "terms": "Condições",
+    "legal": "Aviso legal"
+  },
+  "auth": {
+    "signinTitle": "Entrar",
+    "signinCta": "Entrar",
+    "signinFoot": "Aceda às suas reservas e serviços.",
+    "signupTitle": "Criar uma conta",
+    "signupCta": "Criar a minha conta",
+    "signupFoot": "Uns segundos, com o seu e-mail.",
+    "resetTitle": "Palavra-passe esquecida",
+    "resetCta": "Enviar o link",
+    "resetFoot": "Enviamos-lhe um link de redefinição.",
+    "fullName": "Nome completo",
+    "email": "Endereço de e-mail",
+    "password": "Palavra-passe",
+    "passwordConfirm": "Confirmar palavra-passe",
+    "passwordHint": "8 caracteres no mínimo",
+    "forgot": "Esqueceu?",
+    "or": "ou",
+    "magicLink": "Receber um link de acesso",
+    "magicLinkHint": "Sem palavra-passe — enviamos um link por e-mail.",
+    "magicLinkSent": "Link enviado. Abra o seu e-mail e clique no link para entrar.",
+    "noAccount": "Ainda não tem conta?",
+    "haveAccount": "Já tem conta?",
+    "createOne": "Criar uma conta",
+    "mismatch": "As duas palavras-passe não coincidem.",
+    "signupDone": "Conta criada. Verifique o seu e-mail para confirmar o endereço.",
+    "resetDone": "Se existir uma conta, foi enviado um link.",
+    "errEmailFirst": "Introduza primeiro o seu e-mail.",
+    "errInvalid": "E-mail ou palavra-passe incorretos.",
+    "errNotConfirmed": "Confirme primeiro o seu e-mail (link recebido por correio).",
+    "errExists": "Já existe uma conta com este e-mail.",
+    "errRate": "Demasiadas tentativas. Tente novamente dentro de alguns minutos.",
+    "errShort": "A palavra-passe deve ter pelo menos 8 caracteres."
+  }
+}

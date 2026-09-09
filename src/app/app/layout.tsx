@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "@/components/app/app-shell";
 import { AssistantWidget } from "@/components/assistant/assistant-widget";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
+import { I18nProvider } from "@/lib/i18n/provider";
+import { getLocale, getMessages } from "@/lib/i18n";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -11,6 +13,9 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/connexion?suite=/app");
+
+  const locale = await getLocale();
+  const messages = await getMessages(locale);
 
   const [{ data: profile }, { data: notifs }, { data: msgs }, { data: idStatus }] =
     await Promise.all([
@@ -36,17 +41,19 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AppShell
-      userName={profile?.full_name || user.email || "Mon compte"}
-      userId={user.id}
-      notifications={notifs ?? []}
-      unreadMessages={unreadMessages}
-      avatarUrl={profile?.avatar_url ?? null}
-      identityStatus={typeof idStatus === "string" ? idStatus : "none"}
-    >
-      {children}
-      <AssistantWidget space="client" />
-      <InstallPrompt />
-    </AppShell>
+    <I18nProvider locale={locale} messages={messages}>
+      <AppShell
+        userName={profile?.full_name || user.email || "Mon compte"}
+        userId={user.id}
+        notifications={notifs ?? []}
+        unreadMessages={unreadMessages}
+        avatarUrl={profile?.avatar_url ?? null}
+        identityStatus={typeof idStatus === "string" ? idStatus : "none"}
+      >
+        {children}
+        <AssistantWidget space="client" />
+        <InstallPrompt />
+      </AppShell>
+    </I18nProvider>
   );
 }

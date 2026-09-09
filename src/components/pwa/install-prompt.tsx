@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Download, Share, X, Plus } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
 import { easeOut } from "@/lib/motion";
+import { useT } from "@/lib/i18n/provider";
 
 const DISMISS_KEY = "l2p-install-dismissed";
 const CONSENT_KEY = "l2p-consent-v1";
@@ -37,6 +38,7 @@ function isIOS() {
 }
 
 export function InstallPrompt() {
+  const { t } = useT();
   const [deferred, setDeferred] = useState<BIPEvent | null>(null);
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState<"android" | "ios">("android");
@@ -123,22 +125,17 @@ export function InstallPrompt() {
                 <Mark className="h-6 w-6" tone="bone" />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-[14px] font-medium text-ink">
-                  Installer Les 2 Palmiers
-                </p>
+                <p className="text-[14px] font-medium text-ink">{t("install.title")}</p>
                 {mode === "android" ? (
-                  <p className="mt-0.5 text-[12.5px] text-ink-3">
-                    Ajoutez l'appli à votre écran d'accueil pour un accès direct,
-                    même hors connexion.
-                  </p>
+                  <p className="mt-0.5 text-[12.5px] text-ink-3">{t("install.bodyAndroid")}</p>
                 ) : (
-                  <p className="mt-0.5 text-[12.5px] leading-relaxed text-ink-3">
-                    Appuyez sur <Share className="inline h-3.5 w-3.5 align-[-2px]" /> puis
-                    « Sur l'écran d'accueil » <Plus className="inline h-3.5 w-3.5 align-[-2px]" />.
+                  <p className="mt-0.5 flex flex-wrap items-center gap-1 text-[12.5px] leading-relaxed text-ink-3">
+                    <Share className="inline h-3.5 w-3.5" /> {t("install.bodyIos")}{" "}
+                    <Plus className="inline h-3.5 w-3.5" />
                   </p>
                 )}
               </div>
-              <button onClick={close} aria-label="Fermer" className="press -mr-1 -mt-1 p-1 text-ink-3">
+              <button onClick={close} aria-label={t("nav.close")} className="press -mr-1 -mt-1 p-1 text-ink-3">
                 <X className="h-4 w-4" />
               </button>
             </div>
@@ -147,7 +144,7 @@ export function InstallPrompt() {
                 onClick={install}
                 className="press mt-3 flex h-10 w-full items-center justify-center gap-2 rounded-full bg-ink text-[13px] font-medium text-bone hover:bg-forest-2"
               >
-                <Download className="h-4 w-4" /> Installer
+                <Download className="h-4 w-4" /> {t("install.install")}
               </button>
             )}
           </div>

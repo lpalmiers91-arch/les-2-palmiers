@@ -2,35 +2,32 @@ import Link from "next/link";
 import { Mark } from "@/components/brand/mark";
 import { site } from "@/lib/site";
 import { servicesFallback, destinationsFallback } from "@/lib/site";
+import { getT } from "@/lib/i18n";
 
-const cols = [
-  {
-    title: "Séjour",
-    links: [
-      { href: "/#appartement", label: "L'appartement" },
-      { href: "/reserver", label: "Réserver" },
-      { href: "/#le-lieu", label: "Le lieu" },
-      { href: "/connexion", label: "Espace client" },
-    ],
-  },
-  {
-    title: "Services",
-    links: servicesFallback.slice(0, 6).map((s) => ({
-      href: `/#services`,
-      label: s.title,
-    })),
-  },
-  {
-    title: "Autour",
-    links: destinationsFallback.map((d) => ({
-      href: "/#le-lieu",
-      label: d.name,
-    })),
-  },
-];
-
-export function SiteFooter() {
+export async function SiteFooter() {
+  const { t } = await getT();
   const year = new Date().getFullYear();
+
+  const cols = [
+    {
+      title: t("footer.colStay"),
+      links: [
+        { href: "/#appartement", label: t("nav.apartment") },
+        { href: "/reserver", label: t("nav.book") },
+        { href: "/#le-lieu", label: t("nav.place") },
+        { href: "/connexion", label: t("nav.clientArea") },
+      ],
+    },
+    {
+      title: t("footer.colServices"),
+      links: servicesFallback.slice(0, 6).map((s) => ({ href: "/#services", label: s.title })),
+    },
+    {
+      title: t("footer.colAround"),
+      links: destinationsFallback.map((d) => ({ href: "/#le-lieu", label: d.name })),
+    },
+  ];
+
   return (
     <footer className="on-dark grain relative overflow-hidden bg-ink text-bone">
       <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
@@ -39,13 +36,13 @@ export function SiteFooter() {
             <Link
               href="/"
               className="flex items-center justify-center gap-2.5 md:justify-start"
-              aria-label="Les 2 Palmiers, accueil"
+              aria-label="Les 2 Palmiers"
             >
               <Mark className="h-8 w-8" tone="bone" />
               <span className="display text-[1.15rem]">Les 2 Palmiers</span>
             </Link>
             <p className="mx-auto mt-5 max-w-xs text-[14px] leading-relaxed text-bone/55 md:mx-0">
-              Appartement de rêve & conciergerie. {site.city}, {site.country}.
+              {t("footer.tagline", { city: site.city, country: site.country })}
             </p>
             <div className="mt-6 space-y-1.5 text-[14px]">
               {site.phones.map((p) => (
@@ -86,11 +83,19 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col items-center gap-3 border-t border-line-dark pt-7 text-center text-[12.5px] text-bone/45 sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <p>© {year} {site.legalName}</p>
-          <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1" aria-label="Mentions légales">
-            <Link href="/legal/confidentialite" className="hover:text-bone/70">Confidentialité</Link>
-            <Link href="/legal/cookies" className="hover:text-bone/70">Cookies</Link>
-            <Link href="/legal/cgv" className="hover:text-bone/70">CGV</Link>
-            <Link href="/legal/mentions" className="hover:text-bone/70">Mentions légales</Link>
+          <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1" aria-label="Legal">
+            <Link href="/legal/confidentialite" className="hover:text-bone/70">
+              {t("footer.privacy")}
+            </Link>
+            <Link href="/legal/cookies" className="hover:text-bone/70">
+              {t("footer.cookies")}
+            </Link>
+            <Link href="/legal/cgv" className="hover:text-bone/70">
+              {t("footer.terms")}
+            </Link>
+            <Link href="/legal/mentions" className="hover:text-bone/70">
+              {t("footer.legal")}
+            </Link>
           </nav>
         </div>
       </div>

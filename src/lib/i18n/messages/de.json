@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "apartment": "Die Wohnung",
+    "services": "Services",
+    "place": "Der Ort",
+    "contact": "Kontakt",
+    "clientArea": "Kundenbereich",
+    "book": "Buchen",
+    "menu": "Menü",
+    "close": "Schließen"
+  },
+  "common": {
+    "loading": "Wird geladen…",
+    "save": "Speichern",
+    "saved": "Gespeichert",
+    "send": "Senden",
+    "cancel": "Abbrechen",
+    "retry": "Erneut versuchen",
+    "back": "Zurück",
+    "continue": "Weiter",
+    "error": "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",
+    "required": "Pflichtfeld"
+  },
+  "hero": {
+    "eyebrow": "Möblierte Wohnung & Concierge — Cotonou",
+    "titleA": "Nutzen Sie Ihre Zeit",
+    "titleB": "in vollen Zügen.",
+    "titleEm": "Um den Rest kümmern wir uns.",
+    "lede": "Eine außergewöhnliche Wohnung und ein Team, das alles, was ein Aufenthalt braucht, an Ihre Tür bringt: ein Auto, ein Abendessen, die Reinigung, eine Massage, das Land entdecken.",
+    "statGuests": "Gäste",
+    "statBedrooms": "Schlafzimmer",
+    "statServices": "Services vor Ort",
+    "statAvailability": "an Ihrer Seite",
+    "availabilityValue": "24/7"
+  },
+  "arrival": {
+    "title": "Ihr Aufenthalt",
+    "arrival": "Anreise",
+    "departure": "Abreise",
+    "guests": "Gäste",
+    "checkAvailability": "Verfügbarkeit prüfen",
+    "nightsIncluded": "{nights} Nächte · Reinigung inklusive",
+    "available": "Verfügbar",
+    "unavailable": "An diesen Daten nicht verfügbar"
+  },
+  "cookie": {
+    "text": "Für den Betrieb notwendige Cookies. Mit Ihrer Zustimmung eine anonyme Reichweitenmessung.",
+    "learnMore": "Mehr erfahren",
+    "accept": "Akzeptieren",
+    "decline": "Ablehnen"
+  },
+  "install": {
+    "title": "Les 2 Palmiers installieren",
+    "bodyAndroid": "Fügen Sie die App zum Startbildschirm hinzu — für schnellen Zugriff, auch offline.",
+    "bodyIos": "Tippen Sie auf Teilen und dann auf „Zum Home-Bildschirm“.",
+    "install": "Installieren"
+  },
+  "footer": {
+    "tagline": "Traumwohnung & Concierge. {city}, {country}.",
+    "colStay": "Aufenthalt",
+    "colServices": "Services",
+    "colAround": "Umgebung",
+    "privacy": "Datenschutz",
+    "cookies": "Cookies",
+    "terms": "AGB",
+    "legal": "Impressum"
+  },
+  "auth": {
+    "signinTitle": "Anmelden",
+    "signinCta": "Anmelden",
+    "signinFoot": "Zugriff auf Ihre Buchungen und Services.",
+    "signupTitle": "Konto erstellen",
+    "signupCta": "Mein Konto erstellen",
+    "signupFoot": "In wenigen Sekunden, mit Ihrer E-Mail-Adresse.",
+    "resetTitle": "Passwort vergessen",
+    "resetCta": "Link senden",
+    "resetFoot": "Wir senden Ihnen einen Link zum Zurücksetzen.",
+    "fullName": "Vollständiger Name",
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
+    "passwordConfirm": "Passwort bestätigen",
+    "passwordHint": "Mindestens 8 Zeichen",
+    "forgot": "Vergessen?",
+    "or": "oder",
+    "magicLink": "Anmeldelink erhalten",
+    "magicLinkHint": "Ohne Passwort — wir senden Ihnen einen Link per E-Mail.",
+    "magicLinkSent": "Link gesendet. Öffnen Sie Ihr Postfach und klicken Sie auf den Link zum Anmelden.",
+    "noAccount": "Noch kein Konto?",
+    "haveAccount": "Bereits ein Konto?",
+    "createOne": "Konto erstellen",
+    "mismatch": "Die beiden Passwörter stimmen nicht überein.",
+    "signupDone": "Konto erstellt. Prüfen Sie Ihr Postfach, um Ihre Adresse zu bestätigen.",
+    "resetDone": "Falls ein Konto existiert, wurde soeben ein Link gesendet.",
+    "errEmailFirst": "Geben Sie zuerst Ihre E-Mail-Adresse ein.",
+    "errInvalid": "E-Mail oder Passwort falsch.",
+    "errNotConfirmed": "Bestätigen Sie zuerst Ihre E-Mail-Adresse (Link per E-Mail erhalten).",
+    "errExists": "Mit dieser E-Mail existiert bereits ein Konto.",
+    "errRate": "Zu viele Versuche. Bitte in einigen Minuten erneut versuchen.",
+    "errShort": "Das Passwort muss mindestens 8 Zeichen haben."
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "apartment": "アパートメント",
+    "services": "サービス",
+    "place": "周辺",
+    "contact": "お問い合わせ",
+    "clientArea": "会員ページ",
+    "book": "予約",
+    "menu": "メニュー",
+    "close": "閉じる"
+  },
+  "common": {
+    "loading": "読み込み中…",
+    "save": "保存",
+    "saved": "保存しました",
+    "send": "送信",
+    "cancel": "キャンセル",
+    "retry": "再試行",
+    "back": "戻る",
+    "continue": "続ける",
+    "error": "エラーが発生しました。もう一度お試しください。",
+    "required": "必須項目"
+  },
+  "hero": {
+    "eyebrow": "家具付きアパートメント & コンシェルジュ — コトヌー",
+    "titleA": "あなたの時間を",
+    "titleB": "存分に。",
+    "titleEm": "あとは私たちにお任せください。",
+    "lede": "特別なアパートメントと、滞在に必要なすべてを玄関先までお届けするチーム。車、ディナー、清掃、マッサージ、この国の発見まで。",
+    "statGuests": "名",
+    "statBedrooms": "寝室",
+    "statServices": "の訪問サービス",
+    "statAvailability": "いつでもそばに",
+    "availabilityValue": "24時間"
+  },
+  "arrival": {
+    "title": "ご滞在",
+    "arrival": "チェックイン",
+    "departure": "チェックアウト",
+    "guests": "人数",
+    "checkAvailability": "空室を確認",
+    "nightsIncluded": "{nights}泊 · 清掃込み",
+    "available": "予約可能",
+    "unavailable": "この日程は予約できません"
+  },
+  "cookie": {
+    "text": "サイトの動作に必要なCookieを使用します。同意いただいた場合は匿名のアクセス測定を行います。",
+    "learnMore": "詳しく見る",
+    "accept": "同意する",
+    "decline": "拒否する"
+  },
+  "install": {
+    "title": "Les 2 Palmiers をインストール",
+    "bodyAndroid": "アプリをホーム画面に追加すると、オフラインでもすぐに開けます。",
+    "bodyIos": "「共有」をタップし、「ホーム画面に追加」を選択してください。",
+    "install": "インストール"
+  },
+  "footer": {
+    "tagline": "夢のアパートメント & コンシェルジュ。{city}、{country}。",
+    "colStay": "滞在",
+    "colServices": "サービス",
+    "colAround": "周辺",
+    "privacy": "プライバシー",
+    "cookies": "Cookie",
+    "terms": "利用規約",
+    "legal": "法的通知"
+  },
+  "auth": {
+    "signinTitle": "ログイン",
+    "signinCta": "ログイン",
+    "signinFoot": "予約とサービスにアクセスします。",
+    "signupTitle": "アカウント作成",
+    "signupCta": "アカウントを作成",
+    "signupFoot": "メールアドレスで数秒で完了します。",
+    "resetTitle": "パスワードをお忘れの方",
+    "resetCta": "リンクを送信",
+    "resetFoot": "再設定用のリンクをメールでお送りします。",
+    "fullName": "氏名",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "passwordConfirm": "パスワードの確認",
+    "passwordHint": "8文字以上",
+    "forgot": "お忘れですか？",
+    "or": "または",
+    "magicLink": "ログインリンクを受け取る",
+    "magicLinkHint": "パスワード不要 — メールでリンクをお送りします。",
+    "magicLinkSent": "リンクを送信しました。メールを開き、リンクをクリックしてログインしてください。",
+    "noAccount": "アカウントをお持ちでないですか？",
+    "haveAccount": "すでにアカウントをお持ちですか？",
+    "createOne": "アカウントを作成",
+    "mismatch": "2つのパスワードが一致しません。",
+    "signupDone": "アカウントを作成しました。メールを確認してアドレスを認証してください。",
+    "resetDone": "アカウントが存在する場合、リンクを送信しました。",
+    "errEmailFirst": "先にメールアドレスを入力してください。",
+    "errInvalid": "メールアドレスまたはパスワードが正しくありません。",
+    "errNotConfirmed": "先にメールアドレスを認証してください（メールでリンクをお送りしています）。",
+    "errExists": "このメールアドレスのアカウントはすでに存在します。",
+    "errRate": "試行回数が多すぎます。数分後にもう一度お試しください。",
+    "errShort": "パスワードは8文字以上必要です。"
+  }
+}

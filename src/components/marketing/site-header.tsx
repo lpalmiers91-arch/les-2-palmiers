@@ -8,19 +8,22 @@ import { Menu, X } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
 import { ButtonLink } from "@/components/ui/button";
 import { easeOut } from "@/lib/motion";
-
-const links = [
-  { href: "/#appartement", label: "L'appartement" },
-  { href: "/#services", label: "Services" },
-  { href: "/#le-lieu", label: "Le lieu" },
-  { href: "/#contact", label: "Contact" },
-];
+import { useT } from "@/lib/i18n/provider";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 
 export function SiteHeader() {
+  const { t } = useT();
   const pathname = usePathname();
   const onHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const links = [
+    { href: "/#appartement", label: t("nav.apartment") },
+    { href: "/#services", label: t("nav.services") },
+    { href: "/#le-lieu", label: t("nav.place") },
+    { href: "/#contact", label: t("nav.contact") },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -77,13 +80,14 @@ export function SiteHeader() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
+            <LanguageSwitcher tone={dark ? "bone" : "ink"} />
             <Link
               href="/connexion"
               className={`text-[13px] font-medium transition-colors ${
                 dark ? "text-bone/75 hover:text-bone" : "text-ink-3 hover:text-ink"
               }`}
             >
-              Espace client
+              {t("nav.clientArea")}
             </Link>
             <ButtonLink
               href="/reserver"
@@ -91,7 +95,7 @@ export function SiteHeader() {
               variant={dark ? "brass" : "solid"}
               className="!h-10 !px-5"
             >
-              Réserver
+              {t("nav.book")}
             </ButtonLink>
           </div>
 
@@ -128,9 +132,13 @@ export function SiteHeader() {
                   {l.label}
                 </Link>
               ))}
+              <div className="mt-4 flex items-center justify-between border-b border-line-soft py-3.5">
+                <span className="text-[15px] text-ink-3">Langue</span>
+                <LanguageSwitcher />
+              </div>
               <div className="mt-5 flex items-center gap-3">
                 <ButtonLink href="/reserver" className="flex-1" onClick={() => setOpen(false)}>
-                  Réserver
+                  {t("nav.book")}
                 </ButtonLink>
                 <ButtonLink
                   href="/connexion"
@@ -138,7 +146,7 @@ export function SiteHeader() {
                   className="flex-1"
                   onClick={() => setOpen(false)}
                 >
-                  Espace client
+                  {t("nav.clientArea")}
                 </ButtonLink>
               </div>
             </nav>

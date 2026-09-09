@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "apartment": "The apartment",
+    "services": "Services",
+    "place": "The place",
+    "contact": "Contact",
+    "clientArea": "Client area",
+    "book": "Book",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "common": {
+    "loading": "Loading…",
+    "save": "Save",
+    "saved": "Saved",
+    "send": "Send",
+    "cancel": "Cancel",
+    "retry": "Try again",
+    "back": "Back",
+    "continue": "Continue",
+    "error": "Something went wrong. Please try again.",
+    "required": "Required field"
+  },
+  "hero": {
+    "eyebrow": "Furnished apartment & concierge — Cotonou",
+    "titleA": "Make the most",
+    "titleB": "of your time.",
+    "titleEm": "We take care of the rest.",
+    "lede": "An exceptional apartment, and a team that brings everything a stay needs to your door: a car, dinner, housekeeping, a massage, exploring the country.",
+    "statGuests": "guests",
+    "statBedrooms": "bedrooms",
+    "statServices": "in-home services",
+    "statAvailability": "by your side",
+    "availabilityValue": "24/7"
+  },
+  "arrival": {
+    "title": "Your stay",
+    "arrival": "Check-in",
+    "departure": "Check-out",
+    "guests": "Guests",
+    "checkAvailability": "Check availability",
+    "nightsIncluded": "{nights} nights · cleaning included",
+    "available": "Available",
+    "unavailable": "Not available for these dates"
+  },
+  "cookie": {
+    "text": "Cookies required for the site to work. With your consent, anonymous audience measurement.",
+    "learnMore": "Learn more",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "install": {
+    "title": "Install Les 2 Palmiers",
+    "bodyAndroid": "Add the app to your home screen for quick access, even offline.",
+    "bodyIos": "Tap Share, then \"Add to Home Screen\".",
+    "install": "Install"
+  },
+  "footer": {
+    "tagline": "Dream apartment & concierge. {city}, {country}.",
+    "colStay": "Stay",
+    "colServices": "Services",
+    "colAround": "Nearby",
+    "privacy": "Privacy",
+    "cookies": "Cookies",
+    "terms": "Terms",
+    "legal": "Legal notice"
+  },
+  "auth": {
+    "signinTitle": "Sign in",
+    "signinCta": "Sign in",
+    "signinFoot": "Access your bookings and services.",
+    "signupTitle": "Create an account",
+    "signupCta": "Create my account",
+    "signupFoot": "Takes seconds, with your email address.",
+    "resetTitle": "Forgot password",
+    "resetCta": "Send the link",
+    "resetFoot": "We'll email you a reset link.",
+    "fullName": "Full name",
+    "email": "Email address",
+    "password": "Password",
+    "passwordConfirm": "Confirm password",
+    "passwordHint": "8 characters minimum",
+    "forgot": "Forgot?",
+    "or": "or",
+    "magicLink": "Get a sign-in link",
+    "magicLinkHint": "No password — we email you a link.",
+    "magicLinkSent": "Link sent. Open your inbox and click the link to sign in.",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "createOne": "Create an account",
+    "mismatch": "The two passwords do not match.",
+    "signupDone": "Account created. Check your inbox to confirm your address.",
+    "resetDone": "If an account exists, a link has just been sent.",
+    "errEmailFirst": "Enter your email address first.",
+    "errInvalid": "Incorrect email or password.",
+    "errNotConfirmed": "Confirm your email address first (link sent by email).",
+    "errExists": "An account already exists with this email.",
+    "errRate": "Too many attempts. Try again in a few minutes.",
+    "errShort": "The password must be at least 8 characters."
+  }
+}

@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { getLocale } from "@/lib/i18n";
+import { localeDir } from "@/lib/i18n/languages";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -54,11 +56,16 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getLocale();
   return (
-    <html lang="fr" className={`${bricolage.variable} ${hanken.variable}`}>
+    <html
+      lang={locale}
+      dir={localeDir(locale)}
+      className={`${bricolage.variable} ${hanken.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

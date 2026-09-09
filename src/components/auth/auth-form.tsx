@@ -5,19 +5,21 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2, Mail } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
 type Mode = "signin" | "signup" | "reset";
-
-const copy: Record<Mode, { title: string; cta: string; foot: string }> = {
-  signin: { title: "Se connecter", cta: "Se connecter", foot: "Accédez à vos réservations et à vos services." },
-  signup: { title: "Créer un compte", cta: "Créer mon compte", foot: "Quelques secondes, avec votre adresse e-mail." },
-  reset: { title: "Mot de passe oublié", cta: "Envoyer le lien", foot: "Nous vous envoyons un lien de réinitialisation." },
-};
 
 export function AuthForm({ mode }: { mode: Mode }) {
   const router = useRouter();
   const params = useSearchParams();
+  const { t } = useT();
   const suite = params.get("suite") || "/app";
+
+  const copy: Record<Mode, { title: string; cta: string; foot: string }> = {
+    signin: { title: t("auth.signinTitle"), cta: t("auth.signinCta"), foot: t("auth.signinFoot") },
+    signup: { title: t("auth.signupTitle"), cta: t("auth.signupCta"), foot: t("auth.signupFoot") },
+    reset: { title: t("auth.resetTitle"), cta: t("auth.resetCta"), foot: t("auth.resetFoot") },
+  };
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,7 +36,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
     setError(null);
     setNotice(null);
     if (!/.+@.+\..+/.test(email)) {
-      setError("Saisissez d'abord votre adresse e-mail.");
+      setError(t("auth.errEmailFirst"));
       return;
     }
     setLinkLoading(true);
@@ -49,9 +51,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
         },
       });
       if (error) throw error;
-      setNotice("Lien envoyé. Ouvrez votre boîte mail et cliquez sur le lien pour vous connecter.");
+      setNotice(t("auth.magicLinkSent"));
     } catch (err) {
-      setError(translate(err));
+      setError(translateErr(err, t));
     } finally {
       setLinkLoading(false);
     }
@@ -67,7 +69,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
     try {
       if (mode === "signup") {
         if (password !== confirm) {
-          setError("Les deux mots de passe ne correspondent pas.");
+          setError(t("auth.mismatch"));
           setLoading(false);
           return;
         }
@@ -80,15 +82,13 @@ export function AuthForm({ mode }: { mode: Mode }) {
           },
         });
         if (error) throw error;
-        setNotice(
-          "Compte créé. Vérifiez votre boîte mail pour confirmer votre adresse.",
-        );
+        setNotice(t("auth.signupDone"));
       } else if (mode === "reset") {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${location.origin}/auth/confirm?type=recovery`,
         });
         if (error) throw error;
-        setNotice("Si un compte existe, un lien vient de vous être envoyé.");
+        setNotice(t("auth.resetDone"));
       } else {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -107,7 +107,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         return;
       }
     } catch (err) {
-      setError(translate(err));
+      setError(translateErr(err, t));
     } finally {
       setLoading(false);
     }
@@ -121,19 +121,18 @@ export function AuthForm({ mode }: { mode: Mode }) {
       <form onSubmit={submit} className="mt-7 space-y-4">
         {mode === "signup" && (
           <label className="block">
-            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Nom complet</span>
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("auth.fullName")}</span>
             <input
               className="field"
               value={name}
               onChange={(e) => setName(e.target.value)}
               autoComplete="name"
-              placeholder="Awa Koudjo"
             />
           </label>
         )}
 
         <label className="block">
-          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Adresse e-mail</span>
+          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("auth.email")}</span>
           <input
             type="email"
             required
@@ -148,10 +147,10 @@ export function AuthForm({ mode }: { mode: Mode }) {
         {mode !== "reset" && (
           <label className="block">
             <div className="mb-1.5 flex items-baseline justify-between">
-              <span className="text-[13px] font-medium text-ink-2">Mot de passe</span>
+              <span className="text-[13px] font-medium text-ink-2">{t("auth.password")}</span>
               {mode === "signin" && (
                 <Link href="/mot-de-passe" className="text-[12px] text-ink-3 underline underline-offset-2 hover:text-ink">
-                  Oublié ?
+                  {t("auth.forgot")}
                 </Link>
               )}
             </div>
@@ -163,7 +162,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete={mode === "signup" ? "new-password" : "current-password"}
-              placeholder={mode === "signup" ? "8 caractères minimum" : "••••••••"}
+              placeholder={mode === "signup" ? t("auth.passwordHint") : "••••••••"}
             />
           </label>
         )}
@@ -171,7 +170,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         {mode === "signup" && (
           <label className="block">
             <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-              Confirmer le mot de passe
+              {t("auth.passwordConfirm")}
             </span>
             <input
               type="password"
@@ -185,9 +184,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               aria-invalid={confirm.length > 0 && confirm !== password}
             />
             {confirm.length > 0 && confirm !== password && (
-              <span className="mt-1.5 block text-[12px] text-danger">
-                Les deux mots de passe ne correspondent pas.
-              </span>
+              <span className="mt-1.5 block text-[12px] text-danger">{t("auth.mismatch")}</span>
             )}
           </label>
         )}
@@ -213,7 +210,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         <div className="mt-5">
           <div className="flex items-center gap-3 text-[12px] text-ink-3">
             <span className="h-px flex-1 bg-line-soft" />
-            ou
+            {t("auth.or")}
             <span className="h-px flex-1 bg-line-soft" />
           </div>
           <button
@@ -223,27 +220,25 @@ export function AuthForm({ mode }: { mode: Mode }) {
             className="press mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full border border-line text-[14px] font-medium text-ink transition-colors hover:border-ink/30 disabled:opacity-50"
           >
             {linkLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
-            Recevoir un lien de connexion
+            {t("auth.magicLink")}
           </button>
-          <p className="mt-2 text-center text-[12px] text-ink-3">
-            Sans mot de passe — un lien vous est envoyé par e-mail.
-          </p>
+          <p className="mt-2 text-center text-[12px] text-ink-3">{t("auth.magicLinkHint")}</p>
         </div>
       )}
 
       <p className="mt-6 text-center text-[13px] text-ink-3">
         {mode === "signin" ? (
           <>
-            Pas encore de compte ?{" "}
+            {t("auth.noAccount")}{" "}
             <Link href="/inscription" className="font-medium text-ink underline underline-offset-2">
-              Créer un compte
+              {t("auth.createOne")}
             </Link>
           </>
         ) : (
           <>
-            Déjà un compte ?{" "}
+            {t("auth.haveAccount")}{" "}
             <Link href="/connexion" className="font-medium text-ink underline underline-offset-2">
-              Se connecter
+              {t("auth.signinCta")}
             </Link>
           </>
         )}
@@ -252,12 +247,12 @@ export function AuthForm({ mode }: { mode: Mode }) {
   );
 }
 
-function translate(err: unknown): string {
+function translateErr(err: unknown, t: (k: string) => string): string {
   const m = err instanceof Error ? err.message : String(err);
-  if (/invalid login credentials/i.test(m)) return "E-mail ou mot de passe incorrect.";
-  if (/email not confirmed/i.test(m)) return "Confirmez d'abord votre adresse e-mail (lien reçu par courriel).";
-  if (/user already registered/i.test(m)) return "Un compte existe déjà avec cet e-mail.";
-  if (/rate limit|too many/i.test(m)) return "Trop de tentatives. Réessayez dans quelques minutes.";
-  if (/password should be at least/i.test(m)) return "Le mot de passe doit faire au moins 8 caractères.";
-  return "Une erreur est survenue. Réessayez.";
+  if (/invalid login credentials/i.test(m)) return t("auth.errInvalid");
+  if (/email not confirmed/i.test(m)) return t("auth.errNotConfirmed");
+  if (/user already registered/i.test(m)) return t("auth.errExists");
+  if (/rate limit|too many/i.test(m)) return t("auth.errRate");
+  if (/password should be at least/i.test(m)) return t("auth.errShort");
+  return t("common.error");
 }

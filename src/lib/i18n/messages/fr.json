@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "apartment": "L'appartement",
+    "services": "Services",
+    "place": "Le lieu",
+    "contact": "Contact",
+    "clientArea": "Espace client",
+    "book": "Réserver",
+    "menu": "Menu",
+    "close": "Fermer"
+  },
+  "common": {
+    "loading": "Chargement…",
+    "save": "Enregistrer",
+    "saved": "Enregistré",
+    "send": "Envoyer",
+    "cancel": "Annuler",
+    "retry": "Réessayer",
+    "back": "Retour",
+    "continue": "Continuer",
+    "error": "Une erreur est survenue. Réessayez.",
+    "required": "Champ requis"
+  },
+  "hero": {
+    "eyebrow": "Appartement meublé & conciergerie — Cotonou",
+    "titleA": "Profitez pleinement",
+    "titleB": "de votre temps.",
+    "titleEm": "Nous nous occupons du reste.",
+    "lede": "Un appartement d'exception, et une équipe qui apporte à votre porte tout ce dont un séjour a besoin : une voiture, un dîner, le ménage, un massage, la découverte du pays.",
+    "statGuests": "voyageurs",
+    "statBedrooms": "chambres",
+    "statServices": "services à domicile",
+    "statAvailability": "à vos côtés",
+    "availabilityValue": "7 j / 7"
+  },
+  "arrival": {
+    "title": "Votre séjour",
+    "arrival": "Arrivée",
+    "departure": "Départ",
+    "guests": "Voyageurs",
+    "checkAvailability": "Voir les disponibilités",
+    "nightsIncluded": "{nights} nuits · ménage inclus",
+    "available": "Disponible",
+    "unavailable": "Indisponible sur ces dates"
+  },
+  "cookie": {
+    "text": "Cookies nécessaires au fonctionnement. Avec votre accord, une mesure d'audience anonyme.",
+    "learnMore": "En savoir plus",
+    "accept": "Accepter",
+    "decline": "Refuser"
+  },
+  "install": {
+    "title": "Installer Les 2 Palmiers",
+    "bodyAndroid": "Ajoutez l'appli à votre écran d'accueil pour un accès direct, même hors connexion.",
+    "bodyIos": "Appuyez sur Partager puis « Sur l'écran d'accueil ».",
+    "install": "Installer"
+  },
+  "footer": {
+    "tagline": "Appartement de rêve & conciergerie. {city}, {country}.",
+    "colStay": "Séjour",
+    "colServices": "Services",
+    "colAround": "Autour",
+    "privacy": "Confidentialité",
+    "cookies": "Cookies",
+    "terms": "CGV",
+    "legal": "Mentions légales"
+  },
+  "auth": {
+    "signinTitle": "Se connecter",
+    "signinCta": "Se connecter",
+    "signinFoot": "Accédez à vos réservations et à vos services.",
+    "signupTitle": "Créer un compte",
+    "signupCta": "Créer mon compte",
+    "signupFoot": "Quelques secondes, avec votre adresse e-mail.",
+    "resetTitle": "Mot de passe oublié",
+    "resetCta": "Envoyer le lien",
+    "resetFoot": "Nous vous envoyons un lien de réinitialisation.",
+    "fullName": "Nom complet",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "passwordConfirm": "Confirmer le mot de passe",
+    "passwordHint": "8 caractères minimum",
+    "forgot": "Oublié ?",
+    "or": "ou",
+    "magicLink": "Recevoir un lien de connexion",
+    "magicLinkHint": "Sans mot de passe — un lien vous est envoyé par e-mail.",
+    "magicLinkSent": "Lien envoyé. Ouvrez votre boîte mail et cliquez sur le lien pour vous connecter.",
+    "noAccount": "Pas encore de compte ?",
+    "haveAccount": "Déjà un compte ?",
+    "createOne": "Créer un compte",
+    "mismatch": "Les deux mots de passe ne correspondent pas.",
+    "signupDone": "Compte créé. Vérifiez votre boîte mail pour confirmer votre adresse.",
+    "resetDone": "Si un compte existe, un lien vient de vous être envoyé.",
+    "errEmailFirst": "Saisissez d'abord votre adresse e-mail.",
+    "errInvalid": "E-mail ou mot de passe incorrect.",
+    "errNotConfirmed": "Confirmez d'abord votre adresse e-mail (lien reçu par courriel).",
+    "errExists": "Un compte existe déjà avec cet e-mail.",
+    "errRate": "Trop de tentatives. Réessayez dans quelques minutes.",
+    "errShort": "Le mot de passe doit faire au moins 8 caractères."
+  }
+}

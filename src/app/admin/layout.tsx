@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { ConsoleShell } from "@/components/console/console-shell";
 import { AssistantWidget } from "@/components/assistant/assistant-widget";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
+import { I18nProvider } from "@/lib/i18n/provider";
+import { getLocale, getMessages } from "@/lib/i18n";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -15,6 +17,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   const { data: roles } = await supabase.from("user_roles").select("role_id").eq("user_id", user.id);
   if (!(roles ?? []).some((r) => r.role_id === "admin")) redirect("/app");
 
+  const locale = await getLocale();
+  const messages = await getMessages(locale);
+
   const [{ data: profile }, { data: notifs }] = await Promise.all([
     supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
     supabase
@@ -25,15 +30,17 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   ]);
 
   return (
-    <ConsoleShell
-      variant="admin"
-      userName={profile?.full_name || user.email!}
-      userId={user.id}
-      notifications={notifs ?? []}
-    >
-      {children}
-      <AssistantWidget space="admin" />
-      <InstallPrompt />
-    </ConsoleShell>
+    <I18nProvider locale={locale} messages={messages}>
+      <ConsoleShell
+        variant="admin"
+        userName={profile?.full_name || user.email!}
+        userId={user.id}
+        notifications={notifs ?? []}
+      >
+        {children}
+        <AssistantWidget space="admin" />
+        <InstallPrompt />
+      </ConsoleShell>
+    </I18nProvider>
   );
 }

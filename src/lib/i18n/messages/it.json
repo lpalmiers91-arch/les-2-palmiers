@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "apartment": "L'appartamento",
+    "services": "Servizi",
+    "place": "Il luogo",
+    "contact": "Contatti",
+    "clientArea": "Area cliente",
+    "book": "Prenota",
+    "menu": "Menu",
+    "close": "Chiudi"
+  },
+  "common": {
+    "loading": "Caricamento…",
+    "save": "Salva",
+    "saved": "Salvato",
+    "send": "Invia",
+    "cancel": "Annulla",
+    "retry": "Riprova",
+    "back": "Indietro",
+    "continue": "Continua",
+    "error": "Si è verificato un errore. Riprova.",
+    "required": "Campo obbligatorio"
+  },
+  "hero": {
+    "eyebrow": "Appartamento arredato e concierge — Cotonou",
+    "titleA": "Goditi appieno",
+    "titleB": "il tuo tempo.",
+    "titleEm": "Al resto pensiamo noi.",
+    "lede": "Un appartamento d'eccezione e un team che porta alla tua porta tutto ciò che serve a un soggiorno: un'auto, una cena, le pulizie, un massaggio, la scoperta del Paese.",
+    "statGuests": "ospiti",
+    "statBedrooms": "camere",
+    "statServices": "servizi a domicilio",
+    "statAvailability": "al tuo fianco",
+    "availabilityValue": "24/7"
+  },
+  "arrival": {
+    "title": "Il tuo soggiorno",
+    "arrival": "Arrivo",
+    "departure": "Partenza",
+    "guests": "Ospiti",
+    "checkAvailability": "Verifica disponibilità",
+    "nightsIncluded": "{nights} notti · pulizie incluse",
+    "available": "Disponibile",
+    "unavailable": "Non disponibile in queste date"
+  },
+  "cookie": {
+    "text": "Cookie necessari al funzionamento. Con il tuo consenso, una misurazione anonima del pubblico.",
+    "learnMore": "Scopri di più",
+    "accept": "Accetta",
+    "decline": "Rifiuta"
+  },
+  "install": {
+    "title": "Installa Les 2 Palmiers",
+    "bodyAndroid": "Aggiungi l'app alla schermata Home per un accesso diretto, anche offline.",
+    "bodyIos": "Tocca Condividi e poi «Aggiungi a Home».",
+    "install": "Installa"
+  },
+  "footer": {
+    "tagline": "Appartamento da sogno e concierge. {city}, {country}.",
+    "colStay": "Soggiorno",
+    "colServices": "Servizi",
+    "colAround": "Dintorni",
+    "privacy": "Privacy",
+    "cookies": "Cookie",
+    "terms": "Condizioni",
+    "legal": "Note legali"
+  },
+  "auth": {
+    "signinTitle": "Accedi",
+    "signinCta": "Accedi",
+    "signinFoot": "Accedi alle tue prenotazioni e ai servizi.",
+    "signupTitle": "Crea un account",
+    "signupCta": "Crea il mio account",
+    "signupFoot": "Pochi secondi, con il tuo indirizzo e-mail.",
+    "resetTitle": "Password dimenticata",
+    "resetCta": "Invia il link",
+    "resetFoot": "Ti inviamo un link per reimpostarla.",
+    "fullName": "Nome completo",
+    "email": "Indirizzo e-mail",
+    "password": "Password",
+    "passwordConfirm": "Conferma password",
+    "passwordHint": "Almeno 8 caratteri",
+    "forgot": "Dimenticata?",
+    "or": "oppure",
+    "magicLink": "Ricevi un link di accesso",
+    "magicLinkHint": "Senza password — ti inviamo un link via e-mail.",
+    "magicLinkSent": "Link inviato. Apri la posta e clicca sul link per accedere.",
+    "noAccount": "Non hai ancora un account?",
+    "haveAccount": "Hai già un account?",
+    "createOne": "Crea un account",
+    "mismatch": "Le due password non coincidono.",
+    "signupDone": "Account creato. Controlla la posta per confermare l'indirizzo.",
+    "resetDone": "Se esiste un account, è stato appena inviato un link.",
+    "errEmailFirst": "Inserisci prima il tuo indirizzo e-mail.",
+    "errInvalid": "E-mail o password non corretti.",
+    "errNotConfirmed": "Conferma prima il tuo indirizzo e-mail (link ricevuto via posta).",
+    "errExists": "Esiste già un account con questa e-mail.",
+    "errRate": "Troppi tentativi. Riprova tra qualche minuto.",
+    "errShort": "La password deve avere almeno 8 caratteri."
+  }
+}

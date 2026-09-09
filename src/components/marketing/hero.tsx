@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { aptImg } from "@/lib/site";
+import { getT } from "@/lib/i18n";
 import { ArrivalSlip } from "./arrival-slip";
 
-export function Hero() {
+export async function Hero() {
+  const { t } = await getT();
   return (
     <section className="grain relative overflow-hidden bg-forest text-bone">
       <div
@@ -17,27 +19,21 @@ export function Hero() {
       <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-[112px] md:px-8 md:pb-24 md:pt-[128px]">
         <div className="grid items-start gap-x-14 gap-y-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="lg:pt-6">
-            <p className="text-[13px] font-medium tracking-tight text-sand">
-              Appartement meublé & conciergerie — Cotonou
-            </p>
+            <p className="text-[13px] font-medium tracking-tight text-sand">{t("hero.eyebrow")}</p>
             <h1 className="display mt-5 text-[2.6rem] leading-[1.04] sm:text-[3.1rem] md:text-[3.5rem]">
-              Profitez pleinement de votre temps.
+              {t("hero.titleA")} {t("hero.titleB")}
               <span className="mt-2 block text-[1.9rem] font-normal italic text-brass-3 sm:text-[2.2rem] md:text-[2.5rem]">
-                Nous nous occupons du reste.
+                {t("hero.titleEm")}
               </span>
             </h1>
-            <p className="measure mt-7 text-[1.03rem] leading-relaxed text-bone/75">
-              Un appartement d'exception, et une équipe qui apporte à votre porte
-              tout ce dont un séjour a besoin : une voiture, un dîner, le ménage,
-              un massage, la découverte du pays.
-            </p>
+            <p className="measure mt-7 text-[1.03rem] leading-relaxed text-bone/75">{t("hero.lede")}</p>
 
             <dl className="mt-9 flex flex-wrap gap-x-9 gap-y-4 text-[13px]">
               {[
-                ["4", "voyageurs"],
-                ["2", "chambres"],
-                ["10", "services à domicile"],
-                ["7 j / 7", "à vos côtés"],
+                ["4", t("hero.statGuests")],
+                ["2", t("hero.statBedrooms")],
+                ["10", t("hero.statServices")],
+                [t("hero.availabilityValue"), t("hero.statAvailability")],
               ].map(([v, l]) => (
                 <div key={l}>
                   <dt className="tnum display text-[1.25rem] text-bone">{v}</dt>

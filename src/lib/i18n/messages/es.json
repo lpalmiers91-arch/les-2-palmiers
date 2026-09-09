@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "apartment": "El apartamento",
+    "services": "Servicios",
+    "place": "El lugar",
+    "contact": "Contacto",
+    "clientArea": "Área de cliente",
+    "book": "Reservar",
+    "menu": "Menú",
+    "close": "Cerrar"
+  },
+  "common": {
+    "loading": "Cargando…",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "send": "Enviar",
+    "cancel": "Cancelar",
+    "retry": "Reintentar",
+    "back": "Volver",
+    "continue": "Continuar",
+    "error": "Se ha producido un error. Inténtalo de nuevo.",
+    "required": "Campo obligatorio"
+  },
+  "hero": {
+    "eyebrow": "Apartamento amueblado y conserjería — Cotonú",
+    "titleA": "Aprovecha al máximo",
+    "titleB": "tu tiempo.",
+    "titleEm": "Nosotros nos ocupamos del resto.",
+    "lede": "Un apartamento excepcional y un equipo que lleva a tu puerta todo lo que una estancia necesita: un coche, una cena, la limpieza, un masaje, descubrir el país.",
+    "statGuests": "huéspedes",
+    "statBedrooms": "dormitorios",
+    "statServices": "servicios a domicilio",
+    "statAvailability": "a tu lado",
+    "availabilityValue": "24/7"
+  },
+  "arrival": {
+    "title": "Tu estancia",
+    "arrival": "Entrada",
+    "departure": "Salida",
+    "guests": "Huéspedes",
+    "checkAvailability": "Ver disponibilidad",
+    "nightsIncluded": "{nights} noches · limpieza incluida",
+    "available": "Disponible",
+    "unavailable": "No disponible en estas fechas"
+  },
+  "cookie": {
+    "text": "Cookies necesarias para el funcionamiento. Con tu consentimiento, una medición de audiencia anónima.",
+    "learnMore": "Más información",
+    "accept": "Aceptar",
+    "decline": "Rechazar"
+  },
+  "install": {
+    "title": "Instalar Les 2 Palmiers",
+    "bodyAndroid": "Añade la app a tu pantalla de inicio para un acceso directo, incluso sin conexión.",
+    "bodyIos": "Pulsa Compartir y luego «Añadir a pantalla de inicio».",
+    "install": "Instalar"
+  },
+  "footer": {
+    "tagline": "Apartamento de ensueño y conserjería. {city}, {country}.",
+    "colStay": "Estancia",
+    "colServices": "Servicios",
+    "colAround": "Alrededor",
+    "privacy": "Privacidad",
+    "cookies": "Cookies",
+    "terms": "Condiciones",
+    "legal": "Aviso legal"
+  },
+  "auth": {
+    "signinTitle": "Iniciar sesión",
+    "signinCta": "Iniciar sesión",
+    "signinFoot": "Accede a tus reservas y servicios.",
+    "signupTitle": "Crear una cuenta",
+    "signupCta": "Crear mi cuenta",
+    "signupFoot": "Unos segundos, con tu correo electrónico.",
+    "resetTitle": "Contraseña olvidada",
+    "resetCta": "Enviar el enlace",
+    "resetFoot": "Te enviamos un enlace de restablecimiento.",
+    "fullName": "Nombre completo",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "passwordConfirm": "Confirmar contraseña",
+    "passwordHint": "8 caracteres mínimo",
+    "forgot": "¿Olvidada?",
+    "or": "o",
+    "magicLink": "Recibir un enlace de acceso",
+    "magicLinkHint": "Sin contraseña — te enviamos un enlace por correo.",
+    "magicLinkSent": "Enlace enviado. Abre tu correo y haz clic en el enlace para iniciar sesión.",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "createOne": "Crear una cuenta",
+    "mismatch": "Las dos contraseñas no coinciden.",
+    "signupDone": "Cuenta creada. Revisa tu correo para confirmar tu dirección.",
+    "resetDone": "Si existe una cuenta, se acaba de enviar un enlace.",
+    "errEmailFirst": "Introduce primero tu correo electrónico.",
+    "errInvalid": "Correo o contraseña incorrectos.",
+    "errNotConfirmed": "Confirma primero tu correo electrónico (enlace recibido por email).",
+    "errExists": "Ya existe una cuenta con este correo.",
+    "errRate": "Demasiados intentos. Inténtalo de nuevo en unos minutos.",
+    "errShort": "La contraseña debe tener al menos 8 caracteres."
+  }
+}
