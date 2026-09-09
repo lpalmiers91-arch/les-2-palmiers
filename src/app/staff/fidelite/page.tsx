@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import {
   LoyaltySettingsForm,
   type LoyaltySettings,
@@ -10,6 +11,7 @@ import { formatDate } from "@/lib/format";
 export const metadata: Metadata = { title: "Fidélité" };
 
 export default async function StaffLoyalty() {
+  const { t } = await getT();
   const supabase = await createClient();
   const [{ data: settings }, { data: accounts }] = await Promise.all([
     supabase.from("loyalty_settings").select("*").eq("id", 1).maybeSingle(),
@@ -32,7 +34,7 @@ export default async function StaffLoyalty() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <PageTitle title="Fidélité" sub="Barème de points, bonus et paliers." />
+      <PageTitle title={t("console.title.fidelite")} sub={t("console.sub.fidelite")} />
       <LoyaltySettingsForm initial={initial} />
 
       {accounts && accounts.length > 0 && (

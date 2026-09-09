@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ChevronRight, Check } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, EmptyState, StatusBadge } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Contrats" };
@@ -17,15 +18,16 @@ type Row = {
 };
 
 export default async function StaffContracts() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data } = await supabase.rpc("list_contracts");
   const rows = (data ?? []) as Row[];
 
   return (
     <div className="mx-auto max-w-3xl">
-      <PageTitle title="Contrats" sub="Complétez et contresignez les contrats de séjour." />
+      <PageTitle title={t("console.title.contrats")} sub={t("console.sub.contrats")} />
       {rows.length === 0 ? (
-        <EmptyState title="Aucun contrat" body="Un contrat est créé pour chaque réservation." />
+        <EmptyState title={t("console.empty.contractsT")} body={t("console.empty.contractsB")} />
       ) : (
         <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
           {rows.map((c) => (

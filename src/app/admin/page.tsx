@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { Card, StatusBadge } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { formatXOF, formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Tableau de bord" };
 
 export default async function AdminHome() {
+  const { t } = await getT();
   const supabase = await createClient();
 
   const [{ data: revenue }, { data: occ }, { data: perf }, { data: queue }, { data: pays }] =
@@ -32,23 +34,23 @@ export default async function AdminHome() {
 
   return (
     <div className="mx-auto max-w-5xl">
-      <h1 className="display text-[1.7rem] text-ink sm:text-[2rem]">Tableau de bord</h1>
-      <p className="mt-1 text-[14px] text-ink-3">Vue d'ensemble de l'activité.</p>
+      <h1 className="display text-[1.7rem] text-ink sm:text-[2rem]">{t("console.adminHome.title")}</h1>
+      <p className="mt-1 text-[14px] text-ink-3">{t("console.adminHome.overview")}</p>
 
       <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KPI label="Revenu total" value={formatXOF(totalRevenue)} />
-        <KPI label="Hébergement" value={formatXOF(lodgingRevenue)} />
-        <KPI label="Services" value={formatXOF(serviceRevenue)} />
-        <KPI label="Occupation (12 mois)" value={`${occupancy} %`} />
+        <KPI label={t("console.adminHome.totalRevenue")} value={formatXOF(totalRevenue)} />
+        <KPI label={t("console.adminHome.lodging")} value={formatXOF(lodgingRevenue)} />
+        <KPI label={t("console.adminHome.services")} value={formatXOF(serviceRevenue)} />
+        <KPI label={t("console.adminHome.occupancy12m")} value={`${occupancy} %`} />
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         <Card>
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Revenu par mois
+            {t("console.adminHome.revenueByMonth")}
           </h2>
           {monthly.every((m) => m.value === 0) ? (
-            <p className="mt-4 text-[13.5px] text-ink-3">Pas encore de paiement enregistré.</p>
+            <p className="mt-4 text-[13.5px] text-ink-3">{t("console.adminHome.noPayments")}</p>
           ) : (
             <div className="mt-5 flex items-end gap-1.5" style={{ height: 140 }}>
               {monthly.map((m) => (
@@ -67,7 +69,7 @@ export default async function AdminHome() {
 
         <Card>
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Performance des services
+            {t("console.adminHome.servicePerformance")}
           </h2>
           <ul className="mt-4 space-y-2.5 text-[13px]">
             {(perf ?? [])
@@ -82,7 +84,7 @@ export default async function AdminHome() {
                 </li>
               ))}
             {(perf ?? []).every((p) => Number(p.orders) === 0) && (
-              <li className="text-ink-3">Aucune commande de service.</li>
+              <li className="text-ink-3">{t("console.adminHome.noServiceOrders")}</li>
             )}
           </ul>
         </Card>
@@ -90,16 +92,19 @@ export default async function AdminHome() {
 
       <section className="mt-8">
         <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-          À traiter
+          {t("console.adminHome.toProcess")}
         </h2>
         {!queue || queue.length === 0 ? (
-          <Card><p className="text-[13.5px] text-ink-3">Rien en attente.</p></Card>
+          <Card><p className="text-[13.5px] text-ink-3">{t("console.adminHome.nothingPending")}</p></Card>
         ) : (
           <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
             {queue.map((q) => (
               <li key={q.id} className="flex items-center justify-between px-5 py-3 text-[13.5px]">
                 <span className="text-ink">
-                  {q.kind === "reservation" ? "Réservation" : "Demande de service"} · {q.reference}
+                  {q.kind === "reservation"
+                    ? t("console.adminHome.reservation")
+                    : t("console.adminHome.serviceRequest")}{" "}
+                  · {q.reference}
                 </span>
                 <span className="flex items-center gap-3">
                   <StatusBadge status={q.status ?? "pending"} />

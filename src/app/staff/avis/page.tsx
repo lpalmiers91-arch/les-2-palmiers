@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { ReviewModeration, type ReviewRow } from "@/components/console/review-moderation";
 
 export const metadata: Metadata = { title: "Avis clients" };
 
 export default async function StaffReviews() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data } = await supabase
     .from("reviews")
@@ -32,11 +34,11 @@ export default async function StaffReviews() {
   return (
     <div className="mx-auto max-w-3xl">
       <PageTitle
-        title="Avis clients"
+        title={t("console.title.avis")}
         sub={
           pending > 0
-            ? `${pending} avis en attente de modération.`
-            : "Publiez, masquez, mettez en avant et répondez aux avis."
+            ? t("console.sub.avisPending", { count: pending })
+            : t("console.sub.avis")
         }
       />
       <ReviewModeration rows={rows} />

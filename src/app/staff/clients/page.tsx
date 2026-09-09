@@ -3,11 +3,13 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, EmptyState } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Clients" };
 
 export default async function ClientsPage() {
+  const { t } = await getT();
   const supabase = await createClient();
 
   const { data: profiles } = await supabase
@@ -31,9 +33,9 @@ export default async function ClientsPage() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <PageTitle title="Clients" sub={`${clients.length} compte${clients.length > 1 ? "s" : ""} client.`} />
+      <PageTitle title={t("console.title.clients")} sub={t("console.sub.clients")} />
       {clients.length === 0 ? (
-        <EmptyState title="Aucun client" body="Les comptes clients apparaîtront ici." />
+        <EmptyState title={t("console.empty.clientsT")} body={t("console.empty.clientsB")} />
       ) : (
         <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
           {clients.map((c) => (

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Plus, Building2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, EmptyState } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { NewApartmentButton } from "@/components/console/apartment-editor";
 import { aptImg } from "@/lib/site";
 import { formatXOF } from "@/lib/format";
@@ -16,6 +17,7 @@ const STATUS: Record<string, { label: string; cls: string }> = {
 };
 
 export default async function StaffApartmentsPage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data: apartments } = await supabase
     .from("apartments")
@@ -39,15 +41,15 @@ export default async function StaffApartmentsPage() {
   return (
     <div className="mx-auto max-w-3xl">
       <PageTitle
-        title="Appartements"
-        sub="Ajouter un logement, gérer les photos, les tarifs et les disponibilités."
+        title={t("console.title.appartements")}
+        sub={t("console.sub.appartements")}
         action={<NewApartmentButton />}
       />
 
       {!apartments || apartments.length === 0 ? (
         <EmptyState
-          title="Aucun appartement"
-          body="Créez votre premier logement pour le proposer à la réservation."
+          title={t("console.empty.apartmentT")}
+          body={t("console.empty.apartmentB")}
         />
       ) : (
         <ul className="grid gap-4 sm:grid-cols-2">

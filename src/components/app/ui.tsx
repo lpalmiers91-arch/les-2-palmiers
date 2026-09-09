@@ -1,5 +1,8 @@
+"use client";
+
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { useT } from "@/lib/i18n/provider";
 
 export function PageTitle({
   title,
@@ -60,36 +63,14 @@ const statusTone: Record<string, string> = {
   hidden: "bg-ink/8 text-ink-3",
 };
 
-const statusLabel: Record<string, string> = {
-  pending_payment: "En attente de paiement",
-  confirmed: "Confirmée",
-  in_stay: "En cours de séjour",
-  completed: "Terminée",
-  cancelled: "Annulée",
-  no_show: "Non présenté",
-  requested: "Demandé",
-  accepted: "Accepté",
-  scheduled: "Planifié",
-  in_progress: "En cours",
-  declined: "Refusé",
-  draft: "Brouillon",
-  paid: "Payé",
-  failed: "Échoué",
-  pending: "En attente",
-  awaiting_review: "À vérifier",
-  rejected: "Refusé",
-  refunded: "Remboursé",
-  partially_refunded: "Partiellement remboursé",
-  published: "Publié",
-  hidden: "Masqué",
-};
-
 export function StatusBadge({ status }: { status: string }) {
+  const { t } = useT();
+  const label = t(`console.status.${status}`);
   return (
     <span
       className={`inline-flex items-center rounded-full px-2.5 py-1 text-[11.5px] font-medium ${statusTone[status] ?? "bg-ink/8 text-ink-3"}`}
     >
-      {statusLabel[status] ?? status}
+      {label === `console.status.${status}` ? status : label}
     </span>
   );
 }

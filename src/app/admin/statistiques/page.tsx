@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, Card } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { formatXOF } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Statistiques" };
 
 export default async function StatistiquesPage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const [{ data: perf }, { data: staff }, { data: occ }] = await Promise.all([
     supabase.from("v_service_performance").select("*"),
@@ -22,7 +24,7 @@ export default async function StatistiquesPage() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <PageTitle title="Statistiques" sub="Occupation, services, activité de l'équipe." />
+      <PageTitle title={t("console.title.statistiques")} sub={t("console.sub.statistiques")} />
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>

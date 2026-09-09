@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, StatusBadge, EmptyState } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { ReservationActions } from "@/components/console/reservation-actions";
 import { formatDate, formatXOF, parseRange } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Réservations" };
 
 export default async function StaffReservations() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data: rows } = await supabase
     .from("reservations")
@@ -17,9 +19,9 @@ export default async function StaffReservations() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <PageTitle title="Réservations" sub="Toutes les réservations, du plus récent séjour au plus ancien." />
+      <PageTitle title={t("console.title.reservations")} sub={t("console.sub.reservations")} />
       {!rows || rows.length === 0 ? (
-        <EmptyState title="Aucune réservation" body="Les réservations des clients apparaîtront ici." />
+        <EmptyState title={t("console.empty.reservationsT")} body={t("console.empty.reservationsB")} />
       ) : (
         <ul className="space-y-3">
           {rows.map((r) => {

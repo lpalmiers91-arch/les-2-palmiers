@@ -2,12 +2,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, StatusBadge, EmptyState } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { RefundButton } from "@/components/console/refund-button";
 import { formatXOF, formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Paiements" };
 
 export default async function PaiementsPage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const [{ data: pays }, { data: refunds }] = await Promise.all([
     supabase
@@ -31,7 +33,7 @@ export default async function PaiementsPage() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <PageTitle title="Paiements" sub="Environnement de démonstration — transactions simulées." />
+      <PageTitle title={t("console.title.paiements")} sub={t("console.sub.adminPaiements")} />
 
       <div className="mb-6 grid gap-4 sm:grid-cols-2">
         <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
@@ -45,7 +47,7 @@ export default async function PaiementsPage() {
       </div>
 
       {!pays || pays.length === 0 ? (
-        <EmptyState title="Aucune transaction" body="Les paiements apparaîtront ici." />
+        <EmptyState title={t("console.empty.paymentsT")} body={t("console.empty.paymentsB")} />
       ) : (
         <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
           {pays.map((p) => {

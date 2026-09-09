@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { VerificationReview, type VerifRow } from "@/components/console/verification-review";
 
 export const metadata: Metadata = { title: "Vérifications d'identité" };
 
 export default async function StaffVerificationsPage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data } = await supabase.rpc("list_identity_verifications");
   const rows = (data ?? []) as VerifRow[];
@@ -14,11 +16,11 @@ export default async function StaffVerificationsPage() {
   return (
     <div className="mx-auto max-w-3xl">
       <PageTitle
-        title="Vérifications d'identité"
+        title={t("console.title.verifications")}
         sub={
           pending > 0
-            ? `${pending} dossier${pending > 1 ? "s" : ""} en attente de validation.`
-            : "Validez ou refusez les pièces d'identité soumises par les clients."
+            ? t("console.sub.verificationsPending", { count: pending })
+            : t("console.sub.verifications")
         }
       />
       <VerificationReview rows={rows} />

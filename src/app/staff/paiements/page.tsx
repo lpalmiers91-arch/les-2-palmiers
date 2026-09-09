@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, StatusBadge } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { PaymentProofReview, type ProofRow } from "@/components/console/payment-proof-review";
 import { formatXOF, formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Paiements" };
 
 export default async function StaffPayments() {
+  const { t } = await getT();
   const supabase = await createClient();
 
   const [{ data: pending }, { data: recent }] = await Promise.all([
@@ -44,17 +46,17 @@ export default async function StaffPayments() {
   return (
     <div className="mx-auto max-w-3xl">
       <PageTitle
-        title="Paiements"
+        title={t("console.title.paiements")}
         sub={
           rows.length > 0
-            ? `${rows.length} preuve${rows.length > 1 ? "s" : ""} à vérifier.`
-            : "Preuves de paiement à valider et historique."
+            ? t("console.payments.pendingCount", { count: rows.length })
+            : t("console.sub.paiements")
         }
       />
 
       <section>
         <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-          À vérifier
+          {t("console.payments.toReview")}
         </h2>
         <div className="mt-3">
           <PaymentProofReview rows={rows} />
@@ -64,18 +66,19 @@ export default async function StaffPayments() {
       {recent && recent.length > 0 && (
         <section className="mt-8">
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Historique
+            {t("console.payments.history")}
           </h2>
           <ul className="mt-3 divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
             {recent.map((p) => (
               <li key={p.id} className="flex items-center justify-between gap-3 px-5 py-3 text-[13px]">
                 <div className="min-w-0">
                   <p className="truncate text-ink">
-                    {(p.payer as { full_name?: string } | null)?.full_name ?? "Client"} ·{" "}
+                    {(p.payer as { full_name?: string } | null)?.full_name ?? t("console.payments.client")} ·{" "}
                     {formatXOF(Number(p.amount))}
                   </p>
                   <p className="text-[11.5px] text-ink-3">
-                    {formatDate(p.created_at as string)} · {p.channel === "proof" ? "preuve" : "en ligne"}
+                    {formatDate(p.created_at as string)} ·{" "}
+                    {p.channel === "proof" ? t("console.payments.proof") : t("console.payments.online")}
                   </p>
                 </div>
                 <span className="flex items-center gap-2">
@@ -86,7 +89,7 @@ export default async function StaffPayments() {
                       target="_blank"
                       className="text-[11px] text-ink-3 underline underline-offset-2 hover:text-ink"
                     >
-                      Reçu
+                      {t("console.payments.receipt")}
                     </Link>
                   )}
                 </span>

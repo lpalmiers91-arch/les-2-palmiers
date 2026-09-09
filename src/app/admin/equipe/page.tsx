@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, Card } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { RoleToggles } from "@/components/console/role-toggles";
 import { InviteForm } from "@/components/console/invite-form";
 
 export const metadata: Metadata = { title: "Équipe & accès" };
 
 export default async function EquipePage() {
+  const { t } = await getT();
   const supabase = await createClient();
 
   const [{ data: profiles }, { data: userRoles }, { data: rolePerms }] = await Promise.all([
@@ -36,7 +38,7 @@ export default async function EquipePage() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <PageTitle title="Équipe & accès" sub="Invitez des membres, attribuez les rôles. Les permissions découlent du rôle." />
+      <PageTitle title={t("console.title.equipe")} sub={t("console.sub.equipe")} />
 
       <div className="mb-8">
         <InviteForm />

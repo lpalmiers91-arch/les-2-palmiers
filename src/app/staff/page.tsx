@@ -2,11 +2,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { Card, StatusBadge } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { formatDate, formatXOF, parseRange } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Tableau de bord" };
 
 export default async function StaffHome() {
+  const { t } = await getT();
   const supabase = await createClient();
   const today = new Date().toISOString().slice(0, 10);
 
@@ -37,38 +39,44 @@ export default async function StaffHome() {
 
   return (
     <div className="mx-auto max-w-5xl">
-      <h1 className="display text-[1.7rem] text-ink sm:text-[2rem]">Aujourd'hui</h1>
+      <h1 className="display text-[1.7rem] text-ink sm:text-[2rem]">{t("console.staffHome.today")}</h1>
       <p className="mt-1 text-[14px] text-ink-3">
         {formatDate(today, { weekday: "long", day: "numeric", month: "long" })}
       </p>
 
       <div className="mt-7 grid gap-4 sm:grid-cols-3">
-        <Stat label="Arrivées" value={arrivals.length} href="/staff/reservations" />
-        <Stat label="Départs" value={departures.length} href="/staff/reservations" />
-        <Stat label="Demandes en attente" value={pending?.length ?? 0} href="/staff/demandes" />
+        <Stat label={t("console.staffHome.arrivals")} value={arrivals.length} href="/staff/reservations" />
+        <Stat label={t("console.staffHome.departures")} value={departures.length} href="/staff/reservations" />
+        <Stat label={t("console.staffHome.pendingRequests")} value={pending?.length ?? 0} href="/staff/demandes" />
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <section>
           <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Arrivées & départs du jour
+            {t("console.staffHome.movementsTitle")}
           </h2>
           {arrivals.length + departures.length === 0 ? (
-            <Card><p className="text-[13.5px] text-ink-3">Aucun mouvement aujourd'hui.</p></Card>
+            <Card><p className="text-[13.5px] text-ink-3">{t("console.staffHome.noMovements")}</p></Card>
           ) : (
             <ul className="space-y-2">
-              {arrivals.map((r) => <Movement key={"a" + r.reference} r={r} kind="Arrivée" />)}
-              {departures.map((r) => <Movement key={"d" + r.reference} r={r} kind="Départ" />)}
+              {arrivals.map((r) => (
+                <Movement key={"a" + r.reference} r={r} kind={t("console.staffHome.arrival")}
+                  clientLabel={t("console.staffHome.client")} persons={t("console.staffHome.persons")} refLabel={t("console.staffHome.ref")} />
+              ))}
+              {departures.map((r) => (
+                <Movement key={"d" + r.reference} r={r} kind={t("console.staffHome.departure")}
+                  clientLabel={t("console.staffHome.client")} persons={t("console.staffHome.persons")} refLabel={t("console.staffHome.ref")} />
+              ))}
             </ul>
           )}
         </section>
 
         <section>
           <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            File des demandes
+            {t("console.staffHome.queueTitle")}
           </h2>
           {!queue || queue.length === 0 ? (
-            <Card><p className="text-[13.5px] text-ink-3">Rien à traiter.</p></Card>
+            <Card><p className="text-[13.5px] text-ink-3">{t("console.staffHome.queueEmpty")}</p></Card>
           ) : (
             <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
               {queue.map((o) => (
@@ -77,10 +85,10 @@ export default async function StaffHome() {
                     <div className="min-w-0">
                       <p className="truncate text-[13.5px] text-ink">
                         {(o.service as { title?: string } | null)?.title} —{" "}
-                        {(o.customer as { full_name?: string } | null)?.full_name ?? "Client"}
+                        {(o.customer as { full_name?: string } | null)?.full_name ?? t("console.staffHome.client")}
                       </p>
                       <p className="text-[11.5px] text-ink-3">
-                        {o.scheduled_for ? formatDate(o.scheduled_for) : "créneau à définir"}
+                        {o.scheduled_for ? formatDate(o.scheduled_for) : t("console.staffHome.slotTbd")}
                       </p>
                     </div>
                     <StatusBadge status={o.status} />
@@ -104,14 +112,29 @@ function Stat({ label, value, href }: { label: string; value: number; href: stri
   );
 }
 
-function Movement({ r, kind }: { r: Record<string, unknown>; kind: string }) {
+function Movement({
+  r,
+  kind,
+  clientLabel,
+  persons,
+  refLabel,
+}: {
+  r: Record<string, unknown>;
+  kind: string;
+  clientLabel: string;
+  persons: string;
+  refLabel: string;
+}) {
   return (
     <li className="flex items-center justify-between rounded-[12px] border border-line bg-bone px-4 py-3">
       <div>
         <p className="text-[13.5px] text-ink">
-          {(r.guest as { full_name?: string } | null)?.full_name ?? "Client"} · {String(r.guests_count)} pers.
+          {(r.guest as { full_name?: string } | null)?.full_name ?? clientLabel} ·{" "}
+          {String(r.guests_count)} {persons}
         </p>
-        <p className="text-[11.5px] text-ink-3">Réf. {String(r.reference)}</p>
+        <p className="text-[11.5px] text-ink-3">
+          {refLabel} {String(r.reference)}
+        </p>
       </div>
       <span className="text-[12px] font-medium text-forest-2">{kind}</span>
     </li>

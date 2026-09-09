@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, EmptyState } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Journal d'audit" };
@@ -12,6 +13,7 @@ const actionLabel: Record<string, string> = {
 };
 
 export default async function AuditPage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data: rows } = await supabase
     .from("audit_log")
@@ -21,9 +23,9 @@ export default async function AuditPage() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <PageTitle title="Journal d'audit" sub="Historique des actions sur les données sensibles. Non modifiable." />
+      <PageTitle title={t("console.title.audit")} sub={t("console.sub.audit")} />
       {!rows || rows.length === 0 ? (
-        <EmptyState title="Journal vide" body="Les actions tracées apparaîtront ici." />
+        <EmptyState title={t("console.empty.auditT")} body={t("console.empty.auditB")} />
       ) : (
         <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone text-[13px]">
           {rows.map((r) => (

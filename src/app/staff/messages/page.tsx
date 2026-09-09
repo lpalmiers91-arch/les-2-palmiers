@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, EmptyState } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Messagerie" };
 
 export default async function StaffMessages() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data: convs } = await supabase
     .from("conversations")
@@ -18,9 +20,9 @@ export default async function StaffMessages() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <PageTitle title="Messagerie" sub="Conversations avec les clients." />
+      <PageTitle title={t("console.title.messages")} sub={t("console.sub.messages")} />
       {!convs || convs.length === 0 ? (
-        <EmptyState title="Aucune conversation" body="Les messages des clients apparaîtront ici." />
+        <EmptyState title={t("console.empty.conversationsT")} body={t("console.empty.conversationsB")} />
       ) : (
         <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
           {convs.map((c) => (

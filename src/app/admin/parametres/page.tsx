@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, Card } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 
 export const metadata: Metadata = { title: "Paramètres" };
 
 export default async function ParametresPage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data: s } = await supabase.from("site_settings").select("*").eq("id", 1).maybeSingle();
   const company = (s?.company ?? {}) as Record<string, unknown>;
 
   return (
     <div className="mx-auto max-w-3xl">
-      <PageTitle title="Paramètres" sub="Informations de l'entreprise et pages légales." />
+      <PageTitle title={t("console.title.parametres")} sub={t("console.sub.parametres")} />
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Card>

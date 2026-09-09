@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { ServiceCatalogueEditor } from "@/components/console/service-catalogue-editor";
 
 export const metadata: Metadata = { title: "Catalogue" };
 
 export default async function CataloguePage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data: services } = await supabase
     .from("services")
@@ -16,10 +18,7 @@ export default async function CataloguePage() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <PageTitle
-        title="Catalogue de services"
-        sub="Modifier le descriptif, le prix, la disponibilité et le délai de chaque prestation."
-      />
+      <PageTitle title={t("console.title.catalogue")} sub={t("console.sub.catalogue")} />
       <ServiceCatalogueEditor services={services ?? []} />
     </div>
   );

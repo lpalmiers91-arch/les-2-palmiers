@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, EmptyState } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { StayInfoForm, type StayInfo } from "@/components/console/stay-info-form";
 
 export const metadata: Metadata = { title: "Infos séjour" };
 
 export default async function StaffStayInfo() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data: apartments } = await supabase
     .from("apartments")
@@ -20,9 +22,9 @@ export default async function StaffStayInfo() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <PageTitle title="Infos séjour" sub="Codes wifi, manuel de la maison, consignes." />
+      <PageTitle title={t("console.title.sejour")} sub={t("console.sub.sejour")} />
       {!apartments || apartments.length === 0 ? (
-        <EmptyState title="Aucun appartement" body="Créez d'abord un logement." />
+        <EmptyState title={t("console.empty.apartmentT")} body={t("console.empty.apartmentB")} />
       ) : (
         <div className="space-y-6">
           {apartments.map((a) => {
