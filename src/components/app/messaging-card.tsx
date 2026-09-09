@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { MessageSquare, ArrowRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useIsOnline } from "@/lib/presence";
 import { formatDate } from "@/lib/format";
 
 export function MessagingCard({
@@ -17,17 +19,11 @@ export function MessagingCard({
   lastAt: string | null;
   unread: number;
 }) {
-  const [uid, setUid] = useState<string | null>(null);
+  const router = useRouter();
   const [liveAt, setLiveAt] = useState(lastAt);
-  const [staffOnline, setStaffOnline] = useState(false);
+  const staffOnline = useIsOnline()("staff");
 
-  useEffect(() => {
-    createClient()
-      .auth.getUser()
-      .then(({ data }) => setUid(data.user?.id ?? null));
-  }, []);
-
-  // nouveau message -> rafraîchit la date affichée
+  // nouveau message -> rafraîchit la date + le compteur (via router.refresh)
   useEffect(() => {
     if (!conversationId) return;
     const supabase = createClient();
@@ -41,36 +37,16 @@ export function MessagingCard({
           table: "messages",
           filter: `conversation_id=eq.${conversationId}`,
         },
-        (payload) => setLiveAt((payload.new as { created_at: string }).created_at),
+        (payload) => {
+          setLiveAt((payload.new as { created_at: string }).created_at);
+          router.refresh();
+        },
       );
     ch.subscribe();
     return () => {
       supabase.removeChannel(ch);
     };
-  }, [conversationId]);
-
-  // présence partagée : suis-je vu par le staff, un staff est-il en ligne ?
-  useEffect(() => {
-    if (!uid) return;
-    const supabase = createClient();
-    const ch = supabase.channel("presence:support", {
-      config: { presence: { key: uid } },
-    });
-    ch.on("presence", { event: "sync" }, () => {
-      const state = ch.presenceState<{ role?: string }>();
-      const anyStaff = Object.values(state).some((metas) =>
-        (metas as { role?: string }[]).some((m) => m.role === "staff"),
-      );
-      setStaffOnline(anyStaff);
-    });
-    ch.subscribe((status) => {
-      if (status === "SUBSCRIBED") ch.track({ role: "client", user_id: uid });
-    });
-    return () => {
-      ch.untrack();
-      supabase.removeChannel(ch);
-    };
-  }, [uid]);
+  }, [conversationId, router]);
 
   return (
     <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">

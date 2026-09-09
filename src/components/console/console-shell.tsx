@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   LogOut,
   Menu,
@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
 import { createClient } from "@/lib/supabase/client";
-import { useHeartbeat } from "@/lib/presence";
+import { PresenceProvider } from "@/lib/presence";
 import { NotificationBell } from "@/components/app/notification-bell";
 
 type NavItem = { href: string; label: string; icon: LucideIcon; exact?: boolean };
@@ -75,8 +75,6 @@ export function ConsoleShell({
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const nav = NAVS[variant];
-  useHeartbeat();
-  useStaffPresence(userId);
 
   const active = (n: NavItem) =>
     n.exact ? pathname === n.href : pathname === n.href || pathname.startsWith(n.href + "/");
@@ -156,25 +154,11 @@ export function ConsoleShell({
         </div>
       )}
 
-      <main className="min-w-0 px-4 py-6 sm:px-8 sm:py-9">{children}</main>
+      <main className="min-w-0 px-4 py-6 sm:px-8 sm:py-9">
+        <PresenceProvider userId={userId} role="staff">
+          {children}
+        </PresenceProvider>
+      </main>
     </div>
   );
-}
-
-/** Publie la présence du membre du staff sur le canal partagé avec les clients. */
-function useStaffPresence(userId: string) {
-  useEffect(() => {
-    if (!userId) return;
-    const supabase = createClient();
-    const ch = supabase.channel("presence:support", {
-      config: { presence: { key: userId } },
-    });
-    ch.subscribe((status) => {
-      if (status === "SUBSCRIBED") ch.track({ role: "staff", user_id: userId });
-    });
-    return () => {
-      ch.untrack();
-      supabase.removeChannel(ch);
-    };
-  }, [userId]);
 }

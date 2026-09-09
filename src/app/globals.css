@@ -315,6 +315,16 @@ a {
   color: var(--ink-3);
 }
 
+/* iOS Safari zoome automatiquement sur un champ < 16px au focus.
+   Sur mobile, tous les champs passent à 16px pour rester fluide (pas de zoom). */
+@media (max-width: 640px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
 /* ---- impression (reçus) ---- */
 @media print {
   :root {

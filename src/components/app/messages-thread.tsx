@@ -3,14 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import { SendHorizonal, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useIsOnline } from "@/lib/presence";
 import { formatDate } from "@/lib/format";
 
+type Attachment = { path: string; name: string; type: string; url?: string };
 type Msg = {
   id: string;
   body: string;
   sender_id: string | null;
   system: boolean;
   created_at: string;
+  attachments?: Attachment[];
 };
 
 export function MessagesThread({
@@ -32,33 +35,11 @@ export function MessagesThread({
   const [text, setText] = useState("");
   const [convId, setConvId] = useState(conversationId);
   const [sending, setSending] = useState(false);
-  const [peerOnline, setPeerOnline] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
-  const myRole = variant === "staff" ? "staff" : "client";
   const peerRole = variant === "staff" ? "client" : "staff";
-
-  useEffect(() => {
-    if (!meId) return;
-    const supabase = createClient();
-    const ch = supabase.channel("presence:support", { config: { presence: { key: meId } } });
-    ch.on("presence", { event: "sync" }, () => {
-      const state = ch.presenceState<{ role?: string; user_id?: string }>();
-      const online = Object.entries(state).some(([key, ms]) => {
-        const metas = ms as { role?: string }[];
-        if (peerId) return key === peerId && metas.some((m) => m.role === peerRole);
-        return metas.some((m) => m.role === peerRole);
-      });
-      setPeerOnline(online);
-    });
-    ch.subscribe((s) => {
-      if (s === "SUBSCRIBED") ch.track({ role: myRole, user_id: meId });
-    });
-    return () => {
-      ch.untrack();
-      supabase.removeChannel(ch);
-    };
-  }, [meId, peerId, myRole, peerRole]);
+  const isOnline = useIsOnline();
+  const peerOnline = isOnline(peerRole, variant === "staff" ? peerId : undefined);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: "end" });
@@ -66,20 +47,65 @@ export function MessagesThread({
 
   useEffect(() => {
     if (!convId) return;
+    const cid = convId;
     const supabase = createClient();
-    const channel = supabase.channel(`conv-${convId}-${Math.random().toString(36).slice(2)}`);
-    channel.on(
-      "postgres_changes",
-      { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${convId}` },
-      (payload) => {
-        const m = payload.new as Msg;
-        setMessages((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
-      },
-    ).subscribe();
+    let alive = true;
+
+    // rattrape les messages manqués (reconnexion, onglet en arrière-plan…)
+    async function catchUp() {
+      const { data } = await supabase
+        .from("messages")
+        .select("id, body, sender_id, system, created_at, attachments")
+        .eq("conversation_id", cid)
+        .order("created_at", { ascending: true });
+      if (alive && data) setMessages(data as unknown as Msg[]);
+    }
+
+    const channel = supabase
+      .channel(`conv-${cid}-${Math.random().toString(36).slice(2)}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "messages",
+          filter: `conversation_id=eq.${cid}`,
+        },
+        (payload) => {
+          const m = payload.new as Msg;
+          setMessages((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
+        },
+      )
+      .subscribe((status) => {
+        if (status === "SUBSCRIBED") catchUp();
+      });
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") catchUp();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
     return () => {
+      alive = false;
+      document.removeEventListener("visibilitychange", onVisible);
       supabase.removeChannel(channel);
     };
   }, [convId]);
+
+  // marque les messages reçus comme lus
+  useEffect(() => {
+    if (!convId || !meId) return;
+    const unread = messages.filter((m) => m.sender_id && m.sender_id !== meId).map((m) => m.id);
+    if (unread.length === 0) return;
+    const supabase = createClient();
+    supabase
+      .from("message_reads")
+      .upsert(
+        unread.map((message_id) => ({ message_id, user_id: meId })),
+        { onConflict: "message_id,user_id", ignoreDuplicates: true },
+      )
+      .then(() => {}, () => {});
+  }, [messages, convId, meId]);
 
   async function send(e: React.FormEvent) {
     e.preventDefault();
@@ -100,7 +126,7 @@ export function MessagesThread({
         p_attachments: [],
       });
       if (error) throw error;
-      const m = data as Msg;
+      const m = data as unknown as Msg;
       setMessages((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
       setText("");
     } finally {

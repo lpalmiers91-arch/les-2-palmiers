@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
 import { createClient } from "@/lib/supabase/client";
-import { useHeartbeat } from "@/lib/presence";
+import { PresenceProvider } from "@/lib/presence";
 import { NotificationBell } from "./notification-bell";
 
 const nav = [
@@ -50,7 +50,6 @@ export function AppShell({
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  useHeartbeat();
 
   const showVerify = identityStatus !== "approved";
 
@@ -112,7 +111,7 @@ export function AppShell({
             <Mark className="h-7 w-7" tone="ink" />
             <span className="display text-[1.02rem]">Les 2 Palmiers</span>
           </Link>
-          <NotificationBell userId={userId} initial={notifications} align="right" />
+          <NotificationBell userId={userId} initial={notifications} align="left" />
         </div>
         <div className="mt-7 flex-1">
           <NavList onNav={() => setOpen(false)} />
@@ -172,7 +171,11 @@ export function AppShell({
         </div>
       )}
 
-      <main className="min-w-0 px-4 py-6 sm:px-8 sm:py-10">{children}</main>
+      <main className="min-w-0 px-4 py-6 sm:px-8 sm:py-10">
+        <PresenceProvider userId={userId} role="client">
+          {children}
+        </PresenceProvider>
+      </main>
     </div>
   );
 }

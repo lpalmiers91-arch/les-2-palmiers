@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ConsoleShell } from "@/components/console/console-shell";
 import { AssistantWidget } from "@/components/assistant/assistant-widget";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
+import { LiveRefresh } from "@/components/realtime/live-refresh";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
 
@@ -39,6 +40,7 @@ export default async function StaffLayout({ children }: { children: ReactNode })
         notifications={notifs ?? []}
       >
         {children}
+        <LiveRefresh space="staff" userId={user.id} />
         <AssistantWidget space="staff" />
         <InstallPrompt />
       </ConsoleShell>

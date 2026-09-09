@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "@/components/app/app-shell";
 import { AssistantWidget } from "@/components/assistant/assistant-widget";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
+import { LiveRefresh } from "@/components/realtime/live-refresh";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
 import { audienceFromRoles, homeFor } from "@/lib/spaces";
@@ -62,6 +63,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
         identityStatus={typeof idStatus === "string" ? idStatus : "none"}
       >
         {children}
+        <LiveRefresh space="client" userId={user.id} />
         <AssistantWidget space="client" />
         <InstallPrompt />
       </AppShell>

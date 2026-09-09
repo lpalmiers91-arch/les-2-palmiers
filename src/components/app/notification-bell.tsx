@@ -62,6 +62,17 @@ export function NotificationBell({
   const [nowMs, setNowMs] = useState<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
 
+  // le layout se ré-actualise (LiveRefresh) -> on fusionne la liste serveur
+  useEffect(() => {
+    setItems((prev) => {
+      const byId = new Map(prev.map((n) => [n.id, n]));
+      for (const n of initial) byId.set(n.id, { ...byId.get(n.id), ...n });
+      return [...byId.values()]
+        .sort((a, b) => (a.created_at < b.created_at ? 1 : -1))
+        .slice(0, 20);
+    });
+  }, [initial]);
+
   useEffect(() => {
     setNowMs(Date.now());
     const id = window.setInterval(() => setNowMs(Date.now()), 60_000);
@@ -127,13 +138,12 @@ export function NotificationBell({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.97 }}
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.97 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.18, ease: easeOut }}
-            style={{ transformOrigin: align === "right" ? "top right" : "top left" }}
-            className={`absolute top-11 z-50 w-[300px] overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone shadow-[0_24px_60px_-20px_rgba(23,19,13,0.35)] ${
-              align === "right" ? "right-0" : "left-0"
+            className={`fixed inset-x-3 top-[64px] z-[70] max-h-[72dvh] overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone shadow-[0_24px_60px_-20px_rgba(23,19,13,0.35)] lg:absolute lg:inset-x-auto lg:top-11 lg:max-h-none lg:w-[340px] ${
+              align === "right" ? "lg:right-0" : "lg:left-0"
             }`}
           >
             <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
@@ -148,7 +158,7 @@ export function NotificationBell({
                 </Link>
               )}
             </div>
-            <div className="max-h-[360px] overflow-y-auto">
+            <div className="max-h-[calc(72dvh-46px)] overflow-y-auto lg:max-h-[380px]">
               {items.length === 0 ? (
                 <p className="px-4 py-8 text-center text-[13px] text-ink-3">Rien pour le moment.</p>
               ) : (
