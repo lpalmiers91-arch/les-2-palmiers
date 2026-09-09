@@ -459,6 +459,92 @@
         "staff": "Рабочее пространство",
         "admin": "Администрирование"
       }
+    },
+    "catEditor": {
+      "untitled": "Без названия",
+      "metered": "по факту",
+      "quote": "по запросу",
+      "lead": "срок",
+      "active": "активна",
+      "suspended": "приостановлена",
+      "suspend": "Приостановить",
+      "activate": "Активировать",
+      "details": "Подробнее",
+      "label": "Название",
+      "description": "Описание",
+      "pricingMode": "Тип цены",
+      "leadTime": "Срок подготовки (ч)",
+      "price": "Цена (XOF)",
+      "unit": "Единица",
+      "unitPlaceholder": "услуга / час / день",
+      "pricing": {
+        "fixed": "Фиксированная цена",
+        "metered": "По факту",
+        "quote": "По запросу"
+      }
+    },
+    "siteEditor": {
+      "preview": "Предпросмотр",
+      "refresh": "Обновить",
+      "savePublish": "Сохранить и опубликовать",
+      "publishedOk": "Опубликовано — видно на сайте",
+      "dataDriven": "Этот раздел использует данные сайта (услуги, отзывы…). Для правки откройте его вкладку.",
+      "block": {
+        "hero": "Главный блок",
+        "concierge": "Консьерж",
+        "apartment": "Апартаменты",
+        "services": "Услуги",
+        "tourism": "Место",
+        "reviews": "Отзывы гостей",
+        "closing": "Призыв к действию"
+      }
+    },
+    "branding": {
+      "favicon": "Фавикон",
+      "faviconHint": "(вкладка браузера, значок приложения)",
+      "logo": "Логотип",
+      "wordmark": "Отображаемое имя",
+      "font": "Шрифт заголовков",
+      "accent": "Акцентный цвет",
+      "choose": "Выбрать",
+      "save": "Сохранить оформление",
+      "fontOpt": {
+        "default": "По умолчанию (Bricolage / Hanken)",
+        "playfair": "Playfair Display (элегантный)",
+        "fraunces": "Fraunces (тёплый)",
+        "spaceGrotesk": "Space Grotesk (современный)",
+        "instrumentSerif": "Instrument Serif (редакционный)"
+      }
+    },
+    "pagesMgr": {
+      "create": "Создать",
+      "confirmDelete": "Удалить эту страницу и всё её содержимое?",
+      "newTitlePlaceholder": "Заголовок новой страницы (например: Велнес, FAQ, О нас)",
+      "empty": "Нет пользовательских страниц. Создайте выше — она будет доступна по адресу",
+      "viewPage": "Открыть страницу",
+      "inMenu": "В меню",
+      "addToMenu": "Добавить в меню",
+      "saveContent": "Сохранить содержимое",
+      "publishedLc": "опубликована",
+      "draftLc": "черновик",
+      "inMenuLc": "в меню",
+      "titleField": "Заголовок",
+      "menuLabel": "Название в меню",
+      "block": {
+        "rich_text": "Текст",
+        "image": "Изображение",
+        "cta": "Призыв к действию"
+      },
+      "field": {
+        "heading": "Заголовок",
+        "bodyParagraphs": "Содержимое (пустая строка разделяет абзацы)",
+        "imageUrl": "Изображение (URL или файл)",
+        "caption": "Подпись",
+        "alt": "Альт-текст",
+        "text": "Текст",
+        "link": "Ссылка (например /reserver)",
+        "buttonLabel": "Текст кнопки"
+      }
     }
   }
 }

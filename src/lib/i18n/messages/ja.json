@@ -459,6 +459,92 @@
         "staff": "スタッフエリア",
         "admin": "管理"
       }
+    },
+    "catEditor": {
+      "untitled": "無題",
+      "metered": "実費",
+      "quote": "見積り",
+      "lead": "リードタイム",
+      "active": "有効",
+      "suspended": "停止中",
+      "suspend": "停止",
+      "activate": "有効化",
+      "details": "詳細",
+      "label": "名称",
+      "description": "説明",
+      "pricingMode": "料金モード",
+      "leadTime": "準備リードタイム（時間）",
+      "price": "価格（XOF）",
+      "unit": "単位",
+      "unitPlaceholder": "1 件 / 時間 / 日",
+      "pricing": {
+        "fixed": "固定料金",
+        "metered": "実費",
+        "quote": "見積り"
+      }
+    },
+    "siteEditor": {
+      "preview": "プレビュー",
+      "refresh": "更新",
+      "savePublish": "保存して公開",
+      "publishedOk": "公開済み — サイトに反映されました",
+      "dataDriven": "このセクションはサイトのデータ（サービス、レビューなど）を使用します。編集は専用タブで行ってください。",
+      "block": {
+        "hero": "ヒーローセクション",
+        "concierge": "コンシェルジュ",
+        "apartment": "アパートメント",
+        "services": "サービス",
+        "tourism": "エリア",
+        "reviews": "ゲストレビュー",
+        "closing": "行動喚起"
+      }
+    },
+    "branding": {
+      "favicon": "ファビコン",
+      "faviconHint": "（ブラウザタブ、アプリアイコン）",
+      "logo": "ロゴ",
+      "wordmark": "表示名",
+      "font": "見出しフォント",
+      "accent": "アクセントカラー",
+      "choose": "選択",
+      "save": "外観を保存",
+      "fontOpt": {
+        "default": "既定（Bricolage / Hanken）",
+        "playfair": "Playfair Display（エレガント）",
+        "fraunces": "Fraunces（温かみ）",
+        "spaceGrotesk": "Space Grotesk（モダン）",
+        "instrumentSerif": "Instrument Serif（エディトリアル）"
+      }
+    },
+    "pagesMgr": {
+      "create": "作成",
+      "confirmDelete": "このページとすべての内容を削除しますか？",
+      "newTitlePlaceholder": "新しいページのタイトル（例：ウェルネス、FAQ、会社概要）",
+      "empty": "カスタムページはありません。上で作成すると次の URL で公開されます：",
+      "viewPage": "ページを表示",
+      "inMenu": "メニューに表示",
+      "addToMenu": "メニューに追加",
+      "saveContent": "内容を保存",
+      "publishedLc": "公開",
+      "draftLc": "下書き",
+      "inMenuLc": "メニュー内",
+      "titleField": "タイトル",
+      "menuLabel": "メニューのラベル",
+      "block": {
+        "rich_text": "テキスト",
+        "image": "画像",
+        "cta": "行動喚起"
+      },
+      "field": {
+        "heading": "見出し",
+        "bodyParagraphs": "本文（空行で段落を区切ります）",
+        "imageUrl": "画像（URL またはファイル）",
+        "caption": "キャプション",
+        "alt": "代替テキスト",
+        "text": "テキスト",
+        "link": "リンク（例：/reserver）",
+        "buttonLabel": "ボタンのラベル"
+      }
     }
   }
 }

@@ -459,6 +459,92 @@
         "staff": "Staff area",
         "admin": "Administration"
       }
+    },
+    "catEditor": {
+      "untitled": "Untitled",
+      "metered": "metered",
+      "quote": "on quote",
+      "lead": "lead time",
+      "active": "active",
+      "suspended": "suspended",
+      "suspend": "Suspend",
+      "activate": "Activate",
+      "details": "Details",
+      "label": "Title",
+      "description": "Description",
+      "pricingMode": "Pricing mode",
+      "leadTime": "Preparation lead time (h)",
+      "price": "Price (XOF)",
+      "unit": "Unit",
+      "unitPlaceholder": "service / hour / day",
+      "pricing": {
+        "fixed": "Fixed price",
+        "metered": "Metered",
+        "quote": "On quote"
+      }
+    },
+    "siteEditor": {
+      "preview": "Preview",
+      "refresh": "Refresh",
+      "savePublish": "Save & publish",
+      "publishedOk": "Published — live on the site",
+      "dataDriven": "This section uses site data (services, reviews…). Use its dedicated tab to edit it.",
+      "block": {
+        "hero": "Hero section",
+        "concierge": "Concierge",
+        "apartment": "The apartment",
+        "services": "Services",
+        "tourism": "The place",
+        "reviews": "Guest reviews",
+        "closing": "Call to action"
+      }
+    },
+    "branding": {
+      "favicon": "Favicon",
+      "faviconHint": "(browser tab, app icon)",
+      "logo": "Logo",
+      "wordmark": "Display name",
+      "font": "Heading font",
+      "accent": "Accent color",
+      "choose": "Choose",
+      "save": "Save appearance",
+      "fontOpt": {
+        "default": "Default (Bricolage / Hanken)",
+        "playfair": "Playfair Display (elegant)",
+        "fraunces": "Fraunces (warm)",
+        "spaceGrotesk": "Space Grotesk (modern)",
+        "instrumentSerif": "Instrument Serif (editorial)"
+      }
+    },
+    "pagesMgr": {
+      "create": "Create",
+      "confirmDelete": "Delete this page and all its content?",
+      "newTitlePlaceholder": "New page title (e.g. Wellness, FAQ, About)",
+      "empty": "No custom pages. Create one above — it will be served at",
+      "viewPage": "View page",
+      "inMenu": "In the menu",
+      "addToMenu": "Add to menu",
+      "saveContent": "Save content",
+      "publishedLc": "published",
+      "draftLc": "draft",
+      "inMenuLc": "in the menu",
+      "titleField": "Title",
+      "menuLabel": "Menu label",
+      "block": {
+        "rich_text": "Text",
+        "image": "Image",
+        "cta": "Call to action"
+      },
+      "field": {
+        "heading": "Heading",
+        "bodyParagraphs": "Content (an empty line separates paragraphs)",
+        "imageUrl": "Image (URL or file)",
+        "caption": "Caption",
+        "alt": "Alt text",
+        "text": "Text",
+        "link": "Link (e.g. /reserver)",
+        "buttonLabel": "Button label"
+      }
     }
   }
 }

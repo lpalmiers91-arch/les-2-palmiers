@@ -13,6 +13,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
 type Block = {
   id: string;
@@ -22,15 +23,7 @@ type Block = {
   content: Record<string, unknown>;
 };
 
-const LABELS: Record<string, string> = {
-  hero: "Section d'accueil",
-  concierge: "Conciergerie",
-  apartment: "L'appartement",
-  services: "Services",
-  tourism: "Le lieu",
-  reviews: "Avis clients",
-  closing: "Appel à l'action",
-};
+const BLOCK_KEYS = ["hero", "concierge", "apartment", "services", "tourism", "reviews", "closing"];
 
 // champs texte simples éditables par type
 const TEXT_FIELDS: Record<string, { key: string; label: string; multiline?: boolean }[]> = {
@@ -76,6 +69,9 @@ const TEXT_FIELDS: Record<string, { key: string; label: string; multiline?: bool
 
 export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
   const router = useRouter();
+  const { t } = useT();
+  const blockLabel = (type: string) =>
+    BLOCK_KEYS.includes(type) ? t(`console.siteEditor.block.${type}`) : type;
   const [blocks, setBlocks] = useState<Block[]>(initial);
   const [selected, setSelected] = useState<string | null>(initial[0]?.id ?? null);
   const [saving, setSaving] = useState(false);
@@ -151,7 +147,7 @@ export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
                   }`}
                 >
                   <span className={b.visible ? "" : "opacity-40"}>
-                    {LABELS[b.type] ?? b.type}
+                    {blockLabel(b.type)}
                   </span>
                   <span className="flex items-center gap-0.5">
                     <span
@@ -190,7 +186,7 @@ export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
 
         {current && (
           <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-4">
-            <p className="text-[13px] font-medium text-ink">{LABELS[current.type] ?? current.type}</p>
+            <p className="text-[13px] font-medium text-ink">{blockLabel(current.type)}</p>
             <div className="mt-3 space-y-3">
               {(TEXT_FIELDS[current.type] ?? []).map((f) => {
                 const val = String(current.content[f.key] ?? "");
@@ -236,8 +232,7 @@ export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
               })}
               {!TEXT_FIELDS[current.type] && (
                 <p className="text-[12px] text-ink-3">
-                  Cette section utilise les données du site (services, avis…). Utilisez son onglet
-                  dédié pour la modifier.
+                  {t("console.siteEditor.dataDriven")}
                 </p>
               )}
             </div>
@@ -254,25 +249,25 @@ export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
           ) : saved ? (
             <Check className="h-4 w-4" />
           ) : null}
-          {saved ? "Publié — visible sur le site" : "Enregistrer & publier"}
+          {saved ? t("console.siteEditor.publishedOk") : t("console.siteEditor.savePublish")}
         </button>
       </div>
 
       {/* aperçu live */}
       <div className="overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
         <div className="flex items-center justify-between border-b border-line px-3 py-2 text-[12px] text-ink-3">
-          <span>Aperçu</span>
+          <span>{t("console.siteEditor.preview")}</span>
           <button
             onClick={() => iframeRef.current?.contentWindow?.location.reload()}
             className="press flex items-center gap-1 hover:text-ink"
           >
-            <RefreshCw className="h-3 w-3" /> Rafraîchir
+            <RefreshCw className="h-3 w-3" /> {t("console.siteEditor.refresh")}
           </button>
         </div>
         <iframe
           ref={iframeRef}
           src="/"
-          title="Aperçu du site"
+          title={t("console.siteEditor.preview")}
           className="h-[70dvh] w-full"
         />
       </div>

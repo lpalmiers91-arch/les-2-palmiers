@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Check, ChevronDown } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { ServiceIcon } from "@/components/marketing/service-icon";
+import { useT } from "@/lib/i18n/provider";
 
 type Service = {
   id: string;
@@ -18,14 +19,11 @@ type Service = {
   lead_time_hours: number;
 };
 
-const PRICING: { value: string; label: string }[] = [
-  { value: "fixed", label: "Prix fixe" },
-  { value: "metered", label: "Au réel" },
-  { value: "quote", label: "Sur devis" },
-];
+const PRICING = ["fixed", "metered", "quote"] as const;
 
 export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
   const router = useRouter();
+  const { t } = useT();
   const [rows, setRows] = useState<Service[]>(services);
   const [open, setOpen] = useState<string | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
@@ -88,22 +86,23 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
                 className="press min-w-0 flex-1 text-left"
               >
                 <p className="truncate text-[14px] font-medium text-ink">
-                  {s.title || "Sans titre"}
+                  {s.title || t("console.catEditor.untitled")}
                 </p>
                 <p className="text-[12px] text-ink-3">
                   {s.pricing_mode === "fixed" && s.base_price
-                    ? `${s.base_price.toLocaleString("fr-FR")} XOF / ${s.unit}`
+                    ? `${s.base_price.toLocaleString()} XOF / ${s.unit}`
                     : s.pricing_mode === "metered"
-                      ? "au réel"
-                      : "sur devis"}{" "}
-                  · délai {s.lead_time_hours} h · {s.active ? "actif" : "suspendu"}
+                      ? t("console.catEditor.metered")
+                      : t("console.catEditor.quote")}{" "}
+                  · {t("console.catEditor.lead")} {s.lead_time_hours} h ·{" "}
+                  {s.active ? t("console.catEditor.active") : t("console.catEditor.suspended")}
                 </p>
               </button>
               <button
                 onClick={() => toggleActive(s)}
                 role="switch"
                 aria-checked={s.active}
-                aria-label={s.active ? "Suspendre" : "Activer"}
+                aria-label={s.active ? t("console.catEditor.suspend") : t("console.catEditor.activate")}
                 className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
                   s.active ? "bg-forest" : "bg-bone-3"
                 }`}
@@ -116,7 +115,7 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
               </button>
               <button
                 onClick={() => setOpen(isOpen ? null : s.id)}
-                aria-label="Détails"
+                aria-label={t("console.catEditor.details")}
                 className="press text-ink-3"
               >
                 <ChevronDown
@@ -129,7 +128,9 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
               <div className="border-t border-line px-4 py-4 sm:px-5">
                 <div className="grid gap-3.5 sm:grid-cols-2">
                   <label className="block sm:col-span-2">
-                    <span className="mb-1 block text-[12px] font-medium text-ink-2">Intitulé</span>
+                    <span className="mb-1 block text-[12px] font-medium text-ink-2">
+                      {t("console.catEditor.label")}
+                    </span>
                     <input
                       className="field text-[13px]"
                       value={s.title}
@@ -137,7 +138,9 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
                     />
                   </label>
                   <label className="block sm:col-span-2">
-                    <span className="mb-1 block text-[12px] font-medium text-ink-2">Description</span>
+                    <span className="mb-1 block text-[12px] font-medium text-ink-2">
+                      {t("console.catEditor.description")}
+                    </span>
                     <textarea
                       className="field min-h-[70px] resize-y text-[13px]"
                       value={s.description ?? ""}
@@ -146,7 +149,7 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
                   </label>
                   <label className="block">
                     <span className="mb-1 block text-[12px] font-medium text-ink-2">
-                      Mode de tarification
+                      {t("console.catEditor.pricingMode")}
                     </span>
                     <select
                       className="field text-[13px]"
@@ -154,15 +157,15 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
                       onChange={(e) => edit(s.id, { pricing_mode: e.target.value })}
                     >
                       {PRICING.map((p) => (
-                        <option key={p.value} value={p.value}>
-                          {p.label}
+                        <option key={p} value={p}>
+                          {t(`console.catEditor.pricing.${p}`)}
                         </option>
                       ))}
                     </select>
                   </label>
                   <label className="block">
                     <span className="mb-1 block text-[12px] font-medium text-ink-2">
-                      Délai de préparation (h)
+                      {t("console.catEditor.leadTime")}
                     </span>
                     <input
                       type="number"
@@ -176,7 +179,7 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
                     <>
                       <label className="block">
                         <span className="mb-1 block text-[12px] font-medium text-ink-2">
-                          Prix (XOF)
+                          {t("console.catEditor.price")}
                         </span>
                         <input
                           type="number"
@@ -192,11 +195,13 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
                         />
                       </label>
                       <label className="block">
-                        <span className="mb-1 block text-[12px] font-medium text-ink-2">Unité</span>
+                        <span className="mb-1 block text-[12px] font-medium text-ink-2">
+                          {t("console.catEditor.unit")}
+                        </span>
                         <input
                           className="field text-[13px]"
                           value={s.unit}
-                          placeholder="prestation / heure / jour"
+                          placeholder={t("console.catEditor.unitPlaceholder")}
                           onChange={(e) => edit(s.id, { unit: e.target.value })}
                         />
                       </label>
@@ -213,7 +218,7 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
                   ) : savedId === s.id ? (
                     <Check className="h-4 w-4" />
                   ) : null}
-                  {savedId === s.id ? "Enregistré" : "Enregistrer"}
+                  {savedId === s.id ? t("console.action.saved") : t("console.action.save")}
                 </button>
               </div>
             )}

@@ -459,6 +459,92 @@
         "staff": "مساحة الفريق",
         "admin": "الإدارة"
       }
+    },
+    "catEditor": {
+      "untitled": "بدون عنوان",
+      "metered": "حسب الفعلي",
+      "quote": "حسب عرض السعر",
+      "lead": "المهلة",
+      "active": "مفعّل",
+      "suspended": "موقوف",
+      "suspend": "إيقاف",
+      "activate": "تفعيل",
+      "details": "التفاصيل",
+      "label": "العنوان",
+      "description": "الوصف",
+      "pricingMode": "طريقة التسعير",
+      "leadTime": "مهلة التحضير (ساعة)",
+      "price": "السعر (XOF)",
+      "unit": "الوحدة",
+      "unitPlaceholder": "خدمة / ساعة / يوم",
+      "pricing": {
+        "fixed": "سعر ثابت",
+        "metered": "حسب الفعلي",
+        "quote": "حسب عرض السعر"
+      }
+    },
+    "siteEditor": {
+      "preview": "معاينة",
+      "refresh": "تحديث",
+      "savePublish": "حفظ ونشر",
+      "publishedOk": "منشور — ظاهر على الموقع",
+      "dataDriven": "يستخدم هذا القسم بيانات الموقع (الخدمات، التقييمات…). استخدم علامة التبويب المخصصة له لتعديله.",
+      "block": {
+        "hero": "قسم البداية",
+        "concierge": "الكونسيرج",
+        "apartment": "الشقة",
+        "services": "الخدمات",
+        "tourism": "المكان",
+        "reviews": "تقييمات النزلاء",
+        "closing": "دعوة إلى إجراء"
+      }
+    },
+    "branding": {
+      "favicon": "أيقونة الموقع",
+      "faviconHint": "(تبويب المتصفح، أيقونة التطبيق)",
+      "logo": "الشعار",
+      "wordmark": "الاسم المعروض",
+      "font": "خط العناوين",
+      "accent": "لون التمييز",
+      "choose": "اختيار",
+      "save": "حفظ المظهر",
+      "fontOpt": {
+        "default": "افتراضي (Bricolage / Hanken)",
+        "playfair": "Playfair Display (أنيق)",
+        "fraunces": "Fraunces (دافئ)",
+        "spaceGrotesk": "Space Grotesk (عصري)",
+        "instrumentSerif": "Instrument Serif (تحريري)"
+      }
+    },
+    "pagesMgr": {
+      "create": "إنشاء",
+      "confirmDelete": "حذف هذه الصفحة وكل محتواها؟",
+      "newTitlePlaceholder": "عنوان الصفحة الجديدة (مثل العافية، الأسئلة الشائعة، من نحن)",
+      "empty": "لا صفحات مخصصة. أنشئ واحدة أعلاه — ستُنشر على",
+      "viewPage": "عرض الصفحة",
+      "inMenu": "في القائمة",
+      "addToMenu": "إضافة إلى القائمة",
+      "saveContent": "حفظ المحتوى",
+      "publishedLc": "منشورة",
+      "draftLc": "مسودة",
+      "inMenuLc": "في القائمة",
+      "titleField": "العنوان",
+      "menuLabel": "تسمية القائمة",
+      "block": {
+        "rich_text": "نص",
+        "image": "صورة",
+        "cta": "دعوة إلى إجراء"
+      },
+      "field": {
+        "heading": "العنوان",
+        "bodyParagraphs": "المحتوى (سطر فارغ يفصل الفقرات)",
+        "imageUrl": "صورة (رابط أو ملف)",
+        "caption": "تعليق",
+        "alt": "نص بديل",
+        "text": "نص",
+        "link": "رابط (مثل /reserver)",
+        "buttonLabel": "نص الزر"
+      }
     }
   }
 }

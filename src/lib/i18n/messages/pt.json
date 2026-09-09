@@ -459,6 +459,92 @@
         "staff": "Área da equipa",
         "admin": "Administração"
       }
+    },
+    "catEditor": {
+      "untitled": "Sem título",
+      "metered": "ao real",
+      "quote": "sob orçamento",
+      "lead": "prazo",
+      "active": "ativo",
+      "suspended": "suspenso",
+      "suspend": "Suspender",
+      "activate": "Ativar",
+      "details": "Detalhes",
+      "label": "Título",
+      "description": "Descrição",
+      "pricingMode": "Modo de tarifação",
+      "leadTime": "Prazo de preparação (h)",
+      "price": "Preço (XOF)",
+      "unit": "Unidade",
+      "unitPlaceholder": "serviço / hora / dia",
+      "pricing": {
+        "fixed": "Preço fixo",
+        "metered": "Ao real",
+        "quote": "Sob orçamento"
+      }
+    },
+    "siteEditor": {
+      "preview": "Pré-visualização",
+      "refresh": "Atualizar",
+      "savePublish": "Guardar e publicar",
+      "publishedOk": "Publicado — visível no site",
+      "dataDriven": "Esta secção usa dados do site (serviços, avaliações…). Use o separador dedicado para a editar.",
+      "block": {
+        "hero": "Secção de início",
+        "concierge": "Concierge",
+        "apartment": "O apartamento",
+        "services": "Serviços",
+        "tourism": "O local",
+        "reviews": "Avaliações",
+        "closing": "Apelo à ação"
+      }
+    },
+    "branding": {
+      "favicon": "Favicon",
+      "faviconHint": "(separador do navegador, ícone da app)",
+      "logo": "Logótipo",
+      "wordmark": "Nome apresentado",
+      "font": "Tipo de letra dos títulos",
+      "accent": "Cor de destaque",
+      "choose": "Escolher",
+      "save": "Guardar a aparência",
+      "fontOpt": {
+        "default": "Predefinido (Bricolage / Hanken)",
+        "playfair": "Playfair Display (elegante)",
+        "fraunces": "Fraunces (acolhedor)",
+        "spaceGrotesk": "Space Grotesk (moderno)",
+        "instrumentSerif": "Instrument Serif (editorial)"
+      }
+    },
+    "pagesMgr": {
+      "create": "Criar",
+      "confirmDelete": "Eliminar esta página e todo o seu conteúdo?",
+      "newTitlePlaceholder": "Título da nova página (ex. Bem-estar, FAQ, Sobre)",
+      "empty": "Sem páginas personalizadas. Crie uma acima — será servida em",
+      "viewPage": "Ver a página",
+      "inMenu": "No menu",
+      "addToMenu": "Adicionar ao menu",
+      "saveContent": "Guardar o conteúdo",
+      "publishedLc": "publicada",
+      "draftLc": "rascunho",
+      "inMenuLc": "no menu",
+      "titleField": "Título",
+      "menuLabel": "Rótulo do menu",
+      "block": {
+        "rich_text": "Texto",
+        "image": "Imagem",
+        "cta": "Apelo à ação"
+      },
+      "field": {
+        "heading": "Título",
+        "bodyParagraphs": "Conteúdo (uma linha vazia separa os parágrafos)",
+        "imageUrl": "Imagem (URL ou ficheiro)",
+        "caption": "Legenda",
+        "alt": "Texto alternativo",
+        "text": "Texto",
+        "link": "Ligação (ex. /reserver)",
+        "buttonLabel": "Rótulo do botão"
+      }
     }
   }
 }

@@ -459,6 +459,92 @@
         "staff": "Team-Bereich",
         "admin": "Verwaltung"
       }
+    },
+    "catEditor": {
+      "untitled": "Ohne Titel",
+      "metered": "nach Aufwand",
+      "quote": "auf Anfrage",
+      "lead": "Vorlaufzeit",
+      "active": "aktiv",
+      "suspended": "pausiert",
+      "suspend": "Pausieren",
+      "activate": "Aktivieren",
+      "details": "Details",
+      "label": "Bezeichnung",
+      "description": "Beschreibung",
+      "pricingMode": "Preismodell",
+      "leadTime": "Vorlaufzeit (Std.)",
+      "price": "Preis (XOF)",
+      "unit": "Einheit",
+      "unitPlaceholder": "Leistung / Stunde / Tag",
+      "pricing": {
+        "fixed": "Festpreis",
+        "metered": "Nach Aufwand",
+        "quote": "Auf Anfrage"
+      }
+    },
+    "siteEditor": {
+      "preview": "Vorschau",
+      "refresh": "Aktualisieren",
+      "savePublish": "Speichern & veröffentlichen",
+      "publishedOk": "Veröffentlicht — auf der Website sichtbar",
+      "dataDriven": "Dieser Abschnitt nutzt Website-Daten (Services, Bewertungen…). Bearbeitung über den jeweiligen Tab.",
+      "block": {
+        "hero": "Startbereich",
+        "concierge": "Concierge",
+        "apartment": "Das Apartment",
+        "services": "Services",
+        "tourism": "Der Ort",
+        "reviews": "Gästebewertungen",
+        "closing": "Handlungsaufruf"
+      }
+    },
+    "branding": {
+      "favicon": "Favicon",
+      "faviconHint": "(Browser-Tab, App-Symbol)",
+      "logo": "Logo",
+      "wordmark": "Anzeigename",
+      "font": "Überschriften-Schrift",
+      "accent": "Akzentfarbe",
+      "choose": "Auswählen",
+      "save": "Erscheinungsbild speichern",
+      "fontOpt": {
+        "default": "Standard (Bricolage / Hanken)",
+        "playfair": "Playfair Display (elegant)",
+        "fraunces": "Fraunces (warm)",
+        "spaceGrotesk": "Space Grotesk (modern)",
+        "instrumentSerif": "Instrument Serif (redaktionell)"
+      }
+    },
+    "pagesMgr": {
+      "create": "Erstellen",
+      "confirmDelete": "Diese Seite und ihren gesamten Inhalt löschen?",
+      "newTitlePlaceholder": "Titel der neuen Seite (z. B. Wellness, FAQ, Über uns)",
+      "empty": "Keine eigenen Seiten. Oben eine erstellen — sie wird ausgeliefert unter",
+      "viewPage": "Seite ansehen",
+      "inMenu": "Im Menü",
+      "addToMenu": "Zum Menü hinzufügen",
+      "saveContent": "Inhalt speichern",
+      "publishedLc": "veröffentlicht",
+      "draftLc": "Entwurf",
+      "inMenuLc": "im Menü",
+      "titleField": "Titel",
+      "menuLabel": "Menü-Beschriftung",
+      "block": {
+        "rich_text": "Text",
+        "image": "Bild",
+        "cta": "Handlungsaufruf"
+      },
+      "field": {
+        "heading": "Überschrift",
+        "bodyParagraphs": "Inhalt (eine Leerzeile trennt Absätze)",
+        "imageUrl": "Bild (URL oder Datei)",
+        "caption": "Bildunterschrift",
+        "alt": "Alt-Text",
+        "text": "Text",
+        "link": "Link (z. B. /reserver)",
+        "buttonLabel": "Button-Beschriftung"
+      }
     }
   }
 }

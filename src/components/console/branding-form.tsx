@@ -4,17 +4,20 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Check, Upload } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
-const FONTS = [
-  { value: "", label: "Par défaut (Bricolage / Hanken)" },
-  { value: "Playfair Display", label: "Playfair Display (élégant)" },
-  { value: "Fraunces", label: "Fraunces (chaleureux)" },
-  { value: "Space Grotesk", label: "Space Grotesk (moderne)" },
-  { value: "Instrument Serif", label: "Instrument Serif (éditorial)" },
-];
+const FONT_VALUES = ["", "Playfair Display", "Fraunces", "Space Grotesk", "Instrument Serif"];
+const FONT_KEY: Record<string, string> = {
+  "": "default",
+  "Playfair Display": "playfair",
+  Fraunces: "fraunces",
+  "Space Grotesk": "spaceGrotesk",
+  "Instrument Serif": "instrumentSerif",
+};
 
 export function BrandingForm({ initial }: { initial: Record<string, string> }) {
   const router = useRouter();
+  const { t } = useT();
   const [b, setB] = useState<Record<string, string>>(initial);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -53,7 +56,8 @@ export function BrandingForm({ initial }: { initial: Record<string, string> }) {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-            Favicon <span className="text-ink-3">(onglet du navigateur, icône de l&apos;appli)</span>
+            {t("console.branding.favicon")}{" "}
+            <span className="text-ink-3">{t("console.branding.faviconHint")}</span>
           </span>
           <div className="flex items-center gap-3">
             {b.favicon_url && (
@@ -64,7 +68,7 @@ export function BrandingForm({ initial }: { initial: Record<string, string> }) {
               onClick={() => faviconRef.current?.click()}
               className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-medium text-ink hover:border-ink/30"
             >
-              <Upload className="h-3.5 w-3.5" /> Choisir
+              <Upload className="h-3.5 w-3.5" /> {t("console.branding.choose")}
             </button>
             <input
               ref={faviconRef}
@@ -77,7 +81,7 @@ export function BrandingForm({ initial }: { initial: Record<string, string> }) {
         </div>
 
         <div>
-          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Logo</span>
+          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("console.branding.logo")}</span>
           <div className="flex items-center gap-3">
             {b.logo_url && (
               // eslint-disable-next-line @next/next/no-img-element
@@ -87,7 +91,7 @@ export function BrandingForm({ initial }: { initial: Record<string, string> }) {
               onClick={() => logoRef.current?.click()}
               className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-medium text-ink hover:border-ink/30"
             >
-              <Upload className="h-3.5 w-3.5" /> Choisir
+              <Upload className="h-3.5 w-3.5" /> {t("console.branding.choose")}
             </button>
             <input
               ref={logoRef}
@@ -100,7 +104,7 @@ export function BrandingForm({ initial }: { initial: Record<string, string> }) {
         </div>
 
         <label className="block">
-          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Nom affiché</span>
+          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("console.branding.wordmark")}</span>
           <input
             className="field"
             value={b.wordmark ?? ""}
@@ -110,22 +114,22 @@ export function BrandingForm({ initial }: { initial: Record<string, string> }) {
         </label>
 
         <label className="block">
-          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Police des titres</span>
+          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("console.branding.font")}</span>
           <select
             className="field"
             value={b.font_display ?? ""}
             onChange={(e) => f("font_display", e.target.value)}
           >
-            {FONTS.map((x) => (
-              <option key={x.value} value={x.value}>
-                {x.label}
+            {FONT_VALUES.map((v) => (
+              <option key={v} value={v}>
+                {t(`console.branding.fontOpt.${FONT_KEY[v]}`)}
               </option>
             ))}
           </select>
         </label>
 
         <label className="block">
-          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Couleur d&apos;accent</span>
+          <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("console.branding.accent")}</span>
           <input
             type="color"
             className="h-11 w-full cursor-pointer rounded-[11px] border border-line"
@@ -141,7 +145,7 @@ export function BrandingForm({ initial }: { initial: Record<string, string> }) {
         className="press mt-5 flex h-11 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13.5px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
       >
         {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : saved ? <Check className="h-4 w-4" /> : null}
-        {saved ? "Enregistré" : "Enregistrer l'apparence"}
+        {saved ? t("console.action.saved") : t("console.branding.save")}
       </button>
     </div>
   );

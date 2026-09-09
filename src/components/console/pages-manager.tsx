@@ -14,6 +14,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
 type Page = {
   id: string;
@@ -33,32 +34,29 @@ type Block = {
   content: Record<string, unknown>;
 };
 
-const BLOCK_TYPES: { type: string; label: string; fields: { key: string; label: string; area?: boolean }[] }[] = [
+const BLOCK_TYPES: { type: string; fields: { key: string; fk: string; area?: boolean }[] }[] = [
   {
     type: "rich_text",
-    label: "Texte",
     fields: [
-      { key: "heading", label: "Titre" },
-      { key: "body", label: "Contenu (une ligne vide sépare les paragraphes)", area: true },
+      { key: "heading", fk: "heading" },
+      { key: "body", fk: "bodyParagraphs", area: true },
     ],
   },
   {
     type: "image",
-    label: "Image",
     fields: [
-      { key: "url", label: "Image (URL ou fichier)" },
-      { key: "caption", label: "Légende" },
-      { key: "alt", label: "Texte alternatif" },
+      { key: "url", fk: "imageUrl" },
+      { key: "caption", fk: "caption" },
+      { key: "alt", fk: "alt" },
     ],
   },
   {
     type: "cta",
-    label: "Appel à l'action",
     fields: [
-      { key: "title", label: "Titre" },
-      { key: "text", label: "Texte", area: true },
-      { key: "href", label: "Lien (ex. /reserver)" },
-      { key: "label", label: "Libellé du bouton" },
+      { key: "title", fk: "heading" },
+      { key: "text", fk: "text", area: true },
+      { key: "href", fk: "link" },
+      { key: "label", fk: "buttonLabel" },
     ],
   },
 ];
@@ -81,6 +79,7 @@ export function PagesManager({
   blocks: Block[];
 }) {
   const router = useRouter();
+  const { t } = useT();
   const [pages, setPages] = useState<Page[]>(initialPages);
   const [blocks, setBlocks] = useState<Block[]>(initialBlocks);
   const [openId, setOpenId] = useState<string | null>(initialPages[0]?.id ?? null);
@@ -115,7 +114,7 @@ export function PagesManager({
   }
 
   async function deletePage(id: string) {
-    if (!confirm("Supprimer cette page et tout son contenu ?")) return;
+    if (!confirm(t("console.pagesMgr.confirmDelete"))) return;
     setPages((p) => p.filter((x) => x.id !== id));
     setBlocks((b) => b.filter((x) => x.page_id !== id));
     await supabase().from("site_pages").delete().eq("id", id);
@@ -191,7 +190,7 @@ export function PagesManager({
       <div className="flex flex-col gap-2 rounded-[var(--radius-lg)] border border-line bg-bone p-4 sm:flex-row sm:items-center">
         <input
           className="field flex-1 text-[13px]"
-          placeholder="Titre de la nouvelle page (ex. Bien-être, FAQ, À propos)"
+          placeholder={t("console.pagesMgr.newTitlePlaceholder")}
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
         />
@@ -200,15 +199,13 @@ export function PagesManager({
           disabled={busy || !newTitle.trim()}
           className="press flex h-11 items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
         >
-          <Plus className="h-4 w-4" /> Créer
+          <Plus className="h-4 w-4" /> {t("console.pagesMgr.create")}
         </button>
       </div>
 
       {pages.length === 0 && (
         <p className="rounded-[var(--radius-lg)] border border-dashed border-line px-4 py-8 text-center text-[13px] text-ink-3">
-          Aucune page personnalisée. Créez-en une ci-dessus — elle apparaîtra sur
-          {" "}
-          <code>/p/mon-slug</code>.
+          {t("console.pagesMgr.empty")} <code>/p/slug</code>.
         </p>
       )}
 
@@ -226,8 +223,8 @@ export function PagesManager({
               >
                 <p className="truncate text-[14px] font-medium text-ink">{pg.title}</p>
                 <p className="text-[12px] text-ink-3">
-                  /p/{pg.slug} · {pg.status === "published" ? "publiée" : "brouillon"}
-                  {pg.in_nav ? " · dans le menu" : ""}
+                  /p/{pg.slug} · {pg.status === "published" ? t("console.pagesMgr.publishedLc") : t("console.pagesMgr.draftLc")}
+                  {pg.in_nav ? ` · ${t("console.pagesMgr.inMenuLc")}` : ""}
                 </p>
               </button>
               {pg.status === "published" && (
@@ -236,7 +233,7 @@ export function PagesManager({
                   target="_blank"
                   rel="noreferrer"
                   className="press text-ink-3 hover:text-ink"
-                  aria-label="Voir la page"
+                  aria-label={t("console.pagesMgr.viewPage")}
                 >
                   <ExternalLink className="h-4 w-4" />
                 </a>
@@ -244,7 +241,7 @@ export function PagesManager({
               <button
                 onClick={() => deletePage(pg.id)}
                 className="press text-ink-3 hover:text-danger"
-                aria-label="Supprimer"
+                aria-label={t("console.action.delete")}
               >
                 <Trash2 className="h-4 w-4" />
               </button>
@@ -254,7 +251,7 @@ export function PagesManager({
               <div className="border-t border-line px-4 py-4 sm:px-5">
                 <div className="grid gap-3 sm:grid-cols-2">
                   <label className="block">
-                    <span className="mb-1 block text-[12px] font-medium text-ink-2">Titre</span>
+                    <span className="mb-1 block text-[12px] font-medium text-ink-2">{t("console.pagesMgr.titleField")}</span>
                     <input
                       className="field text-[13px]"
                       defaultValue={pg.title}
@@ -267,7 +264,7 @@ export function PagesManager({
                   </label>
                   <label className="block">
                     <span className="mb-1 block text-[12px] font-medium text-ink-2">
-                      Libellé dans le menu
+                      {t("console.pagesMgr.menuLabel")}
                     </span>
                     <input
                       className="field text-[13px]"
@@ -290,7 +287,7 @@ export function PagesManager({
                         : "border border-line text-ink"
                     }`}
                   >
-                    {pg.status === "published" ? "Publiée" : "Publier"}
+                    {pg.status === "published" ? t("console.status.published") : t("console.action.publish")}
                   </button>
                   <button
                     onClick={() => patchPage(pg.id, { in_nav: !pg.in_nav })}
@@ -298,7 +295,7 @@ export function PagesManager({
                       pg.in_nav ? "bg-forest text-bone" : "border border-line text-ink"
                     }`}
                   >
-                    {pg.in_nav ? "Dans le menu" : "Ajouter au menu"}
+                    {pg.in_nav ? t("console.pagesMgr.inMenu") : t("console.pagesMgr.addToMenu")}
                   </button>
                 </div>
 
@@ -309,7 +306,7 @@ export function PagesManager({
                       <div key={b.id} className="rounded-[12px] border border-line bg-bone-2 p-3">
                         <div className="mb-2 flex items-center justify-between">
                           <span className="text-[12px] font-medium text-ink-2">
-                            {def?.label ?? b.type}
+                            {def ? t(`console.pagesMgr.block.${b.type}`) : b.type}
                           </span>
                           <span className="flex items-center gap-0.5">
                             <button
@@ -356,7 +353,7 @@ export function PagesManager({
                                 <div key={f.key} className="flex gap-2">
                                   <input
                                     className="field flex-1 text-[13px]"
-                                    placeholder={f.label}
+                                    placeholder={t(`console.pagesMgr.field.${f.fk}`)}
                                     value={val}
                                     onChange={(e) => editBlock(b.id, f.key, e.target.value)}
                                   />
@@ -379,7 +376,7 @@ export function PagesManager({
                               <textarea
                                 key={f.key}
                                 className="field min-h-[80px] resize-y text-[13px]"
-                                placeholder={f.label}
+                                placeholder={t(`console.pagesMgr.field.${f.fk}`)}
                                 value={val}
                                 onChange={(e) => editBlock(b.id, f.key, e.target.value)}
                               />
@@ -387,7 +384,7 @@ export function PagesManager({
                               <input
                                 key={f.key}
                                 className="field text-[13px]"
-                                placeholder={f.label}
+                                placeholder={t(`console.pagesMgr.field.${f.fk}`)}
                                 value={val}
                                 onChange={(e) => editBlock(b.id, f.key, e.target.value)}
                               />
@@ -400,13 +397,13 @@ export function PagesManager({
                 </div>
 
                 <div className="mt-3 flex flex-wrap items-center gap-2">
-                  {BLOCK_TYPES.map((t) => (
+                  {BLOCK_TYPES.map((bt) => (
                     <button
-                      key={t.type}
-                      onClick={() => addBlock(pg.id, t.type)}
+                      key={bt.type}
+                      onClick={() => addBlock(pg.id, bt.type)}
                       className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-3.5 text-[12.5px] font-medium text-ink hover:border-ink/30"
                     >
-                      <Plus className="h-3.5 w-3.5" /> {t.label}
+                      <Plus className="h-3.5 w-3.5" /> {t(`console.pagesMgr.block.${bt.type}`)}
                     </button>
                   ))}
                 </div>
@@ -421,7 +418,7 @@ export function PagesManager({
                   ) : savedId === pg.id ? (
                     <Check className="h-4 w-4" />
                   ) : null}
-                  {savedId === pg.id ? "Enregistré" : "Enregistrer le contenu"}
+                  {savedId === pg.id ? t("console.action.saved") : t("console.pagesMgr.saveContent")}
                 </button>
               </div>
             )}

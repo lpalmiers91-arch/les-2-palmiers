@@ -459,6 +459,92 @@
         "staff": "Area staff",
         "admin": "Amministrazione"
       }
+    },
+    "catEditor": {
+      "untitled": "Senza titolo",
+      "metered": "a consuntivo",
+      "quote": "su preventivo",
+      "lead": "tempi",
+      "active": "attivo",
+      "suspended": "sospeso",
+      "suspend": "Sospendi",
+      "activate": "Attiva",
+      "details": "Dettagli",
+      "label": "Titolo",
+      "description": "Descrizione",
+      "pricingMode": "Modalità di tariffazione",
+      "leadTime": "Tempo di preparazione (h)",
+      "price": "Prezzo (XOF)",
+      "unit": "Unità",
+      "unitPlaceholder": "servizio / ora / giorno",
+      "pricing": {
+        "fixed": "Prezzo fisso",
+        "metered": "A consuntivo",
+        "quote": "Su preventivo"
+      }
+    },
+    "siteEditor": {
+      "preview": "Anteprima",
+      "refresh": "Aggiorna",
+      "savePublish": "Salva e pubblica",
+      "publishedOk": "Pubblicato — visibile sul sito",
+      "dataDriven": "Questa sezione usa i dati del sito (servizi, recensioni…). Usa la scheda dedicata per modificarla.",
+      "block": {
+        "hero": "Sezione iniziale",
+        "concierge": "Concierge",
+        "apartment": "L'appartamento",
+        "services": "Servizi",
+        "tourism": "Il luogo",
+        "reviews": "Recensioni",
+        "closing": "Invito all'azione"
+      }
+    },
+    "branding": {
+      "favicon": "Favicon",
+      "faviconHint": "(scheda del browser, icona dell'app)",
+      "logo": "Logo",
+      "wordmark": "Nome visualizzato",
+      "font": "Carattere dei titoli",
+      "accent": "Colore d'accento",
+      "choose": "Scegli",
+      "save": "Salva l'aspetto",
+      "fontOpt": {
+        "default": "Predefinito (Bricolage / Hanken)",
+        "playfair": "Playfair Display (elegante)",
+        "fraunces": "Fraunces (caldo)",
+        "spaceGrotesk": "Space Grotesk (moderno)",
+        "instrumentSerif": "Instrument Serif (editoriale)"
+      }
+    },
+    "pagesMgr": {
+      "create": "Crea",
+      "confirmDelete": "Eliminare questa pagina e tutto il suo contenuto?",
+      "newTitlePlaceholder": "Titolo della nuova pagina (es. Benessere, FAQ, Chi siamo)",
+      "empty": "Nessuna pagina personalizzata. Creane una sopra — sarà disponibile su",
+      "viewPage": "Vedi la pagina",
+      "inMenu": "Nel menu",
+      "addToMenu": "Aggiungi al menu",
+      "saveContent": "Salva il contenuto",
+      "publishedLc": "pubblicata",
+      "draftLc": "bozza",
+      "inMenuLc": "nel menu",
+      "titleField": "Titolo",
+      "menuLabel": "Etichetta del menu",
+      "block": {
+        "rich_text": "Testo",
+        "image": "Immagine",
+        "cta": "Invito all'azione"
+      },
+      "field": {
+        "heading": "Titolo",
+        "bodyParagraphs": "Contenuto (una riga vuota separa i paragrafi)",
+        "imageUrl": "Immagine (URL o file)",
+        "caption": "Didascalia",
+        "alt": "Testo alternativo",
+        "text": "Testo",
+        "link": "Link (es. /reserver)",
+        "buttonLabel": "Etichetta del pulsante"
+      }
     }
   }
 }
