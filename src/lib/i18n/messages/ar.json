@@ -570,7 +570,8 @@
       "roleAdmin": "مشرف",
       "send": "إرسال الدعوة",
       "sent": "أُرسلت الدعوة. يتلقى العضو بريدًا إلكترونيًا لإنشاء كلمة المرور.",
-      "alreadyExisted": "هذا الحساب موجود مسبقًا — تم إسناد الدور إليه للتو."
+      "alreadyExisted": "هذا الحساب موجود مسبقًا — تم إسناد الدور إليه للتو.",
+      "roleClient": "عميل"
     },
     "contractEd": {
       "info": "المعلومات",
@@ -636,7 +637,31 @@
       "availabilityNote": "احجب التواريخ التي لا يمكن فيها تأجير السكن.",
       "from": "من",
       "to": "إلى",
-      "block": "حجب"
+      "block": "حجب",
+      "allApartments": "كل الشقق"
+    },
+    "clientDetail": {
+      "allClients": "كل العملاء",
+      "online": "متصل",
+      "seen": "شوهد",
+      "neverConnected": "لم يتصل قط",
+      "contact": "بيانات الاتصال",
+      "language": "اللغة",
+      "summary": "ملخص",
+      "serviceOrders": "طلبات الخدمة",
+      "totalPaid": "الإجمالي المدفوع",
+      "conversations": "المحادثات",
+      "handleVerif": "معالجة التحقق",
+      "noReservations": "لا حجوزات.",
+      "noOrders": "لا طلبات.",
+      "idVerified": "الهوية موثّقة",
+      "idPending": "التحقق قيد الانتظار",
+      "idRejected": "التحقق مرفوض",
+      "idNone": "غير موثّق"
+    },
+    "refund": {
+      "action": "استرداد",
+      "reason": "السبب"
     }
   }
 }

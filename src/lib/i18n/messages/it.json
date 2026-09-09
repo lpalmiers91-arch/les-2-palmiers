@@ -570,7 +570,8 @@
       "roleAdmin": "Admin",
       "send": "Invia l'invito",
       "sent": "Invito inviato. Il membro riceve un'e-mail per impostare la password.",
-      "alreadyExisted": "Questo account esisteva già — il ruolo è stato appena assegnato."
+      "alreadyExisted": "Questo account esisteva già — il ruolo è stato appena assegnato.",
+      "roleClient": "Cliente"
     },
     "contractEd": {
       "info": "Informazioni",
@@ -636,7 +637,31 @@
       "availabilityNote": "Blocca le date in cui l'alloggio non è affittabile.",
       "from": "Dal",
       "to": "Al",
-      "block": "Blocca"
+      "block": "Blocca",
+      "allApartments": "Tutti gli appartamenti"
+    },
+    "clientDetail": {
+      "allClients": "Tutti i clienti",
+      "online": "online",
+      "seen": "visto",
+      "neverConnected": "mai connesso",
+      "contact": "Contatti",
+      "language": "Lingua",
+      "summary": "Riepilogo",
+      "serviceOrders": "Ordini di servizio",
+      "totalPaid": "Totale pagato",
+      "conversations": "Conversazioni",
+      "handleVerif": "Gestisci la verifica",
+      "noReservations": "Nessuna prenotazione.",
+      "noOrders": "Nessun ordine.",
+      "idVerified": "Identità verificata",
+      "idPending": "Verifica in sospeso",
+      "idRejected": "Verifica rifiutata",
+      "idNone": "Non verificato"
+    },
+    "refund": {
+      "action": "Rimborsa",
+      "reason": "Motivo"
     }
   }
 }

@@ -570,7 +570,8 @@
       "roleAdmin": "Admin",
       "send": "Einladung senden",
       "sent": "Einladung gesendet. Das Mitglied erhält eine E-Mail zum Festlegen des Passworts.",
-      "alreadyExisted": "Dieses Konto existierte bereits — die Rolle wurde gerade zugewiesen."
+      "alreadyExisted": "Dieses Konto existierte bereits — die Rolle wurde gerade zugewiesen.",
+      "roleClient": "Kunde"
     },
     "contractEd": {
       "info": "Angaben",
@@ -636,7 +637,31 @@
       "availabilityNote": "Sperren Sie die Termine, an denen die Unterkunft nicht vermietbar ist.",
       "from": "Von",
       "to": "Bis",
-      "block": "Sperren"
+      "block": "Sperren",
+      "allApartments": "Alle Apartments"
+    },
+    "clientDetail": {
+      "allClients": "Alle Kunden",
+      "online": "online",
+      "seen": "gesehen",
+      "neverConnected": "nie verbunden",
+      "contact": "Kontaktdaten",
+      "language": "Sprache",
+      "summary": "Zusammenfassung",
+      "serviceOrders": "Servicebestellungen",
+      "totalPaid": "Gesamt bezahlt",
+      "conversations": "Unterhaltungen",
+      "handleVerif": "Verifizierung bearbeiten",
+      "noReservations": "Keine Reservierung.",
+      "noOrders": "Keine Bestellung.",
+      "idVerified": "Identität bestätigt",
+      "idPending": "Verifizierung ausstehend",
+      "idRejected": "Verifizierung abgelehnt",
+      "idNone": "Nicht verifiziert"
+    },
+    "refund": {
+      "action": "Erstatten",
+      "reason": "Grund"
     }
   }
 }

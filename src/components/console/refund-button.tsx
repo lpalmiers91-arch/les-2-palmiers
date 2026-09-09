@@ -4,9 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { formatXOF } from "@/lib/format";
+import { useT } from "@/lib/i18n/provider";
 
 export function RefundButton({ paymentId, max }: { paymentId: string; max: number }) {
   const router = useRouter();
+  const { t } = useT();
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState(String(max));
   const [reason, setReason] = useState("");
@@ -35,7 +37,7 @@ export function RefundButton({ paymentId, max }: { paymentId: string; max: numbe
         onClick={() => setOpen(true)}
         className="press h-8 rounded-full border border-line px-3 text-[12px] text-ink-2 hover:border-danger/40"
       >
-        Rembourser
+        {t("console.refund.action")}
       </button>
     );
   }
@@ -51,7 +53,7 @@ export function RefundButton({ paymentId, max }: { paymentId: string; max: numbe
         className="field tnum h-8 w-32 text-[12px]"
       />
       <input
-        placeholder="Motif"
+        placeholder={t("console.refund.reason")}
         value={reason}
         onChange={(e) => setReason(e.target.value)}
         className="field h-8 w-40 text-[12px]"
@@ -65,7 +67,7 @@ export function RefundButton({ paymentId, max }: { paymentId: string; max: numbe
           {formatXOF(Number(amount) || 0)}
         </button>
         <button onClick={() => setOpen(false)} className="press h-8 rounded-full px-3 text-[12px] text-ink-3">
-          Annuler
+          {t("console.action.cancel")}
         </button>
       </div>
       {err && <p className="text-[11px] text-danger">{err}</p>}

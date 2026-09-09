@@ -570,7 +570,8 @@
       "roleAdmin": "管理者",
       "send": "招待を送信",
       "sent": "招待を送信しました。メンバーはパスワード設定用のメールを受け取ります。",
-      "alreadyExisted": "このアカウントは既に存在していました — ロールを割り当てました。"
+      "alreadyExisted": "このアカウントは既に存在していました — ロールを割り当てました。",
+      "roleClient": "顧客"
     },
     "contractEd": {
       "info": "情報",
@@ -636,7 +637,31 @@
       "availabilityNote": "物件を貸し出せない日付をブロックします。",
       "from": "開始",
       "to": "終了",
-      "block": "ブロック"
+      "block": "ブロック",
+      "allApartments": "すべてのアパートメント"
+    },
+    "clientDetail": {
+      "allClients": "すべての顧客",
+      "online": "オンライン",
+      "seen": "最終アクセス",
+      "neverConnected": "未ログイン",
+      "contact": "連絡先",
+      "language": "言語",
+      "summary": "概要",
+      "serviceOrders": "サービス注文",
+      "totalPaid": "支払い合計",
+      "conversations": "会話",
+      "handleVerif": "本人確認を処理",
+      "noReservations": "予約はありません。",
+      "noOrders": "注文はありません。",
+      "idVerified": "本人確認済み",
+      "idPending": "本人確認待ち",
+      "idRejected": "本人確認却下",
+      "idNone": "未確認"
+    },
+    "refund": {
+      "action": "返金",
+      "reason": "理由"
     }
   }
 }

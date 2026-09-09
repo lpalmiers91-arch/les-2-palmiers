@@ -570,7 +570,8 @@
       "roleAdmin": "Admin",
       "send": "Envoyer l'invitation",
       "sent": "Invitation envoyée. Le membre reçoit un e-mail pour créer son mot de passe.",
-      "alreadyExisted": "Ce compte existait déjà — le rôle vient de lui être attribué."
+      "alreadyExisted": "Ce compte existait déjà — le rôle vient de lui être attribué.",
+      "roleClient": "Client"
     },
     "contractEd": {
       "info": "Informations",
@@ -636,7 +637,31 @@
       "availabilityNote": "Bloquez les dates où le logement n'est pas louable.",
       "from": "Du",
       "to": "Au",
-      "block": "Bloquer"
+      "block": "Bloquer",
+      "allApartments": "Tous les appartements"
+    },
+    "clientDetail": {
+      "allClients": "Tous les clients",
+      "online": "en ligne",
+      "seen": "vu",
+      "neverConnected": "jamais connecté",
+      "contact": "Coordonnées",
+      "language": "Langue",
+      "summary": "Résumé",
+      "serviceOrders": "Commandes de services",
+      "totalPaid": "Total réglé",
+      "conversations": "Conversations",
+      "handleVerif": "Traiter la vérification",
+      "noReservations": "Aucune réservation.",
+      "noOrders": "Aucune commande.",
+      "idVerified": "Identité vérifiée",
+      "idPending": "Vérification en attente",
+      "idRejected": "Vérification refusée",
+      "idNone": "Non vérifié"
+    },
+    "refund": {
+      "action": "Rembourser",
+      "reason": "Motif"
     }
   }
 }

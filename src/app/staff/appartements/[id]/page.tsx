@@ -9,11 +9,13 @@ import {
   type MediaRow,
   type BlockRow,
 } from "@/components/console/apartment-editor";
+import { getT } from "@/lib/i18n";
 
 export const metadata: Metadata = { title: "Modifier l'appartement" };
 
 export default async function ApartmentDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  const { t } = await getT();
   const supabase = await createClient();
 
   const { data: apartment } = await supabase
@@ -45,7 +47,7 @@ export default async function ApartmentDetail({ params }: { params: Promise<{ id
         href="/staff/appartements"
         className="inline-flex items-center gap-1.5 text-[13px] text-ink-3 hover:text-ink"
       >
-        <ArrowLeft className="h-4 w-4" /> Tous les appartements
+        <ArrowLeft className="h-4 w-4" /> {t("console.aptEd.allApartments")}
       </Link>
       <h1 className="display mt-3 text-[1.7rem] text-ink sm:text-[2rem]">{apartment.name}</h1>
       <div className="mt-6">

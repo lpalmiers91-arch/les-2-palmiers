@@ -10,10 +10,10 @@ import { formatXOF } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Appartements" };
 
-const STATUS: Record<string, { label: string; cls: string }> = {
-  published: { label: "En ligne", cls: "bg-ok/12 text-forest-2" },
-  draft: { label: "Brouillon", cls: "bg-warn/12 text-warn" },
-  hidden: { label: "Masqué", cls: "bg-ink/8 text-ink-3" },
+const STATUS: Record<string, { key: string; cls: string }> = {
+  published: { key: "online", cls: "bg-ok/12 text-forest-2" },
+  draft: { key: "draft", cls: "bg-warn/12 text-warn" },
+  hidden: { key: "hidden", cls: "bg-ink/8 text-ink-3" },
 };
 
 export default async function StaffApartmentsPage() {
@@ -74,7 +74,11 @@ export default async function StaffApartmentsPage() {
                     <span
                       className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[11px] font-medium ${st.cls}`}
                     >
-                      {st.label}
+                      {st.key === "online"
+                        ? t("console.aptEd.online")
+                        : st.key === "draft"
+                          ? t("console.status.draft")
+                          : t("console.status.hidden")}
                     </span>
                   </div>
                   <div className="p-4">

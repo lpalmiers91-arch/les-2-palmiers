@@ -570,7 +570,8 @@
       "roleAdmin": "Administrador",
       "send": "Enviar la invitación",
       "sent": "Invitación enviada. El miembro recibe un correo para crear su contraseña.",
-      "alreadyExisted": "Esta cuenta ya existía — se le acaba de asignar el rol."
+      "alreadyExisted": "Esta cuenta ya existía — se le acaba de asignar el rol.",
+      "roleClient": "Cliente"
     },
     "contractEd": {
       "info": "Información",
@@ -636,7 +637,31 @@
       "availabilityNote": "Bloquea las fechas en las que el alojamiento no se puede alquilar.",
       "from": "Del",
       "to": "Al",
-      "block": "Bloquear"
+      "block": "Bloquear",
+      "allApartments": "Todos los apartamentos"
+    },
+    "clientDetail": {
+      "allClients": "Todos los clientes",
+      "online": "en línea",
+      "seen": "visto",
+      "neverConnected": "nunca conectado",
+      "contact": "Datos de contacto",
+      "language": "Idioma",
+      "summary": "Resumen",
+      "serviceOrders": "Pedidos de servicio",
+      "totalPaid": "Total pagado",
+      "conversations": "Conversaciones",
+      "handleVerif": "Gestionar la verificación",
+      "noReservations": "Sin reservas.",
+      "noOrders": "Sin pedidos.",
+      "idVerified": "Identidad verificada",
+      "idPending": "Verificación pendiente",
+      "idRejected": "Verificación rechazada",
+      "idNone": "Sin verificar"
+    },
+    "refund": {
+      "action": "Reembolsar",
+      "reason": "Motivo"
     }
   }
 }

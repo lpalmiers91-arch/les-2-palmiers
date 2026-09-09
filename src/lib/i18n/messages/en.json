@@ -570,7 +570,8 @@
       "roleAdmin": "Admin",
       "send": "Send the invitation",
       "sent": "Invitation sent. The member gets an email to set their password.",
-      "alreadyExisted": "This account already existed — the role has just been assigned."
+      "alreadyExisted": "This account already existed — the role has just been assigned.",
+      "roleClient": "Client"
     },
     "contractEd": {
       "info": "Information",
@@ -636,7 +637,31 @@
       "availabilityNote": "Block the dates when the property cannot be rented.",
       "from": "From",
       "to": "To",
-      "block": "Block"
+      "block": "Block",
+      "allApartments": "All apartments"
+    },
+    "clientDetail": {
+      "allClients": "All clients",
+      "online": "online",
+      "seen": "seen",
+      "neverConnected": "never connected",
+      "contact": "Contact details",
+      "language": "Language",
+      "summary": "Summary",
+      "serviceOrders": "Service orders",
+      "totalPaid": "Total paid",
+      "conversations": "Conversations",
+      "handleVerif": "Handle the verification",
+      "noReservations": "No reservation.",
+      "noOrders": "No order.",
+      "idVerified": "Identity verified",
+      "idPending": "Verification pending",
+      "idRejected": "Verification rejected",
+      "idNone": "Not verified"
+    },
+    "refund": {
+      "action": "Refund",
+      "reason": "Reason"
     }
   }
 }

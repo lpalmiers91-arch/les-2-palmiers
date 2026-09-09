@@ -3,16 +3,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
 const ALL = [
-  { id: "client", label: "Client" },
-  { id: "staff", label: "Staff" },
-  { id: "coordinator", label: "Coordinateur" },
-  { id: "admin", label: "Admin" },
+  { id: "client", key: "roleClient" },
+  { id: "staff", key: "roleStaff" },
+  { id: "coordinator", key: "roleCoordinator" },
+  { id: "admin", key: "roleAdmin" },
 ];
 
 export function RoleToggles({ userId, roles }: { userId: string; roles: string[] }) {
   const router = useRouter();
+  const { t } = useT();
   const [current, setCurrent] = useState<string[]>(roles);
   const [busy, setBusy] = useState<string | null>(null);
 
@@ -44,7 +46,7 @@ export function RoleToggles({ userId, roles }: { userId: string; roles: string[]
               on ? "border-forest bg-forest text-bone" : "border-line text-ink-3 hover:border-ink/30"
             }`}
           >
-            {r.label}
+            {t(`console.invite.${r.key}`)}
           </button>
         );
       })}

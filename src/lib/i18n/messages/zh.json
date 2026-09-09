@@ -570,7 +570,8 @@
       "roleAdmin": "管理员",
       "send": "发送邀请",
       "sent": "邀请已发送。该成员将收到一封电子邮件以设置密码。",
-      "alreadyExisted": "该账户已存在 — 刚刚为其分配了角色。"
+      "alreadyExisted": "该账户已存在 — 刚刚为其分配了角色。",
+      "roleClient": "客户"
     },
     "contractEd": {
       "info": "信息",
@@ -636,7 +637,31 @@
       "availabilityNote": "锁定房源无法出租的日期。",
       "from": "从",
       "to": "到",
-      "block": "锁定"
+      "block": "锁定",
+      "allApartments": "所有公寓"
+    },
+    "clientDetail": {
+      "allClients": "所有客户",
+      "online": "在线",
+      "seen": "最后活跃",
+      "neverConnected": "从未登录",
+      "contact": "联系方式",
+      "language": "语言",
+      "summary": "摘要",
+      "serviceOrders": "服务订单",
+      "totalPaid": "已付总额",
+      "conversations": "对话",
+      "handleVerif": "处理身份验证",
+      "noReservations": "暂无预订。",
+      "noOrders": "暂无订单。",
+      "idVerified": "身份已验证",
+      "idPending": "身份验证待处理",
+      "idRejected": "身份验证被驳回",
+      "idNone": "未验证"
+    },
+    "refund": {
+      "action": "退款",
+      "reason": "原因"
     }
   }
 }
