@@ -2,24 +2,24 @@ import { Phone } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { ButtonLink } from "@/components/ui/button";
 import { site } from "@/lib/site";
+import { getT } from "@/lib/i18n";
 
-export function Closing() {
+export async function Closing() {
+  const { t } = await getT();
   return (
     <section id="contact" className="bg-bone">
       <div className="mx-auto max-w-4xl px-5 py-28 text-center md:px-8 md:py-36">
         <Reveal>
           <p className="display text-[1.9rem] leading-[1.28] text-ink sm:text-[2.5rem]">
-            « Profitez pleinement de votre temps…{" "}
-            <span className="italic font-normal text-forest-2">
-              nous nous occupons du reste. »
-            </span>
+            « {t("hero.titleA")} {t("hero.titleB")}…{" "}
+            <span className="italic font-normal text-forest-2">{t("hero.titleEm")} »</span>
           </p>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <ButtonLink href="/reserver" size="lg" className="w-full sm:w-auto">
-              Réserver l'appartement
+              {t("home.closingCta")}
             </ButtonLink>
             <ButtonLink
               href={`tel:${site.phones[0].replace(/\s/g, "")}`}
@@ -32,7 +32,7 @@ export function Closing() {
             </ButtonLink>
           </div>
           <p className="mt-5 text-[13px] text-ink-3">
-            Une question avant de réserver ? Écrivez à{" "}
+            {t("home.closingContact")}{" "}
             <a
               href={`mailto:${site.email}`}
               className="text-ink underline decoration-brass decoration-1 underline-offset-4"

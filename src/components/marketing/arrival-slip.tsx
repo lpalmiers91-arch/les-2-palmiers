@@ -7,6 +7,7 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { apartmentFallback, formatXOF } from "@/lib/site";
 import { easeOut } from "@/lib/motion";
+import { useT } from "@/lib/i18n/provider";
 
 function isoPlus(days: number) {
   const d = new Date();
@@ -25,6 +26,7 @@ type Quote = {
 
 export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
   const router = useRouter();
+  const { t } = useT();
   // état initial stable (SSR = client). Les dates réelles sont posées au montage.
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -51,13 +53,13 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
     if (!start || !end) return;
     if (nights < 1) {
       setQuote(null);
-      setErr(new Date(end) <= new Date(start) ? "La date de départ doit suivre l'arrivée." : null);
+      setErr(new Date(end) <= new Date(start) ? t("arrival.unavailable") : null);
       return;
     }
     setErr(null);
     const id = ++seq.current;
     setLoading(true);
-    const t = setTimeout(async () => {
+    const timer = setTimeout(async () => {
       try {
         const supabase = createClient();
         const { data: apt } = await supabase
@@ -92,8 +94,8 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
         if (id === seq.current) setLoading(false);
       }
     }, 320);
-    return () => clearTimeout(t);
-  }, [start, end, guests, nights]);
+    return () => clearTimeout(timer);
+  }, [start, end, guests, nights, t]);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -114,12 +116,12 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
       aria-label="Vérifier les disponibilités"
     >
       <div className="flex items-baseline justify-between border-b border-ink/15 pb-3">
-        <span className="display text-[15px] text-ink">Votre séjour</span>
+        <span className="display text-[15px] text-ink">{t("arrival.title")}</span>
         <span className="text-[12px] text-ink-3">Cotonou · Bénin</span>
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <Field label="Arrivée">
+        <Field label={t("arrival.arrival")}>
           <input
             type="date"
             value={start}
@@ -128,7 +130,7 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
             className="slip-input"
           />
         </Field>
-        <Field label="Départ">
+        <Field label={t("arrival.departure")}>
           <input
             type="date"
             value={end}
@@ -140,7 +142,7 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
       </div>
 
       <div className="mt-3">
-        <Field label="Voyageurs">
+        <Field label={t("arrival.guests")}>
           <div className="flex items-center justify-between">
             <span className="tnum text-[15px] text-ink">{guests}</span>
             <div className="flex gap-1.5">
@@ -176,9 +178,7 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
               transition={{ duration: 0.35, ease: easeOut }}
             >
               <div className="flex items-baseline justify-between text-[13px] text-ink-3">
-                <span>
-                  {quote.nights} nuit{quote.nights > 1 ? "s" : ""} · ménage inclus
-                </span>
+                <span>{t("arrival.nightsIncluded", { nights: quote.nights })}</span>
                 {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
               </div>
               <div className="mt-1 flex items-baseline justify-between">
@@ -186,15 +186,15 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
                   {formatXOF(quote.total)}
                 </span>
                 {quote.available ? (
-                  <span className="text-[12px] font-medium text-ok">Disponible</span>
+                  <span className="text-[12px] font-medium text-ok">{t("arrival.available")}</span>
                 ) : (
-                  <span className="text-[12px] font-medium text-danger">Indisponible</span>
+                  <span className="text-[12px] font-medium text-danger">{t("arrival.unavailable")}</span>
                 )}
               </div>
             </motion.div>
           ) : (
             <p key="idle" className="text-[13px] text-ink-3">
-              Choisissez vos dates pour voir le tarif.
+              {t("arrival.checkAvailability")}
             </p>
           )}
         </AnimatePresence>
@@ -205,12 +205,9 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
         disabled={nights < 1}
         className="press mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-[14px] font-medium text-bone transition-colors hover:bg-forest-2 disabled:opacity-40"
       >
-        Voir les disponibilités
+        {t("arrival.checkAvailability")}
         <ArrowRight className="h-4 w-4" />
       </button>
-      <p className="mt-2.5 text-center text-[11.5px] text-ink-3">
-        Sans engagement · paiement à l'étape suivante
-      </p>
     </form>
   );
 }

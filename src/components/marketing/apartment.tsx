@@ -1,8 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { amenitiesFallback, aptImg } from "@/lib/site";
+import { getT } from "@/lib/i18n";
 
 const gallery = [
   { src: aptImg("balcony-view.jpg"), alt: "Balcon à balustrade avec palmier en pot et vue sur l'océan" },
@@ -11,20 +10,19 @@ const gallery = [
   { src: aptImg("g-20.jpg"), alt: "Terrasse ombragée, palmier et bougainvilliers en fleurs" },
 ];
 
-export function Apartment() {
+export async function Apartment() {
+  const { t } = await getT();
   return (
     <section id="appartement" className="bg-bone-2">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
         <Reveal className="max-w-xl">
           <h2 className="display text-[2.1rem] leading-[1.06] text-ink sm:text-[2.7rem]">
-            L'appartement,
+            {t("home.apartmentTitle")}
             <br />
-            <span className="italic font-normal text-forest-2">au calme, en hauteur.</span>
+            <span className="italic font-normal text-forest-2">{t("home.apartmentTitleEm")}</span>
           </h2>
           <p className="measure mt-6 text-[1.02rem] leading-relaxed text-ink-2">
-            Deux chambres, deux salles d'eau, un séjour ouvert et une terrasse à
-            colonnes qui donne sur les toits et l'océan. Tout est prêt : vous
-            posez vos valises, rien d'autre.
+            {t("home.apartmentLede")}
           </p>
         </Reveal>
 
@@ -60,7 +58,7 @@ export function Apartment() {
         <div className="mt-14 grid gap-x-12 gap-y-10 border-t border-ink/15 pt-10 md:grid-cols-[1.4fr_1fr]">
           <Reveal>
             <h3 className="text-[13px] font-semibold uppercase tracking-[0.18em] text-ink-3">
-              Ce qui est là
+              {t("home.apartmentWhatsThere")}
             </h3>
             <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
               {amenitiesFallback.map((a) => (
@@ -73,14 +71,14 @@ export function Apartment() {
           </Reveal>
           <Reveal delay={0.08}>
             <h3 className="text-[13px] font-semibold uppercase tracking-[0.18em] text-ink-3">
-              Bon à savoir
+              {t("home.apartmentGoodToKnow")}
             </h3>
             <dl className="mt-5 space-y-3 text-[14px]">
               {[
-                ["Arrivée", "à partir de 14 h 00"],
-                ["Départ", "avant 11 h 00"],
-                ["Capacité", "4 voyageurs"],
-                ["Annulation", "modérée, gratuite jusqu'à quelques jours avant"],
+                [t("home.kArrival"), t("home.vArrival")],
+                [t("home.kDeparture"), t("home.vDeparture")],
+                [t("home.kCapacity"), t("home.vCapacity")],
+                [t("home.kCancellation"), t("home.vCancellation")],
               ].map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-4 border-b border-line-soft pb-2.5">
                   <dt className="text-ink-3">{k}</dt>
@@ -88,13 +86,6 @@ export function Apartment() {
                 </div>
               ))}
             </dl>
-            <Link
-              href="/appartement"
-              className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-medium text-ink underline decoration-brass decoration-1 underline-offset-4 hover:decoration-2"
-            >
-              Voir toutes les photos
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
           </Reveal>
         </div>
       </div>

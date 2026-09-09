@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/ui/reveal";
+import { getT } from "@/lib/i18n";
 
 const places = [
   { name: "Ouidah", when: "sur la côte", note: "La route de l'esclave, le temple des pythons, la forêt sacrée de Kpassè." },
@@ -9,21 +10,20 @@ const places = [
   { name: "Lomé", when: "vers le Togo", note: "La capitale togolaise, son grand marché et sa longue corniche en bord de mer." },
 ];
 
-export function Tourism() {
+export async function Tourism() {
+  const { t } = await getT();
   return (
     <section id="le-lieu" className="grain relative overflow-hidden bg-forest text-bone">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
         <Reveal className="max-w-xl">
           <h2 className="display text-[2.1rem] leading-[1.06] sm:text-[2.7rem]">
-            Séjournez ici,
+            {t("home.tourismTitle")}
             <span className="mt-1 block italic font-normal text-brass-3">
-              explorez tout autour.
+              {t("home.tourismTitleEm")}
             </span>
           </h2>
           <p className="measure mt-6 text-[1.02rem] leading-relaxed text-bone/70">
-            La côte, les palais royaux, les lagunes, les collines. On organise la
-            voiture, le chauffeur et le programme — vous n'avez qu'à regarder par
-            la fenêtre.
+            {t("home.tourismLede")}
           </p>
         </Reveal>
 

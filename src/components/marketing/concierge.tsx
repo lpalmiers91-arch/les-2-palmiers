@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { easeOut } from "@/lib/motion";
 import { Reveal } from "@/components/ui/reveal";
+import { useT } from "@/lib/i18n/provider";
 
 const ledger = [
   { t: "07:30", s: "Petit-déjeuner déposé", d: "café, pain, fruits de saison" },
@@ -24,25 +25,22 @@ const child = {
 };
 
 export function Concierge() {
+  const { t } = useT();
   return (
     <section className="grain relative overflow-hidden bg-ink text-bone">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
         <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal className="lg:sticky lg:top-28 lg:self-start">
             <h2 className="display text-[2.1rem] leading-[1.06] sm:text-[2.7rem]">
-              Une seule équipe.
+              {t("home.conciergeTitle")}
               <span className="mt-1 block italic font-normal text-brass-3">
-                Tout ce qu'un séjour demande.
+                {t("home.conciergeTitleEm")}
               </span>
             </h2>
             <p className="measure mt-6 text-[1.02rem] leading-relaxed text-bone/70">
-              Vous ne cherchez pas un chauffeur, un traiteur ou une nounou dans
-              une ville que vous ne connaissez pas. Vous le demandez, une fois. Le
-              reste se passe à la porte de l'appartement.
+              {t("home.conciergeLede")}
             </p>
-            <p className="mt-8 text-[13px] text-bone/45">
-              Une journée type, orchestrée par Les 2 Palmiers.
-            </p>
+            <p className="mt-8 text-[13px] text-bone/45">{t("home.conciergeCaption")}</p>
           </Reveal>
 
           <motion.ol
