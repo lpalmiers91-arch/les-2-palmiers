@@ -257,6 +257,20 @@ a {
   color: var(--ink-3);
 }
 
+/* ---- impression (reçus) ---- */
+@media print {
+  :root {
+    --bone: #ffffff;
+    --bone-2: #ffffff;
+  }
+  body {
+    background: #fff;
+  }
+  .press:active {
+    transform: none;
+  }
+}
+
 /* ---- marquee (bande lieux) ---- */
 @keyframes marquee {
   to {

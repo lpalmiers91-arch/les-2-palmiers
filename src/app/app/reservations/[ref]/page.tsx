@@ -117,6 +117,15 @@ export default async function ReservationDetail({
                     <span className="flex items-center gap-3">
                       <span className="tnum text-ink">{formatXOF(p.amount as number)}</span>
                       <StatusBadge status={p.status as string} />
+                      {p.status === "paid" && (
+                        <Link
+                          href={`/recu/${encodeURIComponent(p.internal_ref as string)}`}
+                          target="_blank"
+                          className="text-[12px] text-ink-3 underline underline-offset-2 hover:text-ink"
+                        >
+                          Reçu
+                        </Link>
+                      )}
                     </span>
                   </li>
                 ))}

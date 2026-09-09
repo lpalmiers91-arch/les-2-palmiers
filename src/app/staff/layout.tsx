@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ConsoleShell } from "@/components/console/console-shell";
 import { AssistantWidget } from "@/components/assistant/assistant-widget";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
 
 export default async function StaffLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -15,16 +16,25 @@ export default async function StaffLayout({ children }: { children: ReactNode })
   const rs = (roles ?? []).map((r) => r.role_id);
   if (!rs.some((r) => ["staff", "coordinator", "admin"].includes(r))) redirect("/app");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("full_name")
-    .eq("id", user.id)
-    .maybeSingle();
+  const [{ data: profile }, { data: notifs }] = await Promise.all([
+    supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
+    supabase
+      .from("notifications")
+      .select("id, type, title, body, data, read_at, created_at")
+      .order("created_at", { ascending: false })
+      .limit(20),
+  ]);
 
   return (
-    <ConsoleShell variant="staff" userName={profile?.full_name || user.email!}>
+    <ConsoleShell
+      variant="staff"
+      userName={profile?.full_name || user.email!}
+      userId={user.id}
+      notifications={notifs ?? []}
+    >
       {children}
       <AssistantWidget space="staff" />
+      <InstallPrompt />
     </ConsoleShell>
   );
 }

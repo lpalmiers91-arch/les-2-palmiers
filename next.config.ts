@@ -5,6 +5,7 @@ const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
   : "zmobadwgoqcwkryefciq.supabase.co";
 
 const nextConfig: NextConfig = {
+  turbopack: { root: __dirname },
   images: {
     remotePatterns: [{ protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/**" }],
   },

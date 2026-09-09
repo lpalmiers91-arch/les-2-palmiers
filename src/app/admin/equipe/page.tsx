@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, Card } from "@/components/app/ui";
 import { RoleToggles } from "@/components/console/role-toggles";
+import { InviteForm } from "@/components/console/invite-form";
 
 export const metadata: Metadata = { title: "Équipe & accès" };
 
@@ -35,7 +36,11 @@ export default async function EquipePage() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <PageTitle title="Équipe & accès" sub="Attribuez les rôles. Les permissions découlent du rôle." />
+      <PageTitle title="Équipe & accès" sub="Invitez des membres, attribuez les rôles. Les permissions découlent du rôle." />
+
+      <div className="mb-8">
+        <InviteForm />
+      </div>
 
       <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
         Membres de l'équipe

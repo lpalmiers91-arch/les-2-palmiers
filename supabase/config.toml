@@ -404,6 +404,10 @@ verify_jwt = true
 [functions.notify]
 verify_jwt = true
 
+# Invitation d'un membre de l'équipe par l'admin.
+[functions.admin-invite]
+verify_jwt = true
+
 [analytics]
 enabled = true
 port = 54327

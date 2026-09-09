@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/marketing/site-footer";
 import { CookieConsent } from "@/components/marketing/cookie-consent";
 import { SmoothScroll } from "@/components/marketing/smooth-scroll";
 import { PublicAssistant } from "@/components/assistant/public-assistant";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
 
 export default function MarketingLayout({ children }: { children: ReactNode }) {
   return (
@@ -17,6 +18,7 @@ export default function MarketingLayout({ children }: { children: ReactNode }) {
       <SiteFooter />
       <CookieConsent />
       <PublicAssistant />
+      <InstallPrompt />
     </MotionConfig>
   );
 }

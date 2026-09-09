@@ -22,8 +22,10 @@ import {
 } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
 import { createClient } from "@/lib/supabase/client";
+import { NotificationBell } from "@/components/app/notification-bell";
 
 type NavItem = { href: string; label: string; icon: LucideIcon; exact?: boolean };
+type Notif = Parameters<typeof NotificationBell>[0]["initial"][number];
 
 const NAVS: Record<"staff" | "admin", NavItem[]> = {
   staff: [
@@ -54,10 +56,14 @@ export function ConsoleShell({
   children,
   variant,
   userName,
+  userId,
+  notifications = [],
 }: {
   children: React.ReactNode;
   variant: "staff" | "admin";
   userName: string;
+  userId: string;
+  notifications?: Notif[];
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -75,10 +81,13 @@ export function ConsoleShell({
 
   const Rail = (
     <>
-      <Link href="/" className="flex items-center gap-2.5 px-3 text-ink">
-        <Mark className="h-7 w-7" tone="ink" />
-        <span className="display text-[1rem]">Les 2 Palmiers</span>
-      </Link>
+      <div className="flex items-center justify-between px-1">
+        <Link href="/" className="flex items-center gap-2.5 px-2 text-ink">
+          <Mark className="h-7 w-7" tone="ink" />
+          <span className="display text-[1rem]">Les 2 Palmiers</span>
+        </Link>
+        <NotificationBell userId={userId} initial={notifications} align="right" />
+      </div>
       <p className="mt-1 px-3 text-[11px] uppercase tracking-[0.16em] text-ink-3">{LABEL[variant]}</p>
       <nav className="mt-6 flex flex-1 flex-col gap-0.5">
         {nav.map((n) => {
@@ -119,9 +128,12 @@ export function ConsoleShell({
 
       <header className="sticky top-0 z-40 flex items-center justify-between border-b border-line bg-bone/90 px-4 py-3 backdrop-blur-lg lg:hidden">
         <span className="display text-[0.98rem] text-ink">{LABEL[variant]}</span>
-        <button onClick={() => setOpen(true)} aria-label="Ouvrir le menu" className="press p-1 text-ink">
-          <Menu className="h-6 w-6" />
-        </button>
+        <div className="flex items-center gap-1">
+          <NotificationBell userId={userId} initial={notifications} align="right" />
+          <button onClick={() => setOpen(true)} aria-label="Ouvrir le menu" className="press p-1 text-ink">
+            <Menu className="h-6 w-6" />
+          </button>
+        </div>
       </header>
 
       {open && (

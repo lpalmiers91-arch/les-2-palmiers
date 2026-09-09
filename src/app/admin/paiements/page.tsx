@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, StatusBadge, EmptyState } from "@/components/app/ui";
@@ -63,6 +64,15 @@ export default async function PaiementsPage() {
                 <div className="flex items-center gap-3">
                   <span className="tnum text-[13.5px] font-medium text-ink">{formatXOF(Number(p.amount))}</span>
                   <StatusBadge status={p.status} />
+                  {(p.status === "paid" || p.status === "partially_refunded" || p.status === "refunded") && (
+                    <Link
+                      href={`/recu/${encodeURIComponent(p.internal_ref)}`}
+                      target="_blank"
+                      className="text-[12px] text-ink-3 underline underline-offset-2 hover:text-ink"
+                    >
+                      Reçu
+                    </Link>
+                  )}
                   {refundable && (
                     <RefundButton paymentId={p.id} max={Number(p.amount) - refunded} />
                   )}

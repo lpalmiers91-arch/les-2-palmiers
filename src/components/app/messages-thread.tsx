@@ -35,17 +35,15 @@ export function MessagesThread({
   useEffect(() => {
     if (!convId) return;
     const supabase = createClient();
-    const channel = supabase
-      .channel(`conv-${convId}`)
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${convId}` },
-        (payload) => {
-          const m = payload.new as Msg;
-          setMessages((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
-        },
-      )
-      .subscribe();
+    const channel = supabase.channel(`conv-${convId}-${Math.random().toString(36).slice(2)}`);
+    channel.on(
+      "postgres_changes",
+      { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${convId}` },
+      (payload) => {
+        const m = payload.new as Msg;
+        setMessages((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
+      },
+    ).subscribe();
     return () => {
       supabase.removeChannel(channel);
     };

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ConsoleShell } from "@/components/console/console-shell";
 import { AssistantWidget } from "@/components/assistant/assistant-widget";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -14,16 +15,25 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   const { data: roles } = await supabase.from("user_roles").select("role_id").eq("user_id", user.id);
   if (!(roles ?? []).some((r) => r.role_id === "admin")) redirect("/app");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("full_name")
-    .eq("id", user.id)
-    .maybeSingle();
+  const [{ data: profile }, { data: notifs }] = await Promise.all([
+    supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
+    supabase
+      .from("notifications")
+      .select("id, type, title, body, data, read_at, created_at")
+      .order("created_at", { ascending: false })
+      .limit(20),
+  ]);
 
   return (
-    <ConsoleShell variant="admin" userName={profile?.full_name || user.email!}>
+    <ConsoleShell
+      variant="admin"
+      userName={profile?.full_name || user.email!}
+      userId={user.id}
+      notifications={notifs ?? []}
+    >
       {children}
       <AssistantWidget space="admin" />
+      <InstallPrompt />
     </ConsoleShell>
   );
 }

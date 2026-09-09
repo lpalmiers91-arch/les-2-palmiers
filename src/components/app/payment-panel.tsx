@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Check, Loader2, X, Clock } from "lucide-react";
+import { Check, Loader2, X, Clock, Download } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { formatXOF } from "@/lib/format";
 
@@ -31,6 +32,7 @@ export function PaymentPanel({
   const [step, setStep] = useState<Step>("choose");
   const [method, setMethod] = useState<Method>("mtn");
   const [paymentId, setPaymentId] = useState<string | null>(null);
+  const [paymentRef, setPaymentRef] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [outcome, setOutcome] = useState<"success" | "failure" | "pending" | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +48,9 @@ export function PaymentPanel({
         p_method: method,
       });
       if (error) throw error;
-      setPaymentId((data as { id: string }).id);
+      const row = data as { id: string; internal_ref: string };
+      setPaymentId(row.id);
+      setPaymentRef(row.internal_ref);
       setStep("screen");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Erreur");
@@ -145,6 +149,15 @@ export function PaymentPanel({
               </span>
               <p className="mt-3 text-[15px] font-medium text-ink">Paiement confirmé</p>
               <p className="mt-1 text-[13px] text-ink-3">Votre réservation est confirmée. Un reçu vous est envoyé.</p>
+              {paymentRef && (
+                <Link
+                  href={`/recu/${encodeURIComponent(paymentRef)}`}
+                  target="_blank"
+                  className="press mt-4 inline-flex h-10 items-center gap-2 rounded-full border border-line px-4 text-[13px] font-medium text-ink hover:border-ink/30"
+                >
+                  <Download className="h-4 w-4" /> Télécharger le reçu
+                </Link>
+              )}
             </>
           )}
           {outcome === "failure" && (

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "@/components/app/app-shell";
 import { AssistantWidget } from "@/components/assistant/assistant-widget";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -11,24 +12,37 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   } = await supabase.auth.getUser();
   if (!user) redirect("/connexion?suite=/app");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("full_name")
-    .eq("id", user.id)
-    .maybeSingle();
+  const [{ data: profile }, { data: notifs }, { data: msgs }] = await Promise.all([
+    supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
+    supabase
+      .from("notifications")
+      .select("id, type, title, body, data, read_at, created_at")
+      .order("created_at", { ascending: false })
+      .limit(20),
+    supabase.from("messages").select("id, sender_id, created_at").neq("sender_id", user.id),
+  ]);
 
-  const { count: unread } = await supabase
-    .from("messages")
-    .select("id", { count: "exact", head: true })
-    .neq("sender_id", user.id);
+  // messages non lus = messages du staff sans accusé de lecture de ma part
+  let unreadMessages = 0;
+  if (msgs && msgs.length > 0) {
+    const { data: reads } = await supabase
+      .from("message_reads")
+      .select("message_id")
+      .eq("user_id", user.id);
+    const readSet = new Set((reads ?? []).map((r) => r.message_id));
+    unreadMessages = msgs.filter((m) => !readSet.has(m.id)).length;
+  }
 
   return (
     <AppShell
       userName={profile?.full_name || user.email || "Mon compte"}
-      unread={unread ?? 0}
+      userId={user.id}
+      notifications={notifs ?? []}
+      unreadMessages={unreadMessages}
     >
       {children}
       <AssistantWidget space="client" />
+      <InstallPrompt />
     </AppShell>
   );
 }
