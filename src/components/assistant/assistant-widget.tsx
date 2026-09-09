@@ -113,6 +113,8 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
   }
 
   function runAction(a: { type: string; payload: Record<string, unknown> }) {
+    // les actions ci-dessous naviguent dans l'espace client uniquement
+    if (space !== "public" && space !== "client") return;
     if (a.type === "prefill_reservation") {
       const p = a.payload as { start?: string; end?: string; guests?: number };
       router.push(`/reserver?start=${p.start ?? ""}&end=${p.end ?? ""}&guests=${p.guests ?? 2}`);

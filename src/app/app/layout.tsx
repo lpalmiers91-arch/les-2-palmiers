@@ -6,6 +6,7 @@ import { AssistantWidget } from "@/components/assistant/assistant-widget";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
+import { audienceFromRoles, homeFor } from "@/lib/spaces";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -13,6 +14,14 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/connexion?suite=/app");
+
+  // Cloisonnement : un membre de l'équipe n'entre jamais dans l'espace client.
+  const { data: roleRows } = await supabase
+    .from("user_roles")
+    .select("role_id")
+    .eq("user_id", user.id);
+  const roles = (roleRows ?? []).map((r) => r.role_id as string);
+  if (audienceFromRoles(roles) === "team") redirect(homeFor("team", roles));
 
   const locale = await getLocale();
   const messages = await getMessages(locale);

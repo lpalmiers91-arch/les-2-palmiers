@@ -12,10 +12,14 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/connexion?suite=/admin");
+  if (!user) redirect("/equipe?suite=/admin");
 
   const { data: roles } = await supabase.from("user_roles").select("role_id").eq("user_id", user.id);
-  if (!(roles ?? []).some((r) => r.role_id === "admin")) redirect("/app");
+  const rs = (roles ?? []).map((r) => r.role_id as string);
+  if (!rs.includes("admin")) {
+    // un membre du staff non-admin reste dans l'espace équipe
+    redirect(rs.some((r) => ["staff", "coordinator"].includes(r)) ? "/staff" : "/app");
+  }
 
   const locale = await getLocale();
   const messages = await getMessages(locale);

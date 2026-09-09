@@ -18,11 +18,22 @@ type Notif = {
   created_at: string;
 };
 
-function href(n: Notif): string {
+type Space = "client" | "staff" | "admin";
+
+function href(n: Notif, space: Space): string {
   const d = (n.data ?? {}) as Record<string, unknown>;
-  if (d.conversation_id) return "/app/messages";
-  if (d.reservation_id) return "/app/reservations";
-  return "/app/notifications";
+  if (space === "client") {
+    if (d.conversation_id) return "/app/messages";
+    if (d.reservation_id) return "/app/reservations";
+    return "/app/notifications";
+  }
+  // équipe (staff / admin)
+  if (d.conversation_id) return `/staff/messages/${d.conversation_id}`;
+  if (d.verification_id || n.type === "identity") return "/staff/verifications";
+  if (d.contract_id || n.type === "contract") return "/staff/reservations";
+  if (d.reservation_id) return "/staff/reservations";
+  if (d.service_order_id) return "/staff/demandes";
+  return space === "admin" ? "/admin" : "/staff";
 }
 
 function rel(iso: string): string {
@@ -37,10 +48,12 @@ export function NotificationBell({
   userId,
   initial,
   align = "right",
+  space = "client",
 }: {
   userId: string;
   initial: Notif[];
   align?: "left" | "right";
+  space?: Space;
 }) {
   const router = useRouter();
   const [items, setItems] = useState<Notif[]>(initial);
@@ -117,9 +130,15 @@ export function NotificationBell({
           >
             <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
               <span className="text-[13px] font-medium text-ink">Notifications</span>
-              <Link href="/app/notifications" onClick={() => setOpen(false)} className="text-[11.5px] text-ink-3 hover:text-ink">
-                Tout voir
-              </Link>
+              {space === "client" && (
+                <Link
+                  href="/app/notifications"
+                  onClick={() => setOpen(false)}
+                  className="text-[11.5px] text-ink-3 hover:text-ink"
+                >
+                  Tout voir
+                </Link>
+              )}
             </div>
             <div className="max-h-[360px] overflow-y-auto">
               {items.length === 0 ? (
@@ -129,7 +148,7 @@ export function NotificationBell({
                   {items.slice(0, 12).map((n) => (
                     <li key={n.id}>
                       <Link
-                        href={href(n)}
+                        href={href(n, space)}
                         onClick={() => setOpen(false)}
                         className="block px-4 py-3 transition-colors hover:bg-ink/[0.025]"
                       >

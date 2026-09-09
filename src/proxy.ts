@@ -7,11 +7,6 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/app/:path*",
-    "/staff/:path*",
-    "/admin/:path*",
-    "/connexion",
-    "/inscription",
-  ],
+  // tout sauf les assets statiques, les fichiers Next et les fichiers avec extension
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|sw.js|manifest.webmanifest|icon.svg|apple-icon|.*\\.[\\w]+$).*)"],
 };

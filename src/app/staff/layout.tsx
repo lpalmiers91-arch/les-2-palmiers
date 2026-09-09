@@ -12,7 +12,7 @@ export default async function StaffLayout({ children }: { children: ReactNode })
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/connexion?suite=/staff");
+  if (!user) redirect("/equipe?suite=/staff");
 
   const { data: roles } = await supabase.from("user_roles").select("role_id").eq("user_id", user.id);
   const rs = (roles ?? []).map((r) => r.role_id);

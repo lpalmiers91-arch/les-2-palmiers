@@ -83,18 +83,18 @@ export function ConsoleShell({
 
   async function signOut() {
     await createClient().auth.signOut();
-    router.push("/");
+    router.push("/equipe");
     router.refresh();
   }
 
   const Rail = (
     <>
       <div className="flex items-center justify-between px-1">
-        <Link href="/" className="flex items-center gap-2.5 px-2 text-ink">
+        <Link href={variant === "admin" ? "/admin" : "/staff"} className="flex items-center gap-2.5 px-2 text-ink">
           <Mark className="h-7 w-7" tone="ink" />
           <span className="display text-[1rem]">Les 2 Palmiers</span>
         </Link>
-        <NotificationBell userId={userId} initial={notifications} align="right" />
+        <NotificationBell userId={userId} initial={notifications} align="right" space={variant} />
       </div>
       <p className="mt-1 px-3 text-[11px] uppercase tracking-[0.16em] text-ink-3">{LABEL[variant]}</p>
       <nav className="mt-6 flex flex-1 flex-col gap-0.5">
@@ -137,7 +137,7 @@ export function ConsoleShell({
       <header className="sticky top-0 z-40 flex items-center justify-between border-b border-line bg-bone/90 px-4 py-3 backdrop-blur-lg lg:hidden">
         <span className="display text-[0.98rem] text-ink">{LABEL[variant]}</span>
         <div className="flex items-center gap-1">
-          <NotificationBell userId={userId} initial={notifications} align="right" />
+          <NotificationBell userId={userId} initial={notifications} align="right" space={variant} />
           <button onClick={() => setOpen(true)} aria-label="Ouvrir le menu" className="press p-1 text-ink">
             <Menu className="h-6 w-6" />
           </button>
