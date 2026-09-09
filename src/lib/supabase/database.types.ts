@@ -313,6 +313,7 @@ export type Database = {
           geo: unknown
           house_rules: Json
           id: string
+          map_url: string | null
           name: string
           slug: string
           status: string
@@ -335,6 +336,7 @@ export type Database = {
           geo?: unknown
           house_rules?: Json
           id?: string
+          map_url?: string | null
           name: string
           slug: string
           status?: string
@@ -357,6 +359,7 @@ export type Database = {
           geo?: unknown
           house_rules?: Json
           id?: string
+          map_url?: string | null
           name?: string
           slug?: string
           status?: string

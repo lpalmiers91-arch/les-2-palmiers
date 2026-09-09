@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ShieldCheck, FileText, Check } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card, StatusBadge } from "@/components/app/ui";
 import { PaymentPanel } from "@/components/app/payment-panel";
@@ -31,11 +31,22 @@ export default async function ReservationDetail({
   const balance = Math.max(0, total - paid); // solde total restant
   const fees = (r.fees ?? {}) as Record<string, number>;
 
-  const { data: payments } = await supabase
-    .from("payments")
-    .select("internal_ref, method, amount, status, created_at")
-    .eq("reservation_id", r.id)
-    .order("created_at", { ascending: false });
+  const [{ data: payments }, { data: idStatus }, { data: contract }] = await Promise.all([
+    supabase
+      .from("payments")
+      .select("internal_ref, method, amount, status, created_at")
+      .eq("reservation_id", r.id)
+      .order("created_at", { ascending: false }),
+    supabase.rpc("identity_status", { uid: r.guest_id as string }),
+    supabase
+      .from("contracts")
+      .select("reference, status")
+      .eq("reservation_id", r.id)
+      .maybeSingle(),
+  ]);
+  const verified = idStatus === "approved";
+  const needsPayment =
+    (r.status === "pending_payment" && dueNow > 0) || (r.status === "confirmed" && balance > 0);
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -61,10 +72,31 @@ export default async function ReservationDetail({
 
       <div className="mt-7 grid gap-5 lg:grid-cols-[1fr_320px]">
         <div className="space-y-5">
-          {r.status === "pending_payment" && dueNow > 0 && (
+          {needsPayment && !verified && (
+            <Card className="!border-brass/40 !bg-brass/8">
+              <div className="flex items-start gap-3">
+                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brass-2" />
+                <div>
+                  <p className="text-[14px] font-medium text-ink">Vérifiez votre identité pour payer</p>
+                  <p className="mt-0.5 text-[13px] text-ink-3">
+                    Le règlement d&apos;une réservation n&apos;est possible qu&apos;une fois votre
+                    identité confirmée.
+                  </p>
+                  <Link
+                    href="/app/verification"
+                    className="press mt-3 inline-flex h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12.5px] font-medium text-bone hover:bg-forest-2"
+                  >
+                    Commencer la vérification
+                  </Link>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {r.status === "pending_payment" && dueNow > 0 && verified && (
             <PaymentPanel purpose="reservation" targetId={r.id as string} amountDue={dueNow} />
           )}
-          {r.status === "confirmed" && balance > 0 && (
+          {r.status === "confirmed" && balance > 0 && verified && (
             <PaymentPanel
               purpose="reservation"
               targetId={r.id as string}
@@ -145,6 +177,27 @@ export default async function ReservationDetail({
               <Line label="Adresse">communiquée avant l'arrivée</Line>
             </dl>
           </Card>
+
+          {contract && (
+            <Link
+              href={`/contrat/${contract.reference}`}
+              className="press flex items-center gap-3 rounded-[var(--radius-lg)] border border-line bg-bone px-5 py-4 hover:border-ink/25"
+            >
+              <FileText className="h-5 w-5 shrink-0 text-forest-2" />
+              <div className="min-w-0">
+                <p className="text-[13.5px] font-medium text-ink">Contrat de séjour</p>
+                <p className="text-[12px] text-ink-3">
+                  {contract.status === "draft" ? (
+                    "À compléter et signer"
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-forest-2">
+                      <Check className="h-3 w-3" /> Signé
+                    </span>
+                  )}
+                </p>
+              </div>
+            </Link>
+          )}
           <Link
             href="/app/services"
             className="press flex items-center justify-center rounded-[var(--radius-lg)] border border-line bg-bone px-5 py-4 text-[13.5px] font-medium text-ink hover:border-ink/25"
