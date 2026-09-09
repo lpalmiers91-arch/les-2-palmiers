@@ -333,7 +333,9 @@
       "filterActive": "Actives",
       "filterAll": "Toutes",
       "queueEmptyT": "File vide",
-      "queueEmptyB": "Aucune demande à traiter pour l'instant."
+      "queueEmptyB": "Aucune demande à traiter pour l'instant.",
+      "cancelConfirm": "Annuler cette demande ?",
+      "cancelRequest": "Annuler la demande"
     },
     "verif": {
       "toProcess": "À traiter",
@@ -377,7 +379,8 @@
       "feature": "Mettre à la une",
       "unfeature": "Retirer de la une",
       "reply": "Répondre",
-      "editReply": "Modifier la réponse"
+      "editReply": "Modifier la réponse",
+      "deleteConfirm": "Supprimer cet avis définitivement ?"
     },
     "proof": {
       "none": "Aucune preuve de paiement en attente.",
@@ -497,7 +500,11 @@
         "fixed": "Prix fixe",
         "metered": "Au réel",
         "quote": "Sur devis"
-      }
+      },
+      "newService": "Nouveau service",
+      "deleteConfirm": "Supprimer ce service définitivement ?",
+      "deleteInUse": "Impossible : des demandes en cours utilisent ce service.",
+      "deleteFailed": "Suppression impossible."
     },
     "siteEditor": {
       "preview": "Aperçu",
@@ -518,7 +525,8 @@
         "desktop": "Ordinateur",
         "tablet": "Tablette",
         "phone": "Téléphone"
-      }
+      },
+      "deleteConfirm": "Supprimer cette section ?"
     },
     "branding": {
       "favicon": "Favicon",
@@ -713,7 +721,11 @@
     "deviceOn": "Notifications activées sur cet appareil.",
     "activateDevice": "Activer sur cet appareil",
     "sendTest": "Recevoir une notification test",
-    "testSent": "Test envoyé — regardez votre écran"
+    "testSent": "Test envoyé — regardez votre écran",
+    "clearConfirm": "Effacer toutes les notifications ?",
+    "clearAll": "Tout effacer",
+    "emptyT": "Rien pour le moment",
+    "emptyB": "Les confirmations, rappels et réponses de l'équipe apparaîtront ici."
   },
   "profileForm": {
     "title": "Mon compte",

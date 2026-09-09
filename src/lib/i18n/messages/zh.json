@@ -333,7 +333,9 @@
       "filterActive": "进行中",
       "filterAll": "全部",
       "queueEmptyT": "队列为空",
-      "queueEmptyB": "目前没有需要处理的请求。"
+      "queueEmptyB": "目前没有需要处理的请求。",
+      "cancelConfirm": "取消此请求？",
+      "cancelRequest": "取消请求"
     },
     "verif": {
       "toProcess": "待处理",
@@ -377,7 +379,8 @@
       "feature": "设为推荐",
       "unfeature": "取消推荐",
       "reply": "回复",
-      "editReply": "编辑回复"
+      "editReply": "编辑回复",
+      "deleteConfirm": "永久删除此评价？"
     },
     "proof": {
       "none": "没有待处理的付款凭证。",
@@ -497,7 +500,11 @@
         "fixed": "固定价格",
         "metered": "按实际",
         "quote": "需报价"
-      }
+      },
+      "newService": "新增服务",
+      "deleteConfirm": "永久删除此服务？",
+      "deleteInUse": "无法删除：有进行中的请求在使用此服务。",
+      "deleteFailed": "删除失败。"
     },
     "siteEditor": {
       "preview": "预览",
@@ -518,7 +525,8 @@
         "desktop": "电脑",
         "tablet": "平板",
         "phone": "手机"
-      }
+      },
+      "deleteConfirm": "删除此板块？"
     },
     "branding": {
       "favicon": "网站图标",
@@ -713,7 +721,11 @@
     "deviceOn": "已在此设备上启用通知。",
     "activateDevice": "在此设备上启用",
     "sendTest": "发送测试通知",
-    "testSent": "测试已发送 — 请查看屏幕"
+    "testSent": "测试已发送 — 请查看屏幕",
+    "clearConfirm": "清除所有通知？",
+    "clearAll": "全部清除",
+    "emptyT": "暂无内容",
+    "emptyB": "确认、提醒和团队回复将显示在此处。"
   },
   "profileForm": {
     "title": "我的账户",

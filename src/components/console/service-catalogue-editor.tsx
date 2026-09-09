@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Check, ChevronDown } from "lucide-react";
+import { Loader2, Check, ChevronDown, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { ServiceIcon } from "@/components/marketing/service-icon";
 import { formatXOF } from "@/lib/format";
@@ -69,7 +69,50 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
     else router.refresh();
   }
 
+  const [creating, setCreating] = useState(false);
+  async function addService() {
+    setCreating(true);
+    const { data, error } = await createClient().rpc("create_service", {
+      p_title: t("console.catEditor.newService"),
+      p_pricing_mode: "quote",
+    });
+    setCreating(false);
+    if (!error && data) {
+      setRows((rs) => [...rs, data as Service]);
+      setOpen((data as Service).id);
+      router.refresh();
+    }
+  }
+
+  async function removeService(id: string) {
+    if (!confirm(t("console.catEditor.deleteConfirm"))) return;
+    const prev = rows;
+    setRows((rs) => rs.filter((r) => r.id !== id));
+    const { error } = await createClient().rpc("delete_service", { p_id: id });
+    if (error) {
+      setRows(prev);
+      alert(
+        /in_use/.test(error.message)
+          ? t("console.catEditor.deleteInUse")
+          : t("console.catEditor.deleteFailed"),
+      );
+    } else {
+      router.refresh();
+    }
+  }
+
   return (
+    <>
+    <div className="mb-3 flex justify-end">
+      <button
+        onClick={addService}
+        disabled={creating}
+        className="press flex h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12.5px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
+      >
+        {creating ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Plus className="h-3.5 w-3.5" />}
+        {t("console.catEditor.newService")}
+      </button>
+    </div>
     <ul className="space-y-3">
       {rows.map((s) => {
         const isOpen = open === s.id;
@@ -209,23 +252,32 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
                     </>
                   )}
                 </div>
-                <button
-                  onClick={() => save(s)}
-                  disabled={savingId === s.id}
-                  className="press mt-4 flex h-10 items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
-                >
-                  {savingId === s.id ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : savedId === s.id ? (
-                    <Check className="h-4 w-4" />
-                  ) : null}
-                  {savedId === s.id ? t("console.action.saved") : t("console.action.save")}
-                </button>
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => save(s)}
+                    disabled={savingId === s.id}
+                    className="press flex h-10 items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
+                  >
+                    {savingId === s.id ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : savedId === s.id ? (
+                      <Check className="h-4 w-4" />
+                    ) : null}
+                    {savedId === s.id ? t("console.action.saved") : t("console.action.save")}
+                  </button>
+                  <button
+                    onClick={() => removeService(s.id)}
+                    className="press flex h-10 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-medium text-ink-2 hover:border-danger/40 hover:text-danger"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" /> {t("console.action.delete")}
+                  </button>
+                </div>
               </div>
             )}
           </li>
         );
       })}
     </ul>
+    </>
   );
 }

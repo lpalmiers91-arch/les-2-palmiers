@@ -333,7 +333,9 @@
       "filterActive": "Ativos",
       "filterAll": "Todos",
       "queueEmptyT": "Fila vazia",
-      "queueEmptyB": "Sem pedidos para tratar de momento."
+      "queueEmptyB": "Sem pedidos para tratar de momento.",
+      "cancelConfirm": "Cancelar este pedido?",
+      "cancelRequest": "Cancelar o pedido"
     },
     "verif": {
       "toProcess": "Para tratar",
@@ -377,7 +379,8 @@
       "feature": "Destacar",
       "unfeature": "Retirar do destaque",
       "reply": "Responder",
-      "editReply": "Editar a resposta"
+      "editReply": "Editar a resposta",
+      "deleteConfirm": "Eliminar esta avaliação definitivamente?"
     },
     "proof": {
       "none": "Nenhum comprovativo de pagamento pendente.",
@@ -497,7 +500,11 @@
         "fixed": "Preço fixo",
         "metered": "Ao real",
         "quote": "Sob orçamento"
-      }
+      },
+      "newService": "Novo serviço",
+      "deleteConfirm": "Eliminar este serviço definitivamente?",
+      "deleteInUse": "Não é possível: há pedidos ativos que usam este serviço.",
+      "deleteFailed": "Não foi possível eliminar."
     },
     "siteEditor": {
       "preview": "Pré-visualização",
@@ -518,7 +525,8 @@
         "desktop": "Computador",
         "tablet": "Tablet",
         "phone": "Telemóvel"
-      }
+      },
+      "deleteConfirm": "Eliminar esta secção?"
     },
     "branding": {
       "favicon": "Favicon",
@@ -713,7 +721,11 @@
     "deviceOn": "Notificações ativadas neste dispositivo.",
     "activateDevice": "Ativar neste dispositivo",
     "sendTest": "Enviar uma notificação de teste",
-    "testSent": "Teste enviado — veja o seu ecrã"
+    "testSent": "Teste enviado — veja o seu ecrã",
+    "clearConfirm": "Apagar todas as notificações?",
+    "clearAll": "Apagar tudo",
+    "emptyT": "Nada de momento",
+    "emptyB": "Confirmações, lembretes e respostas da equipa aparecerão aqui."
   },
   "profileForm": {
     "title": "A minha conta",

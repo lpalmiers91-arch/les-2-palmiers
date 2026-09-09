@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Star, Check, EyeOff, MessageSquareReply } from "lucide-react";
+import { Loader2, Star, Check, EyeOff, MessageSquareReply, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { formatDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/provider";
@@ -93,6 +93,14 @@ function ReviewCard({ row }: { row: ReviewRow }) {
     } finally {
       setBusy(null);
     }
+  }
+
+  async function remove() {
+    if (!confirm(t("console.reviewMod.deleteConfirm"))) return;
+    setBusy("delete");
+    await createClient().rpc("delete_review", { p_id: row.id });
+    router.refresh();
+    setBusy(null);
   }
 
   return (
@@ -196,6 +204,13 @@ function ReviewCard({ row }: { row: ReviewRow }) {
         >
           <MessageSquareReply className="h-3.5 w-3.5" />{" "}
           {row.staff_reply ? t("console.reviewMod.editReply") : t("console.reviewMod.reply")}
+        </button>
+        <button
+          onClick={remove}
+          disabled={busy !== null}
+          className="press ml-auto flex h-9 items-center gap-1.5 rounded-full px-3 text-[12.5px] text-ink-3 hover:text-danger disabled:opacity-50"
+        >
+          <Trash2 className="h-3.5 w-3.5" /> {t("console.action.delete")}
         </button>
       </div>
     </div>

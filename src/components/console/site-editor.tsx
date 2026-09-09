@@ -14,6 +14,8 @@ import {
   Monitor,
   Tablet,
   Smartphone,
+  Trash2,
+  Plus,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useT } from "@/lib/i18n/provider";
@@ -77,7 +79,7 @@ const TEXT_FIELDS: Record<string, { key: string; label: string; multiline?: bool
   ],
 };
 
-export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
+export function SiteEditor({ pageId, blocks: initial }: { pageId: string; blocks: Block[] }) {
   const router = useRouter();
   const { t } = useT();
   const blockLabel = (type: string) =>
@@ -141,6 +143,31 @@ export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
     patchContent(id, key, data.publicUrl);
   }
 
+  async function deleteBlock(id: string) {
+    if (!confirm(t("console.siteEditor.deleteConfirm"))) return;
+    setBlocks((bs) => bs.filter((b) => b.id !== id));
+    if (selected === id) setSelected(null);
+    await createClient().from("site_blocks").delete().eq("id", id);
+    router.refresh();
+    iframeRef.current?.contentWindow?.location.reload();
+  }
+
+  async function addBlock(type: string) {
+    if (!pageId) return;
+    const pos = Math.max(0, ...blocks.map((b) => b.position)) + 1;
+    const { data } = await createClient()
+      .from("site_blocks")
+      .insert({ page_id: pageId, type, position: pos, visible: true, content: {} })
+      .select("id, type, position, visible, content")
+      .single();
+    if (data) {
+      setBlocks((bs) => [...bs, { ...data, content: {} } as Block]);
+      setSelected(data.id);
+    }
+  }
+
+  const present = new Set(blocks.map((b) => b.type));
+  const addable = BLOCK_KEYS.filter((k) => !present.has(k));
   const sorted = [...blocks].sort((a, b) => a.position - b.position);
 
   return (
@@ -188,11 +215,33 @@ export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
                     >
                       {b.visible ? <Eye className="h-3.5 w-3.5" /> : <EyeOff className="h-3.5 w-3.5" />}
                     </span>
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteBlock(b.id);
+                      }}
+                      className="press rounded p-1 text-ink-3 hover:bg-black/10 hover:text-danger"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </span>
                   </span>
                 </button>
               </li>
             ))}
           </ul>
+          {addable.length > 0 && pageId && (
+            <div className="mt-2 flex flex-wrap gap-1.5 border-t border-line pt-2">
+              {addable.map((k) => (
+                <button
+                  key={k}
+                  onClick={() => addBlock(k)}
+                  className="press flex h-7 items-center gap-1 rounded-full border border-line px-2.5 text-[11.5px] text-ink-2 hover:border-ink/30"
+                >
+                  <Plus className="h-3 w-3" /> {t(`console.siteEditor.block.${k}`)}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {current && (

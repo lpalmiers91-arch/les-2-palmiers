@@ -333,7 +333,9 @@
       "filterActive": "Aktive",
       "filterAll": "Alle",
       "queueEmptyT": "Leere Warteschlange",
-      "queueEmptyB": "Derzeit keine Anfragen zu bearbeiten."
+      "queueEmptyB": "Derzeit keine Anfragen zu bearbeiten.",
+      "cancelConfirm": "Diese Anfrage stornieren?",
+      "cancelRequest": "Anfrage stornieren"
     },
     "verif": {
       "toProcess": "Zu bearbeiten",
@@ -377,7 +379,8 @@
       "feature": "Hervorheben",
       "unfeature": "Hervorhebung entfernen",
       "reply": "Antworten",
-      "editReply": "Antwort bearbeiten"
+      "editReply": "Antwort bearbeiten",
+      "deleteConfirm": "Diese Bewertung dauerhaft löschen?"
     },
     "proof": {
       "none": "Kein Zahlungsnachweis ausstehend.",
@@ -497,7 +500,11 @@
         "fixed": "Festpreis",
         "metered": "Nach Aufwand",
         "quote": "Auf Anfrage"
-      }
+      },
+      "newService": "Neuer Service",
+      "deleteConfirm": "Diesen Service dauerhaft löschen?",
+      "deleteInUse": "Nicht möglich: aktive Anfragen nutzen diesen Service.",
+      "deleteFailed": "Löschen fehlgeschlagen."
     },
     "siteEditor": {
       "preview": "Vorschau",
@@ -518,7 +525,8 @@
         "desktop": "Desktop",
         "tablet": "Tablet",
         "phone": "Telefon"
-      }
+      },
+      "deleteConfirm": "Diesen Abschnitt löschen?"
     },
     "branding": {
       "favicon": "Favicon",
@@ -713,7 +721,11 @@
     "deviceOn": "Benachrichtigungen auf diesem Gerät aktiviert.",
     "activateDevice": "Auf diesem Gerät aktivieren",
     "sendTest": "Test-Benachrichtigung senden",
-    "testSent": "Test gesendet — sehen Sie auf Ihren Bildschirm"
+    "testSent": "Test gesendet — sehen Sie auf Ihren Bildschirm",
+    "clearConfirm": "Alle Benachrichtigungen löschen?",
+    "clearAll": "Alle löschen",
+    "emptyT": "Noch nichts",
+    "emptyB": "Bestätigungen, Erinnerungen und Team-Antworten erscheinen hier."
   },
   "profileForm": {
     "title": "Mein Konto",

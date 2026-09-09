@@ -333,7 +333,9 @@
       "filterActive": "Attive",
       "filterAll": "Tutte",
       "queueEmptyT": "Coda vuota",
-      "queueEmptyB": "Nessuna richiesta da gestire al momento."
+      "queueEmptyB": "Nessuna richiesta da gestire al momento.",
+      "cancelConfirm": "Annullare questa richiesta?",
+      "cancelRequest": "Annulla la richiesta"
     },
     "verif": {
       "toProcess": "Da gestire",
@@ -377,7 +379,8 @@
       "feature": "Metti in evidenza",
       "unfeature": "Rimuovi dall'evidenza",
       "reply": "Rispondi",
-      "editReply": "Modifica la risposta"
+      "editReply": "Modifica la risposta",
+      "deleteConfirm": "Eliminare questa recensione definitivamente?"
     },
     "proof": {
       "none": "Nessuna prova di pagamento in sospeso.",
@@ -497,7 +500,11 @@
         "fixed": "Prezzo fisso",
         "metered": "A consuntivo",
         "quote": "Su preventivo"
-      }
+      },
+      "newService": "Nuovo servizio",
+      "deleteConfirm": "Eliminare questo servizio definitivamente?",
+      "deleteInUse": "Non possibile: richieste attive usano questo servizio.",
+      "deleteFailed": "Eliminazione non riuscita."
     },
     "siteEditor": {
       "preview": "Anteprima",
@@ -518,7 +525,8 @@
         "desktop": "Computer",
         "tablet": "Tablet",
         "phone": "Telefono"
-      }
+      },
+      "deleteConfirm": "Eliminare questa sezione?"
     },
     "branding": {
       "favicon": "Favicon",
@@ -713,7 +721,11 @@
     "deviceOn": "Notifiche attivate su questo dispositivo.",
     "activateDevice": "Attiva su questo dispositivo",
     "sendTest": "Invia una notifica di prova",
-    "testSent": "Prova inviata — guarda lo schermo"
+    "testSent": "Prova inviata — guarda lo schermo",
+    "clearConfirm": "Cancellare tutte le notifiche?",
+    "clearAll": "Cancella tutto",
+    "emptyT": "Ancora niente",
+    "emptyB": "Conferme, promemoria e risposte del team appariranno qui."
   },
   "profileForm": {
     "title": "Il mio account",

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/app/ui";
 import { formatDate, formatXOF } from "@/lib/format";
@@ -173,6 +173,18 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
 
         {["completed", "declined", "cancelled"].includes(order.status) && (
           <p className="text-[12.5px] text-ink-3">{t("console.demandeCard.noAction")}</p>
+        )}
+
+        {!["completed", "declined", "cancelled"].includes(order.status) && (
+          <button
+            onClick={() => {
+              if (confirm(t("console.demandeCard.cancelConfirm"))) patch({ status: "cancelled" });
+            }}
+            disabled={busy}
+            className="press mt-3 flex h-9 items-center gap-1.5 rounded-full px-3 text-[12px] text-ink-3 hover:text-danger disabled:opacity-50"
+          >
+            <Trash2 className="h-3.5 w-3.5" /> {t("console.demandeCard.cancelRequest")}
+          </button>
         )}
 
         {busy && <Loader2 className="mt-2 inline h-4 w-4 animate-spin text-ink-3" />}

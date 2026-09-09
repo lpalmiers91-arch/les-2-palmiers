@@ -51,6 +51,7 @@ export default async function StaffSite() {
     <div className="mx-auto max-w-6xl">
       <PageTitle title={t("console.title.site")} sub={t("console.sub.site")} />
       <SiteEditor
+        pageId={page?.id ?? ""}
         blocks={(blocks ?? []).map((b) => ({
           ...b,
           content: (b.content ?? {}) as Record<string, unknown>,

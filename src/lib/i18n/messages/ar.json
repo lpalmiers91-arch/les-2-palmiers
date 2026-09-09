@@ -333,7 +333,9 @@
       "filterActive": "النشطة",
       "filterAll": "الكل",
       "queueEmptyT": "القائمة فارغة",
-      "queueEmptyB": "لا طلبات للمعالجة حاليًا."
+      "queueEmptyB": "لا طلبات للمعالجة حاليًا.",
+      "cancelConfirm": "إلغاء هذا الطلب؟",
+      "cancelRequest": "إلغاء الطلب"
     },
     "verif": {
       "toProcess": "للمعالجة",
@@ -377,7 +379,8 @@
       "feature": "إبراز",
       "unfeature": "إلغاء الإبراز",
       "reply": "رد",
-      "editReply": "تعديل الرد"
+      "editReply": "تعديل الرد",
+      "deleteConfirm": "حذف هذا التقييم نهائيًا؟"
     },
     "proof": {
       "none": "لا إثبات دفع معلّق.",
@@ -497,7 +500,11 @@
         "fixed": "سعر ثابت",
         "metered": "حسب الفعلي",
         "quote": "حسب عرض السعر"
-      }
+      },
+      "newService": "خدمة جديدة",
+      "deleteConfirm": "حذف هذه الخدمة نهائيًا؟",
+      "deleteInUse": "غير ممكن: توجد طلبات جارية تستخدم هذه الخدمة.",
+      "deleteFailed": "تعذّر الحذف."
     },
     "siteEditor": {
       "preview": "معاينة",
@@ -518,7 +525,8 @@
         "desktop": "حاسوب",
         "tablet": "لوحي",
         "phone": "هاتف"
-      }
+      },
+      "deleteConfirm": "حذف هذا القسم؟"
     },
     "branding": {
       "favicon": "أيقونة الموقع",
@@ -713,7 +721,11 @@
     "deviceOn": "الإشعارات مفعّلة على هذا الجهاز.",
     "activateDevice": "التفعيل على هذا الجهاز",
     "sendTest": "إرسال إشعار تجريبي",
-    "testSent": "أُرسل الاختبار — انظر إلى شاشتك"
+    "testSent": "أُرسل الاختبار — انظر إلى شاشتك",
+    "clearConfirm": "مسح كل الإشعارات؟",
+    "clearAll": "مسح الكل",
+    "emptyT": "لا شيء بعد",
+    "emptyB": "ستظهر هنا التأكيدات والتذكيرات وردود الفريق."
   },
   "profileForm": {
     "title": "حسابي",

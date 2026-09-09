@@ -2257,6 +2257,7 @@ export type Database = {
       auth_has_permission: { Args: { perm: string }; Returns: boolean }
       auth_has_role: { Args: { role_key: string }; Returns: boolean }
       can_see_stay_info: { Args: { aid: string }; Returns: boolean }
+      clear_notifications: { Args: never; Returns: undefined }
       countersign_contract: {
         Args: { p_contract: string; p_signature_name: string }
         Returns: {
@@ -2353,6 +2354,32 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      create_service: {
+        Args: { p_pricing_mode?: string; p_title: string }
+        Returns: {
+          active: boolean
+          base_price: number | null
+          category_id: string | null
+          created_at: string
+          description: string | null
+          icon: string | null
+          id: string
+          lead_time_hours: number
+          options_schema: Json
+          position: number
+          pricing_mode: string
+          slug: string
+          title: string
+          unit: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "services"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       create_service_order: {
         Args: {
           p_address?: string
@@ -2392,6 +2419,9 @@ export type Database = {
       }
       delete_apartment: { Args: { p_apartment: string }; Returns: undefined }
       delete_message: { Args: { p_message: string }; Returns: undefined }
+      delete_notification: { Args: { p_id: string }; Returns: undefined }
+      delete_review: { Args: { p_id: string }; Returns: undefined }
+      delete_service: { Args: { p_id: string }; Returns: undefined }
       delete_stay_info: { Args: { p_apartment: string }; Returns: undefined }
       has_permission: { Args: { perm: string; uid: string }; Returns: boolean }
       has_role: { Args: { role_key: string; uid: string }; Returns: boolean }

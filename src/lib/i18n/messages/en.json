@@ -333,7 +333,9 @@
       "filterActive": "Active",
       "filterAll": "All",
       "queueEmptyT": "Empty queue",
-      "queueEmptyB": "No requests to handle right now."
+      "queueEmptyB": "No requests to handle right now.",
+      "cancelConfirm": "Cancel this request?",
+      "cancelRequest": "Cancel the request"
     },
     "verif": {
       "toProcess": "To process",
@@ -377,7 +379,8 @@
       "feature": "Feature",
       "unfeature": "Unfeature",
       "reply": "Reply",
-      "editReply": "Edit reply"
+      "editReply": "Edit reply",
+      "deleteConfirm": "Delete this review permanently?"
     },
     "proof": {
       "none": "No payment proof pending.",
@@ -497,7 +500,11 @@
         "fixed": "Fixed price",
         "metered": "Metered",
         "quote": "On quote"
-      }
+      },
+      "newService": "New service",
+      "deleteConfirm": "Delete this service permanently?",
+      "deleteInUse": "Not possible: live requests use this service.",
+      "deleteFailed": "Deletion failed."
     },
     "siteEditor": {
       "preview": "Preview",
@@ -518,7 +525,8 @@
         "desktop": "Desktop",
         "tablet": "Tablet",
         "phone": "Phone"
-      }
+      },
+      "deleteConfirm": "Delete this section?"
     },
     "branding": {
       "favicon": "Favicon",
@@ -713,7 +721,11 @@
     "deviceOn": "Notifications enabled on this device.",
     "activateDevice": "Enable on this device",
     "sendTest": "Send a test notification",
-    "testSent": "Test sent — check your screen"
+    "testSent": "Test sent — check your screen",
+    "clearConfirm": "Clear all notifications?",
+    "clearAll": "Clear all",
+    "emptyT": "Nothing yet",
+    "emptyB": "Confirmations, reminders and team replies will appear here."
   },
   "profileForm": {
     "title": "My account",

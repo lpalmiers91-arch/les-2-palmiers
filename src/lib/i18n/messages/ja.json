@@ -333,7 +333,9 @@
       "filterActive": "進行中",
       "filterAll": "すべて",
       "queueEmptyT": "キューは空です",
-      "queueEmptyB": "現在対応すべきリクエストはありません。"
+      "queueEmptyB": "現在対応すべきリクエストはありません。",
+      "cancelConfirm": "このリクエストをキャンセルしますか？",
+      "cancelRequest": "リクエストをキャンセル"
     },
     "verif": {
       "toProcess": "対応待ち",
@@ -377,7 +379,8 @@
       "feature": "注目に設定",
       "unfeature": "注目を解除",
       "reply": "返信",
-      "editReply": "返信を編集"
+      "editReply": "返信を編集",
+      "deleteConfirm": "このレビューを完全に削除しますか？"
     },
     "proof": {
       "none": "保留中の支払い証明はありません。",
@@ -497,7 +500,11 @@
         "fixed": "固定料金",
         "metered": "実費",
         "quote": "見積り"
-      }
+      },
+      "newService": "新しいサービス",
+      "deleteConfirm": "このサービスを完全に削除しますか？",
+      "deleteInUse": "できません：進行中のリクエストがこのサービスを使用しています。",
+      "deleteFailed": "削除に失敗しました。"
     },
     "siteEditor": {
       "preview": "プレビュー",
@@ -518,7 +525,8 @@
         "desktop": "デスクトップ",
         "tablet": "タブレット",
         "phone": "スマホ"
-      }
+      },
+      "deleteConfirm": "このセクションを削除しますか？"
     },
     "branding": {
       "favicon": "ファビコン",
@@ -713,7 +721,11 @@
     "deviceOn": "このデバイスで通知が有効です。",
     "activateDevice": "このデバイスで有効にする",
     "sendTest": "テスト通知を送信",
-    "testSent": "テストを送信しました — 画面を確認してください"
+    "testSent": "テストを送信しました — 画面を確認してください",
+    "clearConfirm": "すべての通知を消去しますか？",
+    "clearAll": "すべて消去",
+    "emptyT": "まだ何もありません",
+    "emptyB": "確認、リマインダー、チームからの返信がここに表示されます。"
   },
   "profileForm": {
     "title": "マイアカウント",
