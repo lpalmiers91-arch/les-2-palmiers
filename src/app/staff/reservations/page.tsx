@@ -1,0 +1,54 @@
+import type { Metadata } from "next";
+import { createClient } from "@/lib/supabase/server";
+import { PageTitle, StatusBadge, EmptyState } from "@/components/app/ui";
+import { ReservationActions } from "@/components/console/reservation-actions";
+import { formatDate, formatXOF, parseRange } from "@/lib/format";
+
+export const metadata: Metadata = { title: "Réservations" };
+
+export default async function StaffReservations() {
+  const supabase = await createClient();
+  const { data: rows } = await supabase
+    .from("reservations")
+    .select("id, reference, date_range, status, total_amount, amount_paid, guests_count, guest:profiles(full_name, phone)")
+    .order("date_range", { ascending: false });
+
+  return (
+    <div className="mx-auto max-w-4xl">
+      <PageTitle title="Réservations" sub="Toutes les réservations, du plus récent séjour au plus ancien." />
+      {!rows || rows.length === 0 ? (
+        <EmptyState title="Aucune réservation" body="Les réservations des clients apparaîtront ici." />
+      ) : (
+        <ul className="space-y-3">
+          {rows.map((r) => {
+            const { start, end } = parseRange(r.date_range as string);
+            const g = r.guest as { full_name?: string; phone?: string } | null;
+            return (
+              <li key={r.id} className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[14.5px] font-medium text-ink">
+                      {formatDate(start, { day: "numeric", month: "short" })} —{" "}
+                      {formatDate(end, { day: "numeric", month: "short", year: "numeric" })}
+                    </p>
+                    <p className="mt-0.5 text-[12.5px] text-ink-3">
+                      {g?.full_name ?? "Client"} {g?.phone ? `· ${g.phone}` : ""} · {r.guests_count} pers. · réf.{" "}
+                      {r.reference}
+                    </p>
+                    <p className="mt-1 text-[12.5px] tnum text-ink-3">
+                      {formatXOF(r.amount_paid as number)} / {formatXOF(r.total_amount as number)} réglés
+                    </p>
+                  </div>
+                  <StatusBadge status={r.status as string} />
+                </div>
+                <div className="mt-4 border-t border-line pt-3">
+                  <ReservationActions id={r.id as string} status={r.status as string} />
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}

@@ -56,9 +56,19 @@ export function AuthForm({ mode }: { mode: Mode }) {
         if (error) throw error;
         setNotice("Si un compte existe, un lien vient de vous être envoyé.");
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        router.push(suite);
+        let dest = suite;
+        if (suite === "/app" && data.user) {
+          const { data: roleRows } = await supabase
+            .from("user_roles")
+            .select("role_id")
+            .eq("user_id", data.user.id);
+          const roles = (roleRows ?? []).map((r) => r.role_id);
+          if (roles.includes("admin")) dest = "/admin";
+          else if (roles.some((r) => ["staff", "coordinator"].includes(r))) dest = "/staff";
+        }
+        router.push(dest);
         router.refresh();
         return;
       }

@@ -179,11 +179,13 @@ Deno.serve(async (req) => {
             await admin.from("ai_threads").update({ last_message_at: new Date().toISOString() }).eq("id", thread);
           }
           if (userId) {
-            await admin.rpc("increment_ai_usage", {
-              p_user: userId,
-              p_tokens_in: 0,
-              p_tokens_out: Math.ceil(full.length / 4),
-            }).catch(() => {});
+            try {
+              await admin.rpc("increment_ai_usage", {
+                p_user: userId,
+                p_tokens_in: 0,
+                p_tokens_out: Math.ceil(full.length / 4),
+              });
+            } catch { /* usage non bloquant */ }
           }
 
           send({ type: "done", threadId: thread, provider: usedProvider, model: usedModel });

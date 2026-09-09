@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "@/components/app/app-shell";
+import { AssistantWidget } from "@/components/assistant/assistant-widget";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -27,6 +28,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       unread={unread ?? 0}
     >
       {children}
+      <AssistantWidget space="client" />
     </AppShell>
   );
 }

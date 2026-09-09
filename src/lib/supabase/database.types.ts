@@ -239,6 +239,13 @@ export type Database = {
             referencedRelation: "apartments"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "apartment_amenities_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "v_occupancy_monthly"
+            referencedColumns: ["apartment_id"]
+          },
         ]
       }
       apartment_media: {
@@ -279,6 +286,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "apartments"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "apartment_media_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "v_occupancy_monthly"
+            referencedColumns: ["apartment_id"]
           },
         ]
       }
@@ -422,6 +436,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "apartments"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "availability_blocks_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "v_occupancy_monthly"
+            referencedColumns: ["apartment_id"]
           },
           {
             foreignKeyName: "availability_blocks_created_by_fkey"
@@ -863,6 +884,13 @@ export type Database = {
             referencedRelation: "apartments"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "price_rules_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "v_occupancy_monthly"
+            referencedColumns: ["apartment_id"]
+          },
         ]
       }
       profiles: {
@@ -1141,6 +1169,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "apartments"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "v_occupancy_monthly"
+            referencedColumns: ["apartment_id"]
           },
           {
             foreignKeyName: "reservations_guest_id_fkey"
@@ -1550,7 +1585,53 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      v_occupancy_monthly: {
+        Row: {
+          apartment_id: string | null
+          month: string | null
+          nights_sold: number | null
+        }
+        Relationships: []
+      }
+      v_pending_queue: {
+        Row: {
+          created_at: string | null
+          id: string | null
+          kind: string | null
+          reference: string | null
+          status: string | null
+        }
+        Relationships: []
+      }
+      v_revenue_daily: {
+        Row: {
+          day: string | null
+          gross_revenue: number | null
+          paid_count: number | null
+          purpose: string | null
+        }
+        Relationships: []
+      }
+      v_service_performance: {
+        Row: {
+          completed: number | null
+          declined: number | null
+          orders: number | null
+          revenue: number | null
+          slug: string | null
+          title: string | null
+        }
+        Relationships: []
+      }
+      v_staff_activity: {
+        Row: {
+          actions: number | null
+          actor_id: string | null
+          actor_role: string | null
+          day: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       apartment_is_visible: { Args: { aid: string }; Returns: boolean }
@@ -1630,6 +1711,10 @@ export type Database = {
       }
       has_permission: { Args: { perm: string; uid: string }; Returns: boolean }
       has_role: { Args: { role_key: string; uid: string }; Returns: boolean }
+      increment_ai_usage: {
+        Args: { p_tokens_in?: number; p_tokens_out?: number; p_user: string }
+        Returns: undefined
+      }
       is_available: {
         Args: { p_apartment: string; p_range: unknown }
         Returns: boolean
