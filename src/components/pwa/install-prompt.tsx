@@ -7,6 +7,17 @@ import { Mark } from "@/components/brand/mark";
 import { easeOut } from "@/lib/motion";
 
 const DISMISS_KEY = "l2p-install-dismissed";
+const CONSENT_KEY = "l2p-consent-v1";
+
+// N'affiche l'invite qu'une fois la bannière cookies traitée, pour éviter
+// que les deux se superposent en bas de l'écran.
+function consentDecided() {
+  try {
+    return !!localStorage.getItem(CONSENT_KEY);
+  } catch {
+    return true;
+  }
+}
 
 type BIPEvent = Event & {
   prompt: () => Promise<void>;
@@ -43,25 +54,37 @@ export function InstallPrompt() {
     }
     if (dismissed || isStandalone()) return;
 
+    const timers: number[] = [];
+    // attend la décision cookies avant de se montrer
+    function scheduleShow(delay: number) {
+      const first = window.setTimeout(function tick() {
+        if (consentDecided()) setShow(true);
+        else {
+          const again = window.setTimeout(tick, 1200);
+          timers.push(again);
+        }
+      }, delay);
+      timers.push(first);
+    }
+
     const onBIP = (e: Event) => {
       e.preventDefault();
       setDeferred(e as BIPEvent);
       setMode("android");
-      window.setTimeout(() => setShow(true), 4000);
+      scheduleShow(4000);
     };
     window.addEventListener("beforeinstallprompt", onBIP);
 
     // iOS : pas d'événement, on propose les instructions
     if (isIOS()) {
       setMode("ios");
-      const t = window.setTimeout(() => setShow(true), 5000);
-      return () => {
-        window.removeEventListener("beforeinstallprompt", onBIP);
-        window.clearTimeout(t);
-      };
+      scheduleShow(5000);
     }
 
-    return () => window.removeEventListener("beforeinstallprompt", onBIP);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", onBIP);
+      timers.forEach((t) => window.clearTimeout(t));
+    };
   }, []);
 
   function close() {

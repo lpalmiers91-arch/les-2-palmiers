@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
@@ -9,13 +10,15 @@ import { ButtonLink } from "@/components/ui/button";
 import { easeOut } from "@/lib/motion";
 
 const links = [
-  { href: "/appartement", label: "L'appartement" },
-  { href: "/services", label: "Services" },
-  { href: "/le-lieu", label: "Le lieu" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#appartement", label: "L'appartement" },
+  { href: "/#services", label: "Services" },
+  { href: "/#le-lieu", label: "Le lieu" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const onHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -33,13 +36,14 @@ export function SiteHeader() {
     };
   }, [open]);
 
-  const dark = !scrolled && !open; // texte clair au-dessus du hero vert
+  const solid = scrolled || open || !onHome;
+  const dark = !solid; // texte clair au-dessus du hero vert, sombre ailleurs
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div
         className={`transition-colors duration-500 ${
-          scrolled || open
+          solid
             ? "border-b border-ink/10 bg-bone/85 backdrop-blur-xl"
             : "border-b border-transparent"
         }`}

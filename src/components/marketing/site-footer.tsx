@@ -7,23 +7,23 @@ const cols = [
   {
     title: "Séjour",
     links: [
-      { href: "/appartement", label: "L'appartement" },
+      { href: "/#appartement", label: "L'appartement" },
       { href: "/reserver", label: "Réserver" },
-      { href: "/le-lieu", label: "Le lieu" },
+      { href: "/#le-lieu", label: "Le lieu" },
       { href: "/connexion", label: "Espace client" },
     ],
   },
   {
     title: "Services",
     links: servicesFallback.slice(0, 6).map((s) => ({
-      href: `/services#${s.slug}`,
+      href: `/#services`,
       label: s.title,
     })),
   },
   {
     title: "Autour",
     links: destinationsFallback.map((d) => ({
-      href: "/le-lieu",
+      href: "/#le-lieu",
       label: d.name,
     })),
   },
