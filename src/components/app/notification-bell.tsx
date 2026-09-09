@@ -36,8 +36,9 @@ function href(n: Notif, space: Space): string {
   return space === "admin" ? "/admin" : "/staff";
 }
 
-function rel(iso: string): string {
-  const s = Math.round((Date.now() - new Date(iso).getTime()) / 1000);
+function rel(iso: string, nowMs: number | null): string {
+  if (nowMs === null) return ""; // évite un décalage d'hydratation (SSR ≠ client)
+  const s = Math.round((nowMs - new Date(iso).getTime()) / 1000);
   if (s < 60) return "à l'instant";
   if (s < 3600) return `il y a ${Math.floor(s / 60)} min`;
   if (s < 86400) return `il y a ${Math.floor(s / 3600)} h`;
@@ -58,7 +59,14 @@ export function NotificationBell({
   const router = useRouter();
   const [items, setItems] = useState<Notif[]>(initial);
   const [open, setOpen] = useState(false);
+  const [nowMs, setNowMs] = useState<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setNowMs(Date.now());
+    const id = window.setInterval(() => setNowMs(Date.now()), 60_000);
+    return () => window.clearInterval(id);
+  }, []);
 
   const unread = items.filter((n) => !n.read_at).length;
 
@@ -154,7 +162,9 @@ export function NotificationBell({
                       >
                         <p className="text-[13px] font-medium text-ink">{n.title}</p>
                         {n.body && <p className="mt-0.5 line-clamp-2 text-[12px] text-ink-2">{n.body}</p>}
-                        <p className="mt-1 text-[10.5px] text-ink-3">{rel(n.created_at)}</p>
+                        <p className="mt-1 text-[10.5px] text-ink-3" suppressHydrationWarning>
+                          {rel(n.created_at, nowMs)}
+                        </p>
                       </Link>
                     </li>
                   ))}

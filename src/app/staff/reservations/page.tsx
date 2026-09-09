@@ -10,7 +10,9 @@ export default async function StaffReservations() {
   const supabase = await createClient();
   const { data: rows } = await supabase
     .from("reservations")
-    .select("id, reference, date_range, status, total_amount, amount_paid, guests_count, guest:profiles(full_name, phone)")
+    .select(
+      "id, reference, date_range, status, total_amount, amount_paid, guests_count, guest:profiles!reservations_guest_id_fkey(full_name, phone)",
+    )
     .order("date_range", { ascending: false });
 
   return (

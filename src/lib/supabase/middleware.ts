@@ -2,29 +2,64 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config";
 import {
-  audienceFromRoles,
   classify,
-  homeFor,
   hostSplitEnabled,
   isStaffHost,
   CLIENT_ORIGIN,
   STAFF_ORIGIN,
-  type Space,
 } from "@/lib/spaces";
 
-export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({ request });
+// Le middleware est une garde RAPIDE et FAIL-SAFE :
+//  - il rafraîchit la session Supabase (obligatoire avec @supabase/ssr) ;
+//  - il redirige les visiteurs NON connectés vers la bonne page de connexion ;
+//  - il applique le cloisonnement par hôte (si STAFF_HOST est défini).
+// Le contrôle fin du rôle (client vs équipe) est fait dans chaque layout serveur,
+// qui est le contexte de rendu fiable. On n'interroge PAS la base ici : une
+// requête lente ne doit jamais envoyer un membre de l'équipe dans le mauvais espace.
 
-  // Pages purement publiques hors mode multi-hôtes : rien à vérifier ici.
-  const earlyPath = request.nextUrl.pathname;
-  if (
-    !hostSplitEnabled() &&
-    earlyPath !== "/reserver" &&
-    classify(earlyPath) === "client-public"
-  ) {
-    return response;
+const PUBLIC_CONNECTION = new Set(["/connexion", "/inscription", "/mot-de-passe", "/equipe"]);
+
+export async function updateSession(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+  const space = classify(path);
+
+  // 1. Cloisonnement par hôte (ne dépend pas de la session) ---------------
+  if (hostSplitEnabled()) {
+    const onStaffHost = isStaffHost(request.headers.get("host"));
+    const teamRoute = space === "team" || space === "team-auth";
+    const clientRoute =
+      space === "client-app" || space === "client-auth" || space === "client-public";
+
+    if (onStaffHost && (clientRoute || path === "/")) {
+      if (path === "/") {
+        const u = request.nextUrl.clone();
+        u.pathname = "/staff";
+        return NextResponse.redirect(u);
+      }
+      return CLIENT_ORIGIN
+        ? NextResponse.redirect(new URL(path + request.nextUrl.search, CLIENT_ORIGIN))
+        : new NextResponse("Not found", { status: 404 });
+    }
+    if (!onStaffHost && teamRoute) {
+      return STAFF_ORIGIN
+        ? NextResponse.redirect(new URL(path + request.nextUrl.search, STAFF_ORIGIN))
+        : new NextResponse("Not found", { status: 404 });
+    }
   }
 
+  // 2. Routes sans besoin de session : on ne touche pas à Supabase --------
+  const needsSession =
+    space === "client-app" ||
+    space === "team" ||
+    space === "team-auth" ||
+    space === "client-auth" ||
+    space === "shared"; // /auth/* a besoin du rafraîchissement de cookie
+  if (!needsSession) {
+    return NextResponse.next({ request });
+  }
+
+  // 3. Session Supabase + gardes "non connecté" --------------------------
+  let response = NextResponse.next({ request });
   try {
     const supabase = createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       cookies: {
@@ -46,104 +81,38 @@ export async function updateSession(request: NextRequest) {
     } = await supabase.auth.getUser();
 
     const url = request.nextUrl.clone();
-    const path = url.pathname;
-    const space = classify(path);
-    const onStaffHost = isStaffHost(request.headers.get("host"));
 
-    // ---- 1. Cloisonnement par hôte (si STAFF_HOST est défini) --------------
-    if (hostSplitEnabled()) {
-      const teamRoute = space === "team" || space === "team-auth";
-      const clientRoute =
-        space === "client-app" || space === "client-auth" || space === "client-public";
-
-      if (onStaffHost && clientRoute) {
-        // l'espace client n'existe pas sur l'hôte équipe
-        return CLIENT_ORIGIN
-          ? NextResponse.redirect(new URL(path + url.search, CLIENT_ORIGIN))
-          : rewriteNotFound(request);
-      }
-      if (!onStaffHost && teamRoute) {
-        // l'espace équipe n'existe pas sur l'hôte client
-        return STAFF_ORIGIN
-          ? NextResponse.redirect(new URL(path + url.search, STAFF_ORIGIN))
-          : rewriteNotFound(request);
-      }
-      if (onStaffHost && path === "/") {
-        url.pathname = "/staff";
-        return NextResponse.redirect(url);
-      }
-    }
-
-    // ---- 2. Gardes de rôle (les deux modes) ------------------------------
-    let roles: string[] = [];
-    if (user && (needsRole(space) || path === "/reserver")) {
-      const { data } = await supabase.from("user_roles").select("role_id").eq("user_id", user.id);
-      roles = (data ?? []).map((r) => r.role_id as string);
-    }
-    const audience = audienceFromRoles(roles);
-
-    // espace équipe : /staff, /admin
-    if (space === "team") {
-      if (!user) {
+    if (!user) {
+      if (space === "team") {
         url.pathname = "/equipe";
         url.search = "";
         url.searchParams.set("suite", path);
-        return NextResponse.redirect(url);
+        return withCookies(NextResponse.redirect(url), response);
       }
-      if (audience !== "team") {
-        url.pathname = "/app";
-        url.search = "";
-        return NextResponse.redirect(url);
-      }
-    }
-
-    // connexion équipe : /equipe
-    if (space === "team-auth" && user) {
-      url.pathname = homeFor(audience, roles);
-      url.search = "";
-      return NextResponse.redirect(url);
-    }
-
-    // espace client : /app
-    if (space === "client-app") {
-      if (!user) {
+      if (space === "client-app") {
         url.pathname = "/connexion";
         url.search = "";
         url.searchParams.set("suite", path);
-        return NextResponse.redirect(url);
+        return withCookies(NextResponse.redirect(url), response);
       }
-      if (audience === "team") {
-        url.pathname = homeFor(audience, roles);
-        url.search = "";
-        return NextResponse.redirect(url);
-      }
+      return response; // client-auth / team-auth / shared : on laisse voir la page
     }
 
-    // connexion / inscription client
-    if (space === "client-auth" && user) {
-      url.pathname = homeFor(audience, roles);
+    // Connecté sur une page de connexion : on renvoie vers l'app.
+    // Le layout de /app renverra vers /staff ou /admin si c'est un membre équipe.
+    if (PUBLIC_CONNECTION.has(path)) {
+      url.pathname = "/app";
       url.search = "";
-      return NextResponse.redirect(url);
-    }
-
-    // tunnel de réservation : réservé aux clients
-    if (path === "/reserver" && user && audience === "team") {
-      url.pathname = homeFor(audience, roles);
-      url.search = "";
-      return NextResponse.redirect(url);
+      return withCookies(NextResponse.redirect(url), response);
     }
 
     return response;
   } catch {
-    // souci réseau/session : on laisse passer, les layouts serveur re-vérifient.
     return response;
   }
 }
 
-function needsRole(space: Space): boolean {
-  return space === "team" || space === "team-auth" || space === "client-app" || space === "client-auth";
-}
-
-function rewriteNotFound(_request: NextRequest) {
-  return new NextResponse("Not found", { status: 404 });
+function withCookies(target: NextResponse, from: NextResponse) {
+  from.cookies.getAll().forEach((c) => target.cookies.set(c));
+  return target;
 }

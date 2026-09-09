@@ -13,7 +13,9 @@ export default async function StaffHome() {
   const [{ data: reservations }, { data: pending }, { data: queue }] = await Promise.all([
     supabase
       .from("reservations")
-      .select("reference, date_range, status, guests_count, guest:profiles(full_name)")
+      .select(
+        "reference, date_range, status, guests_count, guest:profiles!reservations_guest_id_fkey(full_name)",
+      )
       .in("status", ["confirmed", "in_stay"])
       .order("date_range"),
     supabase
@@ -22,7 +24,9 @@ export default async function StaffHome() {
       .in("status", ["requested", "accepted"]),
     supabase
       .from("service_orders")
-      .select("id, reference, status, scheduled_for, service:services(title), customer:profiles(full_name)")
+      .select(
+        "id, reference, status, scheduled_for, service:services(title), customer:profiles!service_orders_customer_id_fkey(full_name)",
+      )
       .in("status", ["requested", "accepted", "scheduled"])
       .order("created_at")
       .limit(8),

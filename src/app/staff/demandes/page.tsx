@@ -19,7 +19,7 @@ export default async function DemandesPage({
   let q = supabase
     .from("service_orders")
     .select(
-      "id, reference, status, price, scheduled_for, options, note, decline_reason, service:services(title, pricing_mode), customer:profiles(full_name)",
+      "id, reference, status, price, scheduled_for, options, note, decline_reason, service:services(title, pricing_mode), customer:profiles!service_orders_customer_id_fkey(full_name)",
     )
     .order("created_at", { ascending: true });
   if (filter) q = q.in("status", filter);

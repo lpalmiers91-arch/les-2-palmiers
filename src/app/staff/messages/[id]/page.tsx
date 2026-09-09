@@ -17,7 +17,7 @@ export default async function StaffConversation({
 
   const { data: conv } = await supabase
     .from("conversations")
-    .select("id, customer_id, customer:profiles(full_name)")
+    .select("id, customer_id, customer:profiles!conversations_customer_id_fkey(full_name)")
     .eq("id", id)
     .maybeSingle();
   if (!conv) notFound();

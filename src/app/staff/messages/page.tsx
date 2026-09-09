@@ -11,7 +11,9 @@ export default async function StaffMessages() {
   const supabase = await createClient();
   const { data: convs } = await supabase
     .from("conversations")
-    .select("id, subject, type, status, last_message_at, customer:profiles(full_name)")
+    .select(
+      "id, subject, type, status, last_message_at, customer:profiles!conversations_customer_id_fkey(full_name)",
+    )
     .order("last_message_at", { ascending: false });
 
   return (

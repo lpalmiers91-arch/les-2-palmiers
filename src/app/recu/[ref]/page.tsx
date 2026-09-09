@@ -26,7 +26,7 @@ export default async function ReceiptPage({
   const { data: p } = await supabase
     .from("payments")
     .select(
-      "internal_ref, method, amount, currency, status, purpose, paid_at, created_at, reservation:reservations(reference, date_range, guests_count), service_order:service_orders(reference, service:services(title)), payer:profiles(full_name)",
+      "internal_ref, method, amount, currency, status, purpose, paid_at, created_at, reservation:reservations!payments_reservation_id_fkey(reference, date_range, guests_count), service_order:service_orders!payments_service_order_id_fkey(reference, service:services(title)), payer:profiles!payments_payer_id_fkey(full_name)",
     )
     .eq("internal_ref", decodeURIComponent(ref))
     .maybeSingle();

@@ -12,7 +12,9 @@ export default async function PaiementsPage() {
   const [{ data: pays }, { data: refunds }] = await Promise.all([
     supabase
       .from("payments")
-      .select("id, internal_ref, method, amount, status, purpose, created_at, paid_at, payer:profiles(full_name)")
+      .select(
+        "id, internal_ref, method, amount, status, purpose, created_at, paid_at, payer:profiles!payments_payer_id_fkey(full_name)",
+      )
       .order("created_at", { ascending: false }),
     supabase.from("refunds").select("payment_id, amount"),
   ]);
