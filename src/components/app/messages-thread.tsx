@@ -17,16 +17,48 @@ export function MessagesThread({
   conversationId,
   initial,
   meId,
+  variant = "client",
+  peerId,
+  peerName,
 }: {
   conversationId: string | null;
   initial: Msg[];
   meId: string;
+  variant?: "client" | "staff";
+  peerId?: string | null;
+  peerName?: string;
 }) {
   const [messages, setMessages] = useState<Msg[]>(initial);
   const [text, setText] = useState("");
   const [convId, setConvId] = useState(conversationId);
   const [sending, setSending] = useState(false);
+  const [peerOnline, setPeerOnline] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
+
+  const myRole = variant === "staff" ? "staff" : "client";
+  const peerRole = variant === "staff" ? "client" : "staff";
+
+  useEffect(() => {
+    if (!meId) return;
+    const supabase = createClient();
+    const ch = supabase.channel("presence:support", { config: { presence: { key: meId } } });
+    ch.on("presence", { event: "sync" }, () => {
+      const state = ch.presenceState<{ role?: string; user_id?: string }>();
+      const online = Object.entries(state).some(([key, ms]) => {
+        const metas = ms as { role?: string }[];
+        if (peerId) return key === peerId && metas.some((m) => m.role === peerRole);
+        return metas.some((m) => m.role === peerRole);
+      });
+      setPeerOnline(online);
+    });
+    ch.subscribe((s) => {
+      if (s === "SUBSCRIBED") ch.track({ role: myRole, user_id: meId });
+    });
+    return () => {
+      ch.untrack();
+      supabase.removeChannel(ch);
+    };
+  }, [meId, peerId, myRole, peerRole]);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: "end" });
@@ -78,6 +110,19 @@ export function MessagesThread({
 
   return (
     <div className="flex h-[calc(100dvh-160px)] flex-col rounded-[var(--radius-lg)] border border-line bg-bone lg:h-[calc(100dvh-120px)]">
+      <div className="flex items-center gap-2 border-b border-line px-4 py-3 sm:px-6">
+        <span className={`h-2 w-2 rounded-full ${peerOnline ? "bg-forest-2" : "bg-ink-3/40"}`} />
+        <p className="text-[13px] font-medium text-ink">
+          {variant === "staff" ? peerName || "Client" : "Équipe Les 2 Palmiers"}
+        </p>
+        <p className="text-[12px] text-ink-3">
+          {peerOnline
+            ? "en ligne"
+            : variant === "staff"
+              ? "hors ligne"
+              : "vous répondra dès que possible"}
+        </p>
+      </div>
       <div className="flex-1 space-y-3 overflow-y-auto p-4 sm:p-6">
         {messages.length === 0 && (
           <p className="mt-8 text-center text-[13.5px] text-ink-3">

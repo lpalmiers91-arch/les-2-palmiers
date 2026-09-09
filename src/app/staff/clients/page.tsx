@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, EmptyState } from "@/components/app/ui";
 import { formatDate } from "@/lib/format";
@@ -35,16 +37,24 @@ export default async function ClientsPage() {
       ) : (
         <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
           {clients.map((c) => (
-            <li key={c.id} className="flex items-center justify-between gap-4 px-5 py-3.5">
-              <div>
-                <p className="text-[14px] text-ink">{c.full_name || "Sans nom"}</p>
-                <p className="text-[12px] text-ink-3">
-                  {c.phone || "téléphone non renseigné"} · inscrit le {formatDate(c.created_at)}
-                </p>
-              </div>
-              <span className="tnum text-[12.5px] text-ink-3">
-                {counts.get(c.id) ?? 0} réservation{(counts.get(c.id) ?? 0) > 1 ? "s" : ""}
-              </span>
+            <li key={c.id}>
+              <Link
+                href={`/staff/clients/${c.id}`}
+                className="flex items-center justify-between gap-4 px-5 py-3.5 transition-colors hover:bg-ink/[0.03]"
+              >
+                <div>
+                  <p className="text-[14px] text-ink">{c.full_name || "Sans nom"}</p>
+                  <p className="text-[12px] text-ink-3">
+                    {c.phone || "téléphone non renseigné"} · inscrit le {formatDate(c.created_at)}
+                  </p>
+                </div>
+                <span className="flex items-center gap-2">
+                  <span className="tnum text-[12.5px] text-ink-3">
+                    {counts.get(c.id) ?? 0} rés.
+                  </span>
+                  <ChevronRight className="h-4 w-4 text-ink-3" />
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
