@@ -16,10 +16,12 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   if (!user) redirect("/connexion?suite=/app");
 
   // Cloisonnement : un membre de l'équipe n'entre jamais dans l'espace client.
-  const { data: roleRows } = await supabase
+  const { data: roleRows, error: rolesError } = await supabase
     .from("user_roles")
     .select("role_id")
     .eq("user_id", user.id);
+  // en cas d'erreur on ne devine pas : on renvoie vers la connexion (fail-closed).
+  if (rolesError) redirect("/connexion?suite=/app");
   const roles = (roleRows ?? []).map((r) => r.role_id as string);
   if (audienceFromRoles(roles) === "team") redirect(homeFor("team", roles));
 

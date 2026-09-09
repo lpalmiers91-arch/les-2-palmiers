@@ -3,9 +3,18 @@ export function formatXOF(n: number | null | undefined): string {
   return new Intl.NumberFormat("fr-FR").format(Math.round(n)) + " XOF";
 }
 
+// Fuseau de l'établissement : toutes les dates/heures sont affichées en heure de
+// Cotonou, quel que soit le fuseau du visiteur. Cela rend aussi le rendu
+// déterministe entre le serveur (UTC) et le navigateur → pas de décalage
+// d'hydratation (erreur React #418).
+const TZ = "Africa/Porto-Novo";
+
 export function formatDate(d: string | Date, opts?: Intl.DateTimeFormatOptions): string {
   const date = typeof d === "string" ? new Date(d) : d;
-  return date.toLocaleDateString("fr-FR", opts ?? { day: "numeric", month: "long", year: "numeric" });
+  return date.toLocaleDateString("fr-FR", {
+    timeZone: TZ,
+    ...(opts ?? { day: "numeric", month: "long", year: "numeric" }),
+  });
 }
 
 export function formatDateShort(d: string | Date): string {
