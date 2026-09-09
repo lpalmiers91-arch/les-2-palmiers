@@ -17,16 +17,20 @@ export default async function ParametresPage() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Card>
-          <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">Entreprise</h2>
+          <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+            {t("console.settings.company")}
+          </h2>
           <dl className="mt-3 space-y-2 text-[13.5px]">
-            <Row k="Nom">{String(company.name ?? "—")}</Row>
-            <Row k="Ville">{String(company.city ?? "—")}</Row>
-            <Row k="E-mail">{String(company.email ?? "—")}</Row>
-            <Row k="Domaine">{String(company.domain ?? "—")}</Row>
+            <Row k={t("console.settings.name")}>{String(company.name ?? "—")}</Row>
+            <Row k={t("console.settings.city")}>{String(company.city ?? "—")}</Row>
+            <Row k={t("console.settings.email")}>{String(company.email ?? "—")}</Row>
+            <Row k={t("console.settings.domain")}>{String(company.domain ?? "—")}</Row>
           </dl>
         </Card>
         <Card>
-          <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">Téléphones</h2>
+          <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+            {t("console.settings.phones")}
+          </h2>
           <ul className="mt-3 space-y-1.5 text-[13.5px] tnum text-ink">
             {(Array.isArray(company.phones) ? (company.phones as string[]) : []).map((p) => (
               <li key={p}>{p}</li>
@@ -36,12 +40,10 @@ export default async function ParametresPage() {
       </div>
 
       <Card className="mt-4">
-        <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">Pages légales</h2>
-        <p className="mt-2 text-[13px] text-ink-3">
-          CGV, politique de confidentialité, politique cookies et mentions légales
-          sont éditables dans le module « Contenu ». Version de démonstration :
-          textes par défaut.
-        </p>
+        <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+          {t("console.settings.legalPages")}
+        </h2>
+        <p className="mt-2 text-[13px] text-ink-3">{t("console.settings.legalNote")}</p>
       </Card>
     </div>
   );

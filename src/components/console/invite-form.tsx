@@ -4,11 +4,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Check, UserPlus } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
 import { FUNCTIONS_URL as FN, SUPABASE_ANON_KEY as ANON } from "@/lib/supabase/config";
 
 export function InviteForm() {
   const router = useRouter();
+  const { t } = useT();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [role, setRole] = useState("staff");
@@ -33,18 +35,16 @@ export function InviteForm() {
         body: JSON.stringify({ email, full_name: name || null, role }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "échec");
+      if (!res.ok) throw new Error(data.error || "error");
       setMsg({
         ok: true,
-        text: data.invited
-          ? "Invitation envoyée. Le membre reçoit un e-mail pour créer son mot de passe."
-          : "Ce compte existait déjà — le rôle vient de lui être attribué.",
+        text: data.invited ? t("console.invite.sent") : t("console.invite.alreadyExisted"),
       });
       setEmail("");
       setName("");
       router.refresh();
     } catch (err) {
-      setMsg({ ok: false, text: err instanceof Error ? err.message : "Erreur" });
+      setMsg({ ok: false, text: err instanceof Error ? err.message : t("common.error") });
     } finally {
       setBusy(false);
     }
@@ -53,22 +53,27 @@ export function InviteForm() {
   return (
     <form onSubmit={submit} className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
       <h2 className="display flex items-center gap-2 text-[1.1rem] text-ink">
-        <UserPlus className="h-4 w-4 text-forest-2" /> Inviter un membre
+        <UserPlus className="h-4 w-4 text-forest-2" /> {t("console.invite.title")}
       </h2>
       <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
         <input
           type="email"
           required
-          placeholder="e-mail"
+          placeholder={t("auth.email")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="field"
         />
-        <input placeholder="nom (facultatif)" value={name} onChange={(e) => setName(e.target.value)} className="field" />
+        <input
+          placeholder={t("console.invite.nameOptional")}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="field"
+        />
         <select value={role} onChange={(e) => setRole(e.target.value)} className="field sm:w-40">
-          <option value="staff">Staff</option>
-          <option value="coordinator">Coordinateur</option>
-          <option value="admin">Admin</option>
+          <option value="staff">{t("console.invite.roleStaff")}</option>
+          <option value="coordinator">{t("console.invite.roleCoordinator")}</option>
+          <option value="admin">{t("console.invite.roleAdmin")}</option>
         </select>
       </div>
       {msg && (
@@ -80,7 +85,7 @@ export function InviteForm() {
         className="press mt-4 flex h-10 items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
       >
         {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
-        Envoyer l'invitation
+        {t("console.invite.send")}
       </button>
     </form>
   );

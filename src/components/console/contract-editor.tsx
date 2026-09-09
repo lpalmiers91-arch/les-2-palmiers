@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Check, Plus, Trash2, PenLine } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { formatXOF, formatDate } from "@/lib/format";
+import { useT } from "@/lib/i18n/provider";
 
 type Clause = { title: string; body: string };
 type Terms = Record<string, unknown> & { clauses?: Clause[] };
@@ -27,6 +28,7 @@ export function ContractEditor({
   countersignedAt: string | null;
 }) {
   const router = useRouter();
+  const { t } = useT();
   const [terms, setTerms] = useState<Terms>(initialTerms);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -76,23 +78,23 @@ export function ContractEditor({
       {/* éditeur */}
       <div className="space-y-5">
         <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
-          <h2 className="display text-[1.15rem] text-ink">Informations</h2>
+          <h2 className="display text-[1.15rem] text-ink">{t("console.contractEd.info")}</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <F label="Logement">
+            <F label={t("console.contractEd.property")}>
               <input
                 className="field"
                 value={String(terms.apartment ?? "")}
                 onChange={(e) => setField("apartment", e.target.value)}
               />
             </F>
-            <F label="Adresse">
+            <F label={t("console.contractEd.address")}>
               <input
                 className="field"
                 value={String(terms.address ?? "")}
                 onChange={(e) => setField("address", e.target.value)}
               />
             </F>
-            <F label="Arrivée">
+            <F label={t("console.contractEd.checkin")}>
               <input
                 type="date"
                 className="field"
@@ -100,7 +102,7 @@ export function ContractEditor({
                 onChange={(e) => setField("checkin", e.target.value)}
               />
             </F>
-            <F label="Départ">
+            <F label={t("console.contractEd.checkout")}>
               <input
                 type="date"
                 className="field"
@@ -108,7 +110,7 @@ export function ContractEditor({
                 onChange={(e) => setField("checkout", e.target.value)}
               />
             </F>
-            <F label="Voyageurs">
+            <F label={t("console.contractEd.guests")}>
               <input
                 type="number"
                 className="field tnum"
@@ -116,7 +118,7 @@ export function ContractEditor({
                 onChange={(e) => setField("guests", Number(e.target.value))}
               />
             </F>
-            <F label="Nuits">
+            <F label={t("console.contractEd.nights")}>
               <input
                 type="number"
                 className="field tnum"
@@ -124,7 +126,7 @@ export function ContractEditor({
                 onChange={(e) => setField("nights", Number(e.target.value))}
               />
             </F>
-            <F label="Montant total (XOF)">
+            <F label={t("console.contractEd.total")}>
               <input
                 type="number"
                 className="field tnum"
@@ -132,7 +134,7 @@ export function ContractEditor({
                 onChange={(e) => setField("total_amount", Number(e.target.value))}
               />
             </F>
-            <F label="Acompte (XOF)">
+            <F label={t("console.contractEd.deposit")}>
               <input
                 type="number"
                 className="field tnum"
@@ -145,18 +147,18 @@ export function ContractEditor({
 
         <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
           <div className="flex items-center justify-between">
-            <h2 className="display text-[1.15rem] text-ink">Clauses</h2>
+            <h2 className="display text-[1.15rem] text-ink">{t("console.contractEd.clauses")}</h2>
             <button
               onClick={() => setClauses([...clauses, { title: "", body: "" }])}
               className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-3 text-[12.5px] text-ink-2 hover:border-ink/30"
             >
-              <Plus className="h-3.5 w-3.5" /> Ajouter
+              <Plus className="h-3.5 w-3.5" /> {t("console.action.add")}
             </button>
           </div>
           <div className="mt-4 space-y-4">
             {clauses.length === 0 && (
               <p className="text-[13px] text-ink-3">
-                Aucune clause personnalisée — les clauses standard s&apos;appliquent.
+                {t("console.contractEd.noClauses")}
               </p>
             )}
             {clauses.map((c, i) => (
@@ -164,7 +166,7 @@ export function ContractEditor({
                 <div className="flex gap-2">
                   <input
                     className="field flex-1"
-                    placeholder="Titre de la clause"
+                    placeholder={t("console.contractEd.clauseTitle")}
                     value={c.title}
                     onChange={(e) =>
                       setClauses(clauses.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)))
@@ -179,7 +181,7 @@ export function ContractEditor({
                 </div>
                 <textarea
                   className="field mt-2 min-h-[70px] resize-y"
-                  placeholder="Texte de la clause"
+                  placeholder={t("console.contractEd.clauseBody")}
                   value={c.body}
                   onChange={(e) =>
                     setClauses(clauses.map((x, j) => (j === i ? { ...x, body: e.target.value } : x)))
@@ -198,10 +200,10 @@ export function ContractEditor({
           {saving && <Loader2 className="h-4 w-4 animate-spin" />}
           {saved ? (
             <>
-              <Check className="h-4 w-4" /> Enregistré — visible chez le client
+              <Check className="h-4 w-4" /> {t("console.contractEd.savedClient")}
             </>
           ) : (
-            "Enregistrer"
+            t("console.action.save")
           )}
         </button>
       </div>
@@ -209,21 +211,21 @@ export function ContractEditor({
       {/* aperçu / signature */}
       <aside className="space-y-4">
         <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
-          <p className="text-[11px] uppercase tracking-[0.14em] text-ink-3">Aperçu</p>
+          <p className="text-[11px] uppercase tracking-[0.14em] text-ink-3">{t("console.siteEditor.preview")}</p>
           <p className="tnum mt-1 text-[13px] font-medium text-ink">{reference}</p>
           <dl className="mt-3 space-y-1.5 text-[13px]">
-            <Row k="Client">{clientName}</Row>
-            <Row k="Séjour">
+            <Row k={t("console.lists.client")}>{clientName}</Row>
+            <Row k={t("console.contractEd.stay")}>
               {terms.checkin ? formatDate(String(terms.checkin)) : "—"} →{" "}
               {terms.checkout ? formatDate(String(terms.checkout)) : "—"}
             </Row>
-            <Row k="Total">{money("total_amount")}</Row>
-            <Row k="Acompte">{money("deposit_amount")}</Row>
-            <Row k="Signé client">
-              {clientSignedAt ? formatDate(clientSignedAt) : "en attente"}
+            <Row k={t("console.contractEd.totalShort")}>{money("total_amount")}</Row>
+            <Row k={t("console.contractEd.depositShort")}>{money("deposit_amount")}</Row>
+            <Row k={t("console.contractEd.clientSigned")}>
+              {clientSignedAt ? formatDate(clientSignedAt) : t("console.status.pending")}
             </Row>
-            <Row k="Contresigné">
-              {countersignedAt ? formatDate(countersignedAt) : "non"}
+            <Row k={t("console.contractEd.countersigned")}>
+              {countersignedAt ? formatDate(countersignedAt) : t("console.contractEd.notYet")}
             </Row>
           </dl>
           <a
@@ -232,16 +234,16 @@ export function ContractEditor({
             rel="noreferrer"
             className="press mt-3 inline-flex h-9 items-center rounded-full border border-line px-4 text-[12.5px] font-medium text-ink hover:border-ink/30"
           >
-            Ouvrir le document
+            {t("console.contractEd.openDoc")}
           </a>
         </div>
 
         {status === "signed" && (
           <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
-            <p className="text-[13px] font-medium text-ink">Contresigner</p>
+            <p className="text-[13px] font-medium text-ink">{t("console.contractEd.countersign")}</p>
             <input
               className="field mt-2"
-              placeholder="Nom du signataire (équipe)"
+              placeholder={t("console.contractEd.signerName")}
               value={signName}
               onChange={(e) => setSignName(e.target.value)}
             />
@@ -251,7 +253,7 @@ export function ContractEditor({
               className="press mt-2 flex h-10 w-full items-center justify-center gap-2 rounded-full bg-ink text-[13px] font-medium text-bone disabled:opacity-50"
             >
               {signing ? <Loader2 className="h-4 w-4 animate-spin" /> : <PenLine className="h-4 w-4" />}
-              Contresigner
+              {t("console.contractEd.countersign")}
             </button>
           </div>
         )}

@@ -30,12 +30,15 @@ export default async function StaffMessages() {
               <Link href={`/staff/messages/${c.id}`} className="flex items-center gap-4 px-5 py-4 hover:bg-ink/[0.025]">
                 <div className="min-w-0 flex-1">
                   <p className="text-[14px] font-medium text-ink">
-                    {(c.customer as { full_name?: string } | null)?.full_name ?? "Client"}
+                    {(c.customer as { full_name?: string } | null)?.full_name ?? t("console.lists.client")}
                   </p>
                   <p className="text-[12px] text-ink-3">
-                    {c.type === "reservation" ? "Réservation" : "Support"} ·{" "}
+                    {c.type === "reservation"
+                      ? t("console.lists.conversationReservation")
+                      : t("console.lists.support")}{" "}
+                    ·{" "}
                     {formatDate(c.last_message_at, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
-                    {c.status === "closed" ? " · fermée" : ""}
+                    {c.status === "closed" ? ` · ${t("console.lists.closed")}` : ""}
                   </p>
                 </div>
                 <ChevronRight className="h-4 w-4 text-ink-3" />

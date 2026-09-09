@@ -427,18 +427,29 @@
       "teamActivity": "Team activity",
       "noTrackedActions": "No tracked actions.",
       "completed": "Completed",
-      "declined": "Declined"
+      "declined": "Declined",
+      "nightsByMonth": "Nights sold per month",
+      "actions": "actions",
+      "service": "Service",
+      "requests": "Requests",
+      "revenue": "Revenue"
     },
     "settings": {
       "phones": "Phones",
       "legalPages": "Legal pages",
-      "legalNote": "Terms, privacy policy, cookie policy and legal notice are editable in the “Content” module. Demo version: default texts."
+      "legalNote": "Terms, privacy policy, cookie policy and legal notice are editable in the “Content” module. Demo version: default texts.",
+      "company": "Company",
+      "name": "Name",
+      "city": "City",
+      "email": "Email",
+      "domain": "Domain"
     },
     "team": {
       "members": "Team members",
       "assignRole": "Assign a role to a client",
       "permsByRole": "Permissions by role",
-      "systemActor": "system"
+      "systemActor": "system",
+      "you": "you"
     },
     "audit": {
       "insert": "Create",
@@ -545,6 +556,46 @@
         "link": "Link (e.g. /reserver)",
         "buttonLabel": "Button label"
       }
+    },
+    "siteExtra": {
+      "customPages": "Custom pages",
+      "customPagesNote": "Create standalone pages (wellness, FAQ, about…) served at /p/slug and, optionally, in the site menu.",
+      "appearance": "Appearance"
+    },
+    "invite": {
+      "title": "Invite a member",
+      "nameOptional": "name (optional)",
+      "roleStaff": "Staff",
+      "roleCoordinator": "Coordinator",
+      "roleAdmin": "Admin",
+      "send": "Send the invitation",
+      "sent": "Invitation sent. The member gets an email to set their password.",
+      "alreadyExisted": "This account already existed — the role has just been assigned."
+    },
+    "contractEd": {
+      "info": "Information",
+      "property": "Property",
+      "address": "Address",
+      "checkin": "Check-in",
+      "checkout": "Check-out",
+      "guests": "Guests",
+      "nights": "Nights",
+      "total": "Total amount (XOF)",
+      "deposit": "Deposit (XOF)",
+      "clauses": "Clauses",
+      "noClauses": "No custom clause — the standard clauses apply.",
+      "clauseTitle": "Clause title",
+      "clauseBody": "Clause text",
+      "savedClient": "Saved — visible to the client",
+      "stay": "Stay",
+      "totalShort": "Total",
+      "depositShort": "Deposit",
+      "clientSigned": "Client signed",
+      "countersigned": "Countersigned",
+      "notYet": "no",
+      "openDoc": "Open the document",
+      "countersign": "Countersign",
+      "signerName": "Signer name (team)"
     }
   }
 }

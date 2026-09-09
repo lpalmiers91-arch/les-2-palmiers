@@ -37,9 +37,10 @@ export default async function StaffContracts() {
                 className="flex items-center justify-between gap-4 px-5 py-3.5 hover:bg-ink/[0.025]"
               >
                 <div className="min-w-0">
-                  <p className="text-[14px] text-ink">{c.client_name || "Client"}</p>
+                  <p className="text-[14px] text-ink">{c.client_name || t("console.lists.client")}</p>
                   <p className="text-[12px] text-ink-3">
-                    {c.reference} · réf. {c.reservation_ref ?? "—"} · {formatDate(c.created_at)}
+                    {c.reference} · {t("console.lists.ref")} {c.reservation_ref ?? "—"} ·{" "}
+                    {formatDate(c.created_at)}
                   </p>
                 </div>
                 <span className="flex items-center gap-2">
@@ -52,8 +53,7 @@ export default async function StaffContracts() {
         </ul>
       )}
       <p className="mt-3 flex items-center gap-1.5 text-[12px] text-ink-3">
-        <Check className="h-3.5 w-3.5" /> Toute modification s&apos;affiche immédiatement chez le
-        client.
+        <Check className="h-3.5 w-3.5" /> {t("console.lists.contractsLiveNote")}
       </p>
     </div>
   );

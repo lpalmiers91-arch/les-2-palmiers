@@ -29,7 +29,7 @@ export default async function StatistiquesPage() {
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Nuits vendues par mois
+            {t("console.stats.nightsByMonth")}
           </h2>
           <div className="mt-5 flex items-end gap-1" style={{ height: 120 }}>
             {(occ ?? []).map((o) => (
@@ -47,32 +47,36 @@ export default async function StatistiquesPage() {
 
         <Card>
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Activité de l'équipe
+            {t("console.stats.teamActivity")}
           </h2>
           <ul className="mt-4 space-y-2 text-[13.5px]">
             {[...activityByRole.entries()].map(([role, n]) => (
               <li key={role} className="flex justify-between">
                 <span className="capitalize text-ink">{role}</span>
-                <span className="tnum text-ink-3">{n} actions</span>
+                <span className="tnum text-ink-3">
+                  {n} {t("console.stats.actions")}
+                </span>
               </li>
             ))}
-            {activityByRole.size === 0 && <li className="text-ink-3">Aucune action tracée.</li>}
+            {activityByRole.size === 0 && (
+              <li className="text-ink-3">{t("console.stats.noTrackedActions")}</li>
+            )}
           </ul>
         </Card>
       </div>
 
       <Card className="mt-4">
         <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-          Performance des services
+          {t("console.adminHome.servicePerformance")}
         </h2>
         <table className="mt-3 w-full text-[13px]">
           <thead>
             <tr className="text-left text-[11.5px] uppercase tracking-[0.1em] text-ink-3">
-              <th className="pb-2 font-medium">Service</th>
-              <th className="pb-2 text-right font-medium">Demandes</th>
-              <th className="pb-2 text-right font-medium">Terminées</th>
-              <th className="pb-2 text-right font-medium">Refusées</th>
-              <th className="pb-2 text-right font-medium">CA</th>
+              <th className="pb-2 font-medium">{t("console.stats.service")}</th>
+              <th className="pb-2 text-right font-medium">{t("console.stats.requests")}</th>
+              <th className="pb-2 text-right font-medium">{t("console.stats.completed")}</th>
+              <th className="pb-2 text-right font-medium">{t("console.stats.declined")}</th>
+              <th className="pb-2 text-right font-medium">{t("console.stats.revenue")}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-line">

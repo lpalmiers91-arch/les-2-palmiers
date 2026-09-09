@@ -427,18 +427,29 @@
       "teamActivity": "Teamaktivität",
       "noTrackedActions": "Keine protokollierten Aktionen.",
       "completed": "Abgeschlossen",
-      "declined": "Abgelehnt"
+      "declined": "Abgelehnt",
+      "nightsByMonth": "Verkaufte Nächte pro Monat",
+      "actions": "Aktionen",
+      "service": "Service",
+      "requests": "Anfragen",
+      "revenue": "Umsatz"
     },
     "settings": {
       "phones": "Telefonnummern",
       "legalPages": "Rechtliche Seiten",
-      "legalNote": "AGB, Datenschutz, Cookie-Richtlinie und Impressum sind im Modul „Inhalt“ bearbeitbar. Demo-Version: Standardtexte."
+      "legalNote": "AGB, Datenschutz, Cookie-Richtlinie und Impressum sind im Modul „Inhalt“ bearbeitbar. Demo-Version: Standardtexte.",
+      "company": "Unternehmen",
+      "name": "Name",
+      "city": "Stadt",
+      "email": "E-Mail",
+      "domain": "Domain"
     },
     "team": {
       "members": "Teammitglieder",
       "assignRole": "Einem Kunden eine Rolle zuweisen",
       "permsByRole": "Berechtigungen nach Rolle",
-      "systemActor": "System"
+      "systemActor": "System",
+      "you": "Sie"
     },
     "audit": {
       "insert": "Erstellung",
@@ -545,6 +556,46 @@
         "link": "Link (z. B. /reserver)",
         "buttonLabel": "Button-Beschriftung"
       }
+    },
+    "siteExtra": {
+      "customPages": "Eigene Seiten",
+      "customPagesNote": "Eigenständige Seiten (Wellness, FAQ, Über uns…) unter /p/slug und optional im Website-Menü erstellen.",
+      "appearance": "Erscheinungsbild"
+    },
+    "invite": {
+      "title": "Mitglied einladen",
+      "nameOptional": "Name (optional)",
+      "roleStaff": "Team",
+      "roleCoordinator": "Koordinator",
+      "roleAdmin": "Admin",
+      "send": "Einladung senden",
+      "sent": "Einladung gesendet. Das Mitglied erhält eine E-Mail zum Festlegen des Passworts.",
+      "alreadyExisted": "Dieses Konto existierte bereits — die Rolle wurde gerade zugewiesen."
+    },
+    "contractEd": {
+      "info": "Angaben",
+      "property": "Unterkunft",
+      "address": "Adresse",
+      "checkin": "Anreise",
+      "checkout": "Abreise",
+      "guests": "Gäste",
+      "nights": "Nächte",
+      "total": "Gesamtbetrag (XOF)",
+      "deposit": "Anzahlung (XOF)",
+      "clauses": "Klauseln",
+      "noClauses": "Keine eigene Klausel — es gelten die Standardklauseln.",
+      "clauseTitle": "Titel der Klausel",
+      "clauseBody": "Text der Klausel",
+      "savedClient": "Gespeichert — beim Kunden sichtbar",
+      "stay": "Aufenthalt",
+      "totalShort": "Gesamt",
+      "depositShort": "Anzahlung",
+      "clientSigned": "Kunde unterschrieben",
+      "countersigned": "Gegengezeichnet",
+      "notYet": "nein",
+      "openDoc": "Dokument öffnen",
+      "countersign": "Gegenzeichnen",
+      "signerName": "Name des Unterzeichners (Team)"
     }
   }
 }

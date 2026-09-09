@@ -427,18 +427,29 @@
       "teamActivity": "Attività del team",
       "noTrackedActions": "Nessuna azione registrata.",
       "completed": "Completate",
-      "declined": "Rifiutate"
+      "declined": "Rifiutate",
+      "nightsByMonth": "Notti vendute al mese",
+      "actions": "azioni",
+      "service": "Servizio",
+      "requests": "Richieste",
+      "revenue": "Ricavi"
     },
     "settings": {
       "phones": "Telefoni",
       "legalPages": "Pagine legali",
-      "legalNote": "Termini, informativa privacy, cookie policy e note legali sono modificabili nel modulo «Contenuti». Versione dimostrativa: testi predefiniti."
+      "legalNote": "Termini, informativa privacy, cookie policy e note legali sono modificabili nel modulo «Contenuti». Versione dimostrativa: testi predefiniti.",
+      "company": "Azienda",
+      "name": "Nome",
+      "city": "Città",
+      "email": "E-mail",
+      "domain": "Dominio"
     },
     "team": {
       "members": "Membri del team",
       "assignRole": "Assegnare un ruolo a un cliente",
       "permsByRole": "Permessi per ruolo",
-      "systemActor": "sistema"
+      "systemActor": "sistema",
+      "you": "tu"
     },
     "audit": {
       "insert": "Creazione",
@@ -545,6 +556,46 @@
         "link": "Link (es. /reserver)",
         "buttonLabel": "Etichetta del pulsante"
       }
+    },
+    "siteExtra": {
+      "customPages": "Pagine personalizzate",
+      "customPagesNote": "Crea pagine autonome (benessere, FAQ, chi siamo…) su /p/slug e, a scelta, nel menu del sito.",
+      "appearance": "Aspetto"
+    },
+    "invite": {
+      "title": "Invita un membro",
+      "nameOptional": "nome (facoltativo)",
+      "roleStaff": "Staff",
+      "roleCoordinator": "Coordinatore",
+      "roleAdmin": "Admin",
+      "send": "Invia l'invito",
+      "sent": "Invito inviato. Il membro riceve un'e-mail per impostare la password.",
+      "alreadyExisted": "Questo account esisteva già — il ruolo è stato appena assegnato."
+    },
+    "contractEd": {
+      "info": "Informazioni",
+      "property": "Alloggio",
+      "address": "Indirizzo",
+      "checkin": "Arrivo",
+      "checkout": "Partenza",
+      "guests": "Ospiti",
+      "nights": "Notti",
+      "total": "Importo totale (XOF)",
+      "deposit": "Acconto (XOF)",
+      "clauses": "Clausole",
+      "noClauses": "Nessuna clausola personalizzata — si applicano le clausole standard.",
+      "clauseTitle": "Titolo della clausola",
+      "clauseBody": "Testo della clausola",
+      "savedClient": "Salvato — visibile al cliente",
+      "stay": "Soggiorno",
+      "totalShort": "Totale",
+      "depositShort": "Acconto",
+      "clientSigned": "Firmato dal cliente",
+      "countersigned": "Controfirmato",
+      "notYet": "no",
+      "openDoc": "Apri il documento",
+      "countersign": "Controfirma",
+      "signerName": "Nome del firmatario (team)"
     }
   }
 }

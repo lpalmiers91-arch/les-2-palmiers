@@ -427,18 +427,29 @@
       "teamActivity": "チームの活動",
       "noTrackedActions": "記録された操作はありません。",
       "completed": "完了",
-      "declined": "却下"
+      "declined": "却下",
+      "nightsByMonth": "月別の販売泊数",
+      "actions": "件の操作",
+      "service": "サービス",
+      "requests": "リクエスト数",
+      "revenue": "売上"
     },
     "settings": {
       "phones": "電話番号",
       "legalPages": "法的ページ",
-      "legalNote": "利用規約、プライバシーポリシー、Cookie ポリシー、特定商取引法表記は「コンテンツ」モジュールで編集できます。デモ版：既定のテキスト。"
+      "legalNote": "利用規約、プライバシーポリシー、Cookie ポリシー、特定商取引法表記は「コンテンツ」モジュールで編集できます。デモ版：既定のテキスト。",
+      "company": "会社",
+      "name": "名称",
+      "city": "都市",
+      "email": "メール",
+      "domain": "ドメイン"
     },
     "team": {
       "members": "チームメンバー",
       "assignRole": "顧客にロールを割り当てる",
       "permsByRole": "ロール別の権限",
-      "systemActor": "システム"
+      "systemActor": "システム",
+      "you": "あなた"
     },
     "audit": {
       "insert": "作成",
@@ -545,6 +556,46 @@
         "link": "リンク（例：/reserver）",
         "buttonLabel": "ボタンのラベル"
       }
+    },
+    "siteExtra": {
+      "customPages": "カスタムページ",
+      "customPagesNote": "独立したページ（ウェルネス、FAQ、会社概要など）を /p/slug で公開し、任意でサイトメニューに追加できます。",
+      "appearance": "外観"
+    },
+    "invite": {
+      "title": "メンバーを招待",
+      "nameOptional": "名前（任意）",
+      "roleStaff": "スタッフ",
+      "roleCoordinator": "コーディネーター",
+      "roleAdmin": "管理者",
+      "send": "招待を送信",
+      "sent": "招待を送信しました。メンバーはパスワード設定用のメールを受け取ります。",
+      "alreadyExisted": "このアカウントは既に存在していました — ロールを割り当てました。"
+    },
+    "contractEd": {
+      "info": "情報",
+      "property": "物件",
+      "address": "住所",
+      "checkin": "チェックイン",
+      "checkout": "チェックアウト",
+      "guests": "宿泊人数",
+      "nights": "泊数",
+      "total": "合計金額（XOF）",
+      "deposit": "手付金（XOF）",
+      "clauses": "条項",
+      "noClauses": "カスタム条項なし — 標準条項が適用されます。",
+      "clauseTitle": "条項のタイトル",
+      "clauseBody": "条項の本文",
+      "savedClient": "保存しました — 顧客に表示されます",
+      "stay": "滞在",
+      "totalShort": "合計",
+      "depositShort": "手付金",
+      "clientSigned": "顧客が署名済み",
+      "countersigned": "連署済み",
+      "notYet": "未",
+      "openDoc": "書類を開く",
+      "countersign": "連署",
+      "signerName": "署名者名（チーム）"
     }
   }
 }

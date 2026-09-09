@@ -427,18 +427,29 @@
       "teamActivity": "团队活动",
       "noTrackedActions": "没有记录的操作。",
       "completed": "已完成",
-      "declined": "已拒绝"
+      "declined": "已拒绝",
+      "nightsByMonth": "每月售出间夜",
+      "actions": "次操作",
+      "service": "服务",
+      "requests": "申请数",
+      "revenue": "营收"
     },
     "settings": {
       "phones": "电话",
       "legalPages": "法律页面",
-      "legalNote": "条款、隐私政策、Cookie 政策和法律声明可在“内容”模块中编辑。演示版本：默认文本。"
+      "legalNote": "条款、隐私政策、Cookie 政策和法律声明可在“内容”模块中编辑。演示版本：默认文本。",
+      "company": "公司",
+      "name": "名称",
+      "city": "城市",
+      "email": "电子邮件",
+      "domain": "域名"
     },
     "team": {
       "members": "团队成员",
       "assignRole": "为客户分配角色",
       "permsByRole": "按角色的权限",
-      "systemActor": "系统"
+      "systemActor": "系统",
+      "you": "您"
     },
     "audit": {
       "insert": "创建",
@@ -545,6 +556,46 @@
         "link": "链接（如 /reserver）",
         "buttonLabel": "按钮文字"
       }
+    },
+    "siteExtra": {
+      "customPages": "自定义页面",
+      "customPagesNote": "创建独立页面（养生、常见问题、关于我们…），发布在 /p/slug，并可选择加入网站菜单。",
+      "appearance": "外观"
+    },
+    "invite": {
+      "title": "邀请成员",
+      "nameOptional": "姓名（可选）",
+      "roleStaff": "员工",
+      "roleCoordinator": "协调员",
+      "roleAdmin": "管理员",
+      "send": "发送邀请",
+      "sent": "邀请已发送。该成员将收到一封电子邮件以设置密码。",
+      "alreadyExisted": "该账户已存在 — 刚刚为其分配了角色。"
+    },
+    "contractEd": {
+      "info": "信息",
+      "property": "房源",
+      "address": "地址",
+      "checkin": "入住",
+      "checkout": "退房",
+      "guests": "客人数",
+      "nights": "晚数",
+      "total": "总金额（XOF）",
+      "deposit": "定金（XOF）",
+      "clauses": "条款",
+      "noClauses": "无自定义条款 — 适用标准条款。",
+      "clauseTitle": "条款标题",
+      "clauseBody": "条款正文",
+      "savedClient": "已保存 — 客户可见",
+      "stay": "住宿",
+      "totalShort": "合计",
+      "depositShort": "定金",
+      "clientSigned": "客户已签署",
+      "countersigned": "已会签",
+      "notYet": "否",
+      "openDoc": "打开文件",
+      "countersign": "会签",
+      "signerName": "签署人姓名（团队）"
     }
   }
 }

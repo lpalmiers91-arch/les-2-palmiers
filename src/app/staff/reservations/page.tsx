@@ -36,11 +36,13 @@ export default async function StaffReservations() {
                       {formatDate(end, { day: "numeric", month: "short", year: "numeric" })}
                     </p>
                     <p className="mt-0.5 text-[12.5px] text-ink-3">
-                      {g?.full_name ?? "Client"} {g?.phone ? `· ${g.phone}` : ""} · {r.guests_count} pers. · réf.{" "}
+                      {g?.full_name ?? t("console.lists.client")} {g?.phone ? `· ${g.phone}` : ""} ·{" "}
+                      {r.guests_count} {t("console.lists.guestsAbbr")} · {t("console.lists.ref")}{" "}
                       {r.reference}
                     </p>
                     <p className="mt-1 text-[12.5px] tnum text-ink-3">
-                      {formatXOF(r.amount_paid as number)} / {formatXOF(r.total_amount as number)} réglés
+                      {formatXOF(r.amount_paid as number)} / {formatXOF(r.total_amount as number)}{" "}
+                      {t("console.lists.paidOf")}
                     </p>
                   </div>
                   <StatusBadge status={r.status as string} />

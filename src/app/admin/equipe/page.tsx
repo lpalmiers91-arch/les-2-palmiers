@@ -45,15 +45,17 @@ export default async function EquipePage() {
       </div>
 
       <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-        Membres de l'équipe
+        {t("console.team.members")}
       </h2>
       <ul className="space-y-2">
         {team.map((p) => (
           <li key={p.id} className="flex flex-wrap items-center justify-between gap-3 rounded-[12px] border border-line bg-bone px-4 py-3">
             <div>
               <p className="text-[14px] text-ink">
-                {p.full_name || "Sans nom"}
-                {p.id === user?.id && <span className="ml-2 text-[11px] text-ink-3">(vous)</span>}
+                {p.full_name || t("console.catEditor.untitled")}
+                {p.id === user?.id && (
+                  <span className="ml-2 text-[11px] text-ink-3">({t("console.team.you")})</span>
+                )}
               </p>
               <p className="text-[12px] text-ink-3">{p.phone || "—"}</p>
             </div>
@@ -64,12 +66,12 @@ export default async function EquipePage() {
 
       <details className="mt-5">
         <summary className="cursor-pointer text-[13px] font-medium text-ink-2">
-          Attribuer un rôle à un client ({clients.length})
+          {t("console.team.assignRole")} ({clients.length})
         </summary>
         <ul className="mt-3 space-y-2">
           {clients.map((p) => (
             <li key={p.id} className="flex flex-wrap items-center justify-between gap-3 rounded-[12px] border border-line bg-bone px-4 py-3">
-              <p className="text-[14px] text-ink">{p.full_name || "Sans nom"}</p>
+              <p className="text-[14px] text-ink">{p.full_name || t("console.catEditor.untitled")}</p>
               <RoleToggles userId={p.id} roles={rolesByUser.get(p.id) ?? []} />
             </li>
           ))}
@@ -77,7 +79,7 @@ export default async function EquipePage() {
       </details>
 
       <h2 className="mb-3 mt-9 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-        Permissions par rôle
+        {t("console.team.permsByRole")}
       </h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {["staff", "coordinator", "admin"].map((role) => (

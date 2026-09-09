@@ -427,18 +427,29 @@
       "teamActivity": "Actividad del equipo",
       "noTrackedActions": "Sin acciones registradas.",
       "completed": "Finalizadas",
-      "declined": "Rechazadas"
+      "declined": "Rechazadas",
+      "nightsByMonth": "Noches vendidas por mes",
+      "actions": "acciones",
+      "service": "Servicio",
+      "requests": "Solicitudes",
+      "revenue": "Ingresos"
     },
     "settings": {
       "phones": "Teléfonos",
       "legalPages": "Páginas legales",
-      "legalNote": "Condiciones, política de privacidad, política de cookies y aviso legal se editan en el módulo «Contenido». Versión de demostración: textos por defecto."
+      "legalNote": "Condiciones, política de privacidad, política de cookies y aviso legal se editan en el módulo «Contenido». Versión de demostración: textos por defecto.",
+      "company": "Empresa",
+      "name": "Nombre",
+      "city": "Ciudad",
+      "email": "Correo",
+      "domain": "Dominio"
     },
     "team": {
       "members": "Miembros del equipo",
       "assignRole": "Asignar un rol a un cliente",
       "permsByRole": "Permisos por rol",
-      "systemActor": "sistema"
+      "systemActor": "sistema",
+      "you": "tú"
     },
     "audit": {
       "insert": "Creación",
@@ -545,6 +556,46 @@
         "link": "Enlace (p. ej. /reserver)",
         "buttonLabel": "Etiqueta del botón"
       }
+    },
+    "siteExtra": {
+      "customPages": "Páginas personalizadas",
+      "customPagesNote": "Crea páginas independientes (bienestar, FAQ, acerca de…) en /p/slug y, opcionalmente, en el menú del sitio.",
+      "appearance": "Apariencia"
+    },
+    "invite": {
+      "title": "Invitar a un miembro",
+      "nameOptional": "nombre (opcional)",
+      "roleStaff": "Personal",
+      "roleCoordinator": "Coordinador",
+      "roleAdmin": "Administrador",
+      "send": "Enviar la invitación",
+      "sent": "Invitación enviada. El miembro recibe un correo para crear su contraseña.",
+      "alreadyExisted": "Esta cuenta ya existía — se le acaba de asignar el rol."
+    },
+    "contractEd": {
+      "info": "Información",
+      "property": "Alojamiento",
+      "address": "Dirección",
+      "checkin": "Entrada",
+      "checkout": "Salida",
+      "guests": "Huéspedes",
+      "nights": "Noches",
+      "total": "Importe total (XOF)",
+      "deposit": "Anticipo (XOF)",
+      "clauses": "Cláusulas",
+      "noClauses": "Sin cláusula personalizada — se aplican las cláusulas estándar.",
+      "clauseTitle": "Título de la cláusula",
+      "clauseBody": "Texto de la cláusula",
+      "savedClient": "Guardado — visible para el cliente",
+      "stay": "Estancia",
+      "totalShort": "Total",
+      "depositShort": "Anticipo",
+      "clientSigned": "Firmado por el cliente",
+      "countersigned": "Refrendado",
+      "notYet": "no",
+      "openDoc": "Abrir el documento",
+      "countersign": "Refrendar",
+      "signerName": "Nombre del firmante (equipo)"
     }
   }
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { SiteEditor } from "@/components/console/site-editor";
 import { BrandingForm } from "@/components/console/branding-form";
 import { PagesManager } from "@/components/console/pages-manager";
@@ -8,6 +9,7 @@ import { PagesManager } from "@/components/console/pages-manager";
 export const metadata: Metadata = { title: "Site web" };
 
 export default async function StaffSite() {
+  const { t } = await getT();
   const supabase = await createClient();
 
   const { data: page } = await supabase
@@ -47,10 +49,7 @@ export default async function StaffSite() {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <PageTitle
-        title="Site web"
-        sub="Modifiez le contenu de la page d'accueil. L'aperçu se met à jour à la publication."
-      />
+      <PageTitle title={t("console.title.site")} sub={t("console.sub.site")} />
       <SiteEditor
         blocks={(blocks ?? []).map((b) => ({
           ...b,
@@ -60,12 +59,9 @@ export default async function StaffSite() {
 
       <div className="mt-10">
         <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-          Pages personnalisées
+          {t("console.siteExtra.customPages")}
         </h2>
-        <p className="mt-1 text-[13px] text-ink-3">
-          Créez des pages autonomes (bien-être, FAQ, à propos…) accessibles sur /p/slug et,
-          au choix, dans le menu du site.
-        </p>
+        <p className="mt-1 text-[13px] text-ink-3">{t("console.siteExtra.customPagesNote")}</p>
         <div className="mt-3">
           <PagesManager
             pages={customPages ?? []}
@@ -78,7 +74,9 @@ export default async function StaffSite() {
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">Apparence</h2>
+        <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+          {t("console.siteExtra.appearance")}
+        </h2>
         <div className="mt-3">
           <BrandingForm
             initial={(settings?.branding ?? {}) as Record<string, string>}

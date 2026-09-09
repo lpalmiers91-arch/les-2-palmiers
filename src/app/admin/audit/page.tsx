@@ -6,12 +6,6 @@ import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Journal d'audit" };
 
-const actionLabel: Record<string, string> = {
-  insert: "Création",
-  update: "Modification",
-  delete: "Suppression",
-};
-
 export default async function AuditPage() {
   const { t } = await getT();
   const supabase = await createClient();
@@ -32,12 +26,16 @@ export default async function AuditPage() {
             <li key={r.id} className="px-5 py-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-ink">
-                  <span className="font-medium">{actionLabel[r.action] ?? r.action}</span> ·{" "}
-                  <span className="text-ink-2">{r.entity}</span>
+                  <span className="font-medium">
+                    {["insert", "update", "delete"].includes(r.action)
+                      ? t(`console.audit.${r.action}`)
+                      : r.action}
+                  </span>{" "}
+                  · <span className="text-ink-2">{r.entity}</span>
                   {r.entity_id && <span className="text-ink-3"> #{String(r.entity_id).slice(0, 8)}</span>}
                 </span>
                 <span className="text-[11.5px] text-ink-3">
-                  {r.actor_role ?? "système"} ·{" "}
+                  {r.actor_role ?? t("console.team.systemActor")} ·{" "}
                   {formatDate(r.at, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
                 </span>
               </div>

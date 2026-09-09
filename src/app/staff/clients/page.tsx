@@ -45,14 +45,17 @@ export default async function ClientsPage() {
                 className="flex items-center justify-between gap-4 px-5 py-3.5 transition-colors hover:bg-ink/[0.03]"
               >
                 <div>
-                  <p className="text-[14px] text-ink">{c.full_name || "Sans nom"}</p>
+                  <p className="text-[14px] text-ink">
+                    {c.full_name || t("console.catEditor.untitled")}
+                  </p>
                   <p className="text-[12px] text-ink-3">
-                    {c.phone || "téléphone non renseigné"} · inscrit le {formatDate(c.created_at)}
+                    {c.phone || t("console.lists.phoneMissing")} · {t("console.lists.registeredOn")}{" "}
+                    {formatDate(c.created_at)}
                   </p>
                 </div>
                 <span className="flex items-center gap-2">
                   <span className="tnum text-[12.5px] text-ink-3">
-                    {counts.get(c.id) ?? 0} rés.
+                    {counts.get(c.id) ?? 0} {t("console.lists.resAbbr")}
                   </span>
                   <ChevronRight className="h-4 w-4 text-ink-3" />
                 </span>
