@@ -53,7 +53,11 @@ const statusTone: Record<string, string> = {
   paid: "bg-ok/12 text-forest-2",
   failed: "bg-danger/12 text-danger",
   pending: "bg-warn/12 text-warn",
+  awaiting_review: "bg-warn/12 text-warn",
+  rejected: "bg-danger/12 text-danger",
   refunded: "bg-ink/8 text-ink-3",
+  published: "bg-ok/12 text-forest-2",
+  hidden: "bg-ink/8 text-ink-3",
 };
 
 const statusLabel: Record<string, string> = {
@@ -72,8 +76,12 @@ const statusLabel: Record<string, string> = {
   paid: "Payé",
   failed: "Échoué",
   pending: "En attente",
+  awaiting_review: "À vérifier",
+  rejected: "Refusé",
   refunded: "Remboursé",
   partially_refunded: "Partiellement remboursé",
+  published: "Publié",
+  hidden: "Masqué",
 };
 
 export function StatusBadge({ status }: { status: string }) {

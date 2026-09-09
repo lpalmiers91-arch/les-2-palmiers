@@ -9,6 +9,7 @@ import { Mark } from "@/components/brand/mark";
 import { site } from "@/lib/site";
 import { formatXOF, formatDate } from "@/lib/format";
 
+type Clause = { title: string; body: string };
 type Terms = {
   reservation_reference?: string;
   apartment?: string;
@@ -23,6 +24,7 @@ type Terms = {
   occupants?: string;
   arrival_time?: string;
   notes?: string;
+  clauses?: Clause[];
 };
 
 type Contract = {
@@ -36,7 +38,7 @@ type Contract = {
   countersigned_at: string | null;
 };
 
-const CLAUSES = [
+const DEFAULT_CLAUSES: [string, string][] = [
   ["Objet", "Le présent contrat encadre la location meublée de courte durée du logement désigné ci-dessous, à des fins d'hébergement temporaire, ainsi que les prestations de conciergerie éventuellement commandées."],
   ["Durée", "La location est consentie pour la période indiquée. Toute prolongation doit faire l'objet d'un accord écrit préalable et d'un complément de règlement."],
   ["Prix et règlement", "Le prix du séjour est celui figurant dans le récapitulatif. Un acompte est versé à la réservation ; le solde est réglé avant la remise des clés. Les prestations de services sont facturées séparément."],
@@ -61,6 +63,10 @@ export function ContractPanel({
   const router = useRouter();
   const [contract, setContract] = useState(initial);
   const t = contract.terms || {};
+  const clauses: [string, string][] =
+    Array.isArray(t.clauses) && t.clauses.length > 0
+      ? t.clauses.map((c) => [c.title || "Clause", c.body || ""])
+      : DEFAULT_CLAUSES;
 
   const [occupants, setOccupants] = useState(t.occupants ?? client.name);
   const [arrival, setArrival] = useState(t.arrival_time ?? "");
@@ -154,7 +160,7 @@ export function ContractPanel({
 
           <section className="mt-6 border-t border-ink/15 pt-5">
             <ol className="space-y-3 text-[12.5px] leading-relaxed text-ink-2">
-              {CLAUSES.map(([title, body], i) => (
+              {clauses.map(([title, body], i) => (
                 <li key={title}>
                   <span className="font-medium text-ink">
                     {i + 1}. {title}.

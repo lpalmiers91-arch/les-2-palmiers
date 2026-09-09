@@ -98,7 +98,7 @@ export default async function ReservationDetail({
           )}
           {r.status === "confirmed" && balance > 0 && verified && (
             <PaymentPanel
-              purpose="reservation"
+              purpose="balance"
               targetId={r.id as string}
               amountDue={balance}
               label="Régler le solde"

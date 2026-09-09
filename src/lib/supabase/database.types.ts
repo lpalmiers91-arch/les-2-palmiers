@@ -774,6 +774,127 @@ export type Database = {
           },
         ]
       }
+      loyalty_accounts: {
+        Row: {
+          client_id: string
+          lifetime_points: number
+          points: number
+          tier: string
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          lifetime_points?: number
+          points?: number
+          tier?: string
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          lifetime_points?: number
+          points?: number
+          tier?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loyalty_accounts_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      loyalty_ledger: {
+        Row: {
+          actor_id: string | null
+          client_id: string
+          created_at: string
+          delta: number
+          id: number
+          note: string | null
+          reason: string
+          ref: string | null
+        }
+        Insert: {
+          actor_id?: string | null
+          client_id: string
+          created_at?: string
+          delta: number
+          id?: never
+          note?: string | null
+          reason: string
+          ref?: string | null
+        }
+        Update: {
+          actor_id?: string | null
+          client_id?: string
+          created_at?: string
+          delta?: number
+          id?: never
+          note?: string | null
+          reason?: string
+          ref?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loyalty_ledger_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "loyalty_ledger_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      loyalty_settings: {
+        Row: {
+          currency_per_point: number
+          enabled: boolean
+          id: number
+          review_bonus: number
+          signup_bonus: number
+          tiers: Json
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          currency_per_point?: number
+          enabled?: boolean
+          id?: number
+          review_bonus?: number
+          signup_bonus?: number
+          tiers?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          currency_per_point?: number
+          enabled?: boolean
+          id?: number
+          review_bonus?: number
+          signup_bonus?: number
+          tiers?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loyalty_settings_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       message_reads: {
         Row: {
           message_id: string
@@ -902,6 +1023,7 @@ export type Database = {
       payments: {
         Row: {
           amount: number
+          channel: string
           created_at: string
           currency: string
           id: string
@@ -909,11 +1031,16 @@ export type Database = {
           method: string
           paid_at: string | null
           payer_id: string
+          proof_note: string | null
+          proof_path: string | null
           provider: string
           provider_ref: string | null
           purpose: string
           raw_webhook: Json | null
           reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           service_order_id: string | null
           sim_outcome: string | null
           status: string
@@ -921,6 +1048,7 @@ export type Database = {
         }
         Insert: {
           amount: number
+          channel?: string
           created_at?: string
           currency?: string
           id?: string
@@ -928,11 +1056,16 @@ export type Database = {
           method: string
           paid_at?: string | null
           payer_id: string
+          proof_note?: string | null
+          proof_path?: string | null
           provider?: string
           provider_ref?: string | null
           purpose: string
           raw_webhook?: Json | null
           reservation_id?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           service_order_id?: string | null
           sim_outcome?: string | null
           status?: string
@@ -940,6 +1073,7 @@ export type Database = {
         }
         Update: {
           amount?: number
+          channel?: string
           created_at?: string
           currency?: string
           id?: string
@@ -947,11 +1081,16 @@ export type Database = {
           method?: string
           paid_at?: string | null
           payer_id?: string
+          proof_note?: string | null
+          proof_path?: string | null
           provider?: string
           provider_ref?: string | null
           purpose?: string
           raw_webhook?: Json | null
           reservation_id?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           service_order_id?: string | null
           sim_outcome?: string | null
           status?: string
@@ -970,6 +1109,13 @@ export type Database = {
             columns: ["reservation_id"]
             isOneToOne: false
             referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
@@ -1364,6 +1510,93 @@ export type Database = {
           },
         ]
       }
+      reviews: {
+        Row: {
+          apartment_id: string | null
+          body: string
+          client_id: string
+          created_at: string
+          featured: boolean
+          id: string
+          rating: number
+          reservation_id: string | null
+          staff_reply: string | null
+          staff_reply_at: string | null
+          staff_reply_by: string | null
+          status: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          apartment_id?: string | null
+          body?: string
+          client_id: string
+          created_at?: string
+          featured?: boolean
+          id?: string
+          rating: number
+          reservation_id?: string | null
+          staff_reply?: string | null
+          staff_reply_at?: string | null
+          staff_reply_by?: string | null
+          status?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          apartment_id?: string | null
+          body?: string
+          client_id?: string
+          created_at?: string
+          featured?: boolean
+          id?: string
+          rating?: number
+          reservation_id?: string | null
+          staff_reply?: string | null
+          staff_reply_at?: string | null
+          staff_reply_by?: string | null
+          status?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "apartments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "v_occupancy_monthly"
+            referencedColumns: ["apartment_id"]
+          },
+          {
+            foreignKeyName: "reviews_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_reservation_id_fkey"
+            columns: ["reservation_id"]
+            isOneToOne: false
+            referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_staff_reply_by_fkey"
+            columns: ["staff_reply_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       role_permissions: {
         Row: {
           permission_key: string
@@ -1645,8 +1878,92 @@ export type Database = {
           },
         ]
       }
+      site_blocks: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          page_id: string
+          position: number
+          type: string
+          updated_at: string
+          visible: boolean
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          id?: string
+          page_id: string
+          position?: number
+          type: string
+          updated_at?: string
+          visible?: boolean
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          page_id?: string
+          position?: number
+          type?: string
+          updated_at?: string
+          visible?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "site_blocks_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "site_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      site_pages: {
+        Row: {
+          created_at: string
+          id: string
+          in_nav: boolean
+          is_system: boolean
+          nav_label: string | null
+          nav_order: number
+          seo: Json
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          in_nav?: boolean
+          is_system?: boolean
+          nav_label?: string | null
+          nav_order?: number
+          seo?: Json
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          in_nav?: boolean
+          is_system?: boolean
+          nav_label?: string | null
+          nav_order?: number
+          seo?: Json
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
+          branding: Json
           company: Json
           id: number
           legal: Json
@@ -1657,6 +1974,7 @@ export type Database = {
           updated_by: string | null
         }
         Insert: {
+          branding?: Json
           company?: Json
           id?: number
           legal?: Json
@@ -1667,6 +1985,7 @@ export type Database = {
           updated_by?: string | null
         }
         Update: {
+          branding?: Json
           company?: Json
           id?: number
           legal?: Json
@@ -1713,6 +2032,67 @@ export type Database = {
             foreignKeyName: "staff_members_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      stay_info: {
+        Row: {
+          apartment_id: string
+          checkin_notes: string | null
+          checkout_notes: string | null
+          emergency_contact: string | null
+          extras: Json
+          house_manual: string | null
+          updated_at: string
+          updated_by: string | null
+          wifi_password: string | null
+          wifi_ssid: string | null
+        }
+        Insert: {
+          apartment_id: string
+          checkin_notes?: string | null
+          checkout_notes?: string | null
+          emergency_contact?: string | null
+          extras?: Json
+          house_manual?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          wifi_password?: string | null
+          wifi_ssid?: string | null
+        }
+        Update: {
+          apartment_id?: string
+          checkin_notes?: string | null
+          checkout_notes?: string | null
+          emergency_contact?: string | null
+          extras?: Json
+          house_manual?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          wifi_password?: string | null
+          wifi_ssid?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stay_info_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: true
+            referencedRelation: "apartments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stay_info_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: true
+            referencedRelation: "v_occupancy_monthly"
+            referencedColumns: ["apartment_id"]
+          },
+          {
+            foreignKeyName: "stay_info_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -1815,6 +2195,7 @@ export type Database = {
       apartment_is_visible: { Args: { aid: string }; Returns: boolean }
       auth_has_permission: { Args: { perm: string }; Returns: boolean }
       auth_has_role: { Args: { role_key: string }; Returns: boolean }
+      can_see_stay_info: { Args: { aid: string }; Returns: boolean }
       countersign_contract: {
         Args: { p_contract: string; p_signature_name: string }
         Returns: {
@@ -1926,6 +2307,20 @@ export type Database = {
       }
       is_identity_verified: { Args: { uid: string }; Returns: boolean }
       is_staff: { Args: { uid: string }; Returns: boolean }
+      list_contracts: {
+        Args: never
+        Returns: {
+          client_name: string
+          client_signed_at: string
+          countersigned_at: string
+          created_at: string
+          id: string
+          reference: string
+          reservation_ref: string
+          status: string
+          terms: Json
+        }[]
+      }
       list_identity_verifications: {
         Args: never
         Returns: {
@@ -1947,6 +2342,57 @@ export type Database = {
           submitted_at: string
           user_id: string
         }[]
+      }
+      loyalty_adjust: {
+        Args: { p_client: string; p_delta: number; p_note: string }
+        Returns: undefined
+      }
+      loyalty_award: {
+        Args: { p_client: string; p_reason: string; p_ref: string }
+        Returns: undefined
+      }
+      loyalty_award_payment: { Args: { p_payment: string }; Returns: undefined }
+      loyalty_post: {
+        Args: {
+          p_actor?: string
+          p_client: string
+          p_delta: number
+          p_note?: string
+          p_reason: string
+          p_ref?: string
+        }
+        Returns: undefined
+      }
+      loyalty_tier_for: { Args: { pts: number }; Returns: string }
+      moderate_review: {
+        Args: {
+          p_featured?: boolean
+          p_id: string
+          p_reply?: string
+          p_status: string
+        }
+        Returns: {
+          apartment_id: string | null
+          body: string
+          client_id: string
+          created_at: string
+          featured: boolean
+          id: string
+          rating: number
+          reservation_id: string | null
+          staff_reply: string | null
+          staff_reply_at: string | null
+          staff_reply_by: string | null
+          status: string
+          title: string | null
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "reviews"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       notify_staff: {
         Args: { p_body: string; p_data?: Json; p_title: string; p_type: string }
@@ -1976,6 +2422,7 @@ export type Database = {
         Args: { p_method: string; p_purpose: string; p_target: string }
         Returns: {
           amount: number
+          channel: string
           created_at: string
           currency: string
           id: string
@@ -1983,11 +2430,16 @@ export type Database = {
           method: string
           paid_at: string | null
           payer_id: string
+          proof_note: string | null
+          proof_path: string | null
           provider: string
           provider_ref: string | null
           purpose: string
           raw_webhook: Json | null
           reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           service_order_id: string | null
           sim_outcome: string | null
           status: string
@@ -2023,6 +2475,7 @@ export type Database = {
         Args: { p_outcome: string; p_payment: string }
         Returns: {
           amount: number
+          channel: string
           created_at: string
           currency: string
           id: string
@@ -2030,11 +2483,91 @@ export type Database = {
           method: string
           paid_at: string | null
           payer_id: string
+          proof_note: string | null
+          proof_path: string | null
           provider: string
           provider_ref: string | null
           purpose: string
           raw_webhook: Json | null
           reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          service_order_id: string | null
+          sim_outcome: string | null
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      payment_review_proof: {
+        Args: { p_decision: string; p_note?: string; p_payment: string }
+        Returns: {
+          amount: number
+          channel: string
+          created_at: string
+          currency: string
+          id: string
+          internal_ref: string
+          method: string
+          paid_at: string | null
+          payer_id: string
+          proof_note: string | null
+          proof_path: string | null
+          provider: string
+          provider_ref: string | null
+          purpose: string
+          raw_webhook: Json | null
+          reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          service_order_id: string | null
+          sim_outcome: string | null
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      payment_submit_proof: {
+        Args: {
+          p_amount: number
+          p_method: string
+          p_note?: string
+          p_proof_path: string
+          p_purpose: string
+          p_target: string
+        }
+        Returns: {
+          amount: number
+          channel: string
+          created_at: string
+          currency: string
+          id: string
+          internal_ref: string
+          method: string
+          paid_at: string | null
+          payer_id: string
+          proof_note: string | null
+          proof_path: string | null
+          provider: string
+          provider_ref: string | null
+          purpose: string
+          raw_webhook: Json | null
+          reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           service_order_id: string | null
           sim_outcome: string | null
           status: string
@@ -2123,6 +2656,31 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      staff_update_contract: {
+        Args: { p_contract: string; p_terms: Json }
+        Returns: {
+          client_id: string
+          client_signature_name: string | null
+          client_signed_at: string | null
+          countersigned_at: string | null
+          countersigned_by: string | null
+          created_at: string
+          id: string
+          reference: string
+          reservation_id: string | null
+          staff_signature_name: string | null
+          status: string
+          template_version: string
+          terms: Json
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "contracts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       submit_identity_verification: {
         Args: {
           p_date_of_birth?: string
@@ -2158,6 +2716,36 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "identity_verifications"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      submit_review: {
+        Args: {
+          p_body: string
+          p_rating: number
+          p_reservation: string
+          p_title: string
+        }
+        Returns: {
+          apartment_id: string | null
+          body: string
+          client_id: string
+          created_at: string
+          featured: boolean
+          id: string
+          rating: number
+          reservation_id: string | null
+          staff_reply: string | null
+          staff_reply_at: string | null
+          staff_reply_by: string | null
+          status: string
+          title: string | null
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "reviews"
           isOneToOne: true
           isSetofReturn: false
         }
