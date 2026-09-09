@@ -108,8 +108,11 @@ export function ContractPanel({
     <div className="min-h-dvh bg-bone-2 px-4 py-10 print:bg-white print:p-0">
       <div className="mx-auto max-w-2xl">
         <div className="mb-4 flex items-center justify-between print:hidden">
-          <a href="/app/reservations" className="text-[13px] text-ink-3 hover:text-ink">
-            ← Mes réservations
+          <a
+            href={canSign ? "/app/reservations" : "/staff/reservations"}
+            className="text-[13px] text-ink-3 hover:text-ink"
+          >
+            ← {canSign ? "Mes réservations" : "Réservations"}
           </a>
           {signed && <PrintButton />}
         </div>
