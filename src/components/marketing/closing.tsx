@@ -24,7 +24,7 @@ export async function Closing({ content = {} }: { content?: Record<string, unkno
 
         <Reveal delay={0.1}>
           <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <ButtonLink href="/reserver" size="lg" className="w-full sm:w-auto">
+            <ButtonLink href="/reserver" data-track="reserver-closing" size="lg" className="w-full sm:w-auto">
               {cv(content.ctaLabel, t("home.closingCta"))}
             </ButtonLink>
             <ButtonLink

@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 import { formatXOF, formatDate, nightsBetween } from "@/lib/format";
 import { aptImg } from "@/lib/site";
 import { ServiceIcon } from "@/components/marketing/service-icon";
+import { track } from "@/lib/track";
 
 type Quote = {
   nights: number;
@@ -169,6 +170,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
       });
       if (error) throw error;
       const ref = (data as { reference: string }).reference;
+      void track("booking", { apartment: apt.slug, services: chosen.size, amount: depositAmount });
       router.push(`/app/reservations/${ref}?pay=1`);
     } catch (err) {
       setError(translate(err));

@@ -105,7 +105,7 @@ export function SiteHeader({
               {t("nav.clientArea")}
             </Link>
             <ButtonLink
-              href="/reserver"
+              href="/reserver" data-track="reserver-header"
               size="sm"
               variant={dark ? "brass" : "solid"}
               className="!h-10 !px-5"
@@ -152,7 +152,7 @@ export function SiteHeader({
                 <LanguageSwitcher />
               </div>
               <div className="mt-5 flex items-center gap-3">
-                <ButtonLink href="/reserver" className="flex-1" onClick={() => setOpen(false)}>
+                <ButtonLink href="/reserver" data-track="reserver-header" className="flex-1" onClick={() => setOpen(false)}>
                   {t("nav.book")}
                 </ButtonLink>
                 <ButtonLink

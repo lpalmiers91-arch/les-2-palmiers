@@ -26,6 +26,7 @@ import {
   Wifi,
   FileSignature,
   UserCog,
+  Activity,
   type LucideIcon,
 } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
@@ -62,6 +63,7 @@ const NAVS: Record<"staff" | "admin", NavGroup[]> = {
         { href: "/staff/fidelite", key: "loyalty", icon: Gift },
         { href: "/staff/contrats", key: "contracts", icon: FileSignature },
         { href: "/staff/site", key: "website", icon: LayoutTemplate },
+        { href: "/staff/analytics", key: "analytics", icon: Activity },
         { href: "/staff/assistant", key: "aiAssistant", icon: Sparkles },
       ],
     },
@@ -72,6 +74,7 @@ const NAVS: Record<"staff" | "admin", NavGroup[]> = {
       items: [
         { href: "/admin", key: "dashboard", icon: LayoutGrid, exact: true },
         { href: "/admin/statistiques", key: "statistics", icon: TrendingUp },
+        { href: "/admin/analytics", key: "analytics", icon: Activity },
         { href: "/admin/paiements", key: "payments", icon: CreditCard },
         { href: "/admin/verifications", key: "verifications", icon: ShieldCheck },
         { href: "/admin/audit", key: "auditLog", icon: ScrollText },

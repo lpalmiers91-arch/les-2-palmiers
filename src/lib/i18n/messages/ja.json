@@ -159,7 +159,8 @@
       "auditLog": "監査ログ",
       "team": "チームとアクセス",
       "settings": "設定",
-      "myAccount": "マイアカウント"
+      "myAccount": "マイアカウント",
+      "analytics": "アナリティクス"
     },
     "action": {
       "signOut": "ログアウト",
@@ -676,6 +677,26 @@
     "refund": {
       "action": "返金",
       "reason": "理由"
+    },
+    "analytics": {
+      "title": "アナリティクス",
+      "sub": "訪問者の流入元、ページビュー、コンバージョンファネル、エクスポート。",
+      "views": "ページビュー（30 日）",
+      "sessions": "ユニーク訪問者",
+      "ctaClicks": "ボタンクリック",
+      "conversion": "コンバージョン率",
+      "perDay": "日別セッション",
+      "empty": "まだデータがありません — Cookie 同意後に計測を開始します。",
+      "topPages": "よく見られたページ",
+      "sources": "流入元",
+      "funnel": "予約ファネル",
+      "export": {
+        "clients": "顧客",
+        "reservations": "予約",
+        "payments": "支払い",
+        "reviews": "レビュー",
+        "analytics": "イベント"
+      }
     }
   },
   "notifPrefs": {

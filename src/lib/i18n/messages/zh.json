@@ -159,7 +159,8 @@
       "auditLog": "审计日志",
       "team": "团队与权限",
       "settings": "设置",
-      "myAccount": "我的账户"
+      "myAccount": "我的账户",
+      "analytics": "数据分析"
     },
     "action": {
       "signOut": "退出登录",
@@ -676,6 +677,26 @@
     "refund": {
       "action": "退款",
       "reason": "原因"
+    },
+    "analytics": {
+      "title": "数据分析",
+      "sub": "访客来源、页面浏览、转化漏斗、数据导出。",
+      "views": "页面浏览（30 天）",
+      "sessions": "独立访客",
+      "ctaClicks": "按钮点击",
+      "conversion": "转化率",
+      "perDay": "每日会话",
+      "empty": "暂无数据 — 追踪在 Cookie 同意后开始。",
+      "topPages": "热门页面",
+      "sources": "流量来源",
+      "funnel": "预订漏斗",
+      "export": {
+        "clients": "客户",
+        "reservations": "预订",
+        "payments": "付款",
+        "reviews": "评价",
+        "analytics": "事件"
+      }
     }
   },
   "notifPrefs": {

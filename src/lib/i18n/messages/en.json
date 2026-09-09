@@ -159,7 +159,8 @@
       "auditLog": "Audit log",
       "team": "Team & access",
       "settings": "Settings",
-      "myAccount": "My account"
+      "myAccount": "My account",
+      "analytics": "Analytics"
     },
     "action": {
       "signOut": "Sign out",
@@ -676,6 +677,26 @@
     "refund": {
       "action": "Refund",
       "reason": "Reason"
+    },
+    "analytics": {
+      "title": "Analytics",
+      "sub": "Where visitors come from, page views, conversion funnel, exports.",
+      "views": "Page views (30 d)",
+      "sessions": "Unique visitors",
+      "ctaClicks": "Button clicks",
+      "conversion": "Conversion rate",
+      "perDay": "Sessions per day",
+      "empty": "No data yet — tracking starts after cookie consent.",
+      "topPages": "Top pages",
+      "sources": "Traffic sources",
+      "funnel": "Booking funnel",
+      "export": {
+        "clients": "Clients",
+        "reservations": "Reservations",
+        "payments": "Payments",
+        "reviews": "Reviews",
+        "analytics": "Events"
+      }
     }
   },
   "notifPrefs": {

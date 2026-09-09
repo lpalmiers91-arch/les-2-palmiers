@@ -159,7 +159,8 @@
       "auditLog": "Registo de auditoria",
       "team": "Equipa e acessos",
       "settings": "Definições",
-      "myAccount": "A minha conta"
+      "myAccount": "A minha conta",
+      "analytics": "Analítica"
     },
     "action": {
       "signOut": "Terminar sessão",
@@ -676,6 +677,26 @@
     "refund": {
       "action": "Reembolsar",
       "reason": "Motivo"
+    },
+    "analytics": {
+      "title": "Analítica",
+      "sub": "De onde vêm os visitantes, páginas vistas, funil de conversão, exportações.",
+      "views": "Páginas vistas (30 d)",
+      "sessions": "Visitantes únicos",
+      "ctaClicks": "Cliques em botões",
+      "conversion": "Taxa de conversão",
+      "perDay": "Sessões por dia",
+      "empty": "Ainda sem dados — o rastreio começa após o consentimento de cookies.",
+      "topPages": "Páginas mais vistas",
+      "sources": "Fontes de tráfego",
+      "funnel": "Funil de reserva",
+      "export": {
+        "clients": "Clientes",
+        "reservations": "Reservas",
+        "payments": "Pagamentos",
+        "reviews": "Avaliações",
+        "analytics": "Eventos"
+      }
     }
   },
   "notifPrefs": {

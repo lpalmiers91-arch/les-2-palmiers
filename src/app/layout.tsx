@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { getLocale } from "@/lib/i18n";
 import { localeDir } from "@/lib/i18n/languages";
 import { getBranding } from "@/lib/cms";
+import { Analytics } from "@/components/analytics";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -95,7 +96,10 @@ export default async function RootLayout({
           <style dangerouslySetInnerHTML={{ __html: `:root{${overrides.join("")}}` }} />
         )}
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

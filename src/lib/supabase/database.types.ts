@@ -184,6 +184,59 @@ export type Database = {
           },
         ]
       }
+      analytics_events: {
+        Row: {
+          created_at: string
+          event: string
+          id: number
+          meta: Json
+          path: string | null
+          referrer: string | null
+          session_id: string
+          ua: string | null
+          user_id: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          created_at?: string
+          event: string
+          id?: never
+          meta?: Json
+          path?: string | null
+          referrer?: string | null
+          session_id: string
+          ua?: string | null
+          user_id?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          created_at?: string
+          event?: string
+          id?: never
+          meta?: Json
+          path?: string | null
+          referrer?: string | null
+          session_id?: string
+          ua?: string | null
+          user_id?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_events_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       apartment_amenities: {
         Row: {
           amenity_key: string
@@ -2140,6 +2193,16 @@ export type Database = {
       }
     }
     Views: {
+      v_analytics_daily: {
+        Row: {
+          bookings: number | null
+          cta_clicks: number | null
+          day: string | null
+          sessions: number | null
+          views: number | null
+        }
+        Relationships: []
+      }
       v_occupancy_monthly: {
         Row: {
           apartment_id: string | null
@@ -2816,6 +2879,18 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      track_event: {
+        Args: {
+          p_event: string
+          p_meta?: Json
+          p_path?: string
+          p_referrer?: string
+          p_session: string
+          p_ua?: string
+          p_utm?: Json
+        }
+        Returns: undefined
       }
     }
     Enums: {

@@ -73,7 +73,7 @@ export default async function ApartmentDetail({
             </p>
           </div>
           <Link
-            href={`/reserver?apartment=${apt.slug}`}
+            href={`/reserver?apartment=${apt.slug}`} data-track="reserver-apartment"
             className="press inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[14px] font-medium text-bone hover:bg-forest-2"
           >
             Réserver — dès {formatXOF(apt.base_price)}/nuit
@@ -136,7 +136,7 @@ export default async function ApartmentDetail({
                 <Row k="Annulation">{CANCEL[apt.cancellation_policy] ?? "modérée"}</Row>
               </dl>
               <Link
-                href={`/reserver?apartment=${apt.slug}`}
+                href={`/reserver?apartment=${apt.slug}`} data-track="reserver-apartment"
                 className="press mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-[14px] font-medium text-bone hover:bg-forest-2"
               >
                 Vérifier les dates <ArrowRight className="h-4 w-4" />

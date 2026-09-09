@@ -159,7 +159,8 @@
       "auditLog": "Registro attività",
       "team": "Team e accessi",
       "settings": "Impostazioni",
-      "myAccount": "Il mio account"
+      "myAccount": "Il mio account",
+      "analytics": "Analisi"
     },
     "action": {
       "signOut": "Esci",
@@ -676,6 +677,26 @@
     "refund": {
       "action": "Rimborsa",
       "reason": "Motivo"
+    },
+    "analytics": {
+      "title": "Analisi",
+      "sub": "Da dove arrivano i visitatori, pagine viste, imbuto di conversione, esportazioni.",
+      "views": "Pagine viste (30 g)",
+      "sessions": "Visitatori unici",
+      "ctaClicks": "Clic sui pulsanti",
+      "conversion": "Tasso di conversione",
+      "perDay": "Sessioni al giorno",
+      "empty": "Ancora nessun dato — il tracciamento parte dopo il consenso ai cookie.",
+      "topPages": "Pagine più viste",
+      "sources": "Sorgenti di traffico",
+      "funnel": "Imbuto di prenotazione",
+      "export": {
+        "clients": "Clienti",
+        "reservations": "Prenotazioni",
+        "payments": "Pagamenti",
+        "reviews": "Recensioni",
+        "analytics": "Eventi"
+      }
     }
   },
   "notifPrefs": {
