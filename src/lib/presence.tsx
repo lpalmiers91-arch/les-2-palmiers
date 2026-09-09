@@ -9,7 +9,9 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 
 type Role = "client" | "staff";
 type Meta = { user_id: string; role: Role };
@@ -40,30 +42,31 @@ export function PresenceProvider({
 
   useEffect(() => {
     if (!userId) return;
-    const supabase = createClient();
-    const ch = supabase.channel("presence:support", {
-      config: { presence: { key: userId } },
-    });
+    let cancelled = false;
+    let ch: RealtimeChannel | null = null;
 
-    ch.on("presence", { event: "sync" }, () => {
-      const state = ch.presenceState<Meta>();
-      const map = new Map<string, Set<Role>>();
-      for (const [key, metas] of Object.entries(state)) {
-        const roles = new Set<Role>();
-        for (const m of metas as Meta[]) if (m.role) roles.add(m.role);
-        map.set(key, roles);
-      }
-      setPeers(map);
-    });
-
-    ch.subscribe((status) => {
-      if (status === "SUBSCRIBED") ch.track(metaRef.current);
+    ensureRealtimeAuth().then((supabase) => {
+      if (cancelled) return;
+      ch = supabase.channel("presence:support", { config: { presence: { key: userId } } });
+      ch.on("presence", { event: "sync" }, () => {
+        const state = ch!.presenceState<Meta>();
+        const map = new Map<string, Set<Role>>();
+        for (const [key, metas] of Object.entries(state)) {
+          const roles = new Set<Role>();
+          for (const m of metas as Meta[]) if (m.role) roles.add(m.role);
+          map.set(key, roles);
+        }
+        setPeers(map);
+      });
+      ch.subscribe((status) => {
+        if (status === "SUBSCRIBED") ch!.track(metaRef.current);
+      });
     });
 
     // battement de présence (last_seen_at) tant que l'onglet est visible
     const ping = () => {
       if (document.visibilityState === "visible") {
-        supabase.rpc("heartbeat").then(
+        createClient().rpc("heartbeat").then(
           () => {},
           () => {},
         );
@@ -74,10 +77,13 @@ export function PresenceProvider({
     document.addEventListener("visibilitychange", ping);
 
     return () => {
+      cancelled = true;
       window.clearInterval(hb);
       document.removeEventListener("visibilitychange", ping);
-      ch.untrack();
-      supabase.removeChannel(ch);
+      if (ch) {
+        ch.untrack();
+        createClient().removeChannel(ch);
+      }
     };
   }, [userId]);
 

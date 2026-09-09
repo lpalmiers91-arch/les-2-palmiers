@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MessageSquare, ArrowRight } from "lucide-react";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 import { useIsOnline } from "@/lib/presence";
 import { formatDate } from "@/lib/format";
 
@@ -26,25 +28,30 @@ export function MessagingCard({
   // nouveau message -> rafraîchit la date + le compteur (via router.refresh)
   useEffect(() => {
     if (!conversationId) return;
-    const supabase = createClient();
-    const ch = supabase
-      .channel(`mc-${conversationId}-${Math.random().toString(36).slice(2)}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "messages",
-          filter: `conversation_id=eq.${conversationId}`,
-        },
-        (payload) => {
-          setLiveAt((payload.new as { created_at: string }).created_at);
-          router.refresh();
-        },
-      );
-    ch.subscribe();
+    let cancelled = false;
+    let ch: RealtimeChannel | null = null;
+    ensureRealtimeAuth().then((supabase) => {
+      if (cancelled) return;
+      ch = supabase
+        .channel(`mc-${conversationId}-${Math.random().toString(36).slice(2)}`)
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            schema: "public",
+            table: "messages",
+            filter: `conversation_id=eq.${conversationId}`,
+          },
+          (payload) => {
+            setLiveAt((payload.new as { created_at: string }).created_at);
+            router.refresh();
+          },
+        )
+        .subscribe();
+    });
     return () => {
-      supabase.removeChannel(ch);
+      cancelled = true;
+      if (ch) createClient().removeChannel(ch);
     };
   }, [conversationId, router]);
 

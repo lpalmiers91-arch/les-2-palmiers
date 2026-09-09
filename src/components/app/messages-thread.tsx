@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SendHorizonal, Loader2 } from "lucide-react";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 import { useIsOnline } from "@/lib/presence";
 import { formatDate } from "@/lib/format";
 
@@ -48,11 +50,11 @@ export function MessagesThread({
   useEffect(() => {
     if (!convId) return;
     const cid = convId;
-    const supabase = createClient();
     let alive = true;
+    let channel: RealtimeChannel | null = null;
 
-    // rattrape les messages manqués (reconnexion, onglet en arrière-plan…)
     async function catchUp() {
+      const supabase = createClient();
       const { data } = await supabase
         .from("messages")
         .select("id, body, sender_id, system, created_at, attachments")
@@ -61,34 +63,33 @@ export function MessagesThread({
       if (alive && data) setMessages(data as unknown as Msg[]);
     }
 
-    const channel = supabase
-      .channel(`conv-${cid}-${Math.random().toString(36).slice(2)}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "messages",
-          filter: `conversation_id=eq.${cid}`,
-        },
-        (payload) => {
-          const m = payload.new as Msg;
-          setMessages((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
-        },
-      )
-      .subscribe((status) => {
-        if (status === "SUBSCRIBED") catchUp();
-      });
+    ensureRealtimeAuth().then((supabase) => {
+      if (!alive) return;
+      channel = supabase
+        .channel(`conv-${cid}-${Math.random().toString(36).slice(2)}`)
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${cid}` },
+          (payload) => {
+            const m = payload.new as Msg;
+            setMessages((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
+          },
+        )
+        .subscribe((status) => {
+          if (status === "SUBSCRIBED") catchUp();
+        });
+    });
 
-    const onVisible = () => {
-      if (document.visibilityState === "visible") catchUp();
-    };
+    // filet de sécurité : re-synchro toutes les 5 s + au retour d'onglet
+    const poll = window.setInterval(catchUp, 5_000);
+    const onVisible = () => document.visibilityState === "visible" && catchUp();
     document.addEventListener("visibilitychange", onVisible);
 
     return () => {
       alive = false;
+      window.clearInterval(poll);
       document.removeEventListener("visibilitychange", onVisible);
-      supabase.removeChannel(channel);
+      if (channel) createClient().removeChannel(channel);
     };
   }, [convId]);
 

@@ -2,14 +2,15 @@
 
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 
 type Watch = { table: string; filter?: string };
 
 /**
  * Abonne la page aux changements Postgres pertinents et rafraîchit les Server
- * Components (router.refresh) — sans jamais recharger la page. Un seul canal,
- * tous les .on() ajoutés avant .subscribe().
+ * Components (router.refresh) — sans jamais recharger la page.
  */
 export function LiveRefresh({ space, userId }: { space: "client" | "staff" | "admin"; userId: string }) {
   const router = useRouter();
@@ -17,7 +18,8 @@ export function LiveRefresh({ space, userId }: { space: "client" | "staff" | "ad
 
   useEffect(() => {
     if (!userId) return;
-    const supabase = createClient();
+    let cancelled = false;
+    let channel: RealtimeChannel | null = null;
 
     const watches: Watch[] =
       space === "client"
@@ -28,9 +30,9 @@ export function LiveRefresh({ space, userId }: { space: "client" | "staff" | "ad
             { table: "contracts", filter: `client_id=eq.${userId}` },
             { table: "service_orders", filter: `customer_id=eq.${userId}` },
             { table: "payments", filter: `payer_id=eq.${userId}` },
+            { table: "conversations", filter: `customer_id=eq.${userId}` },
           ]
         : [
-            // le staff voit tout ce que la RLS l'autorise à voir
             { table: "notifications", filter: `user_id=eq.${userId}` },
             { table: "conversations" },
             { table: "reservations" },
@@ -45,25 +47,35 @@ export function LiveRefresh({ space, userId }: { space: "client" | "staff" | "ad
       timer.current = setTimeout(() => router.refresh(), 400);
     };
 
-    let ch = supabase.channel(`live-${space}-${userId}-${Math.random().toString(36).slice(2)}`);
-    for (const w of watches) {
-      ch = ch.on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: w.table, ...(w.filter ? { filter: w.filter } : {}) },
-        bump,
-      );
-    }
-    ch.subscribe();
+    ensureRealtimeAuth().then((supabase) => {
+      if (cancelled) return;
+      let ch = supabase.channel(`live-${space}-${userId}-${Math.random().toString(36).slice(2)}`);
+      for (const w of watches) {
+        ch = ch.on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: w.table, ...(w.filter ? { filter: w.filter } : {}) },
+          bump,
+        );
+      }
+      ch.subscribe();
+      channel = ch;
+    });
 
     const onVisible = () => {
       if (document.visibilityState === "visible") router.refresh();
     };
     document.addEventListener("visibilitychange", onVisible);
+    // filet de sécurité si le temps réel décroche
+    const poll = window.setInterval(() => {
+      if (document.visibilityState === "visible") router.refresh();
+    }, 20_000);
 
     return () => {
+      cancelled = true;
       if (timer.current) clearTimeout(timer.current);
+      window.clearInterval(poll);
       document.removeEventListener("visibilitychange", onVisible);
-      supabase.removeChannel(ch);
+      if (channel) createClient().removeChannel(channel);
     };
   }, [space, userId, router]);
 

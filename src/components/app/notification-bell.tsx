@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { Bell } from "lucide-react";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 import { easeOut } from "@/lib/motion";
 
 type Notif = {
@@ -82,18 +84,25 @@ export function NotificationBell({
   const unread = items.filter((n) => !n.read_at).length;
 
   useEffect(() => {
-    const supabase = createClient();
-    const ch = supabase.channel(`notif-bell-${userId}-${Math.random().toString(36).slice(2)}`);
-    ch.on(
-      "postgres_changes",
-      { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${userId}` },
-      (payload) => {
-        const n = payload.new as Notif;
-        setItems((prev) => (prev.some((x) => x.id === n.id) ? prev : [n, ...prev].slice(0, 20)));
-      },
-    ).subscribe();
+    let cancelled = false;
+    let ch: RealtimeChannel | null = null;
+    ensureRealtimeAuth().then((supabase) => {
+      if (cancelled) return;
+      ch = supabase
+        .channel(`notif-bell-${userId}-${Math.random().toString(36).slice(2)}`)
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${userId}` },
+          (payload) => {
+            const n = payload.new as Notif;
+            setItems((prev) => (prev.some((x) => x.id === n.id) ? prev : [n, ...prev].slice(0, 20)));
+          },
+        )
+        .subscribe();
+    });
     return () => {
-      supabase.removeChannel(ch);
+      cancelled = true;
+      if (ch) createClient().removeChannel(ch);
     };
   }, [userId]);
 
