@@ -9,6 +9,7 @@ import { LiveRefresh } from "@/components/realtime/live-refresh";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
 import { audienceFromRoles, homeFor } from "@/lib/spaces";
+import { aiSpaceEnabled } from "@/lib/ai";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -41,6 +42,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       supabase.from("messages").select("id, sender_id, created_at").neq("sender_id", user.id),
       supabase.rpc("identity_status", { uid: user.id }),
     ]);
+  const aiOn = await aiSpaceEnabled("client");
 
   // messages non lus = messages du staff sans accusé de lecture de ma part
   let unreadMessages = 0;
@@ -65,7 +67,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       >
         {children}
         <LiveRefresh space="client" userId={user.id} />
-        <AssistantWidget space="client" />
+        {aiOn && <AssistantWidget space="client" />}
         <InstallPrompt />
         <PushSetup />
       </AppShell>

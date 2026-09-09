@@ -5,40 +5,13 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { easeOut } from "@/lib/motion";
 import { useT } from "@/lib/i18n/provider";
+import { consentDecided, getJSON, setJSON } from "@/lib/prefs";
 
-const KEY = "l2p-consent-v1";
 type Choice = { necessary: true; analytics: boolean; at: string };
 
-/** Lit le choix depuis le cookie OU le localStorage (l'un des deux suffit). */
-function storedChoice(): Choice | null {
-  try {
-    const m = document.cookie.match(/(?:^|;\s*)l2p_consent=([^;]+)/);
-    if (m) return JSON.parse(decodeURIComponent(m[1])) as Choice;
-  } catch {
-    /* ignore */
-  }
-  try {
-    const v = localStorage.getItem(KEY);
-    if (v) return JSON.parse(v) as Choice;
-  } catch {
-    /* ignore */
-  }
-  return null;
-}
-
-function persist(c: Choice) {
-  const v = encodeURIComponent(JSON.stringify(c));
-  try {
-    // cookie : robuste même quand le localStorage est bridé (Safari privé, iOS)
-    document.cookie = `l2p_consent=${v}; path=/; max-age=${60 * 60 * 24 * 180}; samesite=lax`;
-  } catch {
-    /* ignore */
-  }
-  try {
-    localStorage.setItem(KEY, JSON.stringify(c));
-  } catch {
-    /* ignore */
-  }
+/** Choix de consentement, lisible partout via `getJSON("consent")`. */
+export function readConsent(): Choice | null {
+  return getJSON<Choice>("consent");
 }
 
 export function CookieConsent() {
@@ -46,13 +19,13 @@ export function CookieConsent() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (storedChoice()) return;
-    const t = setTimeout(() => setShow(true), 1600);
-    return () => clearTimeout(t);
+    if (consentDecided()) return;
+    const id = setTimeout(() => setShow(true), 1400);
+    return () => clearTimeout(id);
   }, []);
 
   function decide(analytics: boolean) {
-    persist({ necessary: true, analytics, at: new Date().toISOString() });
+    setJSON("consent", { necessary: true, analytics, at: new Date().toISOString() });
     setShow(false);
   }
 

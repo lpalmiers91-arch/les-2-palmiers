@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Loader2, Check, Camera, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { LANGUAGES } from "@/lib/i18n/languages";
+import { PasswordField } from "@/components/auth/password-field";
 
 type Profile = {
   full_name: string;
@@ -267,26 +268,22 @@ export function AccountForm({
           Définissez un mot de passe si vous vous connectez habituellement par lien e-mail.
         </p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <Field label="Nouveau mot de passe">
-            <input
-              type="password"
-              className="field"
-              value={pw}
-              minLength={8}
-              onChange={(e) => setPw(e.target.value)}
-              placeholder="8 caractères minimum"
-            />
-          </Field>
-          <Field label="Confirmer">
-            <input
-              type="password"
-              className="field"
-              value={pw2}
-              minLength={8}
-              onChange={(e) => setPw2(e.target.value)}
-              placeholder="••••••••"
-            />
-          </Field>
+          <PasswordField
+            label="Nouveau mot de passe"
+            value={pw}
+            onChange={setPw}
+            required={false}
+            autoComplete="new-password"
+            placeholder="8 caractères minimum"
+          />
+          <PasswordField
+            label="Confirmer"
+            value={pw2}
+            onChange={setPw2}
+            required={false}
+            autoComplete="new-password"
+            invalid={pw2.length > 0 && pw2 !== pw}
+          />
         </div>
         {pwMsg && <p className="mt-3 text-[13px] text-ink-2">{pwMsg}</p>}
         <button

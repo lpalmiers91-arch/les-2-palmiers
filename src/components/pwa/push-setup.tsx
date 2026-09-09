@@ -5,19 +5,9 @@ import { AnimatePresence, motion } from "motion/react";
 import { Bell, BellRing, X } from "lucide-react";
 import { easeOut } from "@/lib/motion";
 import { enablePush, pushSupported, syncPushIfGranted } from "@/lib/push";
+import { consentDecided, getPref, setPref } from "@/lib/prefs";
 
-const DISMISS_KEY = "l2p-push-dismissed";
-const CONSENT_KEY = "l2p-consent-v1";
-
-function consentDecided() {
-  if (typeof document === "undefined") return false;
-  if (/(?:^|;\s*)l2p_consent=/.test(document.cookie)) return true;
-  try {
-    return !!localStorage.getItem(CONSENT_KEY);
-  } catch {
-    return true;
-  }
-}
+const SEEN_KEY = "push-seen"; // invite affichée une fois -> plus jamais en auto
 
 /**
  * Active les notifications push (sonnerie / vibration / écran verrouillé).
@@ -37,23 +27,18 @@ export function PushSetup() {
       return;
     }
     if (Notification.permission === "denied") return;
-
-    let dismissed = false;
-    try {
-      dismissed = localStorage.getItem(DISMISS_KEY) === "1";
-    } catch {
-      /* ignore */
-    }
-    if (dismissed) return;
+    if (getPref(SEEN_KEY) === "1") return;
 
     const timers: number[] = [];
     const first = window.setTimeout(function tick() {
-      if (consentDecided()) setShow(true);
-      else {
+      if (consentDecided()) {
+        setShow(true);
+        setPref(SEEN_KEY, "1");
+      } else {
         const again = window.setTimeout(tick, 1500);
         timers.push(again);
       }
-    }, 8000);
+    }, 9000);
     timers.push(first);
 
     return () => timers.forEach((t) => window.clearTimeout(t));
@@ -61,11 +46,7 @@ export function PushSetup() {
 
   function close() {
     setShow(false);
-    try {
-      localStorage.setItem(DISMISS_KEY, "1");
-    } catch {
-      /* ignore */
-    }
+    setPref(SEEN_KEY, "1");
   }
 
   async function activate() {

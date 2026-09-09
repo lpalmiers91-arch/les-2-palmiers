@@ -48,7 +48,14 @@ Deno.serve(async (req) => {
   const { data: profile } = await admin
     .from("profiles").select("full_name, preferences").eq("id", notif.user_id).maybeSingle();
   const prefs = (profile?.preferences ?? {}) as Record<string, unknown>;
-  const prefChannels = (prefs.channels as string[] | undefined) ?? channels;
+  // préférences par canal : preferences.notif = { email: bool, push: bool }
+  // (in-app toujours actif). Repli : tout activé.
+  const notifPref = (prefs.notif ?? {}) as { email?: boolean; push?: boolean };
+  const prefChannels = [
+    "in_app",
+    notifPref.email !== false ? "email" : null,
+    notifPref.push !== false ? "push" : null,
+  ].filter(Boolean) as string[];
 
   // destinataire équipe ou client ? (le lien e-mail doit pointer dans le bon espace)
   const { data: roleRows } = await admin

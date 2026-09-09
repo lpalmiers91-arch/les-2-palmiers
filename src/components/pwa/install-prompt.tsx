@@ -6,20 +6,9 @@ import { Download, Share, X, Plus } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
 import { easeOut } from "@/lib/motion";
 import { useT } from "@/lib/i18n/provider";
+import { consentDecided, getPref, setPref } from "@/lib/prefs";
 
-const DISMISS_KEY = "l2p-install-dismissed";
-const CONSENT_KEY = "l2p-consent-v1";
-
-// N'affiche l'invite qu'une fois la bannière cookies traitée, pour éviter
-// que les deux se superposent en bas de l'écran.
-function consentDecided() {
-  if (/(?:^|;\s*)l2p_consent=/.test(document.cookie)) return true;
-  try {
-    return !!localStorage.getItem(CONSENT_KEY);
-  } catch {
-    return true;
-  }
-}
+const SEEN_KEY = "install-seen"; // affiché une fois -> plus jamais en auto
 
 type BIPEvent = Event & {
   prompt: () => Promise<void>;
@@ -49,20 +38,18 @@ export function InstallPrompt() {
       navigator.serviceWorker.register("/sw.js").catch(() => {});
     }
 
-    let dismissed = false;
-    try {
-      dismissed = localStorage.getItem(DISMISS_KEY) === "1";
-    } catch {
-      /* ignore */
-    }
-    if (dismissed || isStandalone()) return;
+    // affiché une seule fois en auto ; ensuite plus jamais (l'utilisateur peut
+    // toujours installer via le menu du navigateur / les réglages).
+    if (getPref(SEEN_KEY) === "1" || isStandalone()) return;
 
     const timers: number[] = [];
-    // attend la décision cookies avant de se montrer
+    // attend la décision cookies avant de se montrer, puis marque "vu"
     function scheduleShow(delay: number) {
       const first = window.setTimeout(function tick() {
-        if (consentDecided()) setShow(true);
-        else {
+        if (consentDecided()) {
+          setShow(true);
+          setPref(SEEN_KEY, "1");
+        } else {
           const again = window.setTimeout(tick, 1200);
           timers.push(again);
         }
@@ -74,14 +61,14 @@ export function InstallPrompt() {
       e.preventDefault();
       setDeferred(e as BIPEvent);
       setMode("android");
-      scheduleShow(4000);
+      scheduleShow(6000);
     };
     window.addEventListener("beforeinstallprompt", onBIP);
 
     // iOS : pas d'événement, on propose les instructions
     if (isIOS()) {
       setMode("ios");
-      scheduleShow(5000);
+      scheduleShow(7000);
     }
 
     return () => {
@@ -92,11 +79,7 @@ export function InstallPrompt() {
 
   function close() {
     setShow(false);
-    try {
-      localStorage.setItem(DISMISS_KEY, "1");
-    } catch {
-      /* ignore */
-    }
+    setPref(SEEN_KEY, "1");
   }
 
   async function install() {

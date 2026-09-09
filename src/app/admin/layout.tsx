@@ -8,6 +8,7 @@ import { PushSetup } from "@/components/pwa/push-setup";
 import { LiveRefresh } from "@/components/realtime/live-refresh";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
+import { aiSpaceEnabled } from "@/lib/ai";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -26,13 +27,14 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   const locale = await getLocale();
   const messages = await getMessages(locale);
 
-  const [{ data: profile }, { data: notifs }] = await Promise.all([
+  const [{ data: profile }, { data: notifs }, aiOn] = await Promise.all([
     supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
     supabase
       .from("notifications")
       .select("id, type, title, body, data, read_at, created_at")
       .order("created_at", { ascending: false })
       .limit(20),
+    aiSpaceEnabled("admin"),
   ]);
 
   return (
@@ -45,7 +47,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
       >
         {children}
         <LiveRefresh space="admin" userId={user.id} />
-        <AssistantWidget space="admin" />
+        {aiOn && <AssistantWidget space="admin" />}
         <InstallPrompt />
         <PushSetup />
       </ConsoleShell>

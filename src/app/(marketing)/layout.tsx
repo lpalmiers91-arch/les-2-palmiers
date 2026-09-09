@@ -9,11 +9,16 @@ import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
 import { getBranding, getNavPages } from "@/lib/cms";
+import { aiSpaceEnabled } from "@/lib/ai";
 
 export default async function MarketingLayout({ children }: { children: ReactNode }) {
   const locale = await getLocale();
   const messages = await getMessages(locale);
-  const [branding, navPages] = await Promise.all([getBranding(), getNavPages()]);
+  const [branding, navPages, aiOn] = await Promise.all([
+    getBranding(),
+    getNavPages(),
+    aiSpaceEnabled("public"),
+  ]);
   return (
     <I18nProvider locale={locale} messages={messages}>
       <MotionConfig reducedMotion="user">
@@ -26,7 +31,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
         <main>{children}</main>
         <SiteFooter />
         <CookieConsent />
-        <PublicAssistant />
+        {aiOn && <PublicAssistant />}
         <InstallPrompt />
       </MotionConfig>
     </I18nProvider>

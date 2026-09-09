@@ -12,31 +12,6 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
-  graphql_public: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      graphql: {
-        Args: {
-          extensions?: Json
-          operationName?: string
-          query?: string
-          variables?: Json
-        }
-        Returns: Json
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
   public: {
     Tables: {
       ai_messages: {
@@ -934,6 +909,8 @@ export type Database = {
           body: string
           conversation_id: string
           created_at: string
+          deleted_at: string | null
+          deleted_by: string | null
           id: string
           sender_id: string | null
           system: boolean
@@ -943,6 +920,8 @@ export type Database = {
           body?: string
           conversation_id: string
           created_at?: string
+          deleted_at?: string | null
+          deleted_by?: string | null
           id?: string
           sender_id?: string | null
           system?: boolean
@@ -952,6 +931,8 @@ export type Database = {
           body?: string
           conversation_id?: string
           created_at?: string
+          deleted_at?: string | null
+          deleted_by?: string | null
           id?: string
           sender_id?: string | null
           system?: boolean
@@ -962,6 +943,13 @@ export type Database = {
             columns: ["conversation_id"]
             isOneToOne: false
             referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_deleted_by_fkey"
+            columns: ["deleted_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
@@ -2192,6 +2180,7 @@ export type Database = {
       }
     }
     Functions: {
+      ai_space_enabled: { Args: { p_space: string }; Returns: boolean }
       apartment_is_visible: { Args: { aid: string }; Returns: boolean }
       auth_has_permission: { Args: { perm: string }; Returns: boolean }
       auth_has_role: { Args: { role_key: string }; Returns: boolean }
@@ -2293,6 +2282,9 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      delete_apartment: { Args: { p_apartment: string }; Returns: undefined }
+      delete_message: { Args: { p_message: string }; Returns: undefined }
+      delete_stay_info: { Args: { p_apartment: string }; Returns: undefined }
       has_permission: { Args: { perm: string; uid: string }; Returns: boolean }
       has_role: { Args: { role_key: string; uid: string }; Returns: boolean }
       heartbeat: { Args: never; Returns: undefined }
@@ -2394,6 +2386,8 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      notify_anon_key: { Args: never; Returns: string }
+      notify_endpoint: { Args: never; Returns: string }
       notify_staff: {
         Args: { p_body: string; p_data?: Json; p_title: string; p_type: string }
         Returns: undefined
@@ -2620,6 +2614,8 @@ export type Database = {
           body: string
           conversation_id: string
           created_at: string
+          deleted_at: string | null
+          deleted_by: string | null
           id: string
           sender_id: string | null
           system: boolean
@@ -2630,6 +2626,10 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      set_notification_prefs: {
+        Args: { p_email: boolean; p_push: boolean }
+        Returns: undefined
       }
       sign_contract: {
         Args: { p_contract: string; p_fields?: Json; p_signature_name: string }
@@ -2878,9 +2878,6 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {},
   },
