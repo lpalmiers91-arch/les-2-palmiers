@@ -34,13 +34,17 @@ export function SiteFooter() {
   return (
     <footer className="on-dark grain relative overflow-hidden bg-ink text-bone">
       <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-12 text-center md:grid-cols-[1.4fr_1fr_1fr_1fr] md:text-left">
           <div>
-            <Link href="/" className="flex items-center gap-2.5" aria-label="Les 2 Palmiers, accueil">
+            <Link
+              href="/"
+              className="flex items-center justify-center gap-2.5 md:justify-start"
+              aria-label="Les 2 Palmiers, accueil"
+            >
               <Mark className="h-8 w-8" tone="bone" />
               <span className="display text-[1.15rem]">Les 2 Palmiers</span>
             </Link>
-            <p className="mt-5 max-w-xs text-[14px] leading-relaxed text-bone/55">
+            <p className="mx-auto mt-5 max-w-xs text-[14px] leading-relaxed text-bone/55 md:mx-0">
               Appartement de rêve & conciergerie. {site.city}, {site.country}.
             </p>
             <div className="mt-6 space-y-1.5 text-[14px]">
@@ -80,9 +84,9 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-line-dark pt-7 text-[12.5px] text-bone/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col items-center gap-3 border-t border-line-dark pt-7 text-center text-[12.5px] text-bone/45 sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <p>© {year} {site.legalName}</p>
-          <nav className="flex flex-wrap gap-x-5 gap-y-1" aria-label="Mentions légales">
+          <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1" aria-label="Mentions légales">
             <Link href="/legal/confidentialite" className="hover:text-bone/70">Confidentialité</Link>
             <Link href="/legal/cookies" className="hover:text-bone/70">Cookies</Link>
             <Link href="/legal/cgv" className="hover:text-bone/70">CGV</Link>

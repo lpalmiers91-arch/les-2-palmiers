@@ -22,6 +22,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -37,6 +38,11 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
     try {
       if (mode === "signup") {
+        if (password !== confirm) {
+          setError("Les deux mots de passe ne correspondent pas.");
+          setLoading(false);
+          return;
+        }
         const { error } = await supabase.auth.signUp({
           email,
           password,
@@ -131,6 +137,30 @@ export function AuthForm({ mode }: { mode: Mode }) {
               autoComplete={mode === "signup" ? "new-password" : "current-password"}
               placeholder={mode === "signup" ? "8 caractères minimum" : "••••••••"}
             />
+          </label>
+        )}
+
+        {mode === "signup" && (
+          <label className="block">
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
+              Confirmer le mot de passe
+            </span>
+            <input
+              type="password"
+              required
+              minLength={8}
+              className="field"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              autoComplete="new-password"
+              placeholder="••••••••"
+              aria-invalid={confirm.length > 0 && confirm !== password}
+            />
+            {confirm.length > 0 && confirm !== password && (
+              <span className="mt-1.5 block text-[12px] text-danger">
+                Les deux mots de passe ne correspondent pas.
+              </span>
+            )}
           </label>
         )}
 

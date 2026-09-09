@@ -12,6 +12,7 @@ const CONSENT_KEY = "l2p-consent-v1";
 // N'affiche l'invite qu'une fois la bannière cookies traitée, pour éviter
 // que les deux se superposent en bas de l'écran.
 function consentDecided() {
+  if (/(?:^|;\s*)l2p_consent=/.test(document.cookie)) return true;
   try {
     return !!localStorage.getItem(CONSENT_KEY);
   } catch {
