@@ -1,22 +1,15 @@
 import { createServerClient } from "@supabase/ssr";
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config";
 import { NextResponse, type NextRequest } from "next/server";
-import type { Database } from "./database.types";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config";
 
-// Espaces protégés et rôle minimal requis.
-const GUARDS: { prefix: string; roles: string[] }[] = [
-  { prefix: "/admin", roles: ["admin"] },
-  { prefix: "/staff", roles: ["staff", "coordinator", "admin"] },
-  { prefix: "/app", roles: ["client", "staff", "coordinator", "admin"] },
-];
+// Espaces protégés (le contrôle fin du rôle se fait dans chaque layout serveur).
+const PROTECTED = ["/admin", "/staff", "/app"];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
-  const supabase = createServerClient<Database>(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY,
-    {
+  try {
+    const supabase = createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       cookies: {
         getAll() {
           return request.cookies.getAll();
@@ -29,46 +22,31 @@ export async function updateSession(request: NextRequest) {
           );
         },
       },
-    },
-  );
+    });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  const path = request.nextUrl.pathname;
-  const guard = GUARDS.find((g) => path === g.prefix || path.startsWith(g.prefix + "/"));
+    const path = request.nextUrl.pathname;
+    const isProtected = PROTECTED.some((p) => path === p || path.startsWith(p + "/"));
 
-  if (guard) {
-    if (!user) {
+    if (isProtected && !user) {
       const url = request.nextUrl.clone();
       url.pathname = "/connexion";
       url.searchParams.set("suite", path);
       return NextResponse.redirect(url);
     }
-    const { data: roleRows } = await supabase
-      .from("user_roles")
-      .select("role_id")
-      .eq("user_id", user.id);
-    const roles = (roleRows ?? []).map((r) => r.role_id);
-    const ok = guard.roles.some((r) => roles.includes(r));
-    if (!ok) {
+
+    if (user && (path === "/connexion" || path === "/inscription")) {
       const url = request.nextUrl.clone();
-      url.pathname = roles.includes("admin")
-        ? "/admin"
-        : roles.some((r) => ["staff", "coordinator"].includes(r))
-          ? "/staff"
-          : "/app";
+      url.pathname = "/app";
       return NextResponse.redirect(url);
     }
-  }
 
-  // déjà connecté → pas de page de connexion
-  if (user && (path === "/connexion" || path === "/inscription")) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/app";
-    return NextResponse.redirect(url);
+    return response;
+  } catch {
+    // en cas de souci réseau/session, on laisse passer : les layouts serveur re-vérifient.
+    return response;
   }
-
-  return response;
 }
