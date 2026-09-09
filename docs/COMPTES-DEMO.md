@@ -2,11 +2,20 @@
 
 > Créés dans Supabase Auth (via l'API admin — impossible en SQL pur). Mot de passe commun : **`Demo2026!`**
 
-| Rôle | E-mail | Mot de passe | user_id |
+**Deux portes d'entrée séparées :**
+- Client → `/connexion`
+- Staff & admin → `/equipe` (page dédiée, `noindex`)
+
+| Rôle | E-mail | Mot de passe | Entrée |
 |---|---|---|---|
-| Client | `client@les2palmiers.site` | `Demo2026!` | `4b201d09-e614-4971-88dc-fa8af5db9471` |
-| Staff (Accueil) | `staff@les2palmiers.site` | `Demo2026!` | `3044e5c5-0422-4774-8e6e-c08781e932ae` |
-| Administrateur | `admin@les2palmiers.site` | `Demo2026!` | `058024c4-4e39-4115-a06f-4daa436d0456` |
+| Client | `client@les2palmiers.site` | `Demo2026!` | `/connexion` |
+| Staff (Accueil) | `staff@les2palmiers.site` | `Demo2026!` | `/equipe` |
+| Administrateur | `admin@les2palmiers.site` | `Demo2026!` | `/equipe` |
+
+> **Reset** (septembre 2026) : toutes les données transactionnelles (réservations,
+> paiements, messages, notifications, contrats, KYC, audit) ont été vidées et les
+> comptes de test supprimés. Seuls ces 3 comptes démo subsistent, sans historique.
+> Script : `scratchpad/reset.sql`.
 
 - Les 3 comptes ont `email_confirm = true` (pas de mail de confirmation à valider).
 - Rôles attribués dans `public.user_roles` ; `staff` et `admin` ont aussi une ligne `public.staff_members`.
