@@ -7,8 +7,7 @@ import { MessageCircle, X, ArrowUp, Sparkles } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { easeOut } from "@/lib/motion";
 
-const FN = process.env.NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL!;
-const ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+import { FUNCTIONS_URL as FN, SUPABASE_ANON_KEY as ANON } from "@/lib/supabase/config";
 
 type Turn = {
   role: "user" | "assistant";

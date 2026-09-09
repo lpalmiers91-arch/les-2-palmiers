@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Check, UserPlus } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
-const FN = process.env.NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL!;
-const ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+import { FUNCTIONS_URL as FN, SUPABASE_ANON_KEY as ANON } from "@/lib/supabase/config";
 
 export function InviteForm() {
   const router = useRouter();
