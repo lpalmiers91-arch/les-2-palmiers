@@ -20,12 +20,16 @@ export function NotificationPrefs({
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [perm, setPerm] = useState<string>("default");
+  const [supported, setSupported] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [deviceBusy, setDeviceBusy] = useState(false);
   const [testBusy, setTestBusy] = useState(false);
   const [testDone, setTestDone] = useState(false);
 
   useEffect(() => {
+    setSupported(pushSupported());
     setPerm(pushPermission());
+    setMounted(true);
   }, []);
 
   async function persist(nextEmail: boolean, nextPush: boolean) {
@@ -55,6 +59,7 @@ export function NotificationPrefs({
     setDeviceBusy(true);
     const res = await enablePush();
     setDeviceBusy(false);
+    setSupported(pushSupported());
     setPerm(pushPermission());
     if (res.ok && !push) toggle("push", true);
   }
@@ -66,8 +71,6 @@ export function NotificationPrefs({
     setTestDone(true);
     setTimeout(() => setTestDone(false), 3000);
   }
-
-  const supported = pushSupported();
 
   return (
     <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
@@ -108,7 +111,7 @@ export function NotificationPrefs({
       )}
 
       <div className="mt-5 space-y-3 border-t border-line pt-4">
-        {!supported ? (
+        {!mounted ? null : !supported ? (
           <p className="text-[12.5px] text-ink-3">{t("notifPrefs.unsupported")}</p>
         ) : perm === "denied" ? (
           <p className="text-[12.5px] text-danger">{t("notifPrefs.blocked")}</p>
