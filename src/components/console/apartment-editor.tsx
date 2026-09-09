@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Check, Plus, Upload, Star, Trash2, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { aptImg } from "@/lib/site";
+import { useT } from "@/lib/i18n/provider";
 
 function slugify(s: string) {
   return (
@@ -18,6 +19,7 @@ function slugify(s: string) {
 
 export function NewApartmentButton() {
   const router = useRouter();
+  const { t } = useT();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
@@ -25,7 +27,7 @@ export function NewApartmentButton() {
 
   async function create() {
     if (name.trim().length < 3) {
-      setErr("Donnez un nom d'au moins 3 caractères.");
+      setErr(t("console.aptEd.nameMin"));
       return;
     }
     setBusy(true);
@@ -38,7 +40,7 @@ export function NewApartmentButton() {
       .single();
     setBusy(false);
     if (error || !data) {
-      setErr("Création impossible.");
+      setErr(t("console.aptEd.createFailed"));
       return;
     }
     router.push(`/staff/appartements/${data.id}`);
@@ -50,7 +52,7 @@ export function NewApartmentButton() {
         onClick={() => setOpen(true)}
         className="press flex h-10 items-center gap-1.5 rounded-full bg-ink px-4 text-[13px] font-medium text-bone hover:bg-forest-2"
       >
-        <Plus className="h-4 w-4" /> Nouvel appartement
+        <Plus className="h-4 w-4" /> {t("console.aptEd.newApartment")}
       </button>
     );
   }
@@ -60,7 +62,7 @@ export function NewApartmentButton() {
       <input
         autoFocus
         className="field h-10 w-56"
-        placeholder="Nom du logement"
+        placeholder={t("console.aptEd.propertyName")}
         value={name}
         onChange={(e) => setName(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && create()}
@@ -71,7 +73,7 @@ export function NewApartmentButton() {
         className="press flex h-10 items-center gap-1.5 rounded-full bg-ink px-4 text-[13px] font-medium text-bone disabled:opacity-50"
       >
         {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
-        Créer
+        {t("console.pagesMgr.create")}
       </button>
       <button onClick={() => setOpen(false)} className="press p-1 text-ink-3">
         <X className="h-4 w-4" />
@@ -125,6 +127,7 @@ export function ApartmentEditor({
   blocks: BlockRow[];
 }) {
   const router = useRouter();
+  const { t } = useT();
   const [a, setA] = useState(apartment);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -160,7 +163,7 @@ export function ApartmentEditor({
       .eq("id", a.id);
     setSaving(false);
     if (error) {
-      setErr("Enregistrement impossible.");
+      setErr(t("console.aptEd.saveFailed"));
       return;
     }
     setSaved(true);
@@ -172,46 +175,46 @@ export function ApartmentEditor({
     <div className="space-y-6">
       <form onSubmit={save} className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
         <div className="flex items-center justify-between">
-          <h2 className="display text-[1.15rem] text-ink">Fiche</h2>
+          <h2 className="display text-[1.15rem] text-ink">{t("console.aptEd.sheet")}</h2>
           <select
             value={a.status}
             onChange={(e) => f("status", e.target.value)}
             className="field h-9 w-36 text-[13px]"
           >
-            <option value="draft">Brouillon</option>
-            <option value="published">En ligne</option>
-            <option value="hidden">Masqué</option>
+            <option value="draft">{t("console.status.draft")}</option>
+            <option value="published">{t("console.aptEd.online")}</option>
+            <option value="hidden">{t("console.status.hidden")}</option>
           </select>
         </div>
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <L label="Nom" full>
+          <L label={t("console.settings.name")} full>
             <input className="field" value={a.name} onChange={(e) => f("name", e.target.value)} />
           </L>
-          <L label="Résumé court" full>
+          <L label={t("console.aptEd.summary")} full>
             <input
               className="field"
               value={a.summary ?? ""}
               onChange={(e) => f("summary", e.target.value)}
-              placeholder="Une phrase d'accroche"
+              placeholder={t("console.aptEd.summaryPlaceholder")}
             />
           </L>
-          <L label="Description" full>
+          <L label={t("console.catEditor.description")} full>
             <textarea
               className="field min-h-[110px] resize-y"
               value={a.description ?? ""}
               onChange={(e) => f("description", e.target.value)}
             />
           </L>
-          <L label="Adresse" full>
+          <L label={t("console.contractEd.address")} full>
             <input
               className="field"
               value={a.address ?? ""}
               onChange={(e) => f("address", e.target.value)}
-              placeholder="Quartier, ville"
+              placeholder={t("console.aptEd.addressPlaceholder")}
             />
           </L>
-          <L label="Lien localisation (Google Maps)" full>
+          <L label={t("console.aptEd.mapLink")} full>
             <input
               className="field"
               value={a.map_url ?? ""}
@@ -219,7 +222,7 @@ export function ApartmentEditor({
               placeholder="https://maps.google.com/…"
             />
           </L>
-          <L label="Capacité (personnes)">
+          <L label={t("console.aptEd.capacity")}>
             <input
               type="number"
               min={1}
@@ -228,7 +231,7 @@ export function ApartmentEditor({
               onChange={(e) => f("capacity", Number(e.target.value))}
             />
           </L>
-          <L label="Chambres">
+          <L label={t("console.aptEd.bedrooms")}>
             <input
               type="number"
               min={0}
@@ -237,7 +240,7 @@ export function ApartmentEditor({
               onChange={(e) => f("bedrooms", Number(e.target.value))}
             />
           </L>
-          <L label="Salles de bain">
+          <L label={t("console.aptEd.bathrooms")}>
             <input
               type="number"
               min={0}
@@ -246,7 +249,7 @@ export function ApartmentEditor({
               onChange={(e) => f("bathrooms", Number(e.target.value))}
             />
           </L>
-          <L label="Prix / nuit (XOF)">
+          <L label={t("console.aptEd.pricePerNight")}>
             <input
               type="number"
               min={0}
@@ -255,7 +258,7 @@ export function ApartmentEditor({
               onChange={(e) => f("base_price", Number(e.target.value))}
             />
           </L>
-          <L label="Frais de ménage (XOF)">
+          <L label={t("console.aptEd.cleaningFee")}>
             <input
               type="number"
               min={0}
@@ -264,18 +267,18 @@ export function ApartmentEditor({
               onChange={(e) => f("cleaning_fee", Number(e.target.value))}
             />
           </L>
-          <L label="Politique d'annulation">
+          <L label={t("console.aptEd.cancellationPolicy")}>
             <select
               className="field"
               value={a.cancellation_policy}
               onChange={(e) => f("cancellation_policy", e.target.value)}
             >
-              <option value="flexible">Flexible</option>
-              <option value="moderate">Modérée</option>
-              <option value="strict">Stricte</option>
+              <option value="flexible">{t("console.aptEd.flexible")}</option>
+              <option value="moderate">{t("console.aptEd.moderate")}</option>
+              <option value="strict">{t("console.aptEd.strict")}</option>
             </select>
           </L>
-          <L label="Arrivée à partir de">
+          <L label={t("console.aptEd.checkinFrom")}>
             <input
               type="time"
               className="field"
@@ -283,7 +286,7 @@ export function ApartmentEditor({
               onChange={(e) => f("checkin_from", e.target.value)}
             />
           </L>
-          <L label="Départ avant">
+          <L label={t("console.aptEd.checkoutBefore")}>
             <input
               type="time"
               className="field"
@@ -303,10 +306,10 @@ export function ApartmentEditor({
           {saving && <Loader2 className="h-4 w-4 animate-spin" />}
           {saved ? (
             <>
-              <Check className="h-4 w-4" /> Enregistré
+              <Check className="h-4 w-4" /> {t("console.action.saved")}
             </>
           ) : (
-            "Enregistrer la fiche"
+            t("console.aptEd.saveSheet")
           )}
         </button>
       </form>
@@ -328,6 +331,7 @@ function L({ label, full, children }: { label: string; full?: boolean; children:
 
 function PhotoManager({ apartmentId, media }: { apartmentId: string; media: MediaRow[] }) {
   const router = useRouter();
+  const { t } = useT();
   const fileRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -357,7 +361,7 @@ function PhotoManager({ apartmentId, media }: { apartmentId: string; media: Medi
       }
       router.refresh();
     } catch {
-      setErr("Le téléversement a échoué.");
+      setErr(t("console.aptEd.uploadFailed"));
     } finally {
       setBusy(false);
     }
@@ -380,14 +384,14 @@ function PhotoManager({ apartmentId, media }: { apartmentId: string; media: Medi
   return (
     <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
       <div className="flex items-center justify-between">
-        <h2 className="display text-[1.15rem] text-ink">Photos</h2>
+        <h2 className="display text-[1.15rem] text-ink">{t("console.aptEd.photos")}</h2>
         <button
           onClick={() => fileRef.current?.click()}
           disabled={busy}
           className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-medium text-ink hover:border-ink/30 disabled:opacity-50"
         >
           {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
-          Ajouter
+          {t("console.action.add")}
         </button>
         <input
           ref={fileRef}
@@ -403,7 +407,7 @@ function PhotoManager({ apartmentId, media }: { apartmentId: string; media: Medi
 
       {media.length === 0 ? (
         <p className="mt-3 text-[13px] text-ink-3">
-          Aucune photo. Ajoutez-en au moins une pour publier.
+          {t("console.aptEd.noPhotos")}
         </p>
       ) : (
         <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -420,14 +424,14 @@ function PhotoManager({ apartmentId, media }: { apartmentId: string; media: Medi
               />
               {m.is_cover && (
                 <span className="absolute left-1.5 top-1.5 rounded-full bg-ink/80 px-1.5 py-0.5 text-[10px] font-medium text-bone">
-                  Couverture
+                  {t("console.aptEd.cover")}
                 </span>
               )}
               <div className="absolute inset-x-0 bottom-0 flex justify-end gap-1 bg-gradient-to-t from-ink/60 to-transparent p-1.5 opacity-0 transition-opacity group-hover:opacity-100">
                 {!m.is_cover && (
                   <button
                     onClick={() => setCover(m.id)}
-                    title="Définir comme couverture"
+                    title={t("console.aptEd.setCover")}
                     className="press rounded-full bg-bone/90 p-1.5 text-ink"
                   >
                     <Star className="h-3.5 w-3.5" />
@@ -435,7 +439,7 @@ function PhotoManager({ apartmentId, media }: { apartmentId: string; media: Medi
                 )}
                 <button
                   onClick={() => remove(m)}
-                  title="Supprimer"
+                  title={t("console.action.delete")}
                   className="press rounded-full bg-bone/90 p-1.5 text-danger"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
@@ -451,6 +455,7 @@ function PhotoManager({ apartmentId, media }: { apartmentId: string; media: Medi
 
 function AvailabilityManager({ apartmentId, blocks }: { apartmentId: string; blocks: BlockRow[] }) {
   const router = useRouter();
+  const { t } = useT();
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [reason, setReason] = useState("owner");
@@ -465,7 +470,7 @@ function AvailabilityManager({ apartmentId, blocks }: { apartmentId: string; blo
   async function add() {
     setErr(null);
     if (!from || !to || from >= to) {
-      setErr("Choisissez une période valide.");
+      setErr(t("console.aptEd.invalidPeriod"));
       return;
     }
     setBusy(true);
@@ -474,7 +479,7 @@ function AvailabilityManager({ apartmentId, blocks }: { apartmentId: string; blo
       .insert({ apartment_id: apartmentId, date_range: `[${from},${to})`, reason });
     setBusy(false);
     if (error) {
-      setErr("Cette période chevauche un blocage existant.");
+      setErr(t("console.aptEd.overlap"));
       return;
     }
     setFrom("");
@@ -488,26 +493,26 @@ function AvailabilityManager({ apartmentId, blocks }: { apartmentId: string; blo
   }
 
   const REASONS: Record<string, string> = {
-    owner: "Réservé propriétaire",
-    maintenance: "Maintenance",
-    external_ical: "Autre plateforme",
-    other: "Autre",
+    owner: t("console.aptEd.reasonOwner"),
+    maintenance: t("console.aptEd.reasonMaintenance"),
+    external_ical: t("console.aptEd.reasonExternal"),
+    other: t("console.aptEd.reasonOther"),
   };
 
   return (
     <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
-      <h2 className="display text-[1.15rem] text-ink">Disponibilités</h2>
+      <h2 className="display text-[1.15rem] text-ink">{t("console.aptEd.availability")}</h2>
       <p className="mt-1 text-[13px] text-ink-3">
-        Bloquez les dates où le logement n&apos;est pas louable.
+        {t("console.aptEd.availabilityNote")}
       </p>
 
       <div className="mt-4 flex flex-wrap items-end gap-2">
         <label className="block">
-          <span className="mb-1 block text-[12px] text-ink-3">Du</span>
+          <span className="mb-1 block text-[12px] text-ink-3">{t("console.aptEd.from")}</span>
           <input type="date" className="field h-10" value={from} onChange={(e) => setFrom(e.target.value)} />
         </label>
         <label className="block">
-          <span className="mb-1 block text-[12px] text-ink-3">Au</span>
+          <span className="mb-1 block text-[12px] text-ink-3">{t("console.aptEd.to")}</span>
           <input type="date" className="field h-10" value={to} onChange={(e) => setTo(e.target.value)} />
         </label>
         <select className="field h-10 w-44" value={reason} onChange={(e) => setReason(e.target.value)}>
@@ -523,7 +528,7 @@ function AvailabilityManager({ apartmentId, blocks }: { apartmentId: string; blo
           className="press flex h-10 items-center gap-1.5 rounded-full bg-ink px-4 text-[13px] font-medium text-bone disabled:opacity-50"
         >
           {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
-          Bloquer
+          {t("console.aptEd.block")}
         </button>
       </div>
       {err && <p className="mt-2 text-[13px] text-danger">{err}</p>}
