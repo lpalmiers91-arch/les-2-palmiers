@@ -8,15 +8,21 @@ import { PublicAssistant } from "@/components/assistant/public-assistant";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
+import { getBranding, getNavPages } from "@/lib/cms";
 
 export default async function MarketingLayout({ children }: { children: ReactNode }) {
   const locale = await getLocale();
   const messages = await getMessages(locale);
+  const [branding, navPages] = await Promise.all([getBranding(), getNavPages()]);
   return (
     <I18nProvider locale={locale} messages={messages}>
       <MotionConfig reducedMotion="user">
         <SmoothScroll />
-        <SiteHeader />
+        <SiteHeader
+          wordmark={branding.wordmark}
+          logoUrl={branding.logo_url}
+          navExtra={navPages}
+        />
         <main>{children}</main>
         <SiteFooter />
         <CookieConsent />

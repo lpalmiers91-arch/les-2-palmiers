@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PageTitle } from "@/components/app/ui";
 import { SiteEditor } from "@/components/console/site-editor";
 import { BrandingForm } from "@/components/console/branding-form";
+import { PagesManager } from "@/components/console/pages-manager";
 
 export const metadata: Metadata = { title: "Site web" };
 
@@ -29,6 +30,21 @@ export default async function StaffSite() {
     .eq("id", 1)
     .maybeSingle();
 
+  const { data: customPages } = await supabase
+    .from("site_pages")
+    .select("id, slug, title, nav_label, in_nav, nav_order, status")
+    .eq("is_system", false)
+    .order("nav_order");
+
+  const pageIds = (customPages ?? []).map((p) => p.id);
+  const { data: customBlocks } = pageIds.length
+    ? await supabase
+        .from("site_blocks")
+        .select("id, page_id, type, position, visible, content")
+        .in("page_id", pageIds)
+        .order("position")
+    : { data: [] };
+
   return (
     <div className="mx-auto max-w-6xl">
       <PageTitle
@@ -41,6 +57,25 @@ export default async function StaffSite() {
           content: (b.content ?? {}) as Record<string, unknown>,
         }))}
       />
+
+      <div className="mt-10">
+        <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+          Pages personnalisées
+        </h2>
+        <p className="mt-1 text-[13px] text-ink-3">
+          Créez des pages autonomes (bien-être, FAQ, à propos…) accessibles sur /p/slug et,
+          au choix, dans le menu du site.
+        </p>
+        <div className="mt-3">
+          <PagesManager
+            pages={customPages ?? []}
+            blocks={(customBlocks ?? []).map((b) => ({
+              ...b,
+              content: (b.content ?? {}) as Record<string, unknown>,
+            }))}
+          />
+        </div>
+      </div>
 
       <div className="mt-10">
         <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">Apparence</h2>

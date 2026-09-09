@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { ContractPanel } from "@/components/app/contract-panel";
+import { RowRefresh } from "@/components/realtime/row-refresh";
 
 export const metadata: Metadata = { title: "Contrat de séjour", robots: { index: false } };
 
@@ -31,14 +32,17 @@ export default async function ContractPage({ params }: { params: Promise<{ ref: 
     .maybeSingle();
 
   return (
-    <ContractPanel
-      contract={contract as never}
-      client={{
-        name: profile?.full_name ?? "",
-        address: [profile?.address, profile?.city, profile?.country].filter(Boolean).join(", "),
-        phone: profile?.phone ?? "",
-      }}
-      canSign={contract.client_id === user.id}
-    />
+    <>
+      <RowRefresh table="contracts" value={contract.id} />
+      <ContractPanel
+        contract={contract as never}
+        client={{
+          name: profile?.full_name ?? "",
+          address: [profile?.address, profile?.city, profile?.country].filter(Boolean).join(", "),
+          phone: profile?.phone ?? "",
+        }}
+        canSign={contract.client_id === user.id}
+      />
+    </>
   );
 }

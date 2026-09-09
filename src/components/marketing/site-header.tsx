@@ -11,9 +11,18 @@ import { easeOut } from "@/lib/motion";
 import { useT } from "@/lib/i18n/provider";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 
-export function SiteHeader() {
+export function SiteHeader({
+  wordmark,
+  logoUrl,
+  navExtra = [],
+}: {
+  wordmark?: string;
+  logoUrl?: string;
+  navExtra?: { href: string; label: string }[];
+} = {}) {
   const { t } = useT();
   const pathname = usePathname();
+  const brand = wordmark?.trim() || "Les 2 Palmiers";
   const onHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -23,6 +32,7 @@ export function SiteHeader() {
     { href: "/#services", label: t("nav.services") },
     { href: "/#le-lieu", label: t("nav.place") },
     { href: "/#contact", label: t("nav.contact") },
+    ...navExtra,
   ];
 
   useEffect(() => {
@@ -57,8 +67,13 @@ export function SiteHeader() {
             className={`flex items-center gap-2.5 transition-colors ${dark ? "text-bone" : "text-ink"}`}
             aria-label="Les 2 Palmiers, accueil"
           >
-            <Mark className="h-7 w-7" tone={dark ? "bone" : "ink"} />
-            <span className="display text-[1.06rem] leading-none">Les 2 Palmiers</span>
+            {logoUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={logoUrl} alt={brand} className="h-7 w-auto" />
+            ) : (
+              <Mark className="h-7 w-7" tone={dark ? "bone" : "ink"} />
+            )}
+            <span className="display text-[1.06rem] leading-none">{brand}</span>
           </Link>
 
           <nav
