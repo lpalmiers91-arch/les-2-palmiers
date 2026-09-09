@@ -360,6 +360,43 @@
         "residencePermit": "Residence permit",
         "driversLicense": "Driver's license"
       }
+    },
+    "reviewMod": {
+      "toModerate": "To moderate",
+      "noneWaiting": "No review pending.",
+      "publishedHidden": "Published & hidden",
+      "featuredBadge": "Featured",
+      "apartment": "Apartment",
+      "replyLabel": "Reply",
+      "replyPlaceholder": "Your public reply…",
+      "saveReply": "Save reply",
+      "hide": "Hide",
+      "feature": "Feature",
+      "unfeature": "Unfeature",
+      "reply": "Reply",
+      "editReply": "Edit reply"
+    },
+    "proof": {
+      "none": "No payment proof pending.",
+      "needReason": "Give a reason.",
+      "actionFailed": "Action failed.",
+      "service": "service",
+      "stay": "stay",
+      "approve": "Approve payment"
+    },
+    "stayForm": {
+      "visibility": "Visible to the client only while they have an active reservation.",
+      "wifiName": "Wi-Fi network name",
+      "wifiPassword": "Wi-Fi password",
+      "emergency": "Emergency contact",
+      "emergencyPlaceholder": "Name + number",
+      "checkinNotes": "Check-in instructions",
+      "checkoutNotes": "Check-out instructions",
+      "houseManual": "House manual",
+      "houseManualPlaceholder": "Water heater, bins, A/C, TV…",
+      "otherInfo": "Other info",
+      "extraLabel": "Label",
+      "extraValue": "Value"
     }
   }
 }

@@ -360,6 +360,43 @@
         "residencePermit": "Aufenthaltstitel",
         "driversLicense": "Führerschein"
       }
+    },
+    "reviewMod": {
+      "toModerate": "Zu moderieren",
+      "noneWaiting": "Keine Bewertung ausstehend.",
+      "publishedHidden": "Veröffentlicht & ausgeblendet",
+      "featuredBadge": "Hervorgehoben",
+      "apartment": "Apartment",
+      "replyLabel": "Antwort",
+      "replyPlaceholder": "Ihre öffentliche Antwort…",
+      "saveReply": "Antwort speichern",
+      "hide": "Ausblenden",
+      "feature": "Hervorheben",
+      "unfeature": "Hervorhebung entfernen",
+      "reply": "Antworten",
+      "editReply": "Antwort bearbeiten"
+    },
+    "proof": {
+      "none": "Kein Zahlungsnachweis ausstehend.",
+      "needReason": "Grund angeben.",
+      "actionFailed": "Aktion nicht möglich.",
+      "service": "Service",
+      "stay": "Aufenthalt",
+      "approve": "Zahlung bestätigen"
+    },
+    "stayForm": {
+      "visibility": "Für den Kunden nur sichtbar, solange er eine aktive Reservierung hat.",
+      "wifiName": "WLAN-Netzwerkname",
+      "wifiPassword": "WLAN-Passwort",
+      "emergency": "Notfallkontakt",
+      "emergencyPlaceholder": "Name + Nummer",
+      "checkinNotes": "Anreisehinweise",
+      "checkoutNotes": "Abreisehinweise",
+      "houseManual": "Hausanleitung",
+      "houseManualPlaceholder": "Boiler, Müll, Klimaanlage, TV…",
+      "otherInfo": "Weitere Infos",
+      "extraLabel": "Bezeichnung",
+      "extraValue": "Wert"
     }
   }
 }

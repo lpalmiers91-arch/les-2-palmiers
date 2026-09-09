@@ -360,6 +360,43 @@
         "residencePermit": "Permesso di soggiorno",
         "driversLicense": "Patente di guida"
       }
+    },
+    "reviewMod": {
+      "toModerate": "Da moderare",
+      "noneWaiting": "Nessuna recensione in sospeso.",
+      "publishedHidden": "Pubblicate e nascoste",
+      "featuredBadge": "In evidenza",
+      "apartment": "Appartamento",
+      "replyLabel": "Risposta",
+      "replyPlaceholder": "La tua risposta pubblica…",
+      "saveReply": "Salva la risposta",
+      "hide": "Nascondi",
+      "feature": "Metti in evidenza",
+      "unfeature": "Rimuovi dall'evidenza",
+      "reply": "Rispondi",
+      "editReply": "Modifica la risposta"
+    },
+    "proof": {
+      "none": "Nessuna prova di pagamento in sospeso.",
+      "needReason": "Indica un motivo.",
+      "actionFailed": "Azione impossibile.",
+      "service": "servizio",
+      "stay": "soggiorno",
+      "approve": "Convalida il pagamento"
+    },
+    "stayForm": {
+      "visibility": "Visibile al cliente solo mentre ha una prenotazione attiva.",
+      "wifiName": "Nome della rete Wi-Fi",
+      "wifiPassword": "Password Wi-Fi",
+      "emergency": "Contatto di emergenza",
+      "emergencyPlaceholder": "Nome + numero",
+      "checkinNotes": "Istruzioni di arrivo",
+      "checkoutNotes": "Istruzioni di partenza",
+      "houseManual": "Manuale della casa",
+      "houseManualPlaceholder": "Scaldabagno, rifiuti, aria condizionata, TV…",
+      "otherInfo": "Altre info",
+      "extraLabel": "Etichetta",
+      "extraValue": "Valore"
     }
   }
 }

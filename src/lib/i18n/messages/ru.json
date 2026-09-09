@@ -360,6 +360,43 @@
         "residencePermit": "Вид на жительство",
         "driversLicense": "Водительские права"
       }
+    },
+    "reviewMod": {
+      "toModerate": "На модерацию",
+      "noneWaiting": "Нет отзывов в ожидании.",
+      "publishedHidden": "Опубликованные и скрытые",
+      "featuredBadge": "В избранном",
+      "apartment": "Апартаменты",
+      "replyLabel": "Ответ",
+      "replyPlaceholder": "Ваш публичный ответ…",
+      "saveReply": "Сохранить ответ",
+      "hide": "Скрыть",
+      "feature": "В избранное",
+      "unfeature": "Убрать из избранного",
+      "reply": "Ответить",
+      "editReply": "Изменить ответ"
+    },
+    "proof": {
+      "none": "Нет подтверждений оплаты в ожидании.",
+      "needReason": "Укажите причину.",
+      "actionFailed": "Действие невозможно.",
+      "service": "услуга",
+      "stay": "проживание",
+      "approve": "Подтвердить платёж"
+    },
+    "stayForm": {
+      "visibility": "Видно клиенту только пока у него есть активная бронь.",
+      "wifiName": "Название сети Wi-Fi",
+      "wifiPassword": "Пароль Wi-Fi",
+      "emergency": "Экстренный контакт",
+      "emergencyPlaceholder": "Имя + номер",
+      "checkinNotes": "Инструкции по заезду",
+      "checkoutNotes": "Инструкции по выезду",
+      "houseManual": "Инструкция по дому",
+      "houseManualPlaceholder": "Водонагреватель, мусор, кондиционер, ТВ…",
+      "otherInfo": "Прочее",
+      "extraLabel": "Название",
+      "extraValue": "Значение"
     }
   }
 }

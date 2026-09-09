@@ -360,6 +360,43 @@
         "residencePermit": "Titre de séjour",
         "driversLicense": "Permis de conduire"
       }
+    },
+    "reviewMod": {
+      "toModerate": "À modérer",
+      "noneWaiting": "Aucun avis en attente.",
+      "publishedHidden": "Publiés & masqués",
+      "featuredBadge": "À la une",
+      "apartment": "Appartement",
+      "replyLabel": "Réponse",
+      "replyPlaceholder": "Votre réponse publique…",
+      "saveReply": "Enregistrer la réponse",
+      "hide": "Masquer",
+      "feature": "Mettre à la une",
+      "unfeature": "Retirer de la une",
+      "reply": "Répondre",
+      "editReply": "Modifier la réponse"
+    },
+    "proof": {
+      "none": "Aucune preuve de paiement en attente.",
+      "needReason": "Indiquez un motif.",
+      "actionFailed": "Action impossible.",
+      "service": "service",
+      "stay": "séjour",
+      "approve": "Valider le paiement"
+    },
+    "stayForm": {
+      "visibility": "Visible par le client uniquement pendant qu'il a une réservation active.",
+      "wifiName": "Nom du réseau Wi-Fi",
+      "wifiPassword": "Mot de passe Wi-Fi",
+      "emergency": "Contact d'urgence",
+      "emergencyPlaceholder": "Nom + numéro",
+      "checkinNotes": "Consignes d'arrivée",
+      "checkoutNotes": "Consignes de départ",
+      "houseManual": "Manuel de la maison",
+      "houseManualPlaceholder": "Chauffe-eau, poubelles, climatisation, télé…",
+      "otherInfo": "Autres infos",
+      "extraLabel": "Libellé",
+      "extraValue": "Valeur"
     }
   }
 }

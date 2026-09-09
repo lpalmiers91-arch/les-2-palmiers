@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Star, Check, EyeOff, MessageSquareReply } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { formatDate } from "@/lib/format";
+import { useT } from "@/lib/i18n/provider";
 
 export type ReviewRow = {
   id: string;
@@ -33,17 +34,18 @@ function Stars({ n }: { n: number }) {
 }
 
 export function ReviewModeration({ rows }: { rows: ReviewRow[] }) {
+  const { t } = useT();
   const pending = rows.filter((r) => r.status === "pending");
   const others = rows.filter((r) => r.status !== "pending");
   return (
     <div className="space-y-8">
       <section>
         <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-          À modérer ({pending.length})
+          {t("console.reviewMod.toModerate")} ({pending.length})
         </h2>
         {pending.length === 0 ? (
           <p className="mt-3 rounded-[var(--radius-lg)] border border-dashed border-line bg-bone/60 px-5 py-8 text-center text-[13px] text-ink-3">
-            Aucun avis en attente.
+            {t("console.reviewMod.noneWaiting")}
           </p>
         ) : (
           <div className="mt-3 space-y-3">
@@ -56,7 +58,7 @@ export function ReviewModeration({ rows }: { rows: ReviewRow[] }) {
       {others.length > 0 && (
         <section>
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Publiés & masqués
+            {t("console.reviewMod.publishedHidden")}
           </h2>
           <div className="mt-3 space-y-3">
             {others.map((r) => (
@@ -71,6 +73,7 @@ export function ReviewModeration({ rows }: { rows: ReviewRow[] }) {
 
 function ReviewCard({ row }: { row: ReviewRow }) {
   const router = useRouter();
+  const { t } = useT();
   const [busy, setBusy] = useState<string | null>(null);
   const [replyOpen, setReplyOpen] = useState(false);
   const [reply, setReply] = useState(row.staff_reply ?? "");
@@ -98,15 +101,17 @@ function ReviewCard({ row }: { row: ReviewRow }) {
         <div>
           <div className="flex items-center gap-2">
             <Stars n={row.rating} />
-            <span className="text-[13px] font-medium text-ink">{row.client_name ?? "Client"}</span>
+            <span className="text-[13px] font-medium text-ink">
+              {row.client_name ?? t("console.staffHome.client")}
+            </span>
             {row.featured && (
               <span className="rounded-full bg-brass/15 px-1.5 py-0.5 text-[10px] font-medium text-brass">
-                À la une
+                {t("console.reviewMod.featuredBadge")}
               </span>
             )}
           </div>
           <p className="text-[11.5px] text-ink-3">
-            {row.apartment_name ?? "Appartement"} · {formatDate(row.created_at)}
+            {row.apartment_name ?? t("console.reviewMod.apartment")} · {formatDate(row.created_at)}
           </p>
         </div>
         <span
@@ -118,7 +123,11 @@ function ReviewCard({ row }: { row: ReviewRow }) {
                 : "bg-warn/12 text-warn"
           }`}
         >
-          {row.status === "published" ? "Publié" : row.status === "hidden" ? "Masqué" : "En attente"}
+          {row.status === "published"
+            ? t("console.status.published")
+            : row.status === "hidden"
+              ? t("console.status.hidden")
+              : t("console.status.pending")}
         </span>
       </div>
 
@@ -127,7 +136,7 @@ function ReviewCard({ row }: { row: ReviewRow }) {
 
       {row.staff_reply && (
         <p className="mt-3 rounded-[10px] bg-bone-2 px-3 py-2 text-[13px] text-ink-2">
-          <span className="font-medium text-ink">Réponse : </span>
+          <span className="font-medium text-ink">{t("console.reviewMod.replyLabel")} : </span>
           {row.staff_reply}
         </p>
       )}
@@ -138,7 +147,7 @@ function ReviewCard({ row }: { row: ReviewRow }) {
             className="field min-h-[70px] resize-y"
             value={reply}
             onChange={(e) => setReply(e.target.value)}
-            placeholder="Votre réponse publique…"
+            placeholder={t("console.reviewMod.replyPlaceholder")}
           />
           <button
             onClick={() => act({ reply: reply.trim() })}
@@ -146,7 +155,7 @@ function ReviewCard({ row }: { row: ReviewRow }) {
             className="press mt-2 flex h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12.5px] font-medium text-bone disabled:opacity-50"
           >
             {busy === "reply" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
-            Enregistrer la réponse
+            {t("console.reviewMod.saveReply")}
           </button>
         </div>
       )}
@@ -159,7 +168,7 @@ function ReviewCard({ row }: { row: ReviewRow }) {
             className="press flex h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12.5px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
           >
             {busy === "published" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
-            Publier
+            {t("console.action.publish")}
           </button>
         )}
         {row.status !== "hidden" && (
@@ -168,7 +177,7 @@ function ReviewCard({ row }: { row: ReviewRow }) {
             disabled={busy !== null}
             className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-4 text-[12.5px] font-medium text-ink hover:border-ink/30 disabled:opacity-50"
           >
-            <EyeOff className="h-3.5 w-3.5" /> Masquer
+            <EyeOff className="h-3.5 w-3.5" /> {t("console.reviewMod.hide")}
           </button>
         )}
         {row.status === "published" && (
@@ -178,14 +187,15 @@ function ReviewCard({ row }: { row: ReviewRow }) {
             className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-4 text-[12.5px] font-medium text-ink hover:border-brass/50 disabled:opacity-50"
           >
             <Star className={`h-3.5 w-3.5 ${row.featured ? "fill-brass text-brass" : ""}`} />
-            {row.featured ? "Retirer de la une" : "Mettre à la une"}
+            {row.featured ? t("console.reviewMod.unfeature") : t("console.reviewMod.feature")}
           </button>
         )}
         <button
           onClick={() => setReplyOpen((v) => !v)}
           className="press flex h-9 items-center gap-1.5 rounded-full px-3 text-[12.5px] text-ink-3 hover:text-ink"
         >
-          <MessageSquareReply className="h-3.5 w-3.5" /> {row.staff_reply ? "Modifier la réponse" : "Répondre"}
+          <MessageSquareReply className="h-3.5 w-3.5" />{" "}
+          {row.staff_reply ? t("console.reviewMod.editReply") : t("console.reviewMod.reply")}
         </button>
       </div>
     </div>

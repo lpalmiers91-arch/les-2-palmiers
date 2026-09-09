@@ -360,6 +360,43 @@
         "residencePermit": "Permiso de residencia",
         "driversLicense": "Carné de conducir"
       }
+    },
+    "reviewMod": {
+      "toModerate": "Por moderar",
+      "noneWaiting": "Ninguna opinión pendiente.",
+      "publishedHidden": "Publicadas y ocultas",
+      "featuredBadge": "Destacada",
+      "apartment": "Apartamento",
+      "replyLabel": "Respuesta",
+      "replyPlaceholder": "Tu respuesta pública…",
+      "saveReply": "Guardar la respuesta",
+      "hide": "Ocultar",
+      "feature": "Destacar",
+      "unfeature": "Quitar de destacadas",
+      "reply": "Responder",
+      "editReply": "Editar la respuesta"
+    },
+    "proof": {
+      "none": "Ningún comprobante de pago pendiente.",
+      "needReason": "Indica un motivo.",
+      "actionFailed": "Acción imposible.",
+      "service": "servicio",
+      "stay": "estancia",
+      "approve": "Validar el pago"
+    },
+    "stayForm": {
+      "visibility": "Visible para el cliente solo mientras tiene una reserva activa.",
+      "wifiName": "Nombre de la red Wi-Fi",
+      "wifiPassword": "Contraseña Wi-Fi",
+      "emergency": "Contacto de emergencia",
+      "emergencyPlaceholder": "Nombre + número",
+      "checkinNotes": "Instrucciones de entrada",
+      "checkoutNotes": "Instrucciones de salida",
+      "houseManual": "Manual de la casa",
+      "houseManualPlaceholder": "Calentador, basura, aire acondicionado, TV…",
+      "otherInfo": "Otra información",
+      "extraLabel": "Etiqueta",
+      "extraValue": "Valor"
     }
   }
 }

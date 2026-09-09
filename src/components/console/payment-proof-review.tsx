@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Check, X, FileText } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { formatXOF, formatDate } from "@/lib/format";
+import { useT } from "@/lib/i18n/provider";
 
 export type ProofRow = {
   id: string;
@@ -27,10 +28,11 @@ const METHOD: Record<string, string> = {
 };
 
 export function PaymentProofReview({ rows }: { rows: ProofRow[] }) {
+  const { t } = useT();
   if (rows.length === 0) {
     return (
       <p className="rounded-[var(--radius-lg)] border border-dashed border-line bg-bone/60 px-5 py-8 text-center text-[13px] text-ink-3">
-        Aucune preuve de paiement en attente.
+        {t("console.proof.none")}
       </p>
     );
   }
@@ -45,6 +47,7 @@ export function PaymentProofReview({ rows }: { rows: ProofRow[] }) {
 
 function ProofCard({ row }: { row: ProofRow }) {
   const router = useRouter();
+  const { t } = useT();
   const [url, setUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState<"approve" | "reject" | null>(null);
   const [rejecting, setRejecting] = useState(false);
@@ -62,7 +65,7 @@ function ProofCard({ row }: { row: ProofRow }) {
   async function decide(decision: "approve" | "reject") {
     setErr(null);
     if (decision === "reject" && note.trim().length < 3) {
-      setErr("Indiquez un motif.");
+      setErr(t("console.proof.needReason"));
       return;
     }
     setBusy(decision);
@@ -75,7 +78,7 @@ function ProofCard({ row }: { row: ProofRow }) {
       if (error) throw error;
       router.refresh();
     } catch {
-      setErr("Action impossible.");
+      setErr(t("console.proof.actionFailed"));
       setBusy(null);
     }
   }
@@ -86,11 +89,13 @@ function ProofCard({ row }: { row: ProofRow }) {
     <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-[15px] font-medium text-ink">{row.payer_name ?? "Client"}</p>
+          <p className="text-[15px] font-medium text-ink">
+            {row.payer_name ?? t("console.staffHome.client")}
+          </p>
           <p className="text-[12.5px] text-ink-3">
             {formatXOF(Number(row.amount))} · {METHOD[row.method] ?? row.method} ·{" "}
-            {row.purpose === "service_order" ? "service" : "séjour"}
-            {row.reservation_ref ? ` · réf. ${row.reservation_ref}` : ""}
+            {row.purpose === "service_order" ? t("console.proof.service") : t("console.proof.stay")}
+            {row.reservation_ref ? ` · ${t("console.demandeCard.ref")} ${row.reservation_ref}` : ""}
           </p>
           {row.proof_note && <p className="mt-1 text-[12.5px] text-ink-2">« {row.proof_note} »</p>}
         </div>
@@ -121,7 +126,7 @@ function ProofCard({ row }: { row: ProofRow }) {
         <div className="mt-3">
           <input
             className="field"
-            placeholder="Motif du refus (visible par le client)"
+            placeholder={t("console.verif.reasonPlaceholder")}
             value={note}
             onChange={(e) => setNote(e.target.value)}
           />
@@ -132,10 +137,10 @@ function ProofCard({ row }: { row: ProofRow }) {
               className="press flex h-9 items-center gap-1.5 rounded-full bg-danger px-4 text-[12.5px] font-medium text-bone disabled:opacity-50"
             >
               {busy === "reject" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <X className="h-3.5 w-3.5" />}
-              Confirmer le refus
+              {t("console.verif.confirmReject")}
             </button>
             <button onClick={() => setRejecting(false)} className="press h-9 px-3 text-[12.5px] text-ink-3">
-              Annuler
+              {t("console.action.cancel")}
             </button>
           </div>
         </div>
@@ -147,13 +152,13 @@ function ProofCard({ row }: { row: ProofRow }) {
             className="press flex h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12.5px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
           >
             {busy === "approve" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
-            Valider le paiement
+            {t("console.proof.approve")}
           </button>
           <button
             onClick={() => setRejecting(true)}
             className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-4 text-[12.5px] font-medium text-ink hover:border-danger/40 hover:text-danger"
           >
-            <X className="h-3.5 w-3.5" /> Refuser
+            <X className="h-3.5 w-3.5" /> {t("console.verif.reject")}
           </button>
         </div>
       )}

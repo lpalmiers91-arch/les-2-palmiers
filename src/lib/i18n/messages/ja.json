@@ -360,6 +360,43 @@
         "residencePermit": "在留カード",
         "driversLicense": "運転免許証"
       }
+    },
+    "reviewMod": {
+      "toModerate": "審査待ち",
+      "noneWaiting": "保留中のレビューはありません。",
+      "publishedHidden": "公開・非表示",
+      "featuredBadge": "注目",
+      "apartment": "アパートメント",
+      "replyLabel": "返信",
+      "replyPlaceholder": "公開返信…",
+      "saveReply": "返信を保存",
+      "hide": "非表示",
+      "feature": "注目に設定",
+      "unfeature": "注目を解除",
+      "reply": "返信",
+      "editReply": "返信を編集"
+    },
+    "proof": {
+      "none": "保留中の支払い証明はありません。",
+      "needReason": "理由を入力してください。",
+      "actionFailed": "操作できませんでした。",
+      "service": "サービス",
+      "stay": "滞在",
+      "approve": "支払いを承認"
+    },
+    "stayForm": {
+      "visibility": "有効な予約がある間のみ顧客に表示されます。",
+      "wifiName": "Wi-Fi ネットワーク名",
+      "wifiPassword": "Wi-Fi パスワード",
+      "emergency": "緊急連絡先",
+      "emergencyPlaceholder": "氏名 + 電話番号",
+      "checkinNotes": "チェックインの案内",
+      "checkoutNotes": "チェックアウトの案内",
+      "houseManual": "ハウスマニュアル",
+      "houseManualPlaceholder": "給湯器、ごみ、エアコン、テレビ…",
+      "otherInfo": "その他の情報",
+      "extraLabel": "ラベル",
+      "extraValue": "値"
     }
   }
 }

@@ -360,6 +360,43 @@
         "residencePermit": "居留证",
         "driversLicense": "驾驶证"
       }
+    },
+    "reviewMod": {
+      "toModerate": "待审核",
+      "noneWaiting": "没有待处理的评价。",
+      "publishedHidden": "已发布与已隐藏",
+      "featuredBadge": "已推荐",
+      "apartment": "公寓",
+      "replyLabel": "回复",
+      "replyPlaceholder": "您的公开回复…",
+      "saveReply": "保存回复",
+      "hide": "隐藏",
+      "feature": "设为推荐",
+      "unfeature": "取消推荐",
+      "reply": "回复",
+      "editReply": "编辑回复"
+    },
+    "proof": {
+      "none": "没有待处理的付款凭证。",
+      "needReason": "请填写原因。",
+      "actionFailed": "操作失败。",
+      "service": "服务",
+      "stay": "住宿",
+      "approve": "确认付款"
+    },
+    "stayForm": {
+      "visibility": "仅在客户有有效预订期间可见。",
+      "wifiName": "Wi-Fi 网络名称",
+      "wifiPassword": "Wi-Fi 密码",
+      "emergency": "紧急联系人",
+      "emergencyPlaceholder": "姓名 + 电话",
+      "checkinNotes": "入住须知",
+      "checkoutNotes": "退房须知",
+      "houseManual": "住宿手册",
+      "houseManualPlaceholder": "热水器、垃圾、空调、电视…",
+      "otherInfo": "其他信息",
+      "extraLabel": "名称",
+      "extraValue": "内容"
     }
   }
 }

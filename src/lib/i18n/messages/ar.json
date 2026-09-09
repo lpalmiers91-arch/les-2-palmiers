@@ -360,6 +360,43 @@
         "residencePermit": "تصريح الإقامة",
         "driversLicense": "رخصة القيادة"
       }
+    },
+    "reviewMod": {
+      "toModerate": "للإشراف",
+      "noneWaiting": "لا تقييم معلّق.",
+      "publishedHidden": "المنشورة والمخفية",
+      "featuredBadge": "مميّز",
+      "apartment": "شقة",
+      "replyLabel": "الرد",
+      "replyPlaceholder": "ردك العلني…",
+      "saveReply": "حفظ الرد",
+      "hide": "إخفاء",
+      "feature": "إبراز",
+      "unfeature": "إلغاء الإبراز",
+      "reply": "رد",
+      "editReply": "تعديل الرد"
+    },
+    "proof": {
+      "none": "لا إثبات دفع معلّق.",
+      "needReason": "حدّد سببًا.",
+      "actionFailed": "تعذّر تنفيذ الإجراء.",
+      "service": "خدمة",
+      "stay": "إقامة",
+      "approve": "اعتماد الدفع"
+    },
+    "stayForm": {
+      "visibility": "مرئي للعميل فقط أثناء وجود حجز نشط لديه.",
+      "wifiName": "اسم شبكة الواي فاي",
+      "wifiPassword": "كلمة مرور الواي فاي",
+      "emergency": "جهة اتصال للطوارئ",
+      "emergencyPlaceholder": "الاسم + الرقم",
+      "checkinNotes": "تعليمات الوصول",
+      "checkoutNotes": "تعليمات المغادرة",
+      "houseManual": "دليل المنزل",
+      "houseManualPlaceholder": "سخان الماء، النفايات، التكييف، التلفاز…",
+      "otherInfo": "معلومات أخرى",
+      "extraLabel": "التسمية",
+      "extraValue": "القيمة"
     }
   }
 }
