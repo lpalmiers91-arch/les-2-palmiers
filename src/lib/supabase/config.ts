@@ -14,3 +14,9 @@ export const SUPABASE_ANON_KEY =
 export const FUNCTIONS_URL =
   process.env.NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL ||
   `${SUPABASE_URL}/functions/v1`;
+
+// Clé publique VAPID pour les notifications push web (Web Push).
+// La clé privée reste côté Edge Function (secret Supabase).
+export const VAPID_PUBLIC_KEY =
+  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ||
+  "BJCgc_1YMqv8dMRVsWuuBGfJDr0EFj8pm0KjHOiNzCv_mN9EW1Yoyp_5HiU7tvWadAn7ZLy81yHtJT3O83goxRE";

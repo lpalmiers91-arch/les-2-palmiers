@@ -1,7 +1,7 @@
 /* Les 2 Palmiers — service worker minimal.
    Objectif : installabilité PWA + repli hors-ligne, SANS jamais casser une
    navigation en ligne. */
-const CACHE = "l2p-v4";
+const CACHE = "l2p-v5";
 
 // Sur l'ancien domaine Vercel, le SW se désinstalle (tout passe sur le domaine
 // de marque). Évite un SW orphelin qui servirait des pages cassées.
@@ -36,6 +36,49 @@ self.addEventListener("activate", (e) => {
 
 self.addEventListener("message", (e) => {
   if (e.data === "skipWaiting") self.skipWaiting();
+});
+
+// Notifications push — sonnerie / vibration / écran verrouillé, comme une vraie appli.
+self.addEventListener("push", (e) => {
+  let d = {};
+  try {
+    d = e.data ? e.data.json() : {};
+  } catch {
+    d = { title: "Les 2 Palmiers", body: e.data ? e.data.text() : "" };
+  }
+  const title = d.title || "Les 2 Palmiers";
+  e.waitUntil(
+    self.registration.showNotification(title, {
+      body: d.body || "",
+      icon: "/apple-icon",
+      badge: "/apple-icon",
+      tag: d.tag || "l2p",
+      renotify: true,
+      requireInteraction: false,
+      vibrate: [90, 40, 90],
+      data: { url: d.url || "/" },
+    }),
+  );
+});
+
+self.addEventListener("notificationclick", (e) => {
+  e.notification.close();
+  const target = (e.notification.data && e.notification.data.url) || "/";
+  e.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
+      for (const c of list) {
+        try {
+          const u = new URL(c.url);
+          if (u.origin === self.location.origin && "focus" in c) {
+            c.focus();
+            if ("navigate" in c) c.navigate(target);
+            return;
+          }
+        } catch {}
+      }
+      return self.clients.openWindow(target);
+    }),
+  );
 });
 
 self.addEventListener("fetch", (e) => {

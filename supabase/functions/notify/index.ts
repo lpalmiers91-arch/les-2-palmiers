@@ -3,7 +3,15 @@
 // POST { notification_id: string }   ou   { user_id, type, title, body, channels? }
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import webpush from "npm:web-push@3.6.7";
 import { corsHeaders, preflight } from "../_shared/cors.ts";
+
+const VAPID_PUBLIC = Deno.env.get("VAPID_PUBLIC_KEY") ?? "";
+const VAPID_PRIVATE = Deno.env.get("VAPID_PRIVATE_KEY") ?? "";
+const VAPID_SUBJECT = Deno.env.get("VAPID_SUBJECT") ?? "mailto:bonjour@les2palmiers.site";
+if (VAPID_PUBLIC && VAPID_PRIVATE) {
+  webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
+}
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -54,11 +62,41 @@ Deno.serve(async (req) => {
     results.email = await sendEmail(email, notif.title, notif.body ?? "", notif.data ?? {}, isTeam);
   }
 
-  // 4. push (VAPID) — stub : nécessite npm:web-push + clés VAPID
-  if (channels.includes("push") && prefChannels.includes("push")) {
+  // 4. push web (VAPID)
+  if (channels.includes("push") && prefChannels.includes("push") && VAPID_PUBLIC && VAPID_PRIVATE) {
     const { data: subs } = await admin
-      .from("push_subscriptions").select("id").eq("user_id", notif.user_id);
-    results.push = subs?.length ? "skipped:web-push-not-configured" : "no-subscription";
+      .from("push_subscriptions").select("id, endpoint, keys").eq("user_id", notif.user_id);
+    const base = isTeam ? STAFF_URL : APP_URL;
+    const d = (notif.data ?? {}) as Record<string, unknown>;
+    let path = isTeam ? "/staff" : "/app/notifications";
+    if (d.conversation_id) path = isTeam ? `/staff/messages/${d.conversation_id}` : "/app/messages";
+    else if (d.verification_id) path = isTeam ? "/staff/verifications" : "/app/verification";
+    else if (d.payment_id) path = isTeam ? "/staff/paiements" : "/app/reservations";
+    else if (d.reservation_id) path = isTeam ? "/staff/reservations" : "/app/reservations";
+
+    const body = JSON.stringify({
+      title: notif.title,
+      body: notif.body ?? "",
+      url: base + path,
+      tag: notif.type,
+    });
+    let ok = 0, gone = 0;
+    for (const s of subs ?? []) {
+      try {
+        await webpush.sendNotification(
+          { endpoint: s.endpoint, keys: s.keys as { p256dh: string; auth: string } },
+          body,
+        );
+        ok++;
+      } catch (e) {
+        const code = (e as { statusCode?: number }).statusCode;
+        if (code === 404 || code === 410) {
+          await admin.from("push_subscriptions").delete().eq("id", s.id);
+          gone++;
+        }
+      }
+    }
+    results.push = `sent:${ok} removed:${gone}`;
   }
 
   // 5. marquer envoyé
