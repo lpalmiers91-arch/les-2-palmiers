@@ -11,9 +11,19 @@ import {
   ArrowDown,
   Image as ImageIcon,
   RefreshCw,
+  Monitor,
+  Tablet,
+  Smartphone,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useT } from "@/lib/i18n/provider";
+
+const DEVICES = {
+  desktop: { w: "100%", icon: Monitor },
+  tablet: { w: "820px", icon: Tablet },
+  phone: { w: "390px", icon: Smartphone },
+} as const;
+type Device = keyof typeof DEVICES;
 
 type Block = {
   id: string;
@@ -76,6 +86,7 @@ export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
   const [selected, setSelected] = useState<string | null>(initial[0]?.id ?? null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [device, setDevice] = useState<Device>("desktop");
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const current = blocks.find((b) => b.id === selected);
@@ -255,8 +266,24 @@ export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
 
       {/* aperçu live */}
       <div className="overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
-        <div className="flex items-center justify-between border-b border-line px-3 py-2 text-[12px] text-ink-3">
-          <span>{t("console.siteEditor.preview")}</span>
+        <div className="flex items-center justify-between gap-2 border-b border-line px-3 py-2 text-[12px] text-ink-3">
+          <div className="flex items-center gap-1 rounded-full border border-line p-0.5">
+            {(Object.keys(DEVICES) as Device[]).map((d) => {
+              const Icon = DEVICES[d].icon;
+              return (
+                <button
+                  key={d}
+                  onClick={() => setDevice(d)}
+                  aria-label={t(`console.siteEditor.device.${d}`)}
+                  className={`press rounded-full p-1.5 ${
+                    device === d ? "bg-forest text-bone" : "text-ink-3 hover:text-ink"
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                </button>
+              );
+            })}
+          </div>
           <button
             onClick={() => iframeRef.current?.contentWindow?.location.reload()}
             className="press flex items-center gap-1 hover:text-ink"
@@ -264,12 +291,15 @@ export function SiteEditor({ blocks: initial }: { blocks: Block[] }) {
             <RefreshCw className="h-3 w-3" /> {t("console.siteEditor.refresh")}
           </button>
         </div>
-        <iframe
-          ref={iframeRef}
-          src="/"
-          title={t("console.siteEditor.preview")}
-          className="h-[70dvh] w-full"
-        />
+        <div className="flex justify-center overflow-auto bg-bone-2 p-3">
+          <iframe
+            ref={iframeRef}
+            src="/"
+            title={t("console.siteEditor.preview")}
+            className="h-[70dvh] shrink-0 rounded-[8px] border border-line bg-bone transition-[width] duration-300"
+            style={{ width: DEVICES[device].w, maxWidth: "100%" }}
+          />
+        </div>
       </div>
     </div>
   );

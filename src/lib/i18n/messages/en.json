@@ -396,7 +396,9 @@
       "houseManualPlaceholder": "Water heater, bins, A/C, TV…",
       "otherInfo": "Other info",
       "extraLabel": "Label",
-      "extraValue": "Value"
+      "extraValue": "Value",
+      "deleteConfirm": "Delete this stay-info sheet?",
+      "delete": "Delete the sheet"
     },
     "loyaltyForm": {
       "enabled": "Loyalty program active",
@@ -508,6 +510,11 @@
         "tourism": "The place",
         "reviews": "Guest reviews",
         "closing": "Call to action"
+      },
+      "device": {
+        "desktop": "Desktop",
+        "tablet": "Tablet",
+        "phone": "Phone"
       }
     },
     "branding": {
@@ -638,7 +645,12 @@
       "from": "From",
       "to": "To",
       "block": "Block",
-      "allApartments": "All apartments"
+      "allApartments": "All apartments",
+      "dangerZone": "Danger zone",
+      "deleteNote": "Permanently deletes the apartment, its photos, rates, availability and closed reservations. Type the name to confirm.",
+      "deleteApartment": "Delete the apartment",
+      "deleteLive": "Not possible: there are live reservations. Cancel them first.",
+      "deleteFailed2": "Deletion failed."
     },
     "clientDetail": {
       "allClients": "All clients",

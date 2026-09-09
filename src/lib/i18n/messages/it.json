@@ -396,7 +396,9 @@
       "houseManualPlaceholder": "Scaldabagno, rifiuti, aria condizionata, TV…",
       "otherInfo": "Altre info",
       "extraLabel": "Etichetta",
-      "extraValue": "Valore"
+      "extraValue": "Valore",
+      "deleteConfirm": "Eliminare questa scheda info soggiorno?",
+      "delete": "Elimina la scheda"
     },
     "loyaltyForm": {
       "enabled": "Programma fedeltà attivo",
@@ -508,6 +510,11 @@
         "tourism": "Il luogo",
         "reviews": "Recensioni",
         "closing": "Invito all'azione"
+      },
+      "device": {
+        "desktop": "Computer",
+        "tablet": "Tablet",
+        "phone": "Telefono"
       }
     },
     "branding": {
@@ -638,7 +645,12 @@
       "from": "Dal",
       "to": "Al",
       "block": "Blocca",
-      "allApartments": "Tutti gli appartamenti"
+      "allApartments": "Tutti gli appartamenti",
+      "dangerZone": "Zona pericolosa",
+      "deleteNote": "Elimina definitivamente l'appartamento, foto, tariffe, disponibilità e prenotazioni chiuse. Digita il nome per confermare.",
+      "deleteApartment": "Elimina l'appartamento",
+      "deleteLive": "Non possibile: ci sono prenotazioni attive. Annullale prima.",
+      "deleteFailed2": "Eliminazione non riuscita."
     },
     "clientDetail": {
       "allClients": "Tutti i clienti",

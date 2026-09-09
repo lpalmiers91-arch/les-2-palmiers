@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { SendHorizonal, Loader2, Paperclip, X, FileText } from "lucide-react";
+import { SendHorizonal, Loader2, Paperclip, X, FileText, Trash2 } from "lucide-react";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
@@ -16,7 +16,11 @@ type Msg = {
   system: boolean;
   created_at: string;
   attachments?: Attachment[];
+  deleted_at?: string | null;
+  deleted_by?: string | null;
 };
+
+const SEL = "id, body, sender_id, system, created_at, attachments, deleted_at, deleted_by";
 
 export function MessagesThread({
   conversationId,
@@ -46,6 +50,18 @@ export function MessagesThread({
   const peerRole = variant === "staff" ? "client" : "staff";
   const isOnline = useIsOnline();
   const peerOnline = isOnline(peerRole, variant === "staff" ? peerId : undefined);
+  const canModerate = variant === "staff";
+
+  async function deleteMessage(id: string) {
+    setMessages((prev) =>
+      prev.map((m) =>
+        m.id === id
+          ? { ...m, deleted_at: new Date().toISOString(), deleted_by: meId, body: "", attachments: [] }
+          : m,
+      ),
+    );
+    await createClient().rpc("delete_message", { p_message: id });
+  }
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: "end" });
@@ -61,7 +77,7 @@ export function MessagesThread({
       const supabase = createClient();
       const { data } = await supabase
         .from("messages")
-        .select("id, body, sender_id, system, created_at, attachments")
+        .select(SEL)
         .eq("conversation_id", cid)
         .order("created_at", { ascending: true });
       if (alive && data) setMessages(data as unknown as Msg[]);
@@ -73,10 +89,15 @@ export function MessagesThread({
         .channel(`conv-${cid}-${Math.random().toString(36).slice(2)}`)
         .on(
           "postgres_changes",
-          { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${cid}` },
+          { event: "*", schema: "public", table: "messages", filter: `conversation_id=eq.${cid}` },
           (payload) => {
             const m = payload.new as Msg;
-            setMessages((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
+            if (!m?.id) return;
+            setMessages((prev) =>
+              prev.some((x) => x.id === m.id)
+                ? prev.map((x) => (x.id === m.id ? { ...x, ...m } : x))
+                : [...prev, m],
+            );
           },
         )
         .subscribe((status) => {
@@ -208,18 +229,47 @@ export function MessagesThread({
               </p>
             );
           }
+          const deleted = !!m.deleted_at;
+          const deletedByMe = m.deleted_by === meId;
+          const canDelete = !deleted && (mine || canModerate);
           return (
-            <div key={m.id} className={`flex ${mine ? "justify-end" : "justify-start"}`}>
+            <div key={m.id} className={`group flex items-end gap-1.5 ${mine ? "justify-end" : "justify-start"}`}>
+              {mine && canDelete && (
+                <button
+                  onClick={() => deleteMessage(m.id)}
+                  aria-label="Supprimer le message"
+                  className="press mb-4 shrink-0 p-1 text-ink-3 opacity-0 transition-opacity hover:text-danger group-hover:opacity-100"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              )}
               <div
                 className={`max-w-[80%] space-y-2 rounded-[14px] px-3.5 py-2.5 text-[14px] leading-snug ${
-                  mine ? "bg-forest text-bone" : "bg-bone-2 text-ink"
+                  deleted
+                    ? "border border-dashed border-line bg-transparent text-ink-3 italic"
+                    : mine
+                      ? "bg-forest text-bone"
+                      : "bg-bone-2 text-ink"
                 }`}
               >
-                {Array.isArray(m.attachments) && m.attachments.length > 0 && (
-                  <MessageAttachments attachments={m.attachments} mine={mine} />
+                {deleted ? (
+                  <p className="text-[13px]">
+                    Message supprimé{" "}
+                    {deletedByMe
+                      ? "par vous"
+                      : variant === "staff"
+                        ? "par le client"
+                        : "par l'équipe"}
+                  </p>
+                ) : (
+                  <>
+                    {Array.isArray(m.attachments) && m.attachments.length > 0 && (
+                      <MessageAttachments attachments={m.attachments} mine={mine} />
+                    )}
+                    {m.body && <p className="whitespace-pre-wrap">{m.body}</p>}
+                  </>
                 )}
-                {m.body && <p className="whitespace-pre-wrap">{m.body}</p>}
-                <p className={`text-[10.5px] ${mine ? "text-bone/55" : "text-ink-3"}`}>
+                <p className={`text-[10.5px] ${deleted ? "text-ink-3/70" : mine ? "text-bone/55" : "text-ink-3"}`}>
                   {formatDate(m.created_at, {
                     hour: "2-digit",
                     minute: "2-digit",
@@ -228,6 +278,15 @@ export function MessagesThread({
                   })}
                 </p>
               </div>
+              {!mine && canDelete && (
+                <button
+                  onClick={() => deleteMessage(m.id)}
+                  aria-label="Supprimer le message"
+                  className="press mb-4 shrink-0 p-1 text-ink-3 opacity-0 transition-opacity hover:text-danger group-hover:opacity-100"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              )}
             </div>
           );
         })}

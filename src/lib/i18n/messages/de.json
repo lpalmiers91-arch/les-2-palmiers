@@ -396,7 +396,9 @@
       "houseManualPlaceholder": "Boiler, Müll, Klimaanlage, TV…",
       "otherInfo": "Weitere Infos",
       "extraLabel": "Bezeichnung",
-      "extraValue": "Wert"
+      "extraValue": "Wert",
+      "deleteConfirm": "Diese Aufenthaltsinfo-Karte löschen?",
+      "delete": "Karte löschen"
     },
     "loyaltyForm": {
       "enabled": "Treueprogramm aktiv",
@@ -508,6 +510,11 @@
         "tourism": "Der Ort",
         "reviews": "Gästebewertungen",
         "closing": "Handlungsaufruf"
+      },
+      "device": {
+        "desktop": "Desktop",
+        "tablet": "Tablet",
+        "phone": "Telefon"
       }
     },
     "branding": {
@@ -638,7 +645,12 @@
       "from": "Von",
       "to": "Bis",
       "block": "Sperren",
-      "allApartments": "Alle Apartments"
+      "allApartments": "Alle Apartments",
+      "dangerZone": "Gefahrenzone",
+      "deleteNote": "Löscht das Apartment mit Fotos, Preisen, Verfügbarkeit und abgeschlossenen Reservierungen dauerhaft. Zum Bestätigen den Namen eingeben.",
+      "deleteApartment": "Apartment löschen",
+      "deleteLive": "Nicht möglich: es gibt aktive Reservierungen. Zuerst stornieren.",
+      "deleteFailed2": "Löschen fehlgeschlagen."
     },
     "clientDetail": {
       "allClients": "Alle Kunden",

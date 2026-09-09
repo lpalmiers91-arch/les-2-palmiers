@@ -316,6 +316,56 @@ export function ApartmentEditor({
 
       <PhotoManager apartmentId={a.id} media={media} />
       <AvailabilityManager apartmentId={a.id} blocks={blocks} />
+      <DangerZone apartmentId={a.id} name={a.name} />
+    </div>
+  );
+}
+
+function DangerZone({ apartmentId, name }: { apartmentId: string; name: string }) {
+  const router = useRouter();
+  const { t } = useT();
+  const [confirm, setConfirm] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function remove() {
+    setBusy(true);
+    setErr(null);
+    const { error } = await createClient().rpc("delete_apartment", { p_apartment: apartmentId });
+    setBusy(false);
+    if (error) {
+      setErr(
+        /live_reservation/i.test(error.message)
+          ? t("console.aptEd.deleteLive")
+          : t("console.aptEd.deleteFailed2"),
+      );
+      return;
+    }
+    router.push("/staff/appartements");
+    router.refresh();
+  }
+
+  return (
+    <div className="rounded-[var(--radius-lg)] border border-danger/30 bg-danger/[0.03] p-5 sm:p-6">
+      <h2 className="display text-[1.15rem] text-danger">{t("console.aptEd.dangerZone")}</h2>
+      <p className="mt-1 text-[13px] text-ink-3">{t("console.aptEd.deleteNote")}</p>
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <input
+          className="field h-10 max-w-[240px] text-[13px]"
+          placeholder={name}
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
+        />
+        <button
+          onClick={remove}
+          disabled={busy || confirm.trim() !== name.trim()}
+          className="press flex h-10 items-center gap-1.5 rounded-full bg-danger px-4 text-[13px] font-medium text-bone disabled:opacity-40"
+        >
+          {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+          {t("console.aptEd.deleteApartment")}
+        </button>
+      </div>
+      {err && <p className="mt-2 text-[12.5px] text-danger">{err}</p>}
     </div>
   );
 }

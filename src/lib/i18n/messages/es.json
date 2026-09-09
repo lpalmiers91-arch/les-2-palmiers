@@ -396,7 +396,9 @@
       "houseManualPlaceholder": "Calentador, basura, aire acondicionado, TV…",
       "otherInfo": "Otra información",
       "extraLabel": "Etiqueta",
-      "extraValue": "Valor"
+      "extraValue": "Valor",
+      "deleteConfirm": "¿Eliminar esta ficha de info de estancia?",
+      "delete": "Eliminar la ficha"
     },
     "loyaltyForm": {
       "enabled": "Programa de fidelidad activo",
@@ -508,6 +510,11 @@
         "tourism": "El lugar",
         "reviews": "Opiniones",
         "closing": "Llamada a la acción"
+      },
+      "device": {
+        "desktop": "Ordenador",
+        "tablet": "Tableta",
+        "phone": "Teléfono"
       }
     },
     "branding": {
@@ -638,7 +645,12 @@
       "from": "Del",
       "to": "Al",
       "block": "Bloquear",
-      "allApartments": "Todos los apartamentos"
+      "allApartments": "Todos los apartamentos",
+      "dangerZone": "Zona de peligro",
+      "deleteNote": "Elimina definitivamente el apartamento, sus fotos, tarifas, disponibilidad y reservas cerradas. Escribe el nombre para confirmar.",
+      "deleteApartment": "Eliminar el apartamento",
+      "deleteLive": "No es posible: hay reservas activas. Cancélalas primero.",
+      "deleteFailed2": "No se pudo eliminar."
     },
     "clientDetail": {
       "allClients": "Todos los clientes",

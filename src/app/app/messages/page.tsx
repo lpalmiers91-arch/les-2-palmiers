@@ -17,18 +17,12 @@ export default async function MessagesPage() {
     .limit(1)
     .maybeSingle();
 
-  let initial: {
-    id: string;
-    body: string;
-    sender_id: string | null;
-    system: boolean;
-    created_at: string;
-  }[] = [];
+  let initial: unknown[] = [];
 
   if (conv) {
     const { data: msgs } = await supabase
       .from("messages")
-      .select("id, body, sender_id, system, created_at")
+      .select("id, body, sender_id, system, created_at, attachments, deleted_at, deleted_by")
       .eq("conversation_id", conv.id)
       .order("created_at", { ascending: true })
       .limit(200);
@@ -38,7 +32,7 @@ export default async function MessagesPage() {
   return (
     <div className="mx-auto max-w-2xl">
       <h1 className="display mb-5 text-[1.7rem] text-ink sm:text-[2rem]">Messagerie</h1>
-      <MessagesThread conversationId={conv?.id ?? null} initial={initial} meId={user!.id} />
+      <MessagesThread conversationId={conv?.id ?? null} initial={initial as never} meId={user!.id} />
     </div>
   );
 }

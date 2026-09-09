@@ -396,7 +396,9 @@
       "houseManualPlaceholder": "热水器、垃圾、空调、电视…",
       "otherInfo": "其他信息",
       "extraLabel": "名称",
-      "extraValue": "内容"
+      "extraValue": "内容",
+      "deleteConfirm": "删除此入住信息卡？",
+      "delete": "删除信息卡"
     },
     "loyaltyForm": {
       "enabled": "会员积分计划已启用",
@@ -508,6 +510,11 @@
         "tourism": "所在地",
         "reviews": "客户评价",
         "closing": "行动号召"
+      },
+      "device": {
+        "desktop": "电脑",
+        "tablet": "平板",
+        "phone": "手机"
       }
     },
     "branding": {
@@ -638,7 +645,12 @@
       "from": "从",
       "to": "到",
       "block": "锁定",
-      "allApartments": "所有公寓"
+      "allApartments": "所有公寓",
+      "dangerZone": "危险区域",
+      "deleteNote": "永久删除该公寓及其照片、价格、可订状态和已结束的预订。输入名称以确认。",
+      "deleteApartment": "删除公寓",
+      "deleteLive": "无法删除：存在进行中的预订。请先取消。",
+      "deleteFailed2": "删除失败。"
     },
     "clientDetail": {
       "allClients": "所有客户",

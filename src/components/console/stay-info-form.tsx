@@ -158,20 +158,43 @@ export function StayInfoForm({
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={saving}
-        className="press mt-5 flex h-11 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13.5px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
-      >
-        {saving && <Loader2 className="h-4 w-4 animate-spin" />}
-        {saved ? (
-          <>
-            <Check className="h-4 w-4" /> {t("console.action.saved")}
-          </>
-        ) : (
-          t("console.action.save")
-        )}
-      </button>
+      <div className="mt-5 flex flex-wrap items-center gap-3">
+        <button
+          type="submit"
+          disabled={saving}
+          className="press flex h-11 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13.5px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
+        >
+          {saving && <Loader2 className="h-4 w-4 animate-spin" />}
+          {saved ? (
+            <>
+              <Check className="h-4 w-4" /> {t("console.action.saved")}
+            </>
+          ) : (
+            t("console.action.save")
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={async () => {
+            if (!confirm(t("console.stayForm.deleteConfirm"))) return;
+            await createClient().rpc("delete_stay_info", { p_apartment: s.apartment_id });
+            setS((p) => ({
+              ...p,
+              wifi_ssid: "",
+              wifi_password: "",
+              house_manual: "",
+              checkin_notes: "",
+              checkout_notes: "",
+              emergency_contact: "",
+              extras: [],
+            }));
+            router.refresh();
+          }}
+          className="press flex h-11 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-medium text-ink-2 hover:border-danger/40 hover:text-danger"
+        >
+          <Trash2 className="h-4 w-4" /> {t("console.stayForm.delete")}
+        </button>
+      </div>
     </form>
   );
 }

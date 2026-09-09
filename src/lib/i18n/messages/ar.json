@@ -396,7 +396,9 @@
       "houseManualPlaceholder": "سخان الماء، النفايات، التكييف، التلفاز…",
       "otherInfo": "معلومات أخرى",
       "extraLabel": "التسمية",
-      "extraValue": "القيمة"
+      "extraValue": "القيمة",
+      "deleteConfirm": "حذف بطاقة معلومات الإقامة هذه؟",
+      "delete": "حذف البطاقة"
     },
     "loyaltyForm": {
       "enabled": "برنامج الولاء مفعّل",
@@ -508,6 +510,11 @@
         "tourism": "المكان",
         "reviews": "تقييمات النزلاء",
         "closing": "دعوة إلى إجراء"
+      },
+      "device": {
+        "desktop": "حاسوب",
+        "tablet": "لوحي",
+        "phone": "هاتف"
       }
     },
     "branding": {
@@ -638,7 +645,12 @@
       "from": "من",
       "to": "إلى",
       "block": "حجب",
-      "allApartments": "كل الشقق"
+      "allApartments": "كل الشقق",
+      "dangerZone": "منطقة الخطر",
+      "deleteNote": "يحذف الشقة نهائيًا مع صورها وأسعارها وتوافرها وحجوزاتها المغلقة. اكتب الاسم للتأكيد.",
+      "deleteApartment": "حذف الشقة",
+      "deleteLive": "غير ممكن: توجد حجوزات جارية. ألغها أولًا.",
+      "deleteFailed2": "تعذّر الحذف."
     },
     "clientDetail": {
       "allClients": "كل العملاء",

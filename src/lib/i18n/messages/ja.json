@@ -396,7 +396,9 @@
       "houseManualPlaceholder": "給湯器、ごみ、エアコン、テレビ…",
       "otherInfo": "その他の情報",
       "extraLabel": "ラベル",
-      "extraValue": "値"
+      "extraValue": "値",
+      "deleteConfirm": "この滞在情報シートを削除しますか？",
+      "delete": "シートを削除"
     },
     "loyaltyForm": {
       "enabled": "ロイヤルティプログラム有効",
@@ -508,6 +510,11 @@
         "tourism": "エリア",
         "reviews": "ゲストレビュー",
         "closing": "行動喚起"
+      },
+      "device": {
+        "desktop": "デスクトップ",
+        "tablet": "タブレット",
+        "phone": "スマホ"
       }
     },
     "branding": {
@@ -638,7 +645,12 @@
       "from": "開始",
       "to": "終了",
       "block": "ブロック",
-      "allApartments": "すべてのアパートメント"
+      "allApartments": "すべてのアパートメント",
+      "dangerZone": "危険ゾーン",
+      "deleteNote": "アパートメントと写真・料金・空室状況・終了した予約を完全に削除します。確認のため名前を入力してください。",
+      "deleteApartment": "アパートメントを削除",
+      "deleteLive": "できません：進行中の予約があります。先にキャンセルしてください。",
+      "deleteFailed2": "削除に失敗しました。"
     },
     "clientDetail": {
       "allClients": "すべての顧客",

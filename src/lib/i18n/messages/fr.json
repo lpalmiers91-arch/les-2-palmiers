@@ -396,7 +396,9 @@
       "houseManualPlaceholder": "Chauffe-eau, poubelles, climatisation, télé…",
       "otherInfo": "Autres infos",
       "extraLabel": "Libellé",
-      "extraValue": "Valeur"
+      "extraValue": "Valeur",
+      "deleteConfirm": "Supprimer cette fiche infos séjour ?",
+      "delete": "Supprimer la fiche"
     },
     "loyaltyForm": {
       "enabled": "Programme de fidélité actif",
@@ -508,6 +510,11 @@
         "tourism": "Le lieu",
         "reviews": "Avis clients",
         "closing": "Appel à l'action"
+      },
+      "device": {
+        "desktop": "Ordinateur",
+        "tablet": "Tablette",
+        "phone": "Téléphone"
       }
     },
     "branding": {
@@ -638,7 +645,12 @@
       "from": "Du",
       "to": "Au",
       "block": "Bloquer",
-      "allApartments": "Tous les appartements"
+      "allApartments": "Tous les appartements",
+      "dangerZone": "Zone de danger",
+      "deleteNote": "Supprime définitivement l'appartement, ses photos, tarifs, disponibilités et réservations closes. Tapez le nom pour confirmer.",
+      "deleteApartment": "Supprimer l'appartement",
+      "deleteLive": "Impossible : des réservations en cours existent. Annulez-les d'abord.",
+      "deleteFailed2": "Suppression impossible."
     },
     "clientDetail": {
       "allClients": "Tous les clients",

@@ -25,7 +25,7 @@ export default async function StaffConversation({
 
   const { data: msgs } = await supabase
     .from("messages")
-    .select("id, body, sender_id, system, created_at")
+    .select("id, body, sender_id, system, created_at, attachments, deleted_at, deleted_by")
     .eq("conversation_id", id)
     .order("created_at", { ascending: true })
     .limit(200);
@@ -46,7 +46,7 @@ export default async function StaffConversation({
       </div>
       <MessagesThread
         conversationId={id}
-        initial={msgs ?? []}
+        initial={(msgs ?? []) as never}
         meId={user!.id}
         variant="staff"
         peerId={conv.customer_id as string}

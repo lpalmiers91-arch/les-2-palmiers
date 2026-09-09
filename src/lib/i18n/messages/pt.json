@@ -396,7 +396,9 @@
       "houseManualPlaceholder": "Esquentador, lixo, ar condicionado, TV…",
       "otherInfo": "Outras informações",
       "extraLabel": "Rótulo",
-      "extraValue": "Valor"
+      "extraValue": "Valor",
+      "deleteConfirm": "Eliminar esta ficha de info da estadia?",
+      "delete": "Eliminar a ficha"
     },
     "loyaltyForm": {
       "enabled": "Programa de fidelidade ativo",
@@ -508,6 +510,11 @@
         "tourism": "O local",
         "reviews": "Avaliações",
         "closing": "Apelo à ação"
+      },
+      "device": {
+        "desktop": "Computador",
+        "tablet": "Tablet",
+        "phone": "Telemóvel"
       }
     },
     "branding": {
@@ -638,7 +645,12 @@
       "from": "De",
       "to": "Até",
       "block": "Bloquear",
-      "allApartments": "Todos os apartamentos"
+      "allApartments": "Todos os apartamentos",
+      "dangerZone": "Zona de perigo",
+      "deleteNote": "Elimina definitivamente o apartamento, as fotos, tarifas, disponibilidade e reservas fechadas. Escreva o nome para confirmar.",
+      "deleteApartment": "Eliminar o apartamento",
+      "deleteLive": "Não é possível: há reservas ativas. Cancele-as primeiro.",
+      "deleteFailed2": "Não foi possível eliminar."
     },
     "clientDetail": {
       "allClients": "Todos os clientes",
