@@ -10,7 +10,9 @@ function priceLabel(s: ServiceFallback, t: (k: string, v?: Record<string, string
   return t("home.priceQuote");
 }
 
-export async function Services() {
+const sv = (v: unknown, fb: string) => (typeof v === "string" && v.trim() ? v : fb);
+
+export async function Services({ content = {} }: { content?: Record<string, unknown> }) {
   const { t } = await getT();
   return (
     <section id="services" className="bg-bone">
@@ -18,12 +20,14 @@ export async function Services() {
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <Reveal className="lg:sticky lg:top-28 lg:self-start">
             <h2 className="display text-[2.1rem] leading-[1.06] text-ink sm:text-[2.7rem]">
-              {t("home.servicesTitle")}
+              {sv(content.title, t("home.servicesTitle"))}
               <br />
-              <span className="italic font-normal text-forest-2">{t("home.servicesTitleEm")}</span>
+              <span className="italic font-normal text-forest-2">
+                {sv(content.titleEm, t("home.servicesTitleEm"))}
+              </span>
             </h2>
             <p className="measure mt-6 text-[1.02rem] leading-relaxed text-ink-2">
-              {t("home.servicesLede")}
+              {sv(content.lede, t("home.servicesLede"))}
             </p>
           </Reveal>
 

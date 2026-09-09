@@ -10,19 +10,23 @@ const gallery = [
   { src: aptImg("g-20.jpg"), alt: "Terrasse ombragée, palmier et bougainvilliers en fleurs" },
 ];
 
-export async function Apartment() {
+const s = (v: unknown, fb: string) => (typeof v === "string" && v.trim() ? v : fb);
+
+export async function Apartment({ content = {} }: { content?: Record<string, unknown> }) {
   const { t } = await getT();
   return (
     <section id="appartement" className="bg-bone-2">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
         <Reveal className="max-w-xl">
           <h2 className="display text-[2.1rem] leading-[1.06] text-ink sm:text-[2.7rem]">
-            {t("home.apartmentTitle")}
+            {s(content.title, t("home.apartmentTitle"))}
             <br />
-            <span className="italic font-normal text-forest-2">{t("home.apartmentTitleEm")}</span>
+            <span className="italic font-normal text-forest-2">
+              {s(content.titleEm, t("home.apartmentTitleEm"))}
+            </span>
           </h2>
           <p className="measure mt-6 text-[1.02rem] leading-relaxed text-ink-2">
-            {t("home.apartmentLede")}
+            {s(content.lede, t("home.apartmentLede"))}
           </p>
         </Reveal>
 

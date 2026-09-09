@@ -4,6 +4,7 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import { getLocale } from "@/lib/i18n";
 import { localeDir } from "@/lib/i18n/languages";
+import { getBranding } from "@/lib/cms";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -19,7 +20,15 @@ const hanken = Hanken_Grotesk({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const b = await getBranding();
+  return {
+    ...metadata,
+    ...(b.favicon_url ? { icons: { icon: b.favicon_url, apple: b.favicon_url } } : {}),
+  };
+}
+
+const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: "Les 2 Palmiers — Appartement de rêve & conciergerie · Cotonou",
@@ -60,12 +69,32 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const locale = await getLocale();
+  const b = await getBranding();
+
+  const overrides: string[] = [];
+  if (b.accent) overrides.push(`--brass:${b.accent};--brass-2:${b.accent};`);
+  if (b.font_display)
+    overrides.push(`--font-display:"${b.font_display}",Georgia,serif;`);
+
   return (
     <html
       lang={locale}
       dir={localeDir(locale)}
       className={`${bricolage.variable} ${hanken.variable}`}
     >
+      <head>
+        {b.font_display && (
+          <link
+            rel="stylesheet"
+            href={`https://fonts.googleapis.com/css2?family=${encodeURIComponent(
+              b.font_display,
+            )}:wght@400;500;600&display=swap`}
+          />
+        )}
+        {overrides.length > 0 && (
+          <style dangerouslySetInnerHTML={{ __html: `:root{${overrides.join("")}}` }} />
+        )}
+      </head>
       <body>{children}</body>
     </html>
   );

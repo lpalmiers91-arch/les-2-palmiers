@@ -5,7 +5,7 @@ import { easeOut } from "@/lib/motion";
 import { Reveal } from "@/components/ui/reveal";
 import { useT } from "@/lib/i18n/provider";
 
-const ledger = [
+const defaultLedger = [
   { t: "07:30", s: "Petit-déjeuner déposé", d: "café, pain, fruits de saison" },
   { t: "09:00", s: "Ménage complet", d: "chambres, cuisine, terrasse" },
   { t: "10:15", s: "Voiture avec chauffeur", d: "journée à Ouidah" },
@@ -14,6 +14,7 @@ const ledger = [
   { t: "19:00", s: "Cuisinier privé", d: "dîner ouest-africain, pour 4" },
   { t: "21:30", s: "Massage relaxant", d: "60 min, sur place" },
 ];
+const s = (v: unknown, fb: string) => (typeof v === "string" && v.trim() ? v : fb);
 
 const parent = {
   hidden: {},
@@ -24,23 +25,28 @@ const child = {
   show: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: easeOut } },
 };
 
-export function Concierge() {
+export function Concierge({ content = {} }: { content?: Record<string, unknown> }) {
   const { t } = useT();
+  const ledger = Array.isArray(content.ledger)
+    ? (content.ledger as { t: string; s: string; d: string }[])
+    : defaultLedger;
   return (
     <section className="grain relative overflow-hidden bg-ink text-bone">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
         <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal className="lg:sticky lg:top-28 lg:self-start">
             <h2 className="display text-[2.1rem] leading-[1.06] sm:text-[2.7rem]">
-              {t("home.conciergeTitle")}
+              {s(content.title, t("home.conciergeTitle"))}
               <span className="mt-1 block italic font-normal text-brass-3">
-                {t("home.conciergeTitleEm")}
+                {s(content.titleEm, t("home.conciergeTitleEm"))}
               </span>
             </h2>
             <p className="measure mt-6 text-[1.02rem] leading-relaxed text-bone/70">
-              {t("home.conciergeLede")}
+              {s(content.lede, t("home.conciergeLede"))}
             </p>
-            <p className="mt-8 text-[13px] text-bone/45">{t("home.conciergeCaption")}</p>
+            <p className="mt-8 text-[13px] text-bone/45">
+              {s(content.caption, t("home.conciergeCaption"))}
+            </p>
           </Reveal>
 
           <motion.ol

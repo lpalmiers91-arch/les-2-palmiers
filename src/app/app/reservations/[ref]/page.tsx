@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ShieldCheck, FileText, Check } from "lucide-react";
+import { ArrowLeft, ShieldCheck, FileText, Check, Wifi } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card, StatusBadge } from "@/components/app/ui";
 import { PaymentPanel } from "@/components/app/payment-panel";
+import { ReviewForm } from "@/components/app/review-form";
 import { formatXOF, formatDate, parseRange, nightsBetween } from "@/lib/format";
 
 export default async function ReservationDetail({
@@ -31,20 +32,28 @@ export default async function ReservationDetail({
   const balance = Math.max(0, total - paid); // solde total restant
   const fees = (r.fees ?? {}) as Record<string, number>;
 
-  const [{ data: payments }, { data: idStatus }, { data: contract }] = await Promise.all([
-    supabase
-      .from("payments")
-      .select("internal_ref, method, amount, status, created_at")
-      .eq("reservation_id", r.id)
-      .order("created_at", { ascending: false }),
-    supabase.rpc("identity_status", { uid: r.guest_id as string }),
-    supabase
-      .from("contracts")
-      .select("reference, status")
-      .eq("reservation_id", r.id)
-      .maybeSingle(),
-  ]);
+  const [{ data: payments }, { data: idStatus }, { data: contract }, { data: review }, { data: stay }] =
+    await Promise.all([
+      supabase
+        .from("payments")
+        .select("internal_ref, method, amount, status, channel, created_at")
+        .eq("reservation_id", r.id)
+        .order("created_at", { ascending: false }),
+      supabase.rpc("identity_status", { uid: r.guest_id as string }),
+      supabase.from("contracts").select("reference, status").eq("reservation_id", r.id).maybeSingle(),
+      supabase
+        .from("reviews")
+        .select("rating, title, body, status")
+        .eq("reservation_id", r.id)
+        .maybeSingle(),
+      supabase
+        .from("stay_info")
+        .select("wifi_ssid, wifi_password, house_manual, checkin_notes, emergency_contact")
+        .eq("apartment_id", r.apartment_id as string)
+        .maybeSingle(),
+    ]);
   const verified = idStatus === "approved";
+  const canReview = ["confirmed", "in_stay", "completed"].includes(r.status as string);
   const needsPayment =
     (r.status === "pending_payment" && dueNow > 0) || (r.status === "confirmed" && balance > 0);
 
@@ -102,6 +111,52 @@ export default async function ReservationDetail({
               targetId={r.id as string}
               amountDue={balance}
               label="Régler le solde"
+            />
+          )}
+
+          {stay && (stay.wifi_ssid || stay.house_manual || stay.checkin_notes) && (
+            <Card>
+              <h2 className="flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+                <Wifi className="h-3.5 w-3.5" /> Infos séjour
+              </h2>
+              <dl className="mt-3 space-y-2 text-[13.5px]">
+                {stay.wifi_ssid && <Line label="Wi-Fi">{stay.wifi_ssid}</Line>}
+                {stay.wifi_password && (
+                  <Line label="Mot de passe">
+                    <span className="tnum select-all">{stay.wifi_password}</span>
+                  </Line>
+                )}
+                {stay.emergency_contact && <Line label="Urgence">{stay.emergency_contact}</Line>}
+              </dl>
+              {stay.checkin_notes && (
+                <p className="mt-3 whitespace-pre-wrap border-t border-line-soft pt-3 text-[13px] text-ink-2">
+                  {stay.checkin_notes}
+                </p>
+              )}
+              {stay.house_manual && (
+                <details className="mt-2">
+                  <summary className="cursor-pointer text-[13px] font-medium text-ink">
+                    Manuel de la maison
+                  </summary>
+                  <p className="mt-2 whitespace-pre-wrap text-[13px] text-ink-2">{stay.house_manual}</p>
+                </details>
+              )}
+            </Card>
+          )}
+
+          {canReview && (
+            <ReviewForm
+              reservationId={r.id as string}
+              existing={
+                review
+                  ? {
+                      rating: review.rating,
+                      title: review.title,
+                      body: review.body,
+                      status: review.status,
+                    }
+                  : null
+              }
             />
           )}
 

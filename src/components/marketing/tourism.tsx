@@ -10,25 +10,30 @@ const places = [
   { name: "Lomé", when: "vers le Togo", note: "La capitale togolaise, son grand marché et sa longue corniche en bord de mer." },
 ];
 
-export async function Tourism() {
+const tv = (v: unknown, fb: string) => (typeof v === "string" && v.trim() ? v : fb);
+
+export async function Tourism({ content = {} }: { content?: Record<string, unknown> }) {
   const { t } = await getT();
+  const list = Array.isArray(content.places)
+    ? (content.places as { name: string; when: string; note: string }[])
+    : places;
   return (
     <section id="le-lieu" className="grain relative overflow-hidden bg-forest text-bone">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
         <Reveal className="max-w-xl">
           <h2 className="display text-[2.1rem] leading-[1.06] sm:text-[2.7rem]">
-            {t("home.tourismTitle")}
+            {tv(content.title, t("home.tourismTitle"))}
             <span className="mt-1 block italic font-normal text-brass-3">
-              {t("home.tourismTitleEm")}
+              {tv(content.titleEm, t("home.tourismTitleEm"))}
             </span>
           </h2>
           <p className="measure mt-6 text-[1.02rem] leading-relaxed text-bone/70">
-            {t("home.tourismLede")}
+            {tv(content.lede, t("home.tourismLede"))}
           </p>
         </Reveal>
 
         <Reveal as="ul" className="mt-14 border-t border-line-dark">
-          {places.map((p) => (
+          {list.map((p) => (
             <li
               key={p.name}
               className="flex flex-col gap-1.5 border-b border-line-dark py-6 sm:grid sm:grid-cols-[10rem_1fr_8rem] sm:items-baseline sm:gap-8 sm:py-7"

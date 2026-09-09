@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, CalendarDays, ConciergeBell, FileText, ShieldCheck } from "lucide-react";
+import { ArrowRight, CalendarDays, ConciergeBell, FileText, ShieldCheck, Gift } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card, StatusBadge, EmptyState } from "@/components/app/ui";
 import { MessagingCard } from "@/components/app/messaging-card";
@@ -45,6 +45,18 @@ export default async function AppHome() {
       .order("last_message_at", { ascending: false })
       .limit(1),
   ]);
+
+  const [{ data: loyalty }, { data: loyaltyCfg }] = await Promise.all([
+    supabase.from("loyalty_accounts").select("points, tier").eq("client_id", uid).maybeSingle(),
+    supabase.from("loyalty_settings").select("enabled, tiers").eq("id", 1).maybeSingle(),
+  ]);
+  const loyaltyEnabled = loyaltyCfg?.enabled ?? false;
+  const nextTier =
+    loyaltyEnabled && Array.isArray(loyaltyCfg?.tiers)
+      ? (loyaltyCfg!.tiers as { name: string; min_points: number }[])
+          .filter((t) => t.min_points > (loyalty?.points ?? 0))
+          .sort((a, b) => a.min_points - b.min_points)[0]
+      : undefined;
 
   const next = reservations?.[0];
   const identity = typeof idStatus === "string" ? idStatus : "none";
@@ -135,13 +147,37 @@ export default async function AppHome() {
         <QuickLink href="/app/compte" icon={ShieldCheck} label="Profil & identité" />
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <MessagingCard
           conversationId={convo?.id ?? null}
           subject={convo?.subject ?? null}
           lastAt={convo?.last_message_at ?? null}
           unread={unread}
         />
+        {loyaltyEnabled && (
+          <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
+            <div className="flex items-start gap-3">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bone-2 text-brass-2">
+                <Gift className="h-[18px] w-[18px]" strokeWidth={1.7} />
+              </span>
+              <div>
+                <p className="text-[14px] font-medium text-ink">Fidélité</p>
+                <p className="mt-0.5 text-[12.5px] text-ink-3">
+                  Palier <span className="font-medium text-ink">{loyalty?.tier ?? "Découverte"}</span>
+                </p>
+              </div>
+            </div>
+            <p className="tnum mt-3 text-[1.9rem] font-medium text-ink">
+              {loyalty?.points ?? 0}
+              <span className="ml-1 text-[13px] font-normal text-ink-3">points</span>
+            </p>
+            {nextTier && (
+              <p className="mt-1 text-[12px] text-ink-3">
+                {nextTier.min_points - (loyalty?.points ?? 0)} points avant « {nextTier.name} »
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {orders && orders.length > 0 && (
