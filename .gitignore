@@ -38,3 +38,6 @@ yarn-error.log*
 /app-scaffold
 /Images/
 /public/apartment/
+
+# scripts de test jetables
+/_*.mjs
