@@ -32,7 +32,9 @@ select
   E'Arrivée à partir de 15 h. Un membre de l''équipe vous accueille et vous remet les clés.\nUne pièce d''identité vous sera demandée pour la fiche de police.',
   E'Départ avant 11 h. Laissez les clés sur la table de l''entrée et fermez simplement la porte.\nUn état des lieux rapide est fait dans la journée.',
   '+229 01 67 00 00 00',
-  '{"parking": "Place réservée dans la cour, portail télécommandé", "menage": "Ménage de mi-séjour offert au-delà de 4 nuits"}'::jsonb
+  '[{"label":"Parking","value":"Place réservée dans la cour, portail télécommandé"},
+    {"label":"Ménage","value":"Ménage de mi-séjour offert au-delà de 4 nuits"},
+    {"label":"Petit-déjeuner","value":"Sur demande la veille avant 20 h — 3 500 XOF/personne"}]'::jsonb
 from public.apartments a
 where a.name ilike 'Les 2 Palmiers%'
 on conflict (apartment_id) do nothing;
