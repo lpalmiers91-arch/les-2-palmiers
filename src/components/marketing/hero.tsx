@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { aptImg } from "@/lib/site";
 import { ArrivalSlip } from "./arrival-slip";
 
 export function Hero() {
@@ -49,7 +50,7 @@ export function Hero() {
           <div className="relative flex flex-col items-center lg:items-end">
             <div className="relative aspect-[3/4] max-h-[500px] w-full max-w-[420px] overflow-hidden rounded-[var(--radius-lg)] ring-1 ring-bone/15">
               <Image
-                src="/apartment/terrace-palms.jpg"
+                src={aptImg("terrace-palms.jpg")}
                 alt="La terrasse à colonnes de l'appartement : deux palmiers, un mur de bougainvilliers, l'océan au loin"
                 fill
                 priority

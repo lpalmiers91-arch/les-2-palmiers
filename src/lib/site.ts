@@ -75,3 +75,10 @@ export const destinationsFallback = [
 export function formatXOF(n: number): string {
   return new Intl.NumberFormat("fr-FR").format(Math.round(n)) + " XOF";
 }
+
+/** URL publique d'une photo de l'appartement (bucket Storage `apartment-media`). */
+export function aptImg(name: string): string {
+  const base =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://zmobadwgoqcwkryefciq.supabase.co";
+  return `${base}/storage/v1/object/public/apartment-media/${name}`;
+}

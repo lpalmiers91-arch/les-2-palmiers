@@ -31,8 +31,8 @@ self.addEventListener("fetch", (e) => {
     return;
   }
 
-  // Images de l'appartement : cache d'abord
-  if (url.pathname.startsWith("/apartment/") || url.pathname.startsWith("/_next/image")) {
+  // Images optimisées : cache d'abord
+  if (url.pathname.startsWith("/_next/image")) {
     e.respondWith(
       caches.match(request).then(
         (cached) =>

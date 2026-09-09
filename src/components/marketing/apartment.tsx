@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
-import { amenitiesFallback } from "@/lib/site";
+import { amenitiesFallback, aptImg } from "@/lib/site";
 
 const gallery = [
-  { src: "/apartment/balcony-view.jpg", alt: "Balcon à balustrade avec palmier en pot et vue sur l'océan" },
-  { src: "/apartment/g-27.jpg", alt: "Chambre avec lit à tête capitonnée et linge à motif palme" },
-  { src: "/apartment/g-14.jpg", alt: "Cuisine équipée, plan de travail clair et crédence sombre" },
-  { src: "/apartment/g-20.jpg", alt: "Terrasse ombragée, palmier et bougainvilliers en fleurs" },
+  { src: aptImg("balcony-view.jpg"), alt: "Balcon à balustrade avec palmier en pot et vue sur l'océan" },
+  { src: aptImg("g-27.jpg"), alt: "Chambre avec lit à tête capitonnée et linge à motif palme" },
+  { src: aptImg("g-14.jpg"), alt: "Cuisine équipée, plan de travail clair et crédence sombre" },
+  { src: aptImg("g-20.jpg"), alt: "Terrasse ombragée, palmier et bougainvilliers en fleurs" },
 ];
 
 export function Apartment() {
@@ -31,7 +31,7 @@ export function Apartment() {
         <Reveal className="mt-12 grid gap-3 sm:grid-cols-12 sm:gap-4">
           <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] ring-1 ring-ink/10 sm:col-span-7">
             <Image
-              src="/apartment/rooftop-ocean.jpg"
+              src={aptImg("rooftop-ocean.jpg")}
               alt="Vue depuis la terrasse : toits de Cotonou, palmiers et océan à l'horizon"
               fill
               sizes="(max-width: 640px) 100vw, 55vw"
@@ -40,7 +40,7 @@ export function Apartment() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] ring-1 ring-ink/10 sm:col-span-5 sm:aspect-auto">
             <Image
-              src="/apartment/g-08.jpg"
+              src={aptImg("g-08.jpg")}
               alt="Façade de la villa en terre cuite, balcons à balustrade et ciel de traîne"
               fill
               sizes="(max-width: 640px) 100vw, 40vw"

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { formatXOF, formatDate, nightsBetween } from "@/lib/format";
+import { aptImg } from "@/lib/site";
 
 type Quote = {
   nights: number;
@@ -203,7 +204,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
       <aside className="lg:sticky lg:top-8 lg:self-start">
         <div className="overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
           <div className="relative aspect-[16/10]">
-            <Image src="/apartment/terrace-palms.jpg" alt="" fill sizes="380px" className="object-cover object-[50%_78%]" />
+            <Image src={aptImg("terrace-palms.jpg")} alt="" fill sizes="380px" className="object-cover object-[50%_78%]" />
           </div>
           <div className="p-5">
             <p className="display text-[1.05rem] text-ink">Les 2 Palmiers</p>

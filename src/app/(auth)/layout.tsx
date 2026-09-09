@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Mark } from "@/components/brand/mark";
+import { aptImg } from "@/lib/site";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -9,7 +10,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       {/* volet gauche — présentation */}
       <aside className="relative hidden overflow-hidden bg-forest text-bone lg:block">
         <Image
-          src="/apartment/terrace-palms.jpg"
+          src={aptImg("terrace-palms.jpg")}
           alt=""
           fill
           sizes="45vw"
