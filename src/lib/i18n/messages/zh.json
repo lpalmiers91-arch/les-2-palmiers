@@ -444,6 +444,21 @@
       "insert": "创建",
       "update": "修改",
       "delete": "删除"
+    },
+    "ai": {
+      "whereAvailable": "助手可用的范围",
+      "provider": "AI 提供商",
+      "providerNote": "提供商可随时更换。API 密钥在服务器端设置（函数环境变量），绝不在此处设置。",
+      "providerLabel": "提供商",
+      "providerDemo": "演示（模拟回复）",
+      "providerCompatible": "兼容 OpenAI 的 API",
+      "model": "模型",
+      "space": {
+        "public": "官网",
+        "client": "客户空间",
+        "staff": "员工工作台",
+        "admin": "管理后台"
+      }
     }
   }
 }

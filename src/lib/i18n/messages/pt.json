@@ -444,6 +444,21 @@
       "insert": "Criação",
       "update": "Modificação",
       "delete": "Eliminação"
+    },
+    "ai": {
+      "whereAvailable": "Onde o assistente está disponível",
+      "provider": "Fornecedor de IA",
+      "providerNote": "O fornecedor é intercambiável. A chave de API define-se no servidor (variável de ambiente da função), nunca aqui.",
+      "providerLabel": "Fornecedor",
+      "providerDemo": "Demo (respostas simuladas)",
+      "providerCompatible": "API compatível com OpenAI",
+      "model": "Modelo",
+      "space": {
+        "public": "Site público",
+        "client": "Espaço do cliente",
+        "staff": "Área da equipa",
+        "admin": "Administração"
+      }
     }
   }
 }

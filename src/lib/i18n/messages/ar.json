@@ -444,6 +444,21 @@
       "insert": "إنشاء",
       "update": "تعديل",
       "delete": "حذف"
+    },
+    "ai": {
+      "whereAvailable": "أين يتوفر المساعد",
+      "provider": "مزوّد الذكاء الاصطناعي",
+      "providerNote": "المزوّد قابل للتبديل. يُضبط مفتاح الـ API من جهة الخادم (متغيّر بيئة الدالة)، وليس هنا أبدًا.",
+      "providerLabel": "المزوّد",
+      "providerDemo": "تجريبي (ردود محاكاة)",
+      "providerCompatible": "API متوافق مع OpenAI",
+      "model": "النموذج",
+      "space": {
+        "public": "الموقع",
+        "client": "مساحة العميل",
+        "staff": "مساحة الفريق",
+        "admin": "الإدارة"
+      }
     }
   }
 }

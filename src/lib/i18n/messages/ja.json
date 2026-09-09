@@ -444,6 +444,21 @@
       "insert": "作成",
       "update": "更新",
       "delete": "削除"
+    },
+    "ai": {
+      "whereAvailable": "アシスタントを利用できる範囲",
+      "provider": "AI プロバイダー",
+      "providerNote": "プロバイダーは差し替え可能です。API キーはサーバー側（関数の環境変数）で設定し、ここでは設定しません。",
+      "providerLabel": "プロバイダー",
+      "providerDemo": "デモ（模擬応答）",
+      "providerCompatible": "OpenAI 互換 API",
+      "model": "モデル",
+      "space": {
+        "public": "サイト",
+        "client": "顧客スペース",
+        "staff": "スタッフエリア",
+        "admin": "管理"
+      }
     }
   }
 }

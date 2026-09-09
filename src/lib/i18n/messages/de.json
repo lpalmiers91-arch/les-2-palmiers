@@ -444,6 +444,21 @@
       "insert": "Erstellung",
       "update": "Änderung",
       "delete": "Löschung"
+    },
+    "ai": {
+      "whereAvailable": "Wo der Assistent verfügbar ist",
+      "provider": "KI-Anbieter",
+      "providerNote": "Der Anbieter ist austauschbar. Der API-Schlüssel wird serverseitig gesetzt (Umgebungsvariable der Funktion), nie hier.",
+      "providerLabel": "Anbieter",
+      "providerDemo": "Demo (simulierte Antworten)",
+      "providerCompatible": "OpenAI-kompatible API",
+      "model": "Modell",
+      "space": {
+        "public": "Website",
+        "client": "Kundenbereich",
+        "staff": "Team-Bereich",
+        "admin": "Verwaltung"
+      }
     }
   }
 }

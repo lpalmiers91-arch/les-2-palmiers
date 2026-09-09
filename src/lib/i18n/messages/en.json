@@ -444,6 +444,21 @@
       "insert": "Create",
       "update": "Update",
       "delete": "Delete"
+    },
+    "ai": {
+      "whereAvailable": "Where the assistant is available",
+      "provider": "AI provider",
+      "providerNote": "The provider is interchangeable. The API key is set server-side (function environment variable), never here.",
+      "providerLabel": "Provider",
+      "providerDemo": "Demo (simulated replies)",
+      "providerCompatible": "OpenAI-compatible API",
+      "model": "Model",
+      "space": {
+        "public": "Public site",
+        "client": "Client area",
+        "staff": "Staff area",
+        "admin": "Administration"
+      }
     }
   }
 }

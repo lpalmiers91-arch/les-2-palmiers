@@ -444,6 +444,21 @@
       "insert": "Création",
       "update": "Modification",
       "delete": "Suppression"
+    },
+    "ai": {
+      "whereAvailable": "Où l'assistant est disponible",
+      "provider": "Fournisseur d'IA",
+      "providerNote": "Le fournisseur est interchangeable. La clé d'API se règle côté serveur (variable d'environnement de la fonction), jamais ici.",
+      "providerLabel": "Fournisseur",
+      "providerDemo": "Démo (réponses simulées)",
+      "providerCompatible": "API compatible OpenAI",
+      "model": "Modèle",
+      "space": {
+        "public": "Vitrine",
+        "client": "Espace client",
+        "staff": "Espace staff",
+        "admin": "Administration"
+      }
     }
   }
 }
