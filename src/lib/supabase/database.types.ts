@@ -491,6 +491,79 @@ export type Database = {
           },
         ]
       }
+      contracts: {
+        Row: {
+          client_id: string
+          client_signature_name: string | null
+          client_signed_at: string | null
+          countersigned_at: string | null
+          countersigned_by: string | null
+          created_at: string
+          id: string
+          reference: string
+          reservation_id: string | null
+          staff_signature_name: string | null
+          status: string
+          template_version: string
+          terms: Json
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          client_signature_name?: string | null
+          client_signed_at?: string | null
+          countersigned_at?: string | null
+          countersigned_by?: string | null
+          created_at?: string
+          id?: string
+          reference: string
+          reservation_id?: string | null
+          staff_signature_name?: string | null
+          status?: string
+          template_version?: string
+          terms?: Json
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          client_signature_name?: string | null
+          client_signed_at?: string | null
+          countersigned_at?: string | null
+          countersigned_by?: string | null
+          created_at?: string
+          id?: string
+          reference?: string
+          reservation_id?: string | null
+          staff_signature_name?: string | null
+          status?: string
+          template_version?: string
+          terms?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contracts_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_countersigned_by_fkey"
+            columns: ["countersigned_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_reservation_id_fkey"
+            columns: ["reservation_id"]
+            isOneToOne: false
+            referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       conversations: {
         Row: {
           assigned_staff_id: string | null
@@ -575,6 +648,84 @@ export type Database = {
           tag?: string | null
         }
         Relationships: []
+      }
+      identity_verifications: {
+        Row: {
+          created_at: string
+          date_of_birth: string | null
+          document_back_path: string | null
+          document_expiry: string | null
+          document_front_path: string
+          document_number: string
+          document_type: string
+          id: string
+          legal_full_name: string
+          nationality: string | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          selfie_path: string
+          status: string
+          submitted_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          date_of_birth?: string | null
+          document_back_path?: string | null
+          document_expiry?: string | null
+          document_front_path: string
+          document_number: string
+          document_type: string
+          id?: string
+          legal_full_name: string
+          nationality?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          selfie_path: string
+          status?: string
+          submitted_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          date_of_birth?: string | null
+          document_back_path?: string | null
+          document_expiry?: string | null
+          document_front_path?: string
+          document_number?: string
+          document_type?: string
+          id?: string
+          legal_full_name?: string
+          nationality?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          selfie_path?: string
+          status?: string
+          submitted_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "identity_verifications_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "identity_verifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       kb_articles: {
         Row: {
@@ -895,38 +1046,62 @@ export type Database = {
       }
       profiles: {
         Row: {
+          address: string | null
           avatar_url: string | null
+          bio: string | null
+          city: string | null
+          country: string | null
           created_at: string
+          date_of_birth: string | null
           deleted_at: string | null
           full_name: string | null
           id: string
+          last_seen_at: string | null
           locale: string
+          nationality: string | null
           phone: string | null
           phone_verified: boolean
+          postal_code: string | null
           preferences: Json
           updated_at: string
         }
         Insert: {
+          address?: string | null
           avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
+          country?: string | null
           created_at?: string
+          date_of_birth?: string | null
           deleted_at?: string | null
           full_name?: string | null
           id: string
+          last_seen_at?: string | null
           locale?: string
+          nationality?: string | null
           phone?: string | null
           phone_verified?: boolean
+          postal_code?: string | null
           preferences?: Json
           updated_at?: string
         }
         Update: {
+          address?: string | null
           avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
+          country?: string | null
           created_at?: string
+          date_of_birth?: string | null
           deleted_at?: string | null
           full_name?: string | null
           id?: string
+          last_seen_at?: string | null
           locale?: string
+          nationality?: string | null
           phone?: string | null
           phone_verified?: boolean
+          postal_code?: string | null
           preferences?: Json
           updated_at?: string
         }
@@ -1637,6 +1812,31 @@ export type Database = {
       apartment_is_visible: { Args: { aid: string }; Returns: boolean }
       auth_has_permission: { Args: { perm: string }; Returns: boolean }
       auth_has_role: { Args: { role_key: string }; Returns: boolean }
+      countersign_contract: {
+        Args: { p_contract: string; p_signature_name: string }
+        Returns: {
+          client_id: string
+          client_signature_name: string | null
+          client_signed_at: string | null
+          countersigned_at: string | null
+          countersigned_by: string | null
+          created_at: string
+          id: string
+          reference: string
+          reservation_id: string | null
+          staff_signature_name: string | null
+          status: string
+          template_version: string
+          terms: Json
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "contracts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       create_reservation: {
         Args: {
           p_apartment: string
@@ -1711,6 +1911,8 @@ export type Database = {
       }
       has_permission: { Args: { perm: string; uid: string }; Returns: boolean }
       has_role: { Args: { role_key: string; uid: string }; Returns: boolean }
+      heartbeat: { Args: never; Returns: undefined }
+      identity_status: { Args: { uid: string }; Returns: string }
       increment_ai_usage: {
         Args: { p_tokens_in?: number; p_tokens_out?: number; p_user: string }
         Returns: undefined
@@ -1719,7 +1921,30 @@ export type Database = {
         Args: { p_apartment: string; p_range: unknown }
         Returns: boolean
       }
+      is_identity_verified: { Args: { uid: string }; Returns: boolean }
       is_staff: { Args: { uid: string }; Returns: boolean }
+      list_identity_verifications: {
+        Args: never
+        Returns: {
+          client_email: string
+          client_name: string
+          date_of_birth: string
+          document_back_path: string
+          document_expiry: string
+          document_front_path: string
+          document_number: string
+          document_type: string
+          id: string
+          legal_full_name: string
+          nationality: string
+          rejection_reason: string
+          reviewed_at: string
+          selfie_path: string
+          status: string
+          submitted_at: string
+          user_id: string
+        }[]
+      }
       notify_staff: {
         Args: { p_body: string; p_data?: Json; p_title: string; p_type: string }
         Returns: undefined
@@ -1823,6 +2048,35 @@ export type Database = {
         Args: { p_apartment: string; p_guests?: number; p_range: unknown }
         Returns: Json
       }
+      review_identity_verification: {
+        Args: { p_decision: string; p_id: string; p_reason?: string }
+        Returns: {
+          created_at: string
+          date_of_birth: string | null
+          document_back_path: string | null
+          document_expiry: string | null
+          document_front_path: string
+          document_number: string
+          document_type: string
+          id: string
+          legal_full_name: string
+          nationality: string | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          selfie_path: string
+          status: string
+          submitted_at: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "identity_verifications"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       send_message: {
         Args: { p_attachments?: Json; p_body: string; p_conversation: string }
         Returns: {
@@ -1837,6 +2091,70 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "messages"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      sign_contract: {
+        Args: { p_contract: string; p_fields?: Json; p_signature_name: string }
+        Returns: {
+          client_id: string
+          client_signature_name: string | null
+          client_signed_at: string | null
+          countersigned_at: string | null
+          countersigned_by: string | null
+          created_at: string
+          id: string
+          reference: string
+          reservation_id: string | null
+          staff_signature_name: string | null
+          status: string
+          template_version: string
+          terms: Json
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "contracts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      submit_identity_verification: {
+        Args: {
+          p_date_of_birth?: string
+          p_document_back_path?: string
+          p_document_expiry?: string
+          p_document_front_path: string
+          p_document_number: string
+          p_document_type: string
+          p_legal_full_name: string
+          p_nationality?: string
+          p_selfie_path: string
+        }
+        Returns: {
+          created_at: string
+          date_of_birth: string | null
+          document_back_path: string | null
+          document_expiry: string | null
+          document_front_path: string
+          document_number: string
+          document_type: string
+          id: string
+          legal_full_name: string
+          nationality: string | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          selfie_path: string
+          status: string
+          submitted_at: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "identity_verifications"
           isOneToOne: true
           isSetofReturn: false
         }

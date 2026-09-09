@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, CalendarDays, ConciergeBell, MessageSquare } from "lucide-react";
+import { ArrowRight, CalendarDays, ConciergeBell, FileText, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card, StatusBadge, EmptyState } from "@/components/app/ui";
+import { MessagingCard } from "@/components/app/messaging-card";
 import { formatXOF, formatDate, parseRange, nightsBetween } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Aperçu" };
@@ -12,25 +13,62 @@ export default async function AppHome() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const uid = user!.id;
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("full_name")
-    .eq("id", user!.id)
-    .maybeSingle();
-
-  const { data: reservations } = await supabase
-    .from("reservations")
-    .select("id, reference, date_range, status, total_amount, amount_paid, guests_count")
-    .in("status", ["pending_payment", "confirmed", "in_stay"])
-    .order("created_at", { ascending: false });
+  const [
+    { data: profile },
+    { data: reservations },
+    { data: orders },
+    { data: idStatus },
+    { data: contracts },
+    { data: convos },
+  ] = await Promise.all([
+    supabase.from("profiles").select("full_name").eq("id", uid).maybeSingle(),
+    supabase
+      .from("reservations")
+      .select("id, reference, date_range, status, total_amount, amount_paid, guests_count")
+      .in("status", ["pending_payment", "confirmed", "in_stay"])
+      .order("created_at", { ascending: false }),
+    supabase
+      .from("service_orders")
+      .select("id, reference, status, scheduled_for, price, service:services(title)")
+      .order("created_at", { ascending: false })
+      .limit(3),
+    supabase.rpc("identity_status", { uid }),
+    supabase
+      .from("contracts")
+      .select("id, reference, status, reservation_id")
+      .order("created_at", { ascending: false }),
+    supabase
+      .from("conversations")
+      .select("id, subject, status, last_message_at")
+      .order("last_message_at", { ascending: false })
+      .limit(1),
+  ]);
 
   const next = reservations?.[0];
-  const { data: orders } = await supabase
-    .from("service_orders")
-    .select("id, reference, status, scheduled_for, price, service:services(title)")
-    .order("created_at", { ascending: false })
-    .limit(3);
+  const identity = typeof idStatus === "string" ? idStatus : "none";
+  const pendingContract = contracts?.find(
+    (c) => c.status === "draft" && reservations?.some((r) => r.id === c.reservation_id),
+  );
+  const convo = convos?.[0];
+
+  let unread = 0;
+  if (convo) {
+    const { data: msgs } = await supabase
+      .from("messages")
+      .select("id, sender_id")
+      .eq("conversation_id", convo.id)
+      .neq("sender_id", uid);
+    if (msgs && msgs.length) {
+      const { data: reads } = await supabase
+        .from("message_reads")
+        .select("message_id")
+        .eq("user_id", uid);
+      const readSet = new Set((reads ?? []).map((r) => r.message_id));
+      unread = msgs.filter((m) => !readSet.has(m.id)).length;
+    }
+  }
 
   const firstName = (profile?.full_name || "").split(" ")[0];
 
@@ -39,11 +77,31 @@ export default async function AppHome() {
       <h1 className="display text-[1.7rem] text-ink sm:text-[2rem]">
         Bonjour{firstName ? ` ${firstName}` : ""}.
       </h1>
-      <p className="mt-1 text-[14px] text-ink-3">
-        Votre séjour et vos services, au même endroit.
-      </p>
+      <p className="mt-1 text-[14px] text-ink-3">Votre séjour et vos services, au même endroit.</p>
 
-      <div className="mt-8">
+      {identity !== "approved" && (
+        <Link
+          href="/app/verification"
+          className="press mt-6 flex items-center gap-3 rounded-[var(--radius-lg)] border border-brass/40 bg-brass/8 p-4 transition-colors hover:bg-brass/12"
+        >
+          <ShieldCheck className="h-5 w-5 shrink-0 text-brass-2" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[13.5px] font-medium text-ink">
+              {identity === "pending"
+                ? "Vérification d'identité en cours d'examen"
+                : identity === "rejected"
+                  ? "Vérification refusée — à recommencer"
+                  : "Vérifiez votre identité"}
+            </p>
+            <p className="text-[12.5px] text-ink-3">
+              Étape obligatoire avant de finaliser une réservation.
+            </p>
+          </div>
+          <ArrowRight className="h-4 w-4 text-ink-3" />
+        </Link>
+      )}
+
+      <div className="mt-6">
         {next ? (
           <NextStay stay={next} />
         ) : (
@@ -55,10 +113,35 @@ export default async function AppHome() {
         )}
       </div>
 
+      {pendingContract && (
+        <Link
+          href={`/contrat/${pendingContract.reference}`}
+          className="press mt-4 flex items-center gap-3 rounded-[var(--radius-lg)] border border-line bg-bone p-4 transition-colors hover:border-ink/25"
+        >
+          <FileText className="h-5 w-5 shrink-0 text-forest-2" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[13.5px] font-medium text-ink">Contrat de séjour à signer</p>
+            <p className="text-[12.5px] text-ink-3">
+              Complétez et signez votre contrat — réf. {pendingContract.reference}
+            </p>
+          </div>
+          <ArrowRight className="h-4 w-4 text-ink-3" />
+        </Link>
+      )}
+
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         <QuickLink href="/app/reservations" icon={CalendarDays} label="Mes réservations" />
         <QuickLink href="/app/services" icon={ConciergeBell} label="Commander un service" />
-        <QuickLink href="/app/messages" icon={MessageSquare} label="Écrire à l'équipe" />
+        <QuickLink href="/app/compte" icon={ShieldCheck} label="Profil & identité" />
+      </div>
+
+      <div className="mt-6">
+        <MessagingCard
+          conversationId={convo?.id ?? null}
+          subject={convo?.subject ?? null}
+          lastAt={convo?.last_message_at ?? null}
+          unread={unread}
+        />
       </div>
 
       {orders && orders.length > 0 && (

@@ -12,15 +12,17 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   } = await supabase.auth.getUser();
   if (!user) redirect("/connexion?suite=/app");
 
-  const [{ data: profile }, { data: notifs }, { data: msgs }] = await Promise.all([
-    supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle(),
-    supabase
-      .from("notifications")
-      .select("id, type, title, body, data, read_at, created_at")
-      .order("created_at", { ascending: false })
-      .limit(20),
-    supabase.from("messages").select("id, sender_id, created_at").neq("sender_id", user.id),
-  ]);
+  const [{ data: profile }, { data: notifs }, { data: msgs }, { data: idStatus }] =
+    await Promise.all([
+      supabase.from("profiles").select("full_name, avatar_url").eq("id", user.id).maybeSingle(),
+      supabase
+        .from("notifications")
+        .select("id, type, title, body, data, read_at, created_at")
+        .order("created_at", { ascending: false })
+        .limit(20),
+      supabase.from("messages").select("id, sender_id, created_at").neq("sender_id", user.id),
+      supabase.rpc("identity_status", { uid: user.id }),
+    ]);
 
   // messages non lus = messages du staff sans accusé de lecture de ma part
   let unreadMessages = 0;
@@ -39,6 +41,8 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       userId={user.id}
       notifications={notifs ?? []}
       unreadMessages={unreadMessages}
+      avatarUrl={profile?.avatar_url ?? null}
+      identityStatus={typeof idStatus === "string" ? idStatus : "none"}
     >
       {children}
       <AssistantWidget space="client" />

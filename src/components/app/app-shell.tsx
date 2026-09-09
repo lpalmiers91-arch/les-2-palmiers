@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -9,12 +10,14 @@ import {
   ConciergeBell,
   MessageSquare,
   UserRound,
+  ShieldCheck,
   LogOut,
   Menu,
   X,
 } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
 import { createClient } from "@/lib/supabase/client";
+import { useHeartbeat } from "@/lib/presence";
 import { NotificationBell } from "./notification-bell";
 
 const nav = [
@@ -33,16 +36,23 @@ export function AppShell({
   userId,
   notifications,
   unreadMessages = 0,
+  avatarUrl = null,
+  identityStatus = "none",
 }: {
   children: React.ReactNode;
   userName: string;
   userId: string;
   notifications: Notif[];
   unreadMessages?: number;
+  avatarUrl?: string | null;
+  identityStatus?: string;
 }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  useHeartbeat();
+
+  const showVerify = identityStatus !== "approved";
 
   const active = (href: string, exact?: boolean) =>
     exact ? pathname === href : pathname === href || pathname.startsWith(href + "/");
@@ -77,6 +87,20 @@ export function AppShell({
           </Link>
         );
       })}
+      {showVerify && (
+        <Link
+          href="/app/verification"
+          onClick={onNav}
+          className={`flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13.5px] transition-colors ${
+            active("/app/verification")
+              ? "bg-forest text-bone"
+              : "text-brass-2 hover:bg-ink/5"
+          }`}
+        >
+          <ShieldCheck className="h-[18px] w-[18px]" strokeWidth={1.7} />
+          <span className="flex-1">Vérifier mon identité</span>
+        </Link>
+      )}
     </nav>
   );
 
@@ -94,7 +118,10 @@ export function AppShell({
           <NavList onNav={() => setOpen(false)} />
         </div>
         <div className="border-t border-line pt-3">
-          <div className="px-3 pb-2 text-[12px] text-ink-3">{userName}</div>
+          <div className="flex items-center gap-2 px-3 pb-2">
+            <Avatar url={avatarUrl} name={userName} />
+            <span className="truncate text-[12px] text-ink-3">{userName}</span>
+          </div>
           <button
             onClick={signOut}
             className="press flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13.5px] text-ink-2 hover:bg-ink/5"
@@ -123,7 +150,10 @@ export function AppShell({
           <div className="absolute inset-0 bg-ink/40" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-0 h-full w-72 bg-bone p-5">
             <div className="flex items-center justify-between">
-              <span className="display text-[1rem] text-ink">{userName}</span>
+              <span className="flex items-center gap-2">
+                <Avatar url={avatarUrl} name={userName} />
+                <span className="display truncate text-[1rem] text-ink">{userName}</span>
+              </span>
               <button onClick={() => setOpen(false)} aria-label="Fermer" className="press p-1">
                 <X className="h-5 w-5" />
               </button>
@@ -144,5 +174,19 @@ export function AppShell({
 
       <main className="min-w-0 px-4 py-6 sm:px-8 sm:py-10">{children}</main>
     </div>
+  );
+}
+
+function Avatar({ url, name }: { url: string | null; name: string }) {
+  return (
+    <span className="relative flex h-7 w-7 shrink-0 overflow-hidden rounded-full bg-bone-2 ring-1 ring-line">
+      {url ? (
+        <Image src={url} alt="" fill sizes="28px" className="object-cover" />
+      ) : (
+        <span className="flex h-full w-full items-center justify-center text-[11px] font-medium text-ink-3">
+          {name.slice(0, 2).toUpperCase()}
+        </span>
+      )}
+    </span>
   );
 }

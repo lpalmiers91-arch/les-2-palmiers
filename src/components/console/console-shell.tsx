@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LogOut,
   Menu,
@@ -13,6 +13,8 @@ import {
   Users,
   MessageSquare,
   BookOpen,
+  Building2,
+  ShieldCheck,
   TrendingUp,
   CreditCard,
   ScrollText,
@@ -22,6 +24,7 @@ import {
 } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
 import { createClient } from "@/lib/supabase/client";
+import { useHeartbeat } from "@/lib/presence";
 import { NotificationBell } from "@/components/app/notification-bell";
 
 type NavItem = { href: string; label: string; icon: LucideIcon; exact?: boolean };
@@ -32,14 +35,17 @@ const NAVS: Record<"staff" | "admin", NavItem[]> = {
     { href: "/staff", label: "Tableau de bord", icon: LayoutGrid, exact: true },
     { href: "/staff/reservations", label: "Réservations", icon: CalendarDays },
     { href: "/staff/demandes", label: "Demandes", icon: ConciergeBell },
+    { href: "/staff/verifications", label: "Vérifications", icon: ShieldCheck },
     { href: "/staff/clients", label: "Clients", icon: Users },
     { href: "/staff/messages", label: "Messagerie", icon: MessageSquare },
+    { href: "/staff/appartements", label: "Appartements", icon: Building2 },
     { href: "/staff/catalogue", label: "Catalogue", icon: BookOpen },
   ],
   admin: [
     { href: "/admin", label: "Tableau de bord", icon: LayoutGrid, exact: true },
     { href: "/admin/statistiques", label: "Statistiques", icon: TrendingUp },
     { href: "/admin/equipe", label: "Équipe & accès", icon: Users },
+    { href: "/admin/verifications", label: "Vérifications", icon: ShieldCheck },
     { href: "/admin/paiements", label: "Paiements", icon: CreditCard },
     { href: "/admin/audit", label: "Journal d'audit", icon: ScrollText },
     { href: "/admin/assistant", label: "Assistant IA", icon: Sparkles },
@@ -69,6 +75,8 @@ export function ConsoleShell({
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const nav = NAVS[variant];
+  useHeartbeat();
+  useStaffPresence(userId);
 
   const active = (n: NavItem) =>
     n.exact ? pathname === n.href : pathname === n.href || pathname.startsWith(n.href + "/");
@@ -151,4 +159,22 @@ export function ConsoleShell({
       <main className="min-w-0 px-4 py-6 sm:px-8 sm:py-9">{children}</main>
     </div>
   );
+}
+
+/** Publie la présence du membre du staff sur le canal partagé avec les clients. */
+function useStaffPresence(userId: string) {
+  useEffect(() => {
+    if (!userId) return;
+    const supabase = createClient();
+    const ch = supabase.channel("presence:support", {
+      config: { presence: { key: userId } },
+    });
+    ch.subscribe((status) => {
+      if (status === "SUBSCRIBED") ch.track({ role: "staff", user_id: userId });
+    });
+    return () => {
+      ch.untrack();
+      supabase.removeChannel(ch);
+    };
+  }, [userId]);
 }
