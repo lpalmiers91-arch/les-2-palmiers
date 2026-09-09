@@ -309,6 +309,57 @@
       "nothingPending": "Rien en attente.",
       "reservation": "Réservation",
       "serviceRequest": "Demande de service"
+    },
+    "reservationActions": {
+      "cancel": "Annuler",
+      "checkIn": "Enregistrer l'arrivée",
+      "checkOut": "Enregistrer le départ"
+    },
+    "demandeCard": {
+      "ref": "réf.",
+      "declined": "Refusé",
+      "pricePlaceholder": "Prix (XOF)",
+      "accept": "Accepter",
+      "declineReason": "Motif du refus",
+      "decline": "Refuser",
+      "providerPlaceholder": "Prestataire…",
+      "schedule": "Planifier",
+      "start": "Démarrer la prestation",
+      "markDone": "Marquer terminé",
+      "noAction": "Aucune action requise.",
+      "filterActive": "Actives",
+      "filterAll": "Toutes",
+      "queueEmptyT": "File vide",
+      "queueEmptyB": "Aucune demande à traiter pour l'instant."
+    },
+    "verif": {
+      "toProcess": "À traiter",
+      "noneWaiting": "Aucun dossier en attente.",
+      "history": "Historique",
+      "approved": "Validé",
+      "rejected": "Refusé",
+      "needReason": "Indiquez un motif de refus.",
+      "actionFailed": "Action impossible. Réessayez.",
+      "submittedOn": "Soumis le",
+      "legalName": "Nom légal",
+      "type": "Type",
+      "docNumber": "N° document",
+      "birth": "Naissance",
+      "nationality": "Nationalité",
+      "expiry": "Expiration",
+      "selfie": "Selfie",
+      "docFront": "Pièce — recto",
+      "docBack": "Pièce — verso",
+      "reasonPlaceholder": "Motif du refus (visible par le client)",
+      "confirmReject": "Confirmer le refus",
+      "approve": "Valider l'identité",
+      "reject": "Refuser",
+      "doc": {
+        "idCard": "Carte d'identité",
+        "passport": "Passeport",
+        "residencePermit": "Titre de séjour",
+        "driversLicense": "Permis de conduire"
+      }
     }
   }
 }

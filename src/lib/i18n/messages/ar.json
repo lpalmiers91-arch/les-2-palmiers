@@ -309,6 +309,57 @@
       "nothingPending": "لا شيء معلّق.",
       "reservation": "حجز",
       "serviceRequest": "طلب خدمة"
+    },
+    "reservationActions": {
+      "cancel": "إلغاء",
+      "checkIn": "تسجيل الوصول",
+      "checkOut": "تسجيل المغادرة"
+    },
+    "demandeCard": {
+      "ref": "المرجع",
+      "declined": "مرفوض",
+      "pricePlaceholder": "السعر (XOF)",
+      "accept": "قبول",
+      "declineReason": "سبب الرفض",
+      "decline": "رفض",
+      "providerPlaceholder": "مزوّد الخدمة…",
+      "schedule": "جدولة",
+      "start": "بدء الخدمة",
+      "markDone": "وضع علامة كمكتمل",
+      "noAction": "لا يلزم أي إجراء.",
+      "filterActive": "النشطة",
+      "filterAll": "الكل",
+      "queueEmptyT": "القائمة فارغة",
+      "queueEmptyB": "لا طلبات للمعالجة حاليًا."
+    },
+    "verif": {
+      "toProcess": "للمعالجة",
+      "noneWaiting": "لا ملف معلّق.",
+      "history": "السجل",
+      "approved": "مُعتمَد",
+      "rejected": "مرفوض",
+      "needReason": "حدّد سبب الرفض.",
+      "actionFailed": "تعذّر تنفيذ الإجراء. أعد المحاولة.",
+      "submittedOn": "أُرسل في",
+      "legalName": "الاسم القانوني",
+      "type": "النوع",
+      "docNumber": "رقم الوثيقة",
+      "birth": "الميلاد",
+      "nationality": "الجنسية",
+      "expiry": "تاريخ الانتهاء",
+      "selfie": "صورة ذاتية",
+      "docFront": "الوثيقة — الوجه",
+      "docBack": "الوثيقة — الظهر",
+      "reasonPlaceholder": "سبب الرفض (مرئي للعميل)",
+      "confirmReject": "تأكيد الرفض",
+      "approve": "اعتماد الهوية",
+      "reject": "رفض",
+      "doc": {
+        "idCard": "بطاقة الهوية",
+        "passport": "جواز السفر",
+        "residencePermit": "تصريح الإقامة",
+        "driversLicense": "رخصة القيادة"
+      }
     }
   }
 }

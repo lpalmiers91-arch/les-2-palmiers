@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, EmptyState } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { DemandeCard } from "@/components/console/demande-card";
 
 export const metadata: Metadata = { title: "Demandes de services" };
@@ -10,6 +11,7 @@ export default async function DemandesPage({
 }: {
   searchParams: Promise<{ f?: string }>;
 }) {
+  const { t } = await getT();
   const { f = "actives" } = await searchParams;
   const supabase = await createClient();
 
@@ -46,22 +48,22 @@ export default async function DemandesPage({
   return (
     <div className="mx-auto max-w-3xl">
       <PageTitle
-        title="Demandes de services"
-        sub="Accepter, fixer un prix, planifier, affecter, clôturer."
+        title={t("console.title.demandes")}
+        sub={t("console.sub.demandes")}
         action={
           <div className="flex gap-1 rounded-full border border-line bg-bone p-1 text-[12.5px]">
             <a href="?f=actives" className={`rounded-full px-3 py-1 ${f !== "toutes" ? "bg-forest text-bone" : "text-ink-2"}`}>
-              Actives
+              {t("console.demandeCard.filterActive")}
             </a>
             <a href="?f=toutes" className={`rounded-full px-3 py-1 ${f === "toutes" ? "bg-forest text-bone" : "text-ink-2"}`}>
-              Toutes
+              {t("console.demandeCard.filterAll")}
             </a>
           </div>
         }
       />
 
       {rows.length === 0 ? (
-        <EmptyState title="File vide" body="Aucune demande à traiter pour l'instant." />
+        <EmptyState title={t("console.demandeCard.queueEmptyT")} body={t("console.demandeCard.queueEmptyB")} />
       ) : (
         <ul className="space-y-3">
           {rows.map((o) => (

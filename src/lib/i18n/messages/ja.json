@@ -309,6 +309,57 @@
       "nothingPending": "保留中の項目はありません。",
       "reservation": "予約",
       "serviceRequest": "サービスリクエスト"
+    },
+    "reservationActions": {
+      "cancel": "キャンセル",
+      "checkIn": "チェックイン登録",
+      "checkOut": "チェックアウト登録"
+    },
+    "demandeCard": {
+      "ref": "参照",
+      "declined": "却下",
+      "pricePlaceholder": "価格（XOF）",
+      "accept": "承諾",
+      "declineReason": "却下の理由",
+      "decline": "却下",
+      "providerPlaceholder": "提供者…",
+      "schedule": "予定を設定",
+      "start": "サービスを開始",
+      "markDone": "完了にする",
+      "noAction": "対応は不要です。",
+      "filterActive": "進行中",
+      "filterAll": "すべて",
+      "queueEmptyT": "キューは空です",
+      "queueEmptyB": "現在対応すべきリクエストはありません。"
+    },
+    "verif": {
+      "toProcess": "対応待ち",
+      "noneWaiting": "保留中の案件はありません。",
+      "history": "履歴",
+      "approved": "承認済み",
+      "rejected": "却下",
+      "needReason": "却下の理由を入力してください。",
+      "actionFailed": "操作できませんでした。再試行してください。",
+      "submittedOn": "提出日",
+      "legalName": "法的氏名",
+      "type": "種類",
+      "docNumber": "書類番号",
+      "birth": "生年月日",
+      "nationality": "国籍",
+      "expiry": "有効期限",
+      "selfie": "自撮り",
+      "docFront": "書類 — 表",
+      "docBack": "書類 — 裏",
+      "reasonPlaceholder": "却下の理由（顧客に表示されます）",
+      "confirmReject": "却下を確定",
+      "approve": "本人確認を承認",
+      "reject": "却下",
+      "doc": {
+        "idCard": "身分証明書",
+        "passport": "パスポート",
+        "residencePermit": "在留カード",
+        "driversLicense": "運転免許証"
+      }
     }
   }
 }

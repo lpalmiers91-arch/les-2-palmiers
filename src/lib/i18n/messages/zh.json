@@ -309,6 +309,57 @@
       "nothingPending": "没有待办事项。",
       "reservation": "预订",
       "serviceRequest": "服务请求"
+    },
+    "reservationActions": {
+      "cancel": "取消",
+      "checkIn": "办理入住",
+      "checkOut": "办理退房"
+    },
+    "demandeCard": {
+      "ref": "编号",
+      "declined": "已拒绝",
+      "pricePlaceholder": "价格（XOF）",
+      "accept": "接受",
+      "declineReason": "拒绝原因",
+      "decline": "拒绝",
+      "providerPlaceholder": "服务人员…",
+      "schedule": "安排时间",
+      "start": "开始服务",
+      "markDone": "标记为完成",
+      "noAction": "无需操作。",
+      "filterActive": "进行中",
+      "filterAll": "全部",
+      "queueEmptyT": "队列为空",
+      "queueEmptyB": "目前没有需要处理的请求。"
+    },
+    "verif": {
+      "toProcess": "待处理",
+      "noneWaiting": "没有待处理的材料。",
+      "history": "历史记录",
+      "approved": "已通过",
+      "rejected": "已驳回",
+      "needReason": "请填写驳回原因。",
+      "actionFailed": "操作失败，请重试。",
+      "submittedOn": "提交于",
+      "legalName": "法定姓名",
+      "type": "类型",
+      "docNumber": "证件号码",
+      "birth": "出生日期",
+      "nationality": "国籍",
+      "expiry": "有效期至",
+      "selfie": "自拍",
+      "docFront": "证件 — 正面",
+      "docBack": "证件 — 背面",
+      "reasonPlaceholder": "驳回原因（客户可见）",
+      "confirmReject": "确认驳回",
+      "approve": "通过身份验证",
+      "reject": "驳回",
+      "doc": {
+        "idCard": "身份证",
+        "passport": "护照",
+        "residencePermit": "居留证",
+        "driversLicense": "驾驶证"
+      }
     }
   }
 }

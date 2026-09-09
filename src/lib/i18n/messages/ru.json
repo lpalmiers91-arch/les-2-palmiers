@@ -309,6 +309,57 @@
       "nothingPending": "Ничего не ожидает.",
       "reservation": "Бронь",
       "serviceRequest": "Запрос услуги"
+    },
+    "reservationActions": {
+      "cancel": "Отменить",
+      "checkIn": "Оформить заезд",
+      "checkOut": "Оформить выезд"
+    },
+    "demandeCard": {
+      "ref": "№",
+      "declined": "Отклонено",
+      "pricePlaceholder": "Цена (XOF)",
+      "accept": "Принять",
+      "declineReason": "Причина отказа",
+      "decline": "Отклонить",
+      "providerPlaceholder": "Исполнитель…",
+      "schedule": "Запланировать",
+      "start": "Начать услугу",
+      "markDone": "Отметить выполненным",
+      "noAction": "Действий не требуется.",
+      "filterActive": "Активные",
+      "filterAll": "Все",
+      "queueEmptyT": "Очередь пуста",
+      "queueEmptyB": "Сейчас нет запросов для обработки."
+    },
+    "verif": {
+      "toProcess": "К обработке",
+      "noneWaiting": "Нет ожидающих дел.",
+      "history": "История",
+      "approved": "Подтверждено",
+      "rejected": "Отклонено",
+      "needReason": "Укажите причину отказа.",
+      "actionFailed": "Действие невозможно. Повторите.",
+      "submittedOn": "Отправлено",
+      "legalName": "Юридическое имя",
+      "type": "Тип",
+      "docNumber": "№ документа",
+      "birth": "Рождение",
+      "nationality": "Гражданство",
+      "expiry": "Срок действия",
+      "selfie": "Селфи",
+      "docFront": "Документ — лицевая",
+      "docBack": "Документ — оборот",
+      "reasonPlaceholder": "Причина отказа (видна клиенту)",
+      "confirmReject": "Подтвердить отказ",
+      "approve": "Подтвердить личность",
+      "reject": "Отклонить",
+      "doc": {
+        "idCard": "Удостоверение личности",
+        "passport": "Паспорт",
+        "residencePermit": "Вид на жительство",
+        "driversLicense": "Водительские права"
+      }
     }
   }
 }

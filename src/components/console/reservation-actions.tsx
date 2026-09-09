@@ -4,18 +4,20 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
-const transitions: Record<string, { to: string; label: string }[]> = {
-  pending_payment: [{ to: "cancelled", label: "Annuler" }],
+const transitions: Record<string, { to: string; key: string }[]> = {
+  pending_payment: [{ to: "cancelled", key: "cancel" }],
   confirmed: [
-    { to: "in_stay", label: "Enregistrer l'arrivée" },
-    { to: "cancelled", label: "Annuler" },
+    { to: "in_stay", key: "checkIn" },
+    { to: "cancelled", key: "cancel" },
   ],
-  in_stay: [{ to: "completed", label: "Enregistrer le départ" }],
+  in_stay: [{ to: "completed", key: "checkOut" }],
 };
 
 export function ReservationActions({ id, status }: { id: string; status: string }) {
   const router = useRouter();
+  const { t } = useT();
   const [busy, setBusy] = useState(false);
   const actions = transitions[status] ?? [];
   if (actions.length === 0) return null;
@@ -44,7 +46,11 @@ export function ReservationActions({ id, status }: { id: string; status: string 
               : "border border-line text-ink-2 hover:border-ink/30"
           }`}
         >
-          {busy && i === 0 ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : a.label}
+          {busy && i === 0 ? (
+            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          ) : (
+            t(`console.reservationActions.${a.key}`)
+          )}
         </button>
       ))}
     </div>

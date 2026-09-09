@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Check, X, ShieldCheck, FileText } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { formatDate } from "@/lib/format";
+import { useT } from "@/lib/i18n/provider";
 
 export type VerifRow = {
   id: string;
@@ -26,14 +27,15 @@ export type VerifRow = {
   client_email: string | null;
 };
 
-const DOC_LABEL: Record<string, string> = {
-  id_card: "Carte d'identité",
-  passport: "Passeport",
-  residence_permit: "Titre de séjour",
-  drivers_license: "Permis de conduire",
+const DOC_LABEL_KEY: Record<string, string> = {
+  id_card: "idCard",
+  passport: "passport",
+  residence_permit: "residencePermit",
+  drivers_license: "driversLicense",
 };
 
 export function VerificationReview({ rows }: { rows: VerifRow[] }) {
+  const { t } = useT();
   const pending = rows.filter((r) => r.status === "pending");
   const history = rows.filter((r) => r.status !== "pending").slice(0, 20);
 
@@ -41,11 +43,11 @@ export function VerificationReview({ rows }: { rows: VerifRow[] }) {
     <div className="space-y-8">
       <section>
         <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-          À traiter ({pending.length})
+          {t("console.verif.toProcess")} ({pending.length})
         </h2>
         {pending.length === 0 ? (
           <p className="mt-3 rounded-[var(--radius-lg)] border border-dashed border-line bg-bone/60 px-5 py-8 text-center text-[13px] text-ink-3">
-            Aucun dossier en attente.
+            {t("console.verif.noneWaiting")}
           </p>
         ) : (
           <div className="mt-3 space-y-4">
@@ -59,7 +61,7 @@ export function VerificationReview({ rows }: { rows: VerifRow[] }) {
       {history.length > 0 && (
         <section>
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Historique
+            {t("console.verif.history")}
           </h2>
           <ul className="mt-3 divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
             {history.map((r) => (
@@ -80,7 +82,7 @@ export function VerificationReview({ rows }: { rows: VerifRow[] }) {
                       : "bg-danger/12 text-danger"
                   }`}
                 >
-                  {r.status === "approved" ? "Validé" : "Refusé"}
+                  {r.status === "approved" ? t("console.verif.approved") : t("console.verif.rejected")}
                 </span>
               </li>
             ))}
@@ -93,6 +95,7 @@ export function VerificationReview({ rows }: { rows: VerifRow[] }) {
 
 function VerifCard({ row }: { row: VerifRow }) {
   const router = useRouter();
+  const { t } = useT();
   const [urls, setUrls] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState<"approve" | "reject" | null>(null);
   const [rejecting, setRejecting] = useState(false);
@@ -120,7 +123,7 @@ function VerifCard({ row }: { row: VerifRow }) {
   async function decide(decision: "approved" | "rejected") {
     setErr(null);
     if (decision === "rejected" && reason.trim().length < 4) {
-      setErr("Indiquez un motif de refus.");
+      setErr(t("console.verif.needReason"));
       return;
     }
     setBusy(decision === "approved" ? "approve" : "reject");
@@ -133,7 +136,7 @@ function VerifCard({ row }: { row: VerifRow }) {
       if (error) throw error;
       router.refresh();
     } catch {
-      setErr("Action impossible. Réessayez.");
+      setErr(t("console.verif.actionFailed"));
       setBusy(null);
     }
   }
@@ -147,24 +150,30 @@ function VerifCard({ row }: { row: VerifRow }) {
           <p className="text-[15px] font-medium text-ink">{row.client_name || row.legal_full_name}</p>
           <p className="text-[12.5px] text-ink-3">{row.client_email}</p>
         </div>
-        <p className="text-[12px] text-ink-3">Soumis le {formatDate(row.submitted_at)}</p>
+        <p className="text-[12px] text-ink-3">
+          {t("console.verif.submittedOn")} {formatDate(row.submitted_at)}
+        </p>
       </div>
 
       <dl className="mt-4 grid gap-x-6 gap-y-1.5 text-[13px] sm:grid-cols-2">
-        <Line label="Nom légal">{row.legal_full_name}</Line>
-        <Line label="Type">{DOC_LABEL[row.document_type] ?? row.document_type}</Line>
-        <Line label="N° document">{row.document_number}</Line>
-        <Line label="Naissance">{row.date_of_birth ?? "—"}</Line>
-        <Line label="Nationalité">{row.nationality ?? "—"}</Line>
-        <Line label="Expiration">{row.document_expiry ?? "—"}</Line>
+        <Line label={t("console.verif.legalName")}>{row.legal_full_name}</Line>
+        <Line label={t("console.verif.type")}>
+          {DOC_LABEL_KEY[row.document_type]
+            ? t(`console.verif.doc.${DOC_LABEL_KEY[row.document_type]}`)
+            : row.document_type}
+        </Line>
+        <Line label={t("console.verif.docNumber")}>{row.document_number}</Line>
+        <Line label={t("console.verif.birth")}>{row.date_of_birth ?? "—"}</Line>
+        <Line label={t("console.verif.nationality")}>{row.nationality ?? "—"}</Line>
+        <Line label={t("console.verif.expiry")}>{row.document_expiry ?? "—"}</Line>
       </dl>
 
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Doc label="Selfie" url={urls[row.selfie_path]} pdf={isPdf(row.selfie_path)} />
-        <Doc label="Pièce — recto" url={urls[row.document_front_path]} pdf={isPdf(row.document_front_path)} />
+        <Doc label={t("console.verif.selfie")} url={urls[row.selfie_path]} pdf={isPdf(row.selfie_path)} />
+        <Doc label={t("console.verif.docFront")} url={urls[row.document_front_path]} pdf={isPdf(row.document_front_path)} />
         {row.document_back_path && (
           <Doc
-            label="Pièce — verso"
+            label={t("console.verif.docBack")}
             url={urls[row.document_back_path]}
             pdf={isPdf(row.document_back_path)}
           />
@@ -177,7 +186,7 @@ function VerifCard({ row }: { row: VerifRow }) {
         <div className="mt-4">
           <input
             className="field"
-            placeholder="Motif du refus (visible par le client)"
+            placeholder={t("console.verif.reasonPlaceholder")}
             value={reason}
             onChange={(e) => setReason(e.target.value)}
           />
@@ -188,13 +197,13 @@ function VerifCard({ row }: { row: VerifRow }) {
               className="press flex h-9 items-center gap-1.5 rounded-full bg-danger px-4 text-[12.5px] font-medium text-bone disabled:opacity-50"
             >
               {busy === "reject" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <X className="h-3.5 w-3.5" />}
-              Confirmer le refus
+              {t("console.verif.confirmReject")}
             </button>
             <button
               onClick={() => setRejecting(false)}
               className="press h-9 rounded-full px-3 text-[12.5px] text-ink-3"
             >
-              Annuler
+              {t("console.action.cancel")}
             </button>
           </div>
         </div>
@@ -210,13 +219,13 @@ function VerifCard({ row }: { row: VerifRow }) {
             ) : (
               <ShieldCheck className="h-3.5 w-3.5" />
             )}
-            Valider l&apos;identité
+            {t("console.verif.approve")}
           </button>
           <button
             onClick={() => setRejecting(true)}
             className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-4 text-[12.5px] font-medium text-ink hover:border-danger/40 hover:text-danger"
           >
-            <X className="h-3.5 w-3.5" /> Refuser
+            <X className="h-3.5 w-3.5" /> {t("console.verif.reject")}
           </button>
         </div>
       )}

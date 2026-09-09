@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/app/ui";
 import { formatDate, formatXOF } from "@/lib/format";
+import { useT } from "@/lib/i18n/provider";
 
 type Order = {
   id: string;
@@ -23,6 +24,7 @@ type Order = {
 
 export function DemandeCard({ order, providers }: { order: Order; providers: { id: string; full_name: string }[] }) {
   const router = useRouter();
+  const { t } = useT();
   const [busy, setBusy] = useState(false);
   const [price, setPrice] = useState(order.price ? String(order.price) : "");
   const [when, setWhen] = useState(order.scheduled_for ? order.scheduled_for.slice(0, 16) : "");
@@ -51,7 +53,7 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
         <div>
           <p className="display text-[1.1rem] text-ink">{order.service_title}</p>
           <p className="text-[12.5px] text-ink-3">
-            {order.customer_name} · réf. {order.reference}
+            {order.customer_name} · {t("console.demandeCard.ref")} {order.reference}
             {order.scheduled_for ? ` · ${formatDate(order.scheduled_for)}` : ""}
           </p>
         </div>
@@ -71,7 +73,9 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
       )}
 
       {order.decline_reason && (
-        <p className="mt-2 text-[12.5px] text-danger">Refusé : {order.decline_reason}</p>
+        <p className="mt-2 text-[12.5px] text-danger">
+          {t("console.demandeCard.declined")} : {order.decline_reason}
+        </p>
       )}
 
       {/* actions selon le statut */}
@@ -82,7 +86,7 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
               <div className="flex items-center gap-2">
                 <input
                   type="number"
-                  placeholder="Prix (XOF)"
+                  placeholder={t("console.demandeCard.pricePlaceholder")}
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   className="field tnum h-10 max-w-[160px]"
@@ -95,10 +99,11 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
                 onClick={() => patch({ status: "accepted", price: order.pricing_mode === "fixed" ? order.price : Number(price) })}
                 className="press h-10 rounded-full bg-forest px-4 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
               >
-                Accepter{order.pricing_mode !== "fixed" && price ? ` · ${formatXOF(Number(price))}` : ""}
+                {t("console.demandeCard.accept")}
+                {order.pricing_mode !== "fixed" && price ? ` · ${formatXOF(Number(price))}` : ""}
               </button>
               <input
-                placeholder="Motif du refus"
+                placeholder={t("console.demandeCard.declineReason")}
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
                 className="field h-10 max-w-[200px] text-[13px]"
@@ -108,7 +113,7 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
                 onClick={() => patch({ status: "declined", decline_reason: reason })}
                 className="press h-10 rounded-full border border-line px-4 text-[13px] text-ink-2 hover:border-danger/40 disabled:opacity-50"
               >
-                Refuser
+                {t("console.demandeCard.decline")}
               </button>
             </div>
           </div>
@@ -124,7 +129,7 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
             />
             {providers.length > 0 && (
               <select value={provider} onChange={(e) => setProvider(e.target.value)} className="field h-10 max-w-[180px] text-[13px]">
-                <option value="">Prestataire…</option>
+                <option value="">{t("console.demandeCard.providerPlaceholder")}</option>
                 {providers.map((p) => (
                   <option key={p.id} value={p.id}>{p.full_name}</option>
                 ))}
@@ -141,7 +146,7 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
               }
               className="press h-10 rounded-full bg-forest px-4 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
             >
-              Planifier
+              {t("console.demandeCard.schedule")}
             </button>
           </div>
         )}
@@ -152,7 +157,7 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
             onClick={() => patch({ status: "in_progress" })}
             className="press h-10 rounded-full bg-forest px-4 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
           >
-            Démarrer la prestation
+            {t("console.demandeCard.start")}
           </button>
         )}
 
@@ -162,12 +167,12 @@ export function DemandeCard({ order, providers }: { order: Order; providers: { i
             onClick={() => patch({ status: "completed" })}
             className="press h-10 rounded-full bg-forest px-4 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
           >
-            Marquer terminé
+            {t("console.demandeCard.markDone")}
           </button>
         )}
 
         {["completed", "declined", "cancelled"].includes(order.status) && (
-          <p className="text-[12.5px] text-ink-3">Aucune action requise.</p>
+          <p className="text-[12.5px] text-ink-3">{t("console.demandeCard.noAction")}</p>
         )}
 
         {busy && <Loader2 className="mt-2 inline h-4 w-4 animate-spin text-ink-3" />}

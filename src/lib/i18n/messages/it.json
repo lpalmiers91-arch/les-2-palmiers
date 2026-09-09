@@ -309,6 +309,57 @@
       "nothingPending": "Niente in sospeso.",
       "reservation": "Prenotazione",
       "serviceRequest": "Richiesta di servizio"
+    },
+    "reservationActions": {
+      "cancel": "Annulla",
+      "checkIn": "Registra il check-in",
+      "checkOut": "Registra il check-out"
+    },
+    "demandeCard": {
+      "ref": "rif.",
+      "declined": "Rifiutato",
+      "pricePlaceholder": "Prezzo (XOF)",
+      "accept": "Accetta",
+      "declineReason": "Motivo del rifiuto",
+      "decline": "Rifiuta",
+      "providerPlaceholder": "Fornitore…",
+      "schedule": "Pianifica",
+      "start": "Avvia il servizio",
+      "markDone": "Segna come completato",
+      "noAction": "Nessuna azione richiesta.",
+      "filterActive": "Attive",
+      "filterAll": "Tutte",
+      "queueEmptyT": "Coda vuota",
+      "queueEmptyB": "Nessuna richiesta da gestire al momento."
+    },
+    "verif": {
+      "toProcess": "Da gestire",
+      "noneWaiting": "Nessuna pratica in sospeso.",
+      "history": "Cronologia",
+      "approved": "Convalidato",
+      "rejected": "Rifiutato",
+      "needReason": "Indica un motivo di rifiuto.",
+      "actionFailed": "Azione impossibile. Riprova.",
+      "submittedOn": "Inviato il",
+      "legalName": "Nome legale",
+      "type": "Tipo",
+      "docNumber": "N. documento",
+      "birth": "Nascita",
+      "nationality": "Nazionalità",
+      "expiry": "Scadenza",
+      "selfie": "Selfie",
+      "docFront": "Documento — fronte",
+      "docBack": "Documento — retro",
+      "reasonPlaceholder": "Motivo del rifiuto (visibile al cliente)",
+      "confirmReject": "Conferma il rifiuto",
+      "approve": "Convalida l'identità",
+      "reject": "Rifiuta",
+      "doc": {
+        "idCard": "Carta d'identità",
+        "passport": "Passaporto",
+        "residencePermit": "Permesso di soggiorno",
+        "driversLicense": "Patente di guida"
+      }
     }
   }
 }

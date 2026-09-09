@@ -309,6 +309,57 @@
       "nothingPending": "Nichts ausstehend.",
       "reservation": "Reservierung",
       "serviceRequest": "Serviceanfrage"
+    },
+    "reservationActions": {
+      "cancel": "Stornieren",
+      "checkIn": "Einchecken",
+      "checkOut": "Auschecken"
+    },
+    "demandeCard": {
+      "ref": "Ref.",
+      "declined": "Abgelehnt",
+      "pricePlaceholder": "Preis (XOF)",
+      "accept": "Annehmen",
+      "declineReason": "Ablehnungsgrund",
+      "decline": "Ablehnen",
+      "providerPlaceholder": "Dienstleister…",
+      "schedule": "Planen",
+      "start": "Leistung starten",
+      "markDone": "Als erledigt markieren",
+      "noAction": "Keine Aktion erforderlich.",
+      "filterActive": "Aktive",
+      "filterAll": "Alle",
+      "queueEmptyT": "Leere Warteschlange",
+      "queueEmptyB": "Derzeit keine Anfragen zu bearbeiten."
+    },
+    "verif": {
+      "toProcess": "Zu bearbeiten",
+      "noneWaiting": "Kein Vorgang ausstehend.",
+      "history": "Verlauf",
+      "approved": "Bestätigt",
+      "rejected": "Abgelehnt",
+      "needReason": "Bitte einen Ablehnungsgrund angeben.",
+      "actionFailed": "Aktion nicht möglich. Erneut versuchen.",
+      "submittedOn": "Eingereicht am",
+      "legalName": "Vollständiger Name",
+      "type": "Art",
+      "docNumber": "Dokument-Nr.",
+      "birth": "Geburt",
+      "nationality": "Staatsangehörigkeit",
+      "expiry": "Ablauf",
+      "selfie": "Selfie",
+      "docFront": "Dokument — Vorderseite",
+      "docBack": "Dokument — Rückseite",
+      "reasonPlaceholder": "Ablehnungsgrund (für den Kunden sichtbar)",
+      "confirmReject": "Ablehnung bestätigen",
+      "approve": "Identität bestätigen",
+      "reject": "Ablehnen",
+      "doc": {
+        "idCard": "Personalausweis",
+        "passport": "Reisepass",
+        "residencePermit": "Aufenthaltstitel",
+        "driversLicense": "Führerschein"
+      }
     }
   }
 }

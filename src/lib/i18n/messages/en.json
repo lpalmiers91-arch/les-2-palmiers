@@ -309,6 +309,57 @@
       "nothingPending": "Nothing pending.",
       "reservation": "Reservation",
       "serviceRequest": "Service request"
+    },
+    "reservationActions": {
+      "cancel": "Cancel",
+      "checkIn": "Check in",
+      "checkOut": "Check out"
+    },
+    "demandeCard": {
+      "ref": "ref.",
+      "declined": "Declined",
+      "pricePlaceholder": "Price (XOF)",
+      "accept": "Accept",
+      "declineReason": "Decline reason",
+      "decline": "Decline",
+      "providerPlaceholder": "Provider…",
+      "schedule": "Schedule",
+      "start": "Start the service",
+      "markDone": "Mark done",
+      "noAction": "No action required.",
+      "filterActive": "Active",
+      "filterAll": "All",
+      "queueEmptyT": "Empty queue",
+      "queueEmptyB": "No requests to handle right now."
+    },
+    "verif": {
+      "toProcess": "To process",
+      "noneWaiting": "No case pending.",
+      "history": "History",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "needReason": "Give a rejection reason.",
+      "actionFailed": "Action failed. Try again.",
+      "submittedOn": "Submitted on",
+      "legalName": "Legal name",
+      "type": "Type",
+      "docNumber": "Document no.",
+      "birth": "Birth",
+      "nationality": "Nationality",
+      "expiry": "Expiry",
+      "selfie": "Selfie",
+      "docFront": "Document — front",
+      "docBack": "Document — back",
+      "reasonPlaceholder": "Rejection reason (visible to the client)",
+      "confirmReject": "Confirm rejection",
+      "approve": "Approve identity",
+      "reject": "Reject",
+      "doc": {
+        "idCard": "ID card",
+        "passport": "Passport",
+        "residencePermit": "Residence permit",
+        "driversLicense": "Driver's license"
+      }
     }
   }
 }

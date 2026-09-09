@@ -309,6 +309,57 @@
       "nothingPending": "Nada pendiente.",
       "reservation": "Reserva",
       "serviceRequest": "Solicitud de servicio"
+    },
+    "reservationActions": {
+      "cancel": "Cancelar",
+      "checkIn": "Registrar entrada",
+      "checkOut": "Registrar salida"
+    },
+    "demandeCard": {
+      "ref": "ref.",
+      "declined": "Rechazado",
+      "pricePlaceholder": "Precio (XOF)",
+      "accept": "Aceptar",
+      "declineReason": "Motivo del rechazo",
+      "decline": "Rechazar",
+      "providerPlaceholder": "Proveedor…",
+      "schedule": "Programar",
+      "start": "Iniciar el servicio",
+      "markDone": "Marcar como hecho",
+      "noAction": "No se requiere ninguna acción.",
+      "filterActive": "Activas",
+      "filterAll": "Todas",
+      "queueEmptyT": "Cola vacía",
+      "queueEmptyB": "No hay solicitudes que gestionar por ahora."
+    },
+    "verif": {
+      "toProcess": "Por gestionar",
+      "noneWaiting": "Ningún expediente pendiente.",
+      "history": "Historial",
+      "approved": "Validado",
+      "rejected": "Rechazado",
+      "needReason": "Indica un motivo de rechazo.",
+      "actionFailed": "Acción imposible. Reinténtalo.",
+      "submittedOn": "Enviado el",
+      "legalName": "Nombre legal",
+      "type": "Tipo",
+      "docNumber": "N.º de documento",
+      "birth": "Nacimiento",
+      "nationality": "Nacionalidad",
+      "expiry": "Caducidad",
+      "selfie": "Selfi",
+      "docFront": "Documento — anverso",
+      "docBack": "Documento — reverso",
+      "reasonPlaceholder": "Motivo del rechazo (visible para el cliente)",
+      "confirmReject": "Confirmar el rechazo",
+      "approve": "Validar la identidad",
+      "reject": "Rechazar",
+      "doc": {
+        "idCard": "DNI",
+        "passport": "Pasaporte",
+        "residencePermit": "Permiso de residencia",
+        "driversLicense": "Carné de conducir"
+      }
     }
   }
 }

@@ -309,6 +309,57 @@
       "nothingPending": "Nada pendente.",
       "reservation": "Reserva",
       "serviceRequest": "Pedido de serviço"
+    },
+    "reservationActions": {
+      "cancel": "Cancelar",
+      "checkIn": "Registar entrada",
+      "checkOut": "Registar saída"
+    },
+    "demandeCard": {
+      "ref": "ref.",
+      "declined": "Recusado",
+      "pricePlaceholder": "Preço (XOF)",
+      "accept": "Aceitar",
+      "declineReason": "Motivo da recusa",
+      "decline": "Recusar",
+      "providerPlaceholder": "Prestador…",
+      "schedule": "Agendar",
+      "start": "Iniciar o serviço",
+      "markDone": "Marcar como concluído",
+      "noAction": "Nenhuma ação necessária.",
+      "filterActive": "Ativos",
+      "filterAll": "Todos",
+      "queueEmptyT": "Fila vazia",
+      "queueEmptyB": "Sem pedidos para tratar de momento."
+    },
+    "verif": {
+      "toProcess": "Para tratar",
+      "noneWaiting": "Nenhum processo pendente.",
+      "history": "Histórico",
+      "approved": "Validado",
+      "rejected": "Recusado",
+      "needReason": "Indique um motivo de recusa.",
+      "actionFailed": "Ação impossível. Tente de novo.",
+      "submittedOn": "Enviado a",
+      "legalName": "Nome legal",
+      "type": "Tipo",
+      "docNumber": "N.º do documento",
+      "birth": "Nascimento",
+      "nationality": "Nacionalidade",
+      "expiry": "Validade",
+      "selfie": "Selfie",
+      "docFront": "Documento — frente",
+      "docBack": "Documento — verso",
+      "reasonPlaceholder": "Motivo da recusa (visível para o cliente)",
+      "confirmReject": "Confirmar a recusa",
+      "approve": "Validar a identidade",
+      "reject": "Recusar",
+      "doc": {
+        "idCard": "Cartão de cidadão",
+        "passport": "Passaporte",
+        "residencePermit": "Título de residência",
+        "driversLicense": "Carta de condução"
+      }
     }
   }
 }
