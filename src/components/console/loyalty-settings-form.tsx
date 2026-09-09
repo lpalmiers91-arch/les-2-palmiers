@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Check, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
 type Tier = { name: string; min_points: number; perk: string };
 export type LoyaltySettings = {
@@ -16,6 +17,7 @@ export type LoyaltySettings = {
 
 export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
   const router = useRouter();
+  const { t } = useT();
   const [s, setS] = useState<LoyaltySettings>(initial);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -49,7 +51,7 @@ export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
   return (
     <form onSubmit={save} className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
       <label className="flex items-center justify-between">
-        <span className="text-[14px] font-medium text-ink">Programme de fidélité actif</span>
+        <span className="text-[14px] font-medium text-ink">{t("console.loyaltyForm.enabled")}</span>
         <input
           type="checkbox"
           checked={s.enabled}
@@ -59,7 +61,7 @@ export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
       </label>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-3">
-        <L label="1 point tous les… (XOF dépensés)">
+        <L label={t("console.loyaltyForm.perPoint")}>
           <input
             type="number"
             className="field tnum"
@@ -67,7 +69,7 @@ export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
             onChange={(e) => f("currency_per_point", Number(e.target.value))}
           />
         </L>
-        <L label="Bonus d'inscription">
+        <L label={t("console.loyaltyForm.signupBonus")}>
           <input
             type="number"
             className="field tnum"
@@ -75,7 +77,7 @@ export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
             onChange={(e) => f("signup_bonus", Number(e.target.value))}
           />
         </L>
-        <L label="Bonus par avis publié">
+        <L label={t("console.loyaltyForm.reviewBonus")}>
           <input
             type="number"
             className="field tnum"
@@ -86,14 +88,16 @@ export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
       </div>
 
       <div className="mt-6">
-        <span className="mb-2 block text-[13px] font-medium text-ink-2">Paliers</span>
+        <span className="mb-2 block text-[13px] font-medium text-ink-2">
+          {t("console.loyaltyForm.tiers")}
+        </span>
         <div className="space-y-2">
-          {s.tiers.map((t, i) => (
+          {s.tiers.map((tier, i) => (
             <div key={i} className="grid grid-cols-[1fr_90px_1.4fr_auto] items-center gap-2">
               <input
                 className="field"
-                placeholder="Nom"
-                value={t.name}
+                placeholder={t("console.loyaltyForm.tierName")}
+                value={tier.name}
                 onChange={(e) =>
                   f("tiers", s.tiers.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)))
                 }
@@ -101,8 +105,8 @@ export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
               <input
                 type="number"
                 className="field tnum"
-                placeholder="pts"
-                value={t.min_points}
+                placeholder={t("console.loyaltyForm.pts")}
+                value={tier.min_points}
                 onChange={(e) =>
                   f(
                     "tiers",
@@ -112,8 +116,8 @@ export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
               />
               <input
                 className="field"
-                placeholder="Avantage"
-                value={t.perk}
+                placeholder={t("console.loyaltyForm.perk")}
+                value={tier.perk}
                 onChange={(e) =>
                   f("tiers", s.tiers.map((x, j) => (j === i ? { ...x, perk: e.target.value } : x)))
                 }
@@ -132,7 +136,7 @@ export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
             onClick={() => f("tiers", [...s.tiers, { name: "", min_points: 0, perk: "" }])}
             className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-3 text-[12.5px] text-ink-2 hover:border-ink/30"
           >
-            <Plus className="h-3.5 w-3.5" /> Ajouter un palier
+            <Plus className="h-3.5 w-3.5" /> {t("console.loyaltyForm.addTier")}
           </button>
         </div>
       </div>
@@ -145,10 +149,10 @@ export function LoyaltySettingsForm({ initial }: { initial: LoyaltySettings }) {
         {saving && <Loader2 className="h-4 w-4 animate-spin" />}
         {saved ? (
           <>
-            <Check className="h-4 w-4" /> Enregistré
+            <Check className="h-4 w-4" /> {t("console.action.saved")}
           </>
         ) : (
-          "Enregistrer"
+          t("console.action.save")
         )}
       </button>
     </form>

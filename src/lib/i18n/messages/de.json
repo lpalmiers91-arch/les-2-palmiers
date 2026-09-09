@@ -397,6 +397,53 @@
       "otherInfo": "Weitere Infos",
       "extraLabel": "Bezeichnung",
       "extraValue": "Wert"
+    },
+    "loyaltyForm": {
+      "enabled": "Treueprogramm aktiv",
+      "perPoint": "1 Punkt pro… (ausgegebene XOF)",
+      "signupBonus": "Anmeldebonus",
+      "reviewBonus": "Bonus je veröffentlichter Bewertung",
+      "tiers": "Stufen",
+      "tierName": "Name",
+      "pts": "Pkt.",
+      "perk": "Vorteil",
+      "addTier": "Stufe hinzufügen"
+    },
+    "lists": {
+      "lifetimeCumulated": "gesamt",
+      "phoneMissing": "keine Telefonnummer",
+      "registeredOn": "beigetreten am",
+      "resAbbr": "Res.",
+      "ref": "Ref.",
+      "guestsAbbr": "Pers.",
+      "paidOf": "bezahlt",
+      "client": "Kunde",
+      "support": "Support",
+      "conversationReservation": "Reservierung",
+      "closed": "geschlossen",
+      "contractsLiveNote": "Jede Änderung erscheint sofort beim Kunden."
+    },
+    "stats": {
+      "teamActivity": "Teamaktivität",
+      "noTrackedActions": "Keine protokollierten Aktionen.",
+      "completed": "Abgeschlossen",
+      "declined": "Abgelehnt"
+    },
+    "settings": {
+      "phones": "Telefonnummern",
+      "legalPages": "Rechtliche Seiten",
+      "legalNote": "AGB, Datenschutz, Cookie-Richtlinie und Impressum sind im Modul „Inhalt“ bearbeitbar. Demo-Version: Standardtexte."
+    },
+    "team": {
+      "members": "Teammitglieder",
+      "assignRole": "Einem Kunden eine Rolle zuweisen",
+      "permsByRole": "Berechtigungen nach Rolle",
+      "systemActor": "System"
+    },
+    "audit": {
+      "insert": "Erstellung",
+      "update": "Änderung",
+      "delete": "Löschung"
     }
   }
 }

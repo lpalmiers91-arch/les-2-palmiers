@@ -397,6 +397,53 @@
       "otherInfo": "معلومات أخرى",
       "extraLabel": "التسمية",
       "extraValue": "القيمة"
+    },
+    "loyaltyForm": {
+      "enabled": "برنامج الولاء مفعّل",
+      "perPoint": "نقطة واحدة لكل… (XOF منفقة)",
+      "signupBonus": "مكافأة التسجيل",
+      "reviewBonus": "مكافأة لكل تقييم منشور",
+      "tiers": "المستويات",
+      "tierName": "الاسم",
+      "pts": "نقاط",
+      "perk": "الميزة",
+      "addTier": "إضافة مستوى"
+    },
+    "lists": {
+      "lifetimeCumulated": "تراكمية",
+      "phoneMissing": "لا رقم هاتف",
+      "registeredOn": "مسجّل في",
+      "resAbbr": "حجز",
+      "ref": "مرجع",
+      "guestsAbbr": "ضيوف",
+      "paidOf": "مدفوع",
+      "client": "عميل",
+      "support": "الدعم",
+      "conversationReservation": "حجز",
+      "closed": "مغلقة",
+      "contractsLiveNote": "يظهر أي تعديل فورًا لدى العميل."
+    },
+    "stats": {
+      "teamActivity": "نشاط الفريق",
+      "noTrackedActions": "لا إجراءات مسجّلة.",
+      "completed": "مكتملة",
+      "declined": "مرفوضة"
+    },
+    "settings": {
+      "phones": "الهواتف",
+      "legalPages": "الصفحات القانونية",
+      "legalNote": "الشروط وسياسة الخصوصية وسياسة ملفات تعريف الارتباط والإشعارات القانونية قابلة للتحرير في وحدة «المحتوى». نسخة تجريبية: نصوص افتراضية."
+    },
+    "team": {
+      "members": "أعضاء الفريق",
+      "assignRole": "إسناد دور إلى عميل",
+      "permsByRole": "الصلاحيات حسب الدور",
+      "systemActor": "النظام"
+    },
+    "audit": {
+      "insert": "إنشاء",
+      "update": "تعديل",
+      "delete": "حذف"
     }
   }
 }

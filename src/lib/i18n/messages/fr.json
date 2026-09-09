@@ -397,6 +397,53 @@
       "otherInfo": "Autres infos",
       "extraLabel": "Libellé",
       "extraValue": "Valeur"
+    },
+    "loyaltyForm": {
+      "enabled": "Programme de fidélité actif",
+      "perPoint": "1 point tous les… (XOF dépensés)",
+      "signupBonus": "Bonus d'inscription",
+      "reviewBonus": "Bonus par avis publié",
+      "tiers": "Paliers",
+      "tierName": "Nom",
+      "pts": "pts",
+      "perk": "Avantage",
+      "addTier": "Ajouter un palier"
+    },
+    "lists": {
+      "lifetimeCumulated": "cumulés",
+      "phoneMissing": "téléphone non renseigné",
+      "registeredOn": "inscrit le",
+      "resAbbr": "rés.",
+      "ref": "réf.",
+      "guestsAbbr": "pers.",
+      "paidOf": "réglés",
+      "client": "Client",
+      "support": "Support",
+      "conversationReservation": "Réservation",
+      "closed": "fermée",
+      "contractsLiveNote": "Toute modification s'affiche immédiatement chez le client."
+    },
+    "stats": {
+      "teamActivity": "Activité de l'équipe",
+      "noTrackedActions": "Aucune action tracée.",
+      "completed": "Terminées",
+      "declined": "Refusées"
+    },
+    "settings": {
+      "phones": "Téléphones",
+      "legalPages": "Pages légales",
+      "legalNote": "CGV, politique de confidentialité, politique cookies et mentions légales sont éditables dans le module « Contenu ». Version de démonstration : textes par défaut."
+    },
+    "team": {
+      "members": "Membres de l'équipe",
+      "assignRole": "Attribuer un rôle à un client",
+      "permsByRole": "Permissions par rôle",
+      "systemActor": "système"
+    },
+    "audit": {
+      "insert": "Création",
+      "update": "Modification",
+      "delete": "Suppression"
     }
   }
 }

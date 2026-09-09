@@ -397,6 +397,53 @@
       "otherInfo": "その他の情報",
       "extraLabel": "ラベル",
       "extraValue": "値"
+    },
+    "loyaltyForm": {
+      "enabled": "ロイヤルティプログラム有効",
+      "perPoint": "支出…（XOF）ごとに 1 ポイント",
+      "signupBonus": "登録ボーナス",
+      "reviewBonus": "公開レビューごとのボーナス",
+      "tiers": "ティア",
+      "tierName": "名称",
+      "pts": "pt",
+      "perk": "特典",
+      "addTier": "ティアを追加"
+    },
+    "lists": {
+      "lifetimeCumulated": "累計",
+      "phoneMissing": "電話番号未登録",
+      "registeredOn": "登録日",
+      "resAbbr": "予約",
+      "ref": "参照",
+      "guestsAbbr": "名",
+      "paidOf": "支払い済み",
+      "client": "顧客",
+      "support": "サポート",
+      "conversationReservation": "予約",
+      "closed": "終了",
+      "contractsLiveNote": "変更はすべて顧客側に即時反映されます。"
+    },
+    "stats": {
+      "teamActivity": "チームの活動",
+      "noTrackedActions": "記録された操作はありません。",
+      "completed": "完了",
+      "declined": "却下"
+    },
+    "settings": {
+      "phones": "電話番号",
+      "legalPages": "法的ページ",
+      "legalNote": "利用規約、プライバシーポリシー、Cookie ポリシー、特定商取引法表記は「コンテンツ」モジュールで編集できます。デモ版：既定のテキスト。"
+    },
+    "team": {
+      "members": "チームメンバー",
+      "assignRole": "顧客にロールを割り当てる",
+      "permsByRole": "ロール別の権限",
+      "systemActor": "システム"
+    },
+    "audit": {
+      "insert": "作成",
+      "update": "更新",
+      "delete": "削除"
     }
   }
 }

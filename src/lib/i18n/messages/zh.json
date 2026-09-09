@@ -397,6 +397,53 @@
       "otherInfo": "其他信息",
       "extraLabel": "名称",
       "extraValue": "内容"
+    },
+    "loyaltyForm": {
+      "enabled": "会员积分计划已启用",
+      "perPoint": "每消费…（XOF）得 1 分",
+      "signupBonus": "注册奖励",
+      "reviewBonus": "每条已发布评价奖励",
+      "tiers": "等级",
+      "tierName": "名称",
+      "pts": "分",
+      "perk": "权益",
+      "addTier": "添加等级"
+    },
+    "lists": {
+      "lifetimeCumulated": "累计",
+      "phoneMissing": "未填写电话",
+      "registeredOn": "注册于",
+      "resAbbr": "预订",
+      "ref": "编号",
+      "guestsAbbr": "位",
+      "paidOf": "已付",
+      "client": "客户",
+      "support": "客服",
+      "conversationReservation": "预订",
+      "closed": "已关闭",
+      "contractsLiveNote": "任何修改都会立即显示在客户端。"
+    },
+    "stats": {
+      "teamActivity": "团队活动",
+      "noTrackedActions": "没有记录的操作。",
+      "completed": "已完成",
+      "declined": "已拒绝"
+    },
+    "settings": {
+      "phones": "电话",
+      "legalPages": "法律页面",
+      "legalNote": "条款、隐私政策、Cookie 政策和法律声明可在“内容”模块中编辑。演示版本：默认文本。"
+    },
+    "team": {
+      "members": "团队成员",
+      "assignRole": "为客户分配角色",
+      "permsByRole": "按角色的权限",
+      "systemActor": "系统"
+    },
+    "audit": {
+      "insert": "创建",
+      "update": "修改",
+      "delete": "删除"
     }
   }
 }

@@ -40,23 +40,23 @@ export default async function StaffLoyalty() {
       {accounts && accounts.length > 0 && (
         <section className="mt-8">
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Comptes clients
+            {t("console.title.clients")}
           </h2>
           <ul className="mt-3 divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
             {accounts.map((a, i) => (
               <li key={i} className="flex items-center justify-between gap-3 px-5 py-3 text-[13px]">
                 <div>
                   <p className="text-ink">
-                    {(a.client as { full_name?: string } | null)?.full_name ?? "Client"}
+                    {(a.client as { full_name?: string } | null)?.full_name ?? t("console.lists.client")}
                   </p>
                   <p className="text-[11.5px] text-ink-3">
-                    {a.tier} · maj {formatDate(a.updated_at as string)}
+                    {a.tier} · {formatDate(a.updated_at as string)}
                   </p>
                 </div>
                 <span className="tnum text-[13px] font-medium text-ink">
-                  {a.points} pts
+                  {a.points} {t("console.loyaltyForm.pts")}
                   <span className="ml-1 text-[11px] font-normal text-ink-3">
-                    ({a.lifetime_points} cumulés)
+                    ({a.lifetime_points} {t("console.lists.lifetimeCumulated")})
                   </span>
                 </span>
               </li>

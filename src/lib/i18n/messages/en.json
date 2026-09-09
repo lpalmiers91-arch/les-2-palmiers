@@ -397,6 +397,53 @@
       "otherInfo": "Other info",
       "extraLabel": "Label",
       "extraValue": "Value"
+    },
+    "loyaltyForm": {
+      "enabled": "Loyalty program active",
+      "perPoint": "1 point per… (XOF spent)",
+      "signupBonus": "Signup bonus",
+      "reviewBonus": "Bonus per published review",
+      "tiers": "Tiers",
+      "tierName": "Name",
+      "pts": "pts",
+      "perk": "Perk",
+      "addTier": "Add a tier"
+    },
+    "lists": {
+      "lifetimeCumulated": "lifetime",
+      "phoneMissing": "no phone number",
+      "registeredOn": "joined",
+      "resAbbr": "res.",
+      "ref": "ref.",
+      "guestsAbbr": "guests",
+      "paidOf": "paid",
+      "client": "Client",
+      "support": "Support",
+      "conversationReservation": "Reservation",
+      "closed": "closed",
+      "contractsLiveNote": "Every change appears instantly on the client's side."
+    },
+    "stats": {
+      "teamActivity": "Team activity",
+      "noTrackedActions": "No tracked actions.",
+      "completed": "Completed",
+      "declined": "Declined"
+    },
+    "settings": {
+      "phones": "Phones",
+      "legalPages": "Legal pages",
+      "legalNote": "Terms, privacy policy, cookie policy and legal notice are editable in the “Content” module. Demo version: default texts."
+    },
+    "team": {
+      "members": "Team members",
+      "assignRole": "Assign a role to a client",
+      "permsByRole": "Permissions by role",
+      "systemActor": "system"
+    },
+    "audit": {
+      "insert": "Create",
+      "update": "Update",
+      "delete": "Delete"
     }
   }
 }

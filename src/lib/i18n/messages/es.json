@@ -397,6 +397,53 @@
       "otherInfo": "Otra información",
       "extraLabel": "Etiqueta",
       "extraValue": "Valor"
+    },
+    "loyaltyForm": {
+      "enabled": "Programa de fidelidad activo",
+      "perPoint": "1 punto por cada… (XOF gastados)",
+      "signupBonus": "Bono de registro",
+      "reviewBonus": "Bono por opinión publicada",
+      "tiers": "Niveles",
+      "tierName": "Nombre",
+      "pts": "pts",
+      "perk": "Ventaja",
+      "addTier": "Añadir un nivel"
+    },
+    "lists": {
+      "lifetimeCumulated": "acumulados",
+      "phoneMissing": "sin número de teléfono",
+      "registeredOn": "registrado el",
+      "resAbbr": "res.",
+      "ref": "ref.",
+      "guestsAbbr": "huésp.",
+      "paidOf": "pagados",
+      "client": "Cliente",
+      "support": "Soporte",
+      "conversationReservation": "Reserva",
+      "closed": "cerrada",
+      "contractsLiveNote": "Cada cambio aparece al instante para el cliente."
+    },
+    "stats": {
+      "teamActivity": "Actividad del equipo",
+      "noTrackedActions": "Sin acciones registradas.",
+      "completed": "Finalizadas",
+      "declined": "Rechazadas"
+    },
+    "settings": {
+      "phones": "Teléfonos",
+      "legalPages": "Páginas legales",
+      "legalNote": "Condiciones, política de privacidad, política de cookies y aviso legal se editan en el módulo «Contenido». Versión de demostración: textos por defecto."
+    },
+    "team": {
+      "members": "Miembros del equipo",
+      "assignRole": "Asignar un rol a un cliente",
+      "permsByRole": "Permisos por rol",
+      "systemActor": "sistema"
+    },
+    "audit": {
+      "insert": "Creación",
+      "update": "Modificación",
+      "delete": "Eliminación"
     }
   }
 }

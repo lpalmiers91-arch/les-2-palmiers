@@ -397,6 +397,53 @@
       "otherInfo": "Прочее",
       "extraLabel": "Название",
       "extraValue": "Значение"
+    },
+    "loyaltyForm": {
+      "enabled": "Программа лояльности активна",
+      "perPoint": "1 балл за каждые… (потрачено XOF)",
+      "signupBonus": "Бонус за регистрацию",
+      "reviewBonus": "Бонус за опубликованный отзыв",
+      "tiers": "Уровни",
+      "tierName": "Название",
+      "pts": "б.",
+      "perk": "Привилегия",
+      "addTier": "Добавить уровень"
+    },
+    "lists": {
+      "lifetimeCumulated": "всего",
+      "phoneMissing": "нет номера телефона",
+      "registeredOn": "регистрация",
+      "resAbbr": "брон.",
+      "ref": "№",
+      "guestsAbbr": "гост.",
+      "paidOf": "оплачено",
+      "client": "Клиент",
+      "support": "Поддержка",
+      "conversationReservation": "Бронь",
+      "closed": "закрыта",
+      "contractsLiveNote": "Любое изменение сразу отображается у клиента."
+    },
+    "stats": {
+      "teamActivity": "Активность команды",
+      "noTrackedActions": "Нет отслеживаемых действий.",
+      "completed": "Завершено",
+      "declined": "Отклонено"
+    },
+    "settings": {
+      "phones": "Телефоны",
+      "legalPages": "Юридические страницы",
+      "legalNote": "Условия, политика конфиденциальности, политика cookie и правовая информация редактируются в модуле «Контент». Демо-версия: тексты по умолчанию."
+    },
+    "team": {
+      "members": "Участники команды",
+      "assignRole": "Назначить роль клиенту",
+      "permsByRole": "Права по роли",
+      "systemActor": "система"
+    },
+    "audit": {
+      "insert": "Создание",
+      "update": "Изменение",
+      "delete": "Удаление"
     }
   }
 }
