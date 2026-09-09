@@ -1,6 +1,6 @@
 import { Hero } from "@/components/marketing/hero";
 import { Concierge } from "@/components/marketing/concierge";
-import { Apartment } from "@/components/marketing/apartment";
+import { ApartmentsPreview } from "@/components/marketing/apartments-preview";
 import { Services } from "@/components/marketing/services";
 import { Tourism } from "@/components/marketing/tourism";
 import { Reviews } from "@/components/marketing/reviews";
@@ -13,7 +13,7 @@ const COMPONENTS: Record<
 > = {
   hero: () => null, // Hero se charge lui-même (image prioritaire)
   concierge: ({ content }) => <Concierge content={content} />,
-  apartment: ({ content }) => <Apartment content={content} />,
+  apartment: ({ content }) => <ApartmentsPreview content={content} />,
   services: ({ content }) => <Services content={content} />,
   tourism: ({ content }) => <Tourism content={content} />,
   reviews: ({ content }) => <Reviews content={content} />,

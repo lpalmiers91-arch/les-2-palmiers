@@ -7,7 +7,8 @@
     "clientArea": "会員ページ",
     "book": "予約",
     "menu": "メニュー",
-    "close": "閉じる"
+    "close": "閉じる",
+    "apartments": "アパートメント"
   },
   "common": {
     "loading": "読み込み中…",

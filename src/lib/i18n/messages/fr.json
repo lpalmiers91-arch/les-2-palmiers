@@ -7,7 +7,8 @@
     "clientArea": "Espace client",
     "book": "Réserver",
     "menu": "Menu",
-    "close": "Fermer"
+    "close": "Fermer",
+    "apartments": "Appartements"
   },
   "common": {
     "loading": "Chargement…",

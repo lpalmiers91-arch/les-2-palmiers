@@ -2219,6 +2219,42 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      create_booking: {
+        Args: {
+          p_apartment: string
+          p_deposit_percent?: number
+          p_guests?: number
+          p_range: unknown
+          p_services?: string[]
+        }
+        Returns: {
+          amount_paid: number
+          apartment_id: string
+          cancellation: Json | null
+          created_at: string
+          currency: string
+          date_range: unknown
+          deposit_amount: number
+          discount_amount: number
+          fees: Json
+          guest_id: string
+          guests_count: number
+          id: string
+          nightly_price: number
+          nights: number | null
+          reference: string
+          source: string
+          status: string
+          total_amount: number
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "reservations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       create_reservation: {
         Args: {
           p_apartment: string

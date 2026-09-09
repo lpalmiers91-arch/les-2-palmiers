@@ -28,9 +28,9 @@ export function SiteHeader({
   const [open, setOpen] = useState(false);
 
   const links = [
-    { href: "/#appartement", label: t("nav.apartment") },
-    { href: "/#services", label: t("nav.services") },
-    { href: "/#le-lieu", label: t("nav.place") },
+    { href: "/appartements", label: t("nav.apartments") },
+    { href: "/services", label: t("nav.services") },
+    { href: "/le-lieu", label: t("nav.place") },
     { href: "/#contact", label: t("nav.contact") },
     ...navExtra,
   ];
