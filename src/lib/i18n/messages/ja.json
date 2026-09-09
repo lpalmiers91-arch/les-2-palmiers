@@ -157,7 +157,8 @@
       "statistics": "統計",
       "auditLog": "監査ログ",
       "team": "チームとアクセス",
-      "settings": "設定"
+      "settings": "設定",
+      "myAccount": "マイアカウント"
     },
     "action": {
       "signOut": "ログアウト",
@@ -675,5 +676,33 @@
       "action": "返金",
       "reason": "理由"
     }
+  },
+  "notifPrefs": {
+    "title": "通知",
+    "intro": "メッセージ・予約・支払いの通知方法を選びます。",
+    "inApp": "アプリ内",
+    "inAppHint": "ベルとバッジ — 常にオン。",
+    "email": "メール",
+    "emailHint": "イベントごとに要約メールを送信。",
+    "push": "プッシュ（スマホ）",
+    "pushHint": "アプリ外でもロック画面に通知。",
+    "unsupported": "お使いのブラウザはプッシュ通知に対応していません。",
+    "blocked": "ブラウザの設定で通知がブロックされています。許可してから再試行してください。",
+    "deviceOn": "このデバイスで通知が有効です。",
+    "activateDevice": "このデバイスで有効にする",
+    "sendTest": "テスト通知を送信",
+    "testSent": "テストを送信しました — 画面を確認してください"
+  },
+  "profileForm": {
+    "title": "マイアカウント",
+    "sub": "写真、連絡先、パスワード。",
+    "phone": "電話",
+    "changePhoto": "写真を変更",
+    "photoTooBig": "写真は 5 MB 以下にしてください。",
+    "photoFailed": "アップロードに失敗しました。",
+    "newPw": "新しいパスワード",
+    "changePw": "パスワードを変更",
+    "pwFailed": "パスワードを変更できませんでした。",
+    "pwOk": "パスワードを更新しました。"
   }
 }

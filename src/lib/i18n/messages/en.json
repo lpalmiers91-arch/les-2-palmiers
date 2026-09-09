@@ -157,7 +157,8 @@
       "statistics": "Statistics",
       "auditLog": "Audit log",
       "team": "Team & access",
-      "settings": "Settings"
+      "settings": "Settings",
+      "myAccount": "My account"
     },
     "action": {
       "signOut": "Sign out",
@@ -675,5 +676,33 @@
       "action": "Refund",
       "reason": "Reason"
     }
+  },
+  "notifPrefs": {
+    "title": "Notifications",
+    "intro": "Choose how you are alerted about messages, reservations and payments.",
+    "inApp": "In the app",
+    "inAppHint": "Bell and badges — always on.",
+    "email": "Email",
+    "emailHint": "A summary email for every event.",
+    "push": "Push (phone)",
+    "pushHint": "Alert on the lock screen, even outside the app.",
+    "unsupported": "Your browser does not support push notifications.",
+    "blocked": "Notifications are blocked in your browser settings. Allow them, then try again.",
+    "deviceOn": "Notifications enabled on this device.",
+    "activateDevice": "Enable on this device",
+    "sendTest": "Send a test notification",
+    "testSent": "Test sent — check your screen"
+  },
+  "profileForm": {
+    "title": "My account",
+    "sub": "Photo, contact details and password.",
+    "phone": "Phone",
+    "changePhoto": "Change photo",
+    "photoTooBig": "The photo must be under 5 MB.",
+    "photoFailed": "The upload failed.",
+    "newPw": "New password",
+    "changePw": "Change password",
+    "pwFailed": "Could not change the password.",
+    "pwOk": "Password updated."
   }
 }

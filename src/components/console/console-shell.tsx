@@ -25,6 +25,7 @@ import {
   LayoutTemplate,
   Wifi,
   FileSignature,
+  UserCog,
   type LucideIcon,
 } from "lucide-react";
 import { Mark } from "@/components/brand/mark";
@@ -155,13 +156,22 @@ export function ConsoleShell({
         ))}
       </nav>
       <div className="border-t border-line pt-3">
-        <div className="px-3 pb-1.5 text-[12px] text-ink-3">{userName}</div>
+        <Link
+          href={variant === "admin" ? "/admin/compte" : "/staff/compte"}
+          onClick={() => setOpen(false)}
+          className={`flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13px] transition-colors ${
+            pathname.endsWith("/compte") ? "bg-forest text-bone" : "text-ink-2 hover:bg-ink/5"
+          }`}
+        >
+          <UserCog className="h-4 w-4" strokeWidth={1.7} /> {t("console.nav.myAccount")}
+        </Link>
         <button
           onClick={signOut}
-          className="press flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13px] text-ink-2 hover:bg-ink/5"
+          className="press mt-0.5 flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13px] text-ink-2 hover:bg-ink/5"
         >
           <LogOut className="h-4 w-4" strokeWidth={1.7} /> {t("console.action.signOut")}
         </button>
+        <div className="px-3 pt-1.5 text-[11.5px] text-ink-3/80">{userName}</div>
       </div>
     </>
   );

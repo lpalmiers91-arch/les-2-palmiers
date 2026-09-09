@@ -42,7 +42,10 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       supabase.from("messages").select("id, sender_id, created_at").neq("sender_id", user.id),
       supabase.rpc("identity_status", { uid: user.id }),
     ]);
-  const aiOn = await aiSpaceEnabled("client");
+  const [aiOn, { data: loyaltyCfg }] = await Promise.all([
+    aiSpaceEnabled("client"),
+    supabase.from("loyalty_settings").select("enabled").eq("id", 1).maybeSingle(),
+  ]);
 
   // messages non lus = messages du staff sans accusé de lecture de ma part
   let unreadMessages = 0;
@@ -64,6 +67,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
         unreadMessages={unreadMessages}
         avatarUrl={profile?.avatar_url ?? null}
         identityStatus={typeof idStatus === "string" ? idStatus : "none"}
+        loyaltyEnabled={loyaltyCfg?.enabled ?? false}
       >
         {children}
         <LiveRefresh space="client" userId={user.id} />

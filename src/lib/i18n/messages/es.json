@@ -157,7 +157,8 @@
       "statistics": "Estadísticas",
       "auditLog": "Registro de auditoría",
       "team": "Equipo y accesos",
-      "settings": "Ajustes"
+      "settings": "Ajustes",
+      "myAccount": "Mi cuenta"
     },
     "action": {
       "signOut": "Cerrar sesión",
@@ -675,5 +676,33 @@
       "action": "Reembolsar",
       "reason": "Motivo"
     }
+  },
+  "notifPrefs": {
+    "title": "Notificaciones",
+    "intro": "Elige cómo quieres recibir avisos de mensajes, reservas y pagos.",
+    "inApp": "En la aplicación",
+    "inAppHint": "Campana e indicadores — siempre activo.",
+    "email": "Correo",
+    "emailHint": "Un correo resumen en cada evento.",
+    "push": "Push (teléfono)",
+    "pushHint": "Aviso en la pantalla bloqueada, incluso fuera de la app.",
+    "unsupported": "Tu navegador no admite notificaciones push.",
+    "blocked": "Las notificaciones están bloqueadas en los ajustes del navegador. Permítelas y vuelve a intentarlo.",
+    "deviceOn": "Notificaciones activadas en este dispositivo.",
+    "activateDevice": "Activar en este dispositivo",
+    "sendTest": "Enviar una notificación de prueba",
+    "testSent": "Prueba enviada — mira tu pantalla"
+  },
+  "profileForm": {
+    "title": "Mi cuenta",
+    "sub": "Foto, datos de contacto y contraseña.",
+    "phone": "Teléfono",
+    "changePhoto": "Cambiar la foto",
+    "photoTooBig": "La foto no debe superar 5 MB.",
+    "photoFailed": "La subida ha fallado.",
+    "newPw": "Nueva contraseña",
+    "changePw": "Cambiar la contraseña",
+    "pwFailed": "No se pudo cambiar la contraseña.",
+    "pwOk": "Contraseña actualizada."
   }
 }

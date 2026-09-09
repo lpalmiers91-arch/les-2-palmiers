@@ -11,6 +11,7 @@ import {
   MessageSquare,
   UserRound,
   ShieldCheck,
+  Gift,
   LogOut,
   Menu,
   X,
@@ -20,12 +21,11 @@ import { createClient } from "@/lib/supabase/client";
 import { PresenceProvider } from "@/lib/presence";
 import { NotificationBell } from "./notification-bell";
 
-const nav = [
+const baseNav = [
   { href: "/app", label: "Aperçu", icon: LayoutGrid, exact: true },
   { href: "/app/reservations", label: "Réservations", icon: CalendarDays },
   { href: "/app/services", label: "Services", icon: ConciergeBell },
   { href: "/app/messages", label: "Messagerie", icon: MessageSquare },
-  { href: "/app/compte", label: "Compte", icon: UserRound },
 ];
 
 type Notif = Parameters<typeof NotificationBell>[0]["initial"][number];
@@ -38,6 +38,7 @@ export function AppShell({
   unreadMessages = 0,
   avatarUrl = null,
   identityStatus = "none",
+  loyaltyEnabled = false,
 }: {
   children: React.ReactNode;
   userName: string;
@@ -46,12 +47,20 @@ export function AppShell({
   unreadMessages?: number;
   avatarUrl?: string | null;
   identityStatus?: string;
+  loyaltyEnabled?: boolean;
 }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const showVerify = identityStatus !== "approved";
+  const nav = [
+    ...baseNav,
+    ...(loyaltyEnabled
+      ? [{ href: "/app/fidelite", label: "Fidélité", icon: Gift, exact: false }]
+      : []),
+    { href: "/app/compte", label: "Compte", icon: UserRound },
+  ];
 
   const active = (href: string, exact?: boolean) =>
     exact ? pathname === href : pathname === href || pathname.startsWith(href + "/");

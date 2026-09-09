@@ -157,7 +157,8 @@
       "statistics": "Estatísticas",
       "auditLog": "Registo de auditoria",
       "team": "Equipa e acessos",
-      "settings": "Definições"
+      "settings": "Definições",
+      "myAccount": "A minha conta"
     },
     "action": {
       "signOut": "Terminar sessão",
@@ -675,5 +676,33 @@
       "action": "Reembolsar",
       "reason": "Motivo"
     }
+  },
+  "notifPrefs": {
+    "title": "Notificações",
+    "intro": "Escolha como é avisado sobre mensagens, reservas e pagamentos.",
+    "inApp": "Na aplicação",
+    "inAppHint": "Sino e indicadores — sempre ativo.",
+    "email": "E-mail",
+    "emailHint": "Um e-mail de resumo em cada evento.",
+    "push": "Push (telemóvel)",
+    "pushHint": "Alerta no ecrã bloqueado, mesmo fora da aplicação.",
+    "unsupported": "O seu navegador não suporta notificações push.",
+    "blocked": "As notificações estão bloqueadas nas definições do navegador. Autorize-as e tente de novo.",
+    "deviceOn": "Notificações ativadas neste dispositivo.",
+    "activateDevice": "Ativar neste dispositivo",
+    "sendTest": "Enviar uma notificação de teste",
+    "testSent": "Teste enviado — veja o seu ecrã"
+  },
+  "profileForm": {
+    "title": "A minha conta",
+    "sub": "Foto, dados de contacto e palavra-passe.",
+    "phone": "Telefone",
+    "changePhoto": "Mudar a foto",
+    "photoTooBig": "A foto não pode exceder 5 MB.",
+    "photoFailed": "O carregamento falhou.",
+    "newPw": "Nova palavra-passe",
+    "changePw": "Mudar a palavra-passe",
+    "pwFailed": "Não foi possível mudar a palavra-passe.",
+    "pwOk": "Palavra-passe atualizada."
   }
 }

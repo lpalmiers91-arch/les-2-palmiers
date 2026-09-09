@@ -157,7 +157,8 @@
       "statistics": "Statistiche",
       "auditLog": "Registro attività",
       "team": "Team e accessi",
-      "settings": "Impostazioni"
+      "settings": "Impostazioni",
+      "myAccount": "Il mio account"
     },
     "action": {
       "signOut": "Esci",
@@ -675,5 +676,33 @@
       "action": "Rimborsa",
       "reason": "Motivo"
     }
+  },
+  "notifPrefs": {
+    "title": "Notifiche",
+    "intro": "Scegli come essere avvisato di messaggi, prenotazioni e pagamenti.",
+    "inApp": "Nell'app",
+    "inAppHint": "Campanella e badge — sempre attivo.",
+    "email": "E-mail",
+    "emailHint": "Un'e-mail riepilogativa a ogni evento.",
+    "push": "Push (telefono)",
+    "pushHint": "Avviso sulla schermata di blocco, anche fuori dall'app.",
+    "unsupported": "Il tuo browser non supporta le notifiche push.",
+    "blocked": "Le notifiche sono bloccate nelle impostazioni del browser. Autorizzale e riprova.",
+    "deviceOn": "Notifiche attivate su questo dispositivo.",
+    "activateDevice": "Attiva su questo dispositivo",
+    "sendTest": "Invia una notifica di prova",
+    "testSent": "Prova inviata — guarda lo schermo"
+  },
+  "profileForm": {
+    "title": "Il mio account",
+    "sub": "Foto, contatti e password.",
+    "phone": "Telefono",
+    "changePhoto": "Cambia la foto",
+    "photoTooBig": "La foto non deve superare 5 MB.",
+    "photoFailed": "Il caricamento è fallito.",
+    "newPw": "Nuova password",
+    "changePw": "Cambia la password",
+    "pwFailed": "Impossibile cambiare la password.",
+    "pwOk": "Password aggiornata."
   }
 }

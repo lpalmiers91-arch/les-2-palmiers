@@ -157,7 +157,8 @@
       "statistics": "统计",
       "auditLog": "审计日志",
       "team": "团队与权限",
-      "settings": "设置"
+      "settings": "设置",
+      "myAccount": "我的账户"
     },
     "action": {
       "signOut": "退出登录",
@@ -675,5 +676,33 @@
       "action": "退款",
       "reason": "原因"
     }
+  },
+  "notifPrefs": {
+    "title": "通知",
+    "intro": "选择消息、预订和付款的提醒方式。",
+    "inApp": "应用内",
+    "inAppHint": "铃铛和小红点 — 始终开启。",
+    "email": "电子邮件",
+    "emailHint": "每次事件都会收到一封汇总邮件。",
+    "push": "推送（手机）",
+    "pushHint": "即使不在应用内，也会在锁屏上提醒。",
+    "unsupported": "您的浏览器不支持推送通知。",
+    "blocked": "浏览器设置已阻止通知。请允许后重试。",
+    "deviceOn": "已在此设备上启用通知。",
+    "activateDevice": "在此设备上启用",
+    "sendTest": "发送测试通知",
+    "testSent": "测试已发送 — 请查看屏幕"
+  },
+  "profileForm": {
+    "title": "我的账户",
+    "sub": "照片、联系方式和密码。",
+    "phone": "电话",
+    "changePhoto": "更换照片",
+    "photoTooBig": "照片不得超过 5 MB。",
+    "photoFailed": "上传失败。",
+    "newPw": "新密码",
+    "changePw": "修改密码",
+    "pwFailed": "无法修改密码。",
+    "pwOk": "密码已更新。"
   }
 }

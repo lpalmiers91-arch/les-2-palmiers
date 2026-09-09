@@ -155,17 +155,23 @@ export default async function AppHome() {
           unread={unread}
         />
         {loyaltyEnabled && (
-          <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
-            <div className="flex items-start gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bone-2 text-brass-2">
-                <Gift className="h-[18px] w-[18px]" strokeWidth={1.7} />
-              </span>
-              <div>
-                <p className="text-[14px] font-medium text-ink">Fidélité</p>
-                <p className="mt-0.5 text-[12.5px] text-ink-3">
-                  Palier <span className="font-medium text-ink">{loyalty?.tier ?? "Découverte"}</span>
-                </p>
+          <Link
+            href="/app/fidelite"
+            className="press block rounded-[var(--radius-lg)] border border-line bg-bone p-5 transition-colors hover:border-ink/20"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-bone-2 text-brass-2">
+                  <Gift className="h-[18px] w-[18px]" strokeWidth={1.7} />
+                </span>
+                <div>
+                  <p className="text-[14px] font-medium text-ink">Fidélité</p>
+                  <p className="mt-0.5 text-[12.5px] text-ink-3">
+                    Palier <span className="font-medium text-ink">{loyalty?.tier ?? "Découverte"}</span>
+                  </p>
+                </div>
               </div>
+              <ArrowRight className="h-4 w-4 shrink-0 text-ink-3" />
             </div>
             <p className="tnum mt-3 text-[1.9rem] font-medium text-ink">
               {loyalty?.points ?? 0}
@@ -176,7 +182,7 @@ export default async function AppHome() {
                 {nextTier.min_points - (loyalty?.points ?? 0)} points avant « {nextTier.name} »
               </p>
             )}
-          </div>
+          </Link>
         )}
       </div>
 

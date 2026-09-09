@@ -157,7 +157,8 @@
       "statistics": "Statistiken",
       "auditLog": "Prüfprotokoll",
       "team": "Team & Zugriff",
-      "settings": "Einstellungen"
+      "settings": "Einstellungen",
+      "myAccount": "Mein Konto"
     },
     "action": {
       "signOut": "Abmelden",
@@ -675,5 +676,33 @@
       "action": "Erstatten",
       "reason": "Grund"
     }
+  },
+  "notifPrefs": {
+    "title": "Benachrichtigungen",
+    "intro": "Legen Sie fest, wie Sie über Nachrichten, Reservierungen und Zahlungen informiert werden.",
+    "inApp": "In der App",
+    "inAppHint": "Glocke und Badges — immer aktiv.",
+    "email": "E-Mail",
+    "emailHint": "Eine Zusammenfassungs-E-Mail bei jedem Ereignis.",
+    "push": "Push (Telefon)",
+    "pushHint": "Hinweis auf dem Sperrbildschirm, auch außerhalb der App.",
+    "unsupported": "Ihr Browser unterstützt keine Push-Benachrichtigungen.",
+    "blocked": "Benachrichtigungen sind in den Browsereinstellungen blockiert. Erlauben Sie sie und versuchen Sie es erneut.",
+    "deviceOn": "Benachrichtigungen auf diesem Gerät aktiviert.",
+    "activateDevice": "Auf diesem Gerät aktivieren",
+    "sendTest": "Test-Benachrichtigung senden",
+    "testSent": "Test gesendet — sehen Sie auf Ihren Bildschirm"
+  },
+  "profileForm": {
+    "title": "Mein Konto",
+    "sub": "Foto, Kontaktdaten und Passwort.",
+    "phone": "Telefon",
+    "changePhoto": "Foto ändern",
+    "photoTooBig": "Das Foto darf höchstens 5 MB groß sein.",
+    "photoFailed": "Der Upload ist fehlgeschlagen.",
+    "newPw": "Neues Passwort",
+    "changePw": "Passwort ändern",
+    "pwFailed": "Passwort konnte nicht geändert werden.",
+    "pwOk": "Passwort aktualisiert."
   }
 }

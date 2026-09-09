@@ -4,6 +4,7 @@ import { ShieldCheck, ShieldAlert, ShieldQuestion, ArrowRight } from "lucide-rea
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle } from "@/components/app/ui";
 import { AccountForm } from "@/components/app/account-form";
+import { NotificationPrefs } from "@/components/app/notification-prefs";
 
 export const metadata: Metadata = { title: "Compte" };
 
@@ -17,7 +18,7 @@ export default async function ComptePage() {
     supabase
       .from("profiles")
       .select(
-        "full_name, phone, locale, avatar_url, address, city, country, postal_code, date_of_birth, nationality, bio",
+        "full_name, phone, locale, avatar_url, address, city, country, postal_code, date_of_birth, nationality, bio, preferences",
       )
       .eq("id", user!.id)
       .maybeSingle(),
@@ -31,12 +32,17 @@ export default async function ComptePage() {
   ]);
 
   const status = verif?.status ?? "none";
+  const notif = ((profile?.preferences ?? {}) as { notif?: { email?: boolean; push?: boolean } }).notif ?? {};
 
   return (
     <div className="mx-auto max-w-2xl">
       <PageTitle title="Votre compte" />
 
       <IdentityCard status={status} reason={verif?.rejection_reason ?? null} />
+
+      <div className="mt-8">
+        <NotificationPrefs initialEmail={notif.email !== false} initialPush={notif.push !== false} />
+      </div>
 
       <div className="mt-8">
         <AccountForm

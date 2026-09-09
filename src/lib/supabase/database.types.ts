@@ -752,6 +752,7 @@ export type Database = {
       loyalty_accounts: {
         Row: {
           client_id: string
+          credit_xof: number
           lifetime_points: number
           points: number
           tier: string
@@ -759,6 +760,7 @@ export type Database = {
         }
         Insert: {
           client_id: string
+          credit_xof?: number
           lifetime_points?: number
           points?: number
           tier?: string
@@ -766,6 +768,7 @@ export type Database = {
         }
         Update: {
           client_id?: string
+          credit_xof?: number
           lifetime_points?: number
           points?: number
           tier?: string
@@ -834,6 +837,8 @@ export type Database = {
           currency_per_point: number
           enabled: boolean
           id: number
+          min_redeem: number
+          redeem_per_point: number
           review_bonus: number
           signup_bonus: number
           tiers: Json
@@ -844,6 +849,8 @@ export type Database = {
           currency_per_point?: number
           enabled?: boolean
           id?: number
+          min_redeem?: number
+          redeem_per_point?: number
           review_bonus?: number
           signup_bonus?: number
           tiers?: Json
@@ -854,6 +861,8 @@ export type Database = {
           currency_per_point?: number
           enabled?: boolean
           id?: number
+          min_redeem?: number
+          redeem_per_point?: number
           review_bonus?: number
           signup_bonus?: number
           tiers?: Json
@@ -2355,6 +2364,10 @@ export type Database = {
         }
         Returns: undefined
       }
+      loyalty_take_credit: {
+        Args: { p_client: string; p_max: number }
+        Returns: number
+      }
       loyalty_tier_for: { Args: { pts: number }; Returns: string }
       moderate_review: {
         Args: {
@@ -2578,6 +2591,23 @@ export type Database = {
         Args: { p_apartment: string; p_guests?: number; p_range: unknown }
         Returns: Json
       }
+      redeem_loyalty: {
+        Args: { p_points: number }
+        Returns: {
+          client_id: string
+          credit_xof: number
+          lifetime_points: number
+          points: number
+          tier: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "loyalty_accounts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       review_identity_verification: {
         Args: { p_decision: string; p_id: string; p_reason?: string }
         Returns: {
@@ -2627,6 +2657,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      send_test_notification: { Args: never; Returns: undefined }
       set_notification_prefs: {
         Args: { p_email: boolean; p_push: boolean }
         Returns: undefined

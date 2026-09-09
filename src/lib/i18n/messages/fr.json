@@ -157,7 +157,8 @@
       "statistics": "Statistiques",
       "auditLog": "Journal d'audit",
       "team": "Équipe & accès",
-      "settings": "Paramètres"
+      "settings": "Paramètres",
+      "myAccount": "Mon compte"
     },
     "action": {
       "signOut": "Se déconnecter",
@@ -675,5 +676,33 @@
       "action": "Rembourser",
       "reason": "Motif"
     }
+  },
+  "notifPrefs": {
+    "title": "Notifications",
+    "intro": "Choisissez comment vous êtes prévenu des messages, réservations et paiements.",
+    "inApp": "Dans l'application",
+    "inAppHint": "Cloche et pastilles — toujours actif.",
+    "email": "E-mail",
+    "emailHint": "Un e-mail récapitulatif à chaque évènement.",
+    "push": "Push (téléphone)",
+    "pushHint": "Alerte sur l'écran verrouillé, même hors de l'application.",
+    "unsupported": "Votre navigateur ne prend pas en charge les notifications push.",
+    "blocked": "Les notifications sont bloquées dans les réglages du navigateur. Autorisez-les puis réessayez.",
+    "deviceOn": "Notifications activées sur cet appareil.",
+    "activateDevice": "Activer sur cet appareil",
+    "sendTest": "Recevoir une notification test",
+    "testSent": "Test envoyé — regardez votre écran"
+  },
+  "profileForm": {
+    "title": "Mon compte",
+    "sub": "Photo, coordonnées et mot de passe.",
+    "phone": "Téléphone",
+    "changePhoto": "Changer la photo",
+    "photoTooBig": "La photo ne doit pas dépasser 5 Mo.",
+    "photoFailed": "Le téléversement a échoué.",
+    "newPw": "Nouveau mot de passe",
+    "changePw": "Modifier le mot de passe",
+    "pwFailed": "Impossible de modifier le mot de passe.",
+    "pwOk": "Mot de passe mis à jour."
   }
 }
