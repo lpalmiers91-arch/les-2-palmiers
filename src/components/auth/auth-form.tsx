@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Loader2, Mail } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 type Mode = "signin" | "signup" | "reset";
@@ -24,10 +24,38 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
+  const [linkLoading, setLinkLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
 
   const c = copy[mode];
+
+  async function sendMagicLink() {
+    setError(null);
+    setNotice(null);
+    if (!/.+@.+\..+/.test(email)) {
+      setError("Saisissez d'abord votre adresse e-mail.");
+      return;
+    }
+    setLinkLoading(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          shouldCreateUser: true,
+          data: { full_name: name || undefined },
+          emailRedirectTo: `${location.origin}/auth/confirm?suite=${encodeURIComponent(suite)}`,
+        },
+      });
+      if (error) throw error;
+      setNotice("Lien envoyé. Ouvrez votre boîte mail et cliquez sur le lien pour vous connecter.");
+    } catch (err) {
+      setError(translate(err));
+    } finally {
+      setLinkLoading(false);
+    }
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -180,6 +208,28 @@ export function AuthForm({ mode }: { mode: Mode }) {
           {c.cta}
         </button>
       </form>
+
+      {mode !== "reset" && (
+        <div className="mt-5">
+          <div className="flex items-center gap-3 text-[12px] text-ink-3">
+            <span className="h-px flex-1 bg-line-soft" />
+            ou
+            <span className="h-px flex-1 bg-line-soft" />
+          </div>
+          <button
+            type="button"
+            onClick={sendMagicLink}
+            disabled={linkLoading}
+            className="press mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full border border-line text-[14px] font-medium text-ink transition-colors hover:border-ink/30 disabled:opacity-50"
+          >
+            {linkLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+            Recevoir un lien de connexion
+          </button>
+          <p className="mt-2 text-center text-[12px] text-ink-3">
+            Sans mot de passe — un lien vous est envoyé par e-mail.
+          </p>
+        </div>
+      )}
 
       <p className="mt-6 text-center text-[13px] text-ink-3">
         {mode === "signin" ? (
