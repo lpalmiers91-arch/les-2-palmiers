@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Check, ChevronDown } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { ServiceIcon } from "@/components/marketing/service-icon";
+import { formatXOF } from "@/lib/format";
 import { useT } from "@/lib/i18n/provider";
 
 type Service = {
@@ -90,7 +91,7 @@ export function ServiceCatalogueEditor({ services }: { services: Service[] }) {
                 </p>
                 <p className="text-[12px] text-ink-3">
                   {s.pricing_mode === "fixed" && s.base_price
-                    ? `${s.base_price.toLocaleString()} XOF / ${s.unit}`
+                    ? `${formatXOF(s.base_price)} / ${s.unit}`
                     : s.pricing_mode === "metered"
                       ? t("console.catEditor.metered")
                       : t("console.catEditor.quote")}{" "}
