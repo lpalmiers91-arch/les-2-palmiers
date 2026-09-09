@@ -114,9 +114,6 @@
     "passwordHint": "至少 8 个字符",
     "forgot": "忘记了？",
     "or": "或",
-    "magicLink": "获取登录链接",
-    "magicLinkHint": "无需密码 — 我们通过邮件向您发送链接。",
-    "magicLinkSent": "链接已发送。请打开邮箱并点击链接登录。",
     "noAccount": "还没有账户？",
     "haveAccount": "已有账户？",
     "createOne": "创建账户",
@@ -128,6 +125,7 @@
     "errNotConfirmed": "请先确认您的电子邮箱（链接已通过邮件发送）。",
     "errExists": "该邮箱已注册账户。",
     "errRate": "尝试次数过多。请几分钟后再试。",
-    "errShort": "密码至少需要 8 个字符。"
+    "errShort": "密码至少需要 8 个字符。",
+    "google": "使用 Google 继续"
   }
 }

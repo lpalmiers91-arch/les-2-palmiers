@@ -114,9 +114,6 @@
     "passwordHint": "8 caracteres mínimo",
     "forgot": "¿Olvidada?",
     "or": "o",
-    "magicLink": "Recibir un enlace de acceso",
-    "magicLinkHint": "Sin contraseña — te enviamos un enlace por correo.",
-    "magicLinkSent": "Enlace enviado. Abre tu correo y haz clic en el enlace para iniciar sesión.",
     "noAccount": "¿Aún no tienes cuenta?",
     "haveAccount": "¿Ya tienes cuenta?",
     "createOne": "Crear una cuenta",
@@ -128,6 +125,7 @@
     "errNotConfirmed": "Confirma primero tu correo electrónico (enlace recibido por email).",
     "errExists": "Ya existe una cuenta con este correo.",
     "errRate": "Demasiados intentos. Inténtalo de nuevo en unos minutos.",
-    "errShort": "La contraseña debe tener al menos 8 caracteres."
+    "errShort": "La contraseña debe tener al menos 8 caracteres.",
+    "google": "Continuar con Google"
   }
 }

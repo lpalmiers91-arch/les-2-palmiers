@@ -114,9 +114,6 @@
     "passwordHint": "8 characters minimum",
     "forgot": "Forgot?",
     "or": "or",
-    "magicLink": "Get a sign-in link",
-    "magicLinkHint": "No password — we email you a link.",
-    "magicLinkSent": "Link sent. Open your inbox and click the link to sign in.",
     "noAccount": "No account yet?",
     "haveAccount": "Already have an account?",
     "createOne": "Create an account",
@@ -128,6 +125,7 @@
     "errNotConfirmed": "Confirm your email address first (link sent by email).",
     "errExists": "An account already exists with this email.",
     "errRate": "Too many attempts. Try again in a few minutes.",
-    "errShort": "The password must be at least 8 characters."
+    "errShort": "The password must be at least 8 characters.",
+    "google": "Continue with Google"
   }
 }

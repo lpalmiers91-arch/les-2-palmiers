@@ -3,9 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Loader2, Mail } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useT } from "@/lib/i18n/provider";
+import { PasswordField } from "./password-field";
+import { GoogleButton } from "./google-button";
 
 type Mode = "signin" | "signup" | "reset";
 
@@ -26,38 +28,10 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
-  const [linkLoading, setLinkLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
 
   const c = copy[mode];
-
-  async function sendMagicLink() {
-    setError(null);
-    setNotice(null);
-    if (!/.+@.+\..+/.test(email)) {
-      setError(t("auth.errEmailFirst"));
-      return;
-    }
-    setLinkLoading(true);
-    try {
-      const supabase = createClient();
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          shouldCreateUser: true,
-          data: { full_name: name || undefined },
-          emailRedirectTo: `${location.origin}/auth/confirm?suite=${encodeURIComponent(suite)}`,
-        },
-      });
-      if (error) throw error;
-      setNotice(t("auth.magicLinkSent"));
-    } catch (err) {
-      setError(translateErr(err, t));
-    } finally {
-      setLinkLoading(false);
-    }
-  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -145,48 +119,38 @@ export function AuthForm({ mode }: { mode: Mode }) {
         </label>
 
         {mode !== "reset" && (
-          <label className="block">
-            <div className="mb-1.5 flex items-baseline justify-between">
-              <span className="text-[13px] font-medium text-ink-2">{t("auth.password")}</span>
-              {mode === "signin" && (
-                <Link href="/mot-de-passe" className="text-[12px] text-ink-3 underline underline-offset-2 hover:text-ink">
+          <PasswordField
+            label={t("auth.password")}
+            value={password}
+            onChange={setPassword}
+            autoComplete={mode === "signup" ? "new-password" : "current-password"}
+            placeholder={mode === "signup" ? t("auth.passwordHint") : "••••••••"}
+            hint={
+              mode === "signin" ? (
+                <Link
+                  href="/mot-de-passe"
+                  className="text-[12px] text-ink-3 underline underline-offset-2 hover:text-ink"
+                >
                   {t("auth.forgot")}
                 </Link>
-              )}
-            </div>
-            <input
-              type="password"
-              required
-              minLength={8}
-              className="field"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete={mode === "signup" ? "new-password" : "current-password"}
-              placeholder={mode === "signup" ? t("auth.passwordHint") : "••••••••"}
-            />
-          </label>
+              ) : undefined
+            }
+          />
         )}
 
         {mode === "signup" && (
-          <label className="block">
-            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-              {t("auth.passwordConfirm")}
-            </span>
-            <input
-              type="password"
-              required
-              minLength={8}
-              className="field"
+          <div>
+            <PasswordField
+              label={t("auth.passwordConfirm")}
               value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
+              onChange={setConfirm}
               autoComplete="new-password"
-              placeholder="••••••••"
-              aria-invalid={confirm.length > 0 && confirm !== password}
+              invalid={confirm.length > 0 && confirm !== password}
             />
             {confirm.length > 0 && confirm !== password && (
               <span className="mt-1.5 block text-[12px] text-danger">{t("auth.mismatch")}</span>
             )}
-          </label>
+          </div>
         )}
 
         {error && (
@@ -213,16 +177,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
             {t("auth.or")}
             <span className="h-px flex-1 bg-line-soft" />
           </div>
-          <button
-            type="button"
-            onClick={sendMagicLink}
-            disabled={linkLoading}
-            className="press mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full border border-line text-[14px] font-medium text-ink transition-colors hover:border-ink/30 disabled:opacity-50"
-          >
-            {linkLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
-            {t("auth.magicLink")}
-          </button>
-          <p className="mt-2 text-center text-[12px] text-ink-3">{t("auth.magicLinkHint")}</p>
+          <div className="mt-4">
+            <GoogleButton suite={suite} label={t("auth.google")} />
+          </div>
         </div>
       )}
 
