@@ -19,9 +19,20 @@ import {
 
 const PUBLIC_CONNECTION = new Set(["/connexion", "/inscription", "/mot-de-passe", "/equipe"]);
 
+// Domaine de déploiement Vercel : on redirige tout vers le domaine de marque.
+const LEGACY_HOST = "les-2-palmiers.vercel.app";
+const CANONICAL_ORIGIN = process.env.CANONICAL_ORIGIN?.trim() || "https://les2palmiers.site";
+
 export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const space = classify(path);
+
+  // 0. Domaine unique : l'URL *.vercel.app redirige vers le domaine de marque.
+  //    (/sw.js est déjà hors matcher, donc le service worker peut se mettre à jour.)
+  const host = (request.headers.get("host") || "").toLowerCase();
+  if (host === LEGACY_HOST) {
+    return NextResponse.redirect(new URL(path + request.nextUrl.search, CANONICAL_ORIGIN), 308);
+  }
 
   // 1. Cloisonnement par hôte (ne dépend pas de la session) ---------------
   if (hostSplitEnabled()) {
