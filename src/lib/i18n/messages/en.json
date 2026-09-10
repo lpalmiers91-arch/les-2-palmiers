@@ -45,7 +45,16 @@
     "checkAvailability": "Check availability",
     "nightsIncluded": "{nights} nights · cleaning included",
     "available": "Available",
-    "unavailable": "Not available for these dates"
+    "unavailable": "Not available for these dates",
+    "guestMinus": "One fewer guest",
+    "guestPlus": "One more guest",
+    "pickDates": "Choose your dates.",
+    "checking": "Checking…",
+    "nAvailable": "{n} apartments available",
+    "oneAvailable": "Available on these dates",
+    "fromLabel": "from",
+    "forNights": "/ {nights} nights",
+    "fullDates": "Fully booked on these dates. Try other days."
   },
   "cookie": {
     "text": "Cookies required for the site to work. With your consent, anonymous audience measurement.",

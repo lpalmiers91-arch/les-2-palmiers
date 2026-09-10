@@ -45,7 +45,16 @@
     "checkAvailability": "查看可订日期",
     "nightsIncluded": "{nights} 晚 · 含清洁",
     "available": "可预订",
-    "unavailable": "这些日期不可预订"
+    "unavailable": "这些日期不可预订",
+    "guestMinus": "减少一位",
+    "guestPlus": "增加一位",
+    "pickDates": "选择您的日期。",
+    "checking": "查询中…",
+    "nAvailable": "{n} 套公寓可预订",
+    "oneAvailable": "这些日期可预订",
+    "fromLabel": "低至",
+    "forNights": "/ {nights} 晚",
+    "fullDates": "这些日期已订满，请尝试其他日期。"
   },
   "cookie": {
     "text": "网站运行所必需的 Cookie。经您同意后，进行匿名访问量统计。",

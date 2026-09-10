@@ -45,7 +45,16 @@
     "checkAvailability": "Verfügbarkeit prüfen",
     "nightsIncluded": "{nights} Nächte · Reinigung inklusive",
     "available": "Verfügbar",
-    "unavailable": "An diesen Daten nicht verfügbar"
+    "unavailable": "An diesen Daten nicht verfügbar",
+    "guestMinus": "Ein Gast weniger",
+    "guestPlus": "Ein Gast mehr",
+    "pickDates": "Wählen Sie Ihre Daten.",
+    "checking": "Prüfe…",
+    "nAvailable": "{n} Apartments verfügbar",
+    "oneAvailable": "An diesen Daten verfügbar",
+    "fromLabel": "ab",
+    "forNights": "/ {nights} Nächte",
+    "fullDates": "Ausgebucht an diesen Daten. Andere Tage versuchen."
   },
   "cookie": {
     "text": "Für den Betrieb notwendige Cookies. Mit Ihrer Zustimmung eine anonyme Reichweitenmessung.",

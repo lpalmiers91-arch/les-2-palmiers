@@ -45,7 +45,16 @@
     "checkAvailability": "Ver disponibilidad",
     "nightsIncluded": "{nights} noches · limpieza incluida",
     "available": "Disponible",
-    "unavailable": "No disponible en estas fechas"
+    "unavailable": "No disponible en estas fechas",
+    "guestMinus": "Un huésped menos",
+    "guestPlus": "Un huésped más",
+    "pickDates": "Elija sus fechas.",
+    "checking": "Comprobando…",
+    "nAvailable": "{n} apartamentos disponibles",
+    "oneAvailable": "Disponible en estas fechas",
+    "fromLabel": "desde",
+    "forNights": "/ {nights} noches",
+    "fullDates": "Completo en estas fechas. Pruebe otros días."
   },
   "cookie": {
     "text": "Cookies necesarias para el funcionamiento. Con tu consentimiento, una medición de audiencia anónima.",

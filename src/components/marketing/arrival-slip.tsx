@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { apartmentFallback } from "@/lib/site";
+import { site } from "@/lib/site";
 import { easeOut } from "@/lib/motion";
 import { useT } from "@/lib/i18n/provider";
 import { useCurrency } from "@/lib/currency";
@@ -16,33 +16,40 @@ function isoPlus(days: number) {
   return d.toISOString().slice(0, 10);
 }
 
-type Quote = {
-  nights: number;
-  total: number;
-  available: boolean;
-  lodging_subtotal: number;
-  cleaning_fee: number;
-  discount_amount: number;
-} | null;
+type Apt = { id: string; base_price: number; capacity: number };
 
 export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
   const router = useRouter();
   const { t } = useT();
   const { price } = useCurrency();
-  // état initial stable (SSR = client). Les dates réelles sont posées au montage.
+
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [guests, setGuests] = useState(2);
-
-  useEffect(() => {
-    setStart((s) => s || isoPlus(14));
-    setEnd((e) => e || isoPlus(18));
-  }, []);
-  const [quote, setQuote] = useState<Quote>(null);
+  const [apts, setApts] = useState<Apt[]>([]);
+  const [result, setResult] = useState<{ available: number; minTotal: number; minNightly: number } | null>(null);
   const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
   const seq = useRef(0);
 
+  // dates par défaut : ~1 mois plus tard (fenêtre libre)
+  useEffect(() => {
+    setStart((s) => s || isoPlus(30));
+    setEnd((e) => e || isoPlus(34));
+  }, []);
+
+  useEffect(() => {
+    createClient()
+      .from("apartments")
+      .select("id, base_price, capacity")
+      .eq("status", "published")
+      .order("base_price")
+      .then(({ data }) => setApts((data ?? []) as Apt[]));
+  }, []);
+
+  const maxGuests = useMemo(
+    () => Math.max(4, ...apts.map((a) => a.capacity || 0)),
+    [apts],
+  );
   const nights = useMemo(() => {
     if (!start || !end) return 0;
     const a = new Date(start).getTime();
@@ -51,53 +58,43 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
     return Math.max(0, Math.round((b - a) / 86_400_000));
   }, [start, end]);
 
+  // quote de chaque appartement pour les dates choisies
   useEffect(() => {
-    if (!start || !end) return;
-    if (nights < 1) {
-      setQuote(null);
-      setErr(new Date(end) <= new Date(start) ? t("arrival.unavailable") : null);
+    if (!start || !end || nights < 1 || apts.length === 0) {
+      setResult(null);
       return;
     }
-    setErr(null);
     const id = ++seq.current;
     setLoading(true);
     const timer = setTimeout(async () => {
       try {
         const supabase = createClient();
-        const { data: apt } = await supabase
-          .from("apartments")
-          .select("id")
-          .eq("status", "published")
-          .limit(1)
-          .maybeSingle();
-        if (!apt) throw new Error("indispo");
-        const { data, error } = await supabase.rpc("quote_stay", {
-          p_apartment: apt.id,
-          p_range: `[${start},${end})`,
-          p_guests: guests,
-        });
+        const quotes = await Promise.all(
+          apts.map((a) =>
+            supabase
+              .rpc("quote_stay", { p_apartment: a.id, p_range: `[${start},${end})`, p_guests: guests })
+              .then(({ data }) => data as { available?: boolean; total?: number } | null),
+          ),
+        );
         if (id !== seq.current) return;
-        if (error) throw error;
-        setQuote(data as Quote);
+        const ok = quotes.filter((q) => q?.available && typeof q.total === "number") as { total: number }[];
+        if (ok.length > 0) {
+          const minTotal = Math.min(...ok.map((q) => q.total));
+          setResult({ available: ok.length, minTotal, minNightly: Math.round(minTotal / nights) });
+        } else {
+          setResult({ available: 0, minTotal: 0, minNightly: 0 });
+        }
       } catch {
         if (id === seq.current) {
-          // repli : estimation locale
-          const sub = nights * apartmentFallback.base_price;
-          setQuote({
-            nights,
-            lodging_subtotal: sub,
-            cleaning_fee: apartmentFallback.cleaning_fee,
-            discount_amount: 0,
-            total: sub + apartmentFallback.cleaning_fee,
-            available: true,
-          });
+          const nightly = Math.min(...apts.map((a) => a.base_price));
+          setResult({ available: apts.length, minTotal: nightly * nights, minNightly: nightly });
         }
       } finally {
         if (id === seq.current) setLoading(false);
       }
     }, 320);
     return () => clearTimeout(timer);
-  }, [start, end, guests, nights, t]);
+  }, [start, end, guests, nights, apts]);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -115,11 +112,13 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
     <form
       onSubmit={submit}
       className={`w-full max-w-sm rounded-[var(--radius-lg)] p-5 sm:p-6 ${shell}`}
-      aria-label="Vérifier les disponibilités"
+      aria-label={t("arrival.title")}
     >
       <div className="flex items-baseline justify-between border-b border-ink/15 pb-3">
         <span className="display text-[15px] text-ink">{t("arrival.title")}</span>
-        <span className="text-[12px] text-ink-3">Cotonou · Bénin</span>
+        <span className="text-[12px] text-ink-3">
+          {site.city} · {site.country}
+        </span>
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
@@ -127,8 +126,15 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
           <input
             type="date"
             value={start}
-            min={isoPlus(0)}
-            onChange={(e) => setStart(e.target.value)}
+            min={isoPlus(1)}
+            onChange={(e) => {
+              setStart(e.target.value);
+              if (end && new Date(end) <= new Date(e.target.value)) {
+                const d = new Date(e.target.value);
+                d.setDate(d.getDate() + 3);
+                setEnd(d.toISOString().slice(0, 10));
+              }
+            }}
             className="slip-input"
           />
         </Field>
@@ -136,7 +142,7 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
           <input
             type="date"
             value={end}
-            min={start}
+            min={start ? isoPlus(1) : isoPlus(2)}
             onChange={(e) => setEnd(e.target.value)}
             className="slip-input"
           />
@@ -148,10 +154,13 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
           <div className="flex items-center justify-between">
             <span className="tnum text-[15px] text-ink">{guests}</span>
             <div className="flex gap-1.5">
-              <StepBtn onClick={() => setGuests((g) => Math.max(1, g - 1))} label="Retirer un voyageur">
+              <StepBtn onClick={() => setGuests((g) => Math.max(1, g - 1))} label={t("arrival.guestMinus")}>
                 −
               </StepBtn>
-              <StepBtn onClick={() => setGuests((g) => Math.min(4, g + 1))} label="Ajouter un voyageur">
+              <StepBtn
+                onClick={() => setGuests((g) => Math.min(maxGuests, g + 1))}
+                label={t("arrival.guestPlus")}
+              >
                 +
               </StepBtn>
             </div>
@@ -161,43 +170,37 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
 
       <div className="mt-4 min-h-[62px] border-t border-dashed border-ink/25 pt-3">
         <AnimatePresence mode="wait" initial={false}>
-          {err ? (
-            <motion.p
-              key="err"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-[13px] text-danger"
-            >
-              {err}
+          {nights < 1 ? (
+            <motion.p key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[13px] text-ink-3">
+              {t("arrival.pickDates")}
             </motion.p>
-          ) : quote && nights >= 1 ? (
+          ) : result === null || loading ? (
+            <motion.p key="load" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2 text-[13px] text-ink-3">
+              <Loader2 className="h-3.5 w-3.5 animate-spin" /> {t("arrival.checking")}
+            </motion.p>
+          ) : result.available > 0 ? (
             <motion.div
-              key={`q-${quote.total}`}
+              key={`ok-${result.minTotal}`}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.35, ease: easeOut }}
+              transition={{ duration: 0.3, ease: easeOut }}
             >
-              <div className="flex items-baseline justify-between text-[13px] text-ink-3">
-                <span>{t("arrival.nightsIncluded", { nights: quote.nights })}</span>
-                {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
-              </div>
-              <div className="mt-1 flex items-baseline justify-between">
-                <span className="tnum display text-[22px] text-ink">
-                  {price(quote.total)}
-                </span>
-                {quote.available ? (
-                  <span className="text-[12px] font-medium text-ok">{t("arrival.available")}</span>
-                ) : (
-                  <span className="text-[12px] font-medium text-danger">{t("arrival.unavailable")}</span>
-                )}
-              </div>
+              <p className="text-[13px] font-medium text-ok">
+                {apts.length > 1
+                  ? t("arrival.nAvailable", { n: result.available })
+                  : t("arrival.oneAvailable")}
+              </p>
+              <p className="mt-1 flex items-baseline gap-1.5">
+                <span className="text-[12px] text-ink-3">{t("arrival.fromLabel")}</span>
+                <span className="tnum display text-[20px] text-ink">{price(result.minTotal)}</span>
+                <span className="text-[12px] text-ink-3">{t("arrival.forNights", { nights })}</span>
+              </p>
             </motion.div>
           ) : (
-            <p key="idle" className="text-[13px] text-ink-3">
-              {t("arrival.checkAvailability")}
-            </p>
+            <motion.p key="full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[13px] text-ink-2">
+              {t("arrival.fullDates")}
+            </motion.p>
           )}
         </AnimatePresence>
       </div>
@@ -217,9 +220,7 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block rounded-[10px] bg-bone-2/70 px-3 py-2">
-      <span className="block text-[11px] font-medium uppercase tracking-[0.14em] text-ink-3">
-        {label}
-      </span>
+      <span className="block text-[11px] font-medium uppercase tracking-[0.14em] text-ink-3">{label}</span>
       <div className="mt-1">{children}</div>
     </label>
   );

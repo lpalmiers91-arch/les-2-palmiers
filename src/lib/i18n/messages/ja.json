@@ -45,7 +45,16 @@
     "checkAvailability": "空室を確認",
     "nightsIncluded": "{nights}泊 · 清掃込み",
     "available": "予約可能",
-    "unavailable": "この日程は予約できません"
+    "unavailable": "この日程は予約できません",
+    "guestMinus": "1 名減らす",
+    "guestPlus": "1 名増やす",
+    "pickDates": "日程をお選びください。",
+    "checking": "確認中…",
+    "nAvailable": "空室 {n} 件",
+    "oneAvailable": "この日程で空室あり",
+    "fromLabel": "〜",
+    "forNights": "/ {nights} 泊",
+    "fullDates": "この日程は満室です。別の日程をお試しください。"
   },
   "cookie": {
     "text": "サイトの動作に必要なCookieを使用します。同意いただいた場合は匿名のアクセス測定を行います。",

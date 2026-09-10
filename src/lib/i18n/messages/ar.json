@@ -45,7 +45,16 @@
     "checkAvailability": "عرض التوفّر",
     "nightsIncluded": "{nights} ليالٍ · التنظيف مشمول",
     "available": "متاح",
-    "unavailable": "غير متاح في هذه التواريخ"
+    "unavailable": "غير متاح في هذه التواريخ",
+    "guestMinus": "ضيف أقل",
+    "guestPlus": "ضيف إضافي",
+    "pickDates": "اختر تواريخك.",
+    "checking": "جارٍ التحقق…",
+    "nAvailable": "{n} شقق متاحة",
+    "oneAvailable": "متاح في هذه التواريخ",
+    "fromLabel": "من",
+    "forNights": "/ {nights} ليالٍ",
+    "fullDates": "محجوز بالكامل في هذه التواريخ. جرّب أيامًا أخرى."
   },
   "cookie": {
     "text": "ملفات تعريف الارتباط اللازمة لعمل الموقع. وبموافقتك، قياس مجهول لعدد الزوّار.",
