@@ -25,5 +25,22 @@ export function Analytics() {
     return () => document.removeEventListener("click", onClick, { capture: true });
   }, []);
 
+  // page de sortie : dernière page vue avant de quitter l'onglet
+  useEffect(() => {
+    let sent = false;
+    function leave() {
+      if (sent) return;
+      sent = true;
+      track("page_leave", {}, window.location.pathname);
+    }
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") leave();
+    });
+    window.addEventListener("pagehide", leave);
+    return () => {
+      window.removeEventListener("pagehide", leave);
+    };
+  }, []);
+
   return null;
 }

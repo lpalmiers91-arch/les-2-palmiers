@@ -164,7 +164,8 @@
       "settings": "Settings",
       "myAccount": "My account",
       "analytics": "Analytics",
-      "contactInbox": "Contact"
+      "contactInbox": "Contact",
+      "seo": "SEO"
     },
     "action": {
       "signOut": "Sign out",
@@ -712,7 +713,11 @@
       "fVisitors": "Unique visitors",
       "fOpenReserve": "Open /reserver",
       "fClickBook": "Click “book”",
-      "fBookings": "Bookings created"
+      "fBookings": "Bookings created",
+      "countries": "Visitor countries",
+      "sessionsShort": "sess.",
+      "exitPages": "Exit pages",
+      "exitHint": "Last page viewed before leaving the site."
     }
   },
   "notifPrefs": {
@@ -1412,5 +1417,54 @@
     "pwHint": "8 characters minimum",
     "confirm": "Confirm",
     "changePassword": "Change password"
+  },
+  "aiDraft": {
+    "draft": "Draft with AI",
+    "redo": "Rewrite",
+    "writing": "Writing…",
+    "error": "Draft unavailable right now."
+  },
+  "seo": {
+    "title": "SEO & search",
+    "sub": "Tune the title, description and keywords of every page.",
+    "tab": {
+      "pages": "Pages",
+      "settings": "Settings",
+      "diag": "Diagnostics"
+    },
+    "noIndex": "No-index",
+    "metaTitle": "Title (<title> tag)",
+    "metaDescription": "Description (meta description)",
+    "titlePlaceholder": "{label} — Les 2 Palmiers",
+    "save": "Save",
+    "saved": "Saved",
+    "keywords": "Target keywords",
+    "keywordsHint": "Comma-separated. Used in the site metadata.",
+    "defaultDesc": "Default description",
+    "priceRange": "Price range (structured data)",
+    "twitter": "X / Twitter handle",
+    "googleVerif": "Google Search Console verification",
+    "googleVerifHint": "Paste the code Google provides. Added to the site <head>.",
+    "richResults": "Rich Results Test",
+    "route": {
+      "home": "Home",
+      "apartments": "Apartments list",
+      "services": "Services",
+      "place": "The location",
+      "contact": "Contact"
+    },
+    "check": {
+      "sitemap": "XML sitemap published",
+      "robots": "robots.txt in place",
+      "jsonld": "Structured data (JSON-LD) present",
+      "homeMeta": "Custom title and description for the homepage",
+      "aptSummaries": "Every apartment has a summary",
+      "aptSummariesDetail": "{n} apartment(s) without a summary",
+      "keywords": "At least 3 target keywords set",
+      "ogImages": "Social share images (Open Graph) generated",
+      "canonical": "Canonical URLs declared",
+      "https": "HTTPS enforced (HSTS)",
+      "descLengths": "Descriptions within the right length (80–170)"
+    }
   }
 }

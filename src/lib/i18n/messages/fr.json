@@ -164,7 +164,8 @@
       "settings": "Paramètres",
       "myAccount": "Mon compte",
       "analytics": "Suivi & données",
-      "contactInbox": "Contact"
+      "contactInbox": "Contact",
+      "seo": "SEO"
     },
     "action": {
       "signOut": "Se déconnecter",
@@ -712,7 +713,11 @@
       "fVisitors": "Visiteurs uniques",
       "fOpenReserve": "Ouvrent /reserver",
       "fClickBook": "Cliquent « réserver »",
-      "fBookings": "Réservations créées"
+      "fBookings": "Réservations créées",
+      "countries": "Pays des visiteurs",
+      "sessionsShort": "sess.",
+      "exitPages": "Pages de sortie",
+      "exitHint": "Dernière page vue avant de quitter le site."
     }
   },
   "notifPrefs": {
@@ -1412,5 +1417,54 @@
     "pwHint": "8 caractères minimum",
     "confirm": "Confirmer",
     "changePassword": "Modifier le mot de passe"
+  },
+  "aiDraft": {
+    "draft": "Rédiger avec l'IA",
+    "redo": "Reformuler",
+    "writing": "Rédaction…",
+    "error": "Brouillon indisponible pour le moment."
+  },
+  "seo": {
+    "title": "SEO & référencement",
+    "sub": "Travaillez le titre, la description et les mots-clés de chaque page.",
+    "tab": {
+      "pages": "Pages",
+      "settings": "Réglages",
+      "diag": "Diagnostic"
+    },
+    "noIndex": "Ne pas indexer",
+    "metaTitle": "Titre (balise <title>)",
+    "metaDescription": "Description (meta description)",
+    "titlePlaceholder": "{label} — Les 2 Palmiers",
+    "save": "Enregistrer",
+    "saved": "Enregistré",
+    "keywords": "Mots-clés cibles",
+    "keywordsHint": "Séparés par des virgules. Utilisés dans les métadonnées du site.",
+    "defaultDesc": "Description par défaut",
+    "priceRange": "Gamme de prix (données structurées)",
+    "twitter": "Compte X / Twitter",
+    "googleVerif": "Vérification Google Search Console",
+    "googleVerifHint": "Collez le code fourni par Google. Ajouté dans le <head> du site.",
+    "richResults": "Test de résultats enrichis",
+    "route": {
+      "home": "Accueil",
+      "apartments": "Liste des appartements",
+      "services": "Services",
+      "place": "Le lieu",
+      "contact": "Contact"
+    },
+    "check": {
+      "sitemap": "Sitemap XML publié",
+      "robots": "Fichier robots.txt en place",
+      "jsonld": "Données structurées (JSON-LD) présentes",
+      "homeMeta": "Titre et description personnalisés pour l'accueil",
+      "aptSummaries": "Chaque appartement a un résumé",
+      "aptSummariesDetail": "{n} appartement(s) sans résumé",
+      "keywords": "Au moins 3 mots-clés cibles définis",
+      "ogImages": "Images de partage (Open Graph) générées",
+      "canonical": "URL canoniques déclarées",
+      "https": "HTTPS forcé (HSTS)",
+      "descLengths": "Descriptions dans la bonne longueur (80–170)"
+    }
   }
 }

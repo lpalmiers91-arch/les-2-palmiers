@@ -1,6 +1,5 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
 import { getPref, setPref, getJSON } from "@/lib/prefs";
 
 type Consent = { analytics?: boolean };
@@ -41,15 +40,26 @@ export async function track(
   path?: string,
 ): Promise<void> {
   if (!analyticsAllowed()) return;
+  const payload = JSON.stringify({
+    session: sessionId(),
+    event,
+    path: path ?? window.location.pathname,
+    referrer: document.referrer || undefined,
+    utm: utm(),
+    meta,
+    ua: navigator.userAgent.slice(0, 300),
+  });
   try {
-    await createClient().rpc("track_event", {
-      p_session: sessionId(),
-      p_event: event,
-      p_path: path ?? window.location.pathname,
-      p_referrer: document.referrer || undefined,
-      p_utm: utm() as never,
-      p_meta: meta as never,
-      p_ua: navigator.userAgent.slice(0, 300),
+    // sendBeacon survit à la fermeture d'onglet (utile pour page_leave)
+    if (navigator.sendBeacon && event === "page_leave") {
+      navigator.sendBeacon("/api/track", new Blob([payload], { type: "application/json" }));
+      return;
+    }
+    await fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload,
+      keepalive: true,
     });
   } catch {
     /* jamais bloquant */

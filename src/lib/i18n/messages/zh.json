@@ -164,7 +164,8 @@
       "settings": "设置",
       "myAccount": "我的账户",
       "analytics": "数据分析",
-      "contactInbox": "联系消息"
+      "contactInbox": "联系消息",
+      "seo": "SEO"
     },
     "action": {
       "signOut": "退出登录",
@@ -712,7 +713,11 @@
       "fVisitors": "独立访客",
       "fOpenReserve": "打开 /reserver",
       "fClickBook": "点击“预订”",
-      "fBookings": "已创建预订"
+      "fBookings": "已创建预订",
+      "countries": "访客国家/地区",
+      "sessionsShort": "次会话",
+      "exitPages": "退出页面",
+      "exitHint": "离开网站前浏览的最后一个页面。"
     }
   },
   "notifPrefs": {
@@ -1412,5 +1417,54 @@
     "pwHint": "至少 8 个字符",
     "confirm": "确认",
     "changePassword": "修改密码"
+  },
+  "aiDraft": {
+    "draft": "用 AI 起草",
+    "redo": "重新生成",
+    "writing": "生成中……",
+    "error": "暂时无法生成草稿。"
+  },
+  "seo": {
+    "title": "SEO 与搜索优化",
+    "sub": "调整每个页面的标题、描述和关键词。",
+    "tab": {
+      "pages": "页面",
+      "settings": "设置",
+      "diag": "诊断"
+    },
+    "noIndex": "不索引",
+    "metaTitle": "标题(<title> 标签)",
+    "metaDescription": "描述(meta description)",
+    "titlePlaceholder": "{label} — Les 2 Palmiers",
+    "save": "保存",
+    "saved": "已保存",
+    "keywords": "目标关键词",
+    "keywordsHint": "用逗号分隔。用于网站元数据。",
+    "defaultDesc": "默认描述",
+    "priceRange": "价格区间(结构化数据)",
+    "twitter": "X / Twitter 账号",
+    "googleVerif": "Google Search Console 验证",
+    "googleVerifHint": "粘贴 Google 提供的代码。将添加到网站 <head> 中。",
+    "richResults": "富媒体结果测试",
+    "route": {
+      "home": "首页",
+      "apartments": "公寓列表",
+      "services": "服务",
+      "place": "位置",
+      "contact": "联系"
+    },
+    "check": {
+      "sitemap": "XML 站点地图已发布",
+      "robots": "robots.txt 已就绪",
+      "jsonld": "结构化数据(JSON-LD)已存在",
+      "homeMeta": "首页已设置自定义标题和描述",
+      "aptSummaries": "每套公寓都有简介",
+      "aptSummariesDetail": "{n} 套公寓缺少简介",
+      "keywords": "至少设置 3 个目标关键词",
+      "ogImages": "社交分享图片(Open Graph)已生成",
+      "canonical": "已声明规范网址",
+      "https": "强制 HTTPS(HSTS)",
+      "descLengths": "描述长度合适(80–170)"
+    }
   }
 }

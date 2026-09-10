@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { ContactForm } from "@/components/marketing/contact-form";
 import { getT } from "@/lib/i18n";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Une question sur l'appartement, un séjour, un service ? Écrivez-nous, l'équipe des 2 Palmiers vous répond sous 24 h.",
-};
+
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMeta("/contact", {
+    title: "Contact",
+    description: "Une question sur l'appartement, un séjour, un service ? Écrivez-nous, l'équipe des 2 Palmiers vous répond sous 24 h.",
+  });
+}
 
 export default async function ContactPage() {
   const { t } = await getT();

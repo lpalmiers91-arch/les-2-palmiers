@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import { listApartments } from "@/lib/apartments";
 import { ApartmentCard } from "@/components/marketing/apartment-card";
 import { getT } from "@/lib/i18n";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Nos appartements",
-  description:
-    "Les appartements meublés d'exception des 2 Palmiers à Cotonou — chacun avec sa fiche, sa galerie et sa réservation.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMeta("/appartements", {
+    title: "Nos appartements meublés à Cotonou — Les 2 Palmiers",
+    description:
+      "Les appartements meublés d'exception des 2 Palmiers à Cotonou — chacun avec sa fiche, sa galerie et sa réservation en ligne.",
+  });
+}
 
 export default async function ApartmentsPage() {
   const { t } = await getT();

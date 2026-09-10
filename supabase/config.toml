@@ -421,6 +421,9 @@ verify_jwt = true
 verify_jwt = true
 
 # Callbacks des PSP — sécurité assurée par la signature du prestataire.
+[functions.ai-draft]
+verify_jwt = true
+
 [functions.payment-webhook]
 verify_jwt = false
 

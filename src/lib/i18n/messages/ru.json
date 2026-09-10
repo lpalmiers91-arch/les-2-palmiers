@@ -164,7 +164,8 @@
       "settings": "Настройки",
       "myAccount": "Мой аккаунт",
       "analytics": "Аналитика",
-      "contactInbox": "Обращения"
+      "contactInbox": "Обращения",
+      "seo": "SEO"
     },
     "action": {
       "signOut": "Выйти",
@@ -712,7 +713,11 @@
       "fVisitors": "Уникальные посетители",
       "fOpenReserve": "Открывают /reserver",
       "fClickBook": "Нажимают «забронировать»",
-      "fBookings": "Создано броней"
+      "fBookings": "Создано броней",
+      "countries": "Страны посетителей",
+      "sessionsShort": "сес.",
+      "exitPages": "Страницы выхода",
+      "exitHint": "Последняя просмотренная страница перед уходом с сайта."
     }
   },
   "notifPrefs": {
@@ -1412,5 +1417,54 @@
     "pwHint": "минимум 8 символов",
     "confirm": "Подтвердите",
     "changePassword": "Изменить пароль"
+  },
+  "aiDraft": {
+    "draft": "Черновик с ИИ",
+    "redo": "Переписать",
+    "writing": "Пишу…",
+    "error": "Черновик сейчас недоступен."
+  },
+  "seo": {
+    "title": "SEO и поиск",
+    "sub": "Настройте заголовок, описание и ключевые слова каждой страницы.",
+    "tab": {
+      "pages": "Страницы",
+      "settings": "Настройки",
+      "diag": "Диагностика"
+    },
+    "noIndex": "Не индексировать",
+    "metaTitle": "Заголовок (тег <title>)",
+    "metaDescription": "Описание (meta description)",
+    "titlePlaceholder": "{label} — Les 2 Palmiers",
+    "save": "Сохранить",
+    "saved": "Сохранено",
+    "keywords": "Целевые ключевые слова",
+    "keywordsHint": "Через запятую. Используются в метаданных сайта.",
+    "defaultDesc": "Описание по умолчанию",
+    "priceRange": "Ценовой диапазон (структ. данные)",
+    "twitter": "Аккаунт X / Twitter",
+    "googleVerif": "Подтверждение Google Search Console",
+    "googleVerifHint": "Вставьте код от Google. Добавляется в <head> сайта.",
+    "richResults": "Тест расширенных результатов",
+    "route": {
+      "home": "Главная",
+      "apartments": "Список апартаментов",
+      "services": "Услуги",
+      "place": "Место",
+      "contact": "Контакты"
+    },
+    "check": {
+      "sitemap": "XML-карта сайта опубликована",
+      "robots": "robots.txt на месте",
+      "jsonld": "Структурированные данные (JSON-LD) есть",
+      "homeMeta": "Свои заголовок и описание для главной",
+      "aptSummaries": "У каждых апартаментов есть описание",
+      "aptSummariesDetail": "{n} апартаментов без описания",
+      "keywords": "Задано минимум 3 ключевых слова",
+      "ogImages": "Изображения для соцсетей (Open Graph) созданы",
+      "canonical": "Канонические URL заданы",
+      "https": "Принудительный HTTPS (HSTS)",
+      "descLengths": "Описания нужной длины (80–170)"
+    }
   }
 }

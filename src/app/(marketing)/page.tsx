@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Hero } from "@/components/marketing/hero";
 import { Concierge } from "@/components/marketing/concierge";
 import { ApartmentsPreview } from "@/components/marketing/apartments-preview";
@@ -19,6 +21,13 @@ const COMPONENTS: Record<
   reviews: ({ content }) => <Reviews content={content} />,
   closing: ({ content }) => <Closing content={content} />,
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMeta("/", {
+    title: "Les 2 Palmiers — Appartement de rêve & conciergerie · Cotonou",
+    description: "Un appartement meublé d'exception à Cotonou et une conciergerie qui prend en charge le reste — voiture, ménage, cuisinier, bien-être, tourisme.",
+  });
+}
 
 export default async function HomePage() {
   const blocks = await getPageBlocks("home");

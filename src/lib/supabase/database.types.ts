@@ -186,6 +186,7 @@ export type Database = {
       }
       analytics_events: {
         Row: {
+          country: string | null
           created_at: string
           event: string
           id: number
@@ -200,6 +201,7 @@ export type Database = {
           utm_source: string | null
         }
         Insert: {
+          country?: string | null
           created_at?: string
           event: string
           id?: never
@@ -214,6 +216,7 @@ export type Database = {
           utm_source?: string | null
         }
         Update: {
+          country?: string | null
           created_at?: string
           event?: string
           id?: never
@@ -2172,6 +2175,44 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_meta: {
+        Row: {
+          description: string | null
+          no_index: boolean
+          og_image: string | null
+          path: string
+          title: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          description?: string | null
+          no_index?: boolean
+          og_image?: string | null
+          path: string
+          title?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          description?: string | null
+          no_index?: boolean
+          og_image?: string | null
+          path?: string
+          title?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seo_meta_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       service_categories: {
         Row: {
           id: string
@@ -2491,6 +2532,7 @@ export type Database = {
           locales: string[]
           notification_defaults: Json
           payment_config: Json
+          seo: Json
           updated_at: string
           updated_by: string | null
         }
@@ -2502,6 +2544,7 @@ export type Database = {
           locales?: string[]
           notification_defaults?: Json
           payment_config?: Json
+          seo?: Json
           updated_at?: string
           updated_by?: string | null
         }
@@ -2513,6 +2556,7 @@ export type Database = {
           locales?: string[]
           notification_defaults?: Json
           payment_config?: Json
+          seo?: Json
           updated_at?: string
           updated_by?: string | null
         }
@@ -2724,6 +2768,21 @@ export type Database = {
     }
     Functions: {
       ai_space_enabled: { Args: { p_space: string }; Returns: boolean }
+      analytics_countries: {
+        Args: { p_days?: number }
+        Returns: {
+          country: string
+          sessions: number
+          views: number
+        }[]
+      }
+      analytics_exit_pages: {
+        Args: { p_days?: number }
+        Returns: {
+          exits: number
+          path: string
+        }[]
+      }
       apartment_by_ical_token: {
         Args: { p_token: string }
         Returns: {
@@ -3379,6 +3438,17 @@ export type Database = {
         Args: { p_email: boolean; p_push: boolean }
         Returns: undefined
       }
+      set_seo_meta: {
+        Args: {
+          p_description: string
+          p_no_index?: boolean
+          p_og_image?: string
+          p_path: string
+          p_title: string
+        }
+        Returns: undefined
+      }
+      set_seo_settings: { Args: { p_seo: Json }; Returns: undefined }
       sign_contract: {
         Args: { p_contract: string; p_fields?: Json; p_signature_name: string }
         Returns: {
@@ -3549,18 +3619,32 @@ export type Database = {
         }
       }
       toggle_favorite: { Args: { p_apartment: string }; Returns: boolean }
-      track_event: {
-        Args: {
-          p_event: string
-          p_meta?: Json
-          p_path?: string
-          p_referrer?: string
-          p_session: string
-          p_ua?: string
-          p_utm?: Json
-        }
-        Returns: undefined
-      }
+      track_event:
+        | {
+            Args: {
+              p_event: string
+              p_meta?: Json
+              p_path?: string
+              p_referrer?: string
+              p_session: string
+              p_ua?: string
+              p_utm?: Json
+            }
+            Returns: undefined
+          }
+        | {
+            Args: {
+              p_country?: string
+              p_event: string
+              p_meta?: Json
+              p_path?: string
+              p_referrer?: string
+              p_session: string
+              p_ua?: string
+              p_utm?: Json
+            }
+            Returns: undefined
+          }
       trigger_ical_sync: { Args: never; Returns: undefined }
       withdraw_reservation_change: {
         Args: { p_id: string }

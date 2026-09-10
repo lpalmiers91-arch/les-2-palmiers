@@ -22,10 +22,15 @@ const hanken = Hanken_Grotesk({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const b = await getBranding();
+  const { getSeoSettings } = await import("@/lib/seo");
+  const [b, seo] = await Promise.all([getBranding(), getSeoSettings()]);
   return {
     ...metadata,
     ...(b.favicon_url ? { icons: { icon: b.favicon_url, apple: b.favicon_url } } : {}),
+    ...(seo.keywords?.length ? { keywords: seo.keywords } : {}),
+    ...(seo.google_verification
+      ? { verification: { google: seo.google_verification.replace(/^google-site-verification=/, "") } }
+      : {}),
   };
 }
 

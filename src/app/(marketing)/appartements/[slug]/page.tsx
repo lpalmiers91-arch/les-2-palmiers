@@ -22,10 +22,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const apt = await getApartment(slug);
   if (!apt) return { title: "Appartement introuvable" };
-  return {
-    title: apt.name,
-    description: apt.summary ?? undefined,
-  };
+  const { pageMeta } = await import("@/lib/seo");
+  return pageMeta(`/appartements/${slug}`, {
+    title: `${apt.name} — appartement meublé à Cotonou`,
+    description:
+      apt.summary ??
+      `${apt.name}, appartement meublé pour ${apt.capacity} voyageurs à Cotonou. Réservation en ligne, conciergerie incluse.`,
+  });
 }
 
 function cancelLabel(t: (k: string) => string, p: string) {

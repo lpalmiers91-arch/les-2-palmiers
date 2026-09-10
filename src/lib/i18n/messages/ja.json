@@ -164,7 +164,8 @@
       "settings": "設定",
       "myAccount": "マイアカウント",
       "analytics": "アナリティクス",
-      "contactInbox": "問い合わせ"
+      "contactInbox": "問い合わせ",
+      "seo": "SEO"
     },
     "action": {
       "signOut": "ログアウト",
@@ -712,7 +713,11 @@
       "fVisitors": "ユニーク訪問者",
       "fOpenReserve": "/reserver を開く",
       "fClickBook": "「予約」をクリック",
-      "fBookings": "作成された予約"
+      "fBookings": "作成された予約",
+      "countries": "訪問者の国",
+      "sessionsShort": "セッション",
+      "exitPages": "離脱ページ",
+      "exitHint": "サイトを離れる前に最後に見たページ。"
     }
   },
   "notifPrefs": {
@@ -1412,5 +1417,54 @@
     "pwHint": "8文字以上",
     "confirm": "確認",
     "changePassword": "パスワードを変更"
+  },
+  "aiDraft": {
+    "draft": "AI で下書き",
+    "redo": "書き直す",
+    "writing": "作成中…",
+    "error": "下書きを生成できません。"
+  },
+  "seo": {
+    "title": "SEO・検索対策",
+    "sub": "各ページのタイトル・説明・キーワードを調整します。",
+    "tab": {
+      "pages": "ページ",
+      "settings": "設定",
+      "diag": "診断"
+    },
+    "noIndex": "インデックスしない",
+    "metaTitle": "タイトル(<title> タグ)",
+    "metaDescription": "説明(meta description)",
+    "titlePlaceholder": "{label} — Les 2 Palmiers",
+    "save": "保存",
+    "saved": "保存しました",
+    "keywords": "ターゲットキーワード",
+    "keywordsHint": "カンマ区切り。サイトのメタデータに使われます。",
+    "defaultDesc": "既定の説明",
+    "priceRange": "価格帯(構造化データ)",
+    "twitter": "X / Twitter アカウント",
+    "googleVerif": "Google Search Console 認証",
+    "googleVerifHint": "Google が発行するコードを貼り付けます。サイトの <head> に追加されます。",
+    "richResults": "リッチリザルトテスト",
+    "route": {
+      "home": "ホーム",
+      "apartments": "お部屋一覧",
+      "services": "サービス",
+      "place": "ロケーション",
+      "contact": "お問い合わせ"
+    },
+    "check": {
+      "sitemap": "XML サイトマップ公開済み",
+      "robots": "robots.txt 設置済み",
+      "jsonld": "構造化データ(JSON-LD)あり",
+      "homeMeta": "ホームに独自のタイトルと説明",
+      "aptSummaries": "各お部屋に概要あり",
+      "aptSummariesDetail": "概要のないお部屋 {n} 件",
+      "keywords": "ターゲットキーワードを3つ以上設定",
+      "ogImages": "シェア用画像(Open Graph)生成済み",
+      "canonical": "正規 URL 指定済み",
+      "https": "HTTPS 強制(HSTS)",
+      "descLengths": "説明の文字数が適切(80〜170)"
+    }
   }
 }

@@ -6,6 +6,7 @@ import { Loader2, Star, Check, EyeOff, MessageSquareReply, Trash2 } from "lucide
 import { createClient } from "@/lib/supabase/client";
 import { formatDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/provider";
+import { AiDraftButton } from "@/components/console/ai-draft-button";
 
 export type ReviewRow = {
   id: string;
@@ -151,6 +152,20 @@ function ReviewCard({ row }: { row: ReviewRow }) {
 
       {replyOpen && (
         <div className="mt-3">
+          <div className="mb-2">
+            <AiDraftButton
+              kind="review_reply"
+              hasText={!!reply.trim()}
+              context={{
+                rating: row.rating,
+                title: row.title ?? "",
+                review: row.body,
+                guest: row.client_name ?? "",
+                apartment: row.apartment_name ?? "",
+              }}
+              onText={setReply}
+            />
+          </div>
           <textarea
             className="field min-h-[70px] resize-y"
             value={reply}

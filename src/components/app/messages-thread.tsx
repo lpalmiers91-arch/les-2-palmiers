@@ -5,6 +5,7 @@ import { SendHorizonal, Loader2, Paperclip, X, FileText, Trash2 } from "lucide-r
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { useT } from "@/lib/i18n/provider";
+import { AiDraftButton } from "@/components/console/ai-draft-button";
 import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 import { useIsOnline } from "@/lib/presence";
 import { formatDate } from "@/lib/format";
@@ -316,6 +317,24 @@ export function MessagesThread({
         </div>
       )}
       {err && <p className="px-3 pt-1 text-[12px] text-danger">{err}</p>}
+
+      {variant === "staff" && messages.some((m) => !m.system) && (
+        <div className="border-t border-line px-3 pt-2">
+          <AiDraftButton
+            kind="client_reply"
+            hasText={!!text.trim()}
+            context={{
+              client: peerName || t("thread.client"),
+              conversation: messages
+                .filter((m) => !m.deleted_at && m.body)
+                .slice(-8)
+                .map((m) => `${m.sender_id === meId ? "Équipe" : "Client"}: ${m.body}`)
+                .join("\n"),
+            }}
+            onText={setText}
+          />
+        </div>
+      )}
 
       <form onSubmit={send} className="flex items-end gap-2 border-t border-line p-3">
         <button

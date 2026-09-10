@@ -164,7 +164,8 @@
       "settings": "الإعدادات",
       "myAccount": "حسابي",
       "analytics": "التحليلات",
-      "contactInbox": "رسائل التواصل"
+      "contactInbox": "رسائل التواصل",
+      "seo": "تحسين محركات البحث"
     },
     "action": {
       "signOut": "تسجيل الخروج",
@@ -712,7 +713,11 @@
       "fVisitors": "زوار فريدون",
       "fOpenReserve": "يفتحون /reserver",
       "fClickBook": "ينقرون على «احجز»",
-      "fBookings": "الحجوزات المنشأة"
+      "fBookings": "الحجوزات المنشأة",
+      "countries": "بلدان الزوار",
+      "sessionsShort": "جلسة",
+      "exitPages": "صفحات الخروج",
+      "exitHint": "آخر صفحة تمت مشاهدتها قبل مغادرة الموقع."
     }
   },
   "notifPrefs": {
@@ -1412,5 +1417,54 @@
     "pwHint": "8 أحرف على الأقل",
     "confirm": "تأكيد",
     "changePassword": "تغيير كلمة المرور"
+  },
+  "aiDraft": {
+    "draft": "صياغة بالذكاء الاصطناعي",
+    "redo": "إعادة الصياغة",
+    "writing": "جارٍ الكتابة…",
+    "error": "المسودة غير متاحة حالياً."
+  },
+  "seo": {
+    "title": "تحسين محركات البحث",
+    "sub": "اضبط العنوان والوصف والكلمات المفتاحية لكل صفحة.",
+    "tab": {
+      "pages": "الصفحات",
+      "settings": "الإعدادات",
+      "diag": "التشخيص"
+    },
+    "noIndex": "عدم الفهرسة",
+    "metaTitle": "العنوان (وسم <title>)",
+    "metaDescription": "الوصف (meta description)",
+    "titlePlaceholder": "{label} — Les 2 Palmiers",
+    "save": "حفظ",
+    "saved": "تم الحفظ",
+    "keywords": "الكلمات المفتاحية المستهدفة",
+    "keywordsHint": "مفصولة بفواصل. تُستخدم في بيانات الموقع الوصفية.",
+    "defaultDesc": "الوصف الافتراضي",
+    "priceRange": "نطاق السعر (بيانات منظمة)",
+    "twitter": "حساب X / تويتر",
+    "googleVerif": "التحقق من Google Search Console",
+    "googleVerifHint": "الصق الرمز الذي يوفره Google. يُضاف إلى <head> الموقع.",
+    "richResults": "اختبار النتائج المنسّقة",
+    "route": {
+      "home": "الرئيسية",
+      "apartments": "قائمة الشقق",
+      "services": "الخدمات",
+      "place": "المكان",
+      "contact": "اتصل"
+    },
+    "check": {
+      "sitemap": "خريطة موقع XML منشورة",
+      "robots": "ملف robots.txt موجود",
+      "jsonld": "البيانات المنظمة (JSON-LD) موجودة",
+      "homeMeta": "عنوان ووصف مخصصان للصفحة الرئيسية",
+      "aptSummaries": "لكل شقة ملخص",
+      "aptSummariesDetail": "{n} شقة بدون ملخص",
+      "keywords": "3 كلمات مفتاحية مستهدفة على الأقل",
+      "ogImages": "صور المشاركة (Open Graph) مُنشأة",
+      "canonical": "عناوين URL الأساسية معلنة",
+      "https": "فرض HTTPS (HSTS)",
+      "descLengths": "أوصاف بالطول المناسب (80–170)"
+    }
   }
 }

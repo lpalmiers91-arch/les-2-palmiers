@@ -164,7 +164,8 @@
       "settings": "Impostazioni",
       "myAccount": "Il mio account",
       "analytics": "Analisi",
-      "contactInbox": "Contatti"
+      "contactInbox": "Contatti",
+      "seo": "SEO"
     },
     "action": {
       "signOut": "Esci",
@@ -712,7 +713,11 @@
       "fVisitors": "Visitatori unici",
       "fOpenReserve": "Aprono /reserver",
       "fClickBook": "Cliccano su «prenota»",
-      "fBookings": "Prenotazioni create"
+      "fBookings": "Prenotazioni create",
+      "countries": "Paesi dei visitatori",
+      "sessionsShort": "ses.",
+      "exitPages": "Pagine di uscita",
+      "exitHint": "Ultima pagina vista prima di lasciare il sito."
     }
   },
   "notifPrefs": {
@@ -1412,5 +1417,54 @@
     "pwHint": "minimo 8 caratteri",
     "confirm": "Conferma",
     "changePassword": "Cambia la password"
+  },
+  "aiDraft": {
+    "draft": "Bozza con IA",
+    "redo": "Riformula",
+    "writing": "Scrittura…",
+    "error": "Bozza non disponibile al momento."
+  },
+  "seo": {
+    "title": "SEO e posizionamento",
+    "sub": "Ottimizza titolo, descrizione e parole chiave di ogni pagina.",
+    "tab": {
+      "pages": "Pagine",
+      "settings": "Impostazioni",
+      "diag": "Diagnostica"
+    },
+    "noIndex": "Non indicizzare",
+    "metaTitle": "Titolo (tag <title>)",
+    "metaDescription": "Descrizione (meta description)",
+    "titlePlaceholder": "{label} — Les 2 Palmiers",
+    "save": "Salva",
+    "saved": "Salvato",
+    "keywords": "Parole chiave target",
+    "keywordsHint": "Separate da virgole. Usate nei metadati del sito.",
+    "defaultDesc": "Descrizione predefinita",
+    "priceRange": "Fascia di prezzo (dati strutturati)",
+    "twitter": "Account X / Twitter",
+    "googleVerif": "Verifica Google Search Console",
+    "googleVerifHint": "Incolla il codice fornito da Google. Aggiunto nell'<head> del sito.",
+    "richResults": "Test dei risultati avanzati",
+    "route": {
+      "home": "Home",
+      "apartments": "Elenco appartamenti",
+      "services": "Servizi",
+      "place": "Il luogo",
+      "contact": "Contatti"
+    },
+    "check": {
+      "sitemap": "Sitemap XML pubblicata",
+      "robots": "robots.txt presente",
+      "jsonld": "Dati strutturati (JSON-LD) presenti",
+      "homeMeta": "Titolo e descrizione personalizzati per la home",
+      "aptSummaries": "Ogni appartamento ha un riassunto",
+      "aptSummariesDetail": "{n} appartamento/i senza riassunto",
+      "keywords": "Almeno 3 parole chiave target impostate",
+      "ogImages": "Immagini di condivisione (Open Graph) generate",
+      "canonical": "URL canonici dichiarati",
+      "https": "HTTPS forzato (HSTS)",
+      "descLengths": "Descrizioni della lunghezza giusta (80–170)"
+    }
   }
 }

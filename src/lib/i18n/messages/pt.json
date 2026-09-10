@@ -164,7 +164,8 @@
       "settings": "Definições",
       "myAccount": "A minha conta",
       "analytics": "Analítica",
-      "contactInbox": "Contacto"
+      "contactInbox": "Contacto",
+      "seo": "SEO"
     },
     "action": {
       "signOut": "Terminar sessão",
@@ -712,7 +713,11 @@
       "fVisitors": "Visitantes únicos",
       "fOpenReserve": "Abrem /reserver",
       "fClickBook": "Clicam em «reservar»",
-      "fBookings": "Reservas criadas"
+      "fBookings": "Reservas criadas",
+      "countries": "Países dos visitantes",
+      "sessionsShort": "ses.",
+      "exitPages": "Páginas de saída",
+      "exitHint": "Última página vista antes de sair do site."
     }
   },
   "notifPrefs": {
@@ -1412,5 +1417,54 @@
     "pwHint": "mínimo 8 caracteres",
     "confirm": "Confirmar",
     "changePassword": "Alterar a palavra-passe"
+  },
+  "aiDraft": {
+    "draft": "Redigir com IA",
+    "redo": "Reformular",
+    "writing": "A redigir…",
+    "error": "Rascunho indisponível de momento."
+  },
+  "seo": {
+    "title": "SEO e pesquisa",
+    "sub": "Ajuste o título, a descrição e as palavras-chave de cada página.",
+    "tab": {
+      "pages": "Páginas",
+      "settings": "Definições",
+      "diag": "Diagnóstico"
+    },
+    "noIndex": "Não indexar",
+    "metaTitle": "Título (tag <title>)",
+    "metaDescription": "Descrição (meta description)",
+    "titlePlaceholder": "{label} — Les 2 Palmiers",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "keywords": "Palavras-chave alvo",
+    "keywordsHint": "Separadas por vírgulas. Usadas nos metadados do site.",
+    "defaultDesc": "Descrição predefinida",
+    "priceRange": "Faixa de preços (dados estruturados)",
+    "twitter": "Conta X / Twitter",
+    "googleVerif": "Verificação do Google Search Console",
+    "googleVerifHint": "Cole o código fornecido pela Google. Adicionado ao <head> do site.",
+    "richResults": "Teste de resultados avançados",
+    "route": {
+      "home": "Início",
+      "apartments": "Lista de apartamentos",
+      "services": "Serviços",
+      "place": "O lugar",
+      "contact": "Contacto"
+    },
+    "check": {
+      "sitemap": "Sitemap XML publicado",
+      "robots": "robots.txt implementado",
+      "jsonld": "Dados estruturados (JSON-LD) presentes",
+      "homeMeta": "Título e descrição personalizados para a página inicial",
+      "aptSummaries": "Cada apartamento tem um resumo",
+      "aptSummariesDetail": "{n} apartamento(s) sem resumo",
+      "keywords": "Pelo menos 3 palavras-chave alvo definidas",
+      "ogImages": "Imagens de partilha (Open Graph) geradas",
+      "canonical": "URLs canónicos declarados",
+      "https": "HTTPS forçado (HSTS)",
+      "descLengths": "Descrições com o comprimento certo (80–170)"
+    }
   }
 }

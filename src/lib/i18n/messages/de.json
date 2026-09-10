@@ -164,7 +164,8 @@
       "settings": "Einstellungen",
       "myAccount": "Mein Konto",
       "analytics": "Analytics",
-      "contactInbox": "Kontakt"
+      "contactInbox": "Kontakt",
+      "seo": "SEO"
     },
     "action": {
       "signOut": "Abmelden",
@@ -712,7 +713,11 @@
       "fVisitors": "Eindeutige Besucher",
       "fOpenReserve": "Öffnen /reserver",
       "fClickBook": "Klicken auf „buchen“",
-      "fBookings": "Erstellte Buchungen"
+      "fBookings": "Erstellte Buchungen",
+      "countries": "Länder der Besucher",
+      "sessionsShort": "Sitz.",
+      "exitPages": "Ausstiegsseiten",
+      "exitHint": "Zuletzt angesehene Seite vor dem Verlassen der Website."
     }
   },
   "notifPrefs": {
@@ -1412,5 +1417,54 @@
     "pwHint": "mindestens 8 Zeichen",
     "confirm": "Bestätigen",
     "changePassword": "Passwort ändern"
+  },
+  "aiDraft": {
+    "draft": "Mit KI entwerfen",
+    "redo": "Neu formulieren",
+    "writing": "Wird geschrieben…",
+    "error": "Entwurf derzeit nicht verfügbar."
+  },
+  "seo": {
+    "title": "SEO & Suche",
+    "sub": "Titel, Beschreibung und Keywords jeder Seite optimieren.",
+    "tab": {
+      "pages": "Seiten",
+      "settings": "Einstellungen",
+      "diag": "Diagnose"
+    },
+    "noIndex": "Nicht indexieren",
+    "metaTitle": "Titel (<title>-Tag)",
+    "metaDescription": "Beschreibung (Meta-Description)",
+    "titlePlaceholder": "{label} — Les 2 Palmiers",
+    "save": "Speichern",
+    "saved": "Gespeichert",
+    "keywords": "Ziel-Keywords",
+    "keywordsHint": "Kommagetrennt. Werden in den Site-Metadaten verwendet.",
+    "defaultDesc": "Standardbeschreibung",
+    "priceRange": "Preisklasse (strukturierte Daten)",
+    "twitter": "X / Twitter-Konto",
+    "googleVerif": "Google Search Console-Bestätigung",
+    "googleVerifHint": "Fügen Sie den von Google bereitgestellten Code ein. Wird im <head> der Site ergänzt.",
+    "richResults": "Test für Rich-Suchergebnisse",
+    "route": {
+      "home": "Startseite",
+      "apartments": "Wohnungsliste",
+      "services": "Services",
+      "place": "Der Ort",
+      "contact": "Kontakt"
+    },
+    "check": {
+      "sitemap": "XML-Sitemap veröffentlicht",
+      "robots": "robots.txt vorhanden",
+      "jsonld": "Strukturierte Daten (JSON-LD) vorhanden",
+      "homeMeta": "Eigener Titel und Beschreibung für die Startseite",
+      "aptSummaries": "Jede Wohnung hat eine Zusammenfassung",
+      "aptSummariesDetail": "{n} Wohnung(en) ohne Zusammenfassung",
+      "keywords": "Mindestens 3 Ziel-Keywords festgelegt",
+      "ogImages": "Social-Share-Bilder (Open Graph) erzeugt",
+      "canonical": "Canonical-URLs deklariert",
+      "https": "HTTPS erzwungen (HSTS)",
+      "descLengths": "Beschreibungen in der richtigen Länge (80–170)"
+    }
   }
 }

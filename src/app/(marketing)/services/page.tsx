@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Services } from "@/components/marketing/services";
 import { Concierge } from "@/components/marketing/concierge";
 import { Closing } from "@/components/marketing/closing";
 import { getHomeBlock } from "@/lib/cms";
 
-export const metadata: Metadata = {
-  title: "Services & conciergerie",
-  description:
-    "Voiture, ménage, cuisinier, bien-être, tourisme — la conciergerie des 2 Palmiers apporte tout à la porte de l'appartement.",
-};
+
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMeta("/services", {
+    title: "Services à domicile — Les 2 Palmiers",
+    description: "Voiture avec chauffeur, ménage, cuisinier, coiffure, massage, garde d'enfants… commandez à la demande pendant votre séjour à Cotonou.",
+  });
+}
 
 export default async function ServicesPage() {
   const [concierge, services, closing] = await Promise.all([

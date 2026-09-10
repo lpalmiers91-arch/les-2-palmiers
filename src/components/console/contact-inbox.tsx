@@ -5,6 +5,7 @@ import { Mail, Phone, Check, Archive, Trash2, RotateCcw, Loader2 } from "lucide-
 import { createClient } from "@/lib/supabase/client";
 import { formatDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/provider";
+import { AiDraftButton } from "@/components/console/ai-draft-button";
 
 export type ContactRow = {
   id: string;
@@ -23,6 +24,7 @@ export function ContactInbox({ rows: initial }: { rows: ContactRow[] }) {
   const [rows, setRows] = useState(initial);
   const [busy, setBusy] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | "new" | "handled" | "archived">("new");
+  const [draft, setDraft] = useState<Record<string, string>>({});
 
   async function setStatus(id: string, status: ContactRow["status"]) {
     setBusy(id);
@@ -105,11 +107,32 @@ export function ContactInbox({ rows: initial }: { rows: ContactRow[] }) {
 
               <p className="mt-3 whitespace-pre-wrap text-[13.5px] leading-relaxed text-ink-2">{r.message}</p>
 
-              <div className="mt-4 flex flex-wrap gap-2 border-t border-line-soft pt-3">
+              <div className="mt-3 rounded-[10px] bg-bone-2 p-3">
+                <AiDraftButton
+                  kind="contact_reply"
+                  hasText={!!(draft[r.id] ?? "").trim()}
+                  context={{
+                    name: r.name,
+                    subject: r.subject ?? "",
+                    message: r.message,
+                  }}
+                  onText={(txt) => setDraft((d) => ({ ...d, [r.id]: txt }))}
+                />
+                {draft[r.id] != null && (
+                  <textarea
+                    className="field mt-2 h-auto resize-y py-2 text-[13px]"
+                    rows={4}
+                    value={draft[r.id]}
+                    onChange={(e) => setDraft((d) => ({ ...d, [r.id]: e.target.value }))}
+                  />
+                )}
+              </div>
+
+              <div className="mt-3 flex flex-wrap gap-2 border-t border-line-soft pt-3">
                 <a
                   href={`mailto:${r.email}?subject=${encodeURIComponent(
                     "Re: " + (r.subject || t("contactInbox.reSubject")),
-                  )}`}
+                  )}${draft[r.id] ? `&body=${encodeURIComponent(draft[r.id])}` : ""}`}
                   className="press inline-flex h-8 items-center gap-1.5 rounded-full bg-ink px-3.5 text-[12.5px] font-medium text-bone hover:bg-forest-2"
                 >
                   <Mail className="h-3.5 w-3.5" /> {t("contactInbox.reply")}

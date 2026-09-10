@@ -24,6 +24,7 @@ import {
   Star,
   Gift,
   LayoutTemplate,
+  Search,
   Wifi,
   FileSignature,
   UserCog,
@@ -64,6 +65,7 @@ const NAVS: Record<"staff" | "admin", NavGroup[]> = {
         { href: "/staff/fidelite", key: "loyalty", icon: Gift },
         { href: "/staff/contrats", key: "contracts", icon: FileSignature },
         { href: "/staff/site", key: "website", icon: LayoutTemplate },
+        { href: "/staff/seo", key: "seo", icon: Search },
         { href: "/staff/analytics", key: "analytics", icon: Activity },
         { href: "/staff/assistant", key: "aiAssistant", icon: Sparkles },
       ],
@@ -75,6 +77,7 @@ const NAVS: Record<"staff" | "admin", NavGroup[]> = {
       items: [
         { href: "/admin", key: "dashboard", icon: LayoutGrid, exact: true },
         { href: "/admin/statistiques", key: "statistics", icon: TrendingUp },
+        { href: "/staff/seo", key: "seo", icon: Search },
         { href: "/admin/analytics", key: "analytics", icon: Activity },
         { href: "/admin/paiements", key: "payments", icon: CreditCard },
         { href: "/admin/verifications", key: "verifications", icon: ShieldCheck },
