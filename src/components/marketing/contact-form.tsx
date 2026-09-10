@@ -54,7 +54,7 @@ export function ContactForm() {
     return (
       <div className="rounded-[var(--radius-lg)] border border-forest/25 bg-forest/[0.04] p-6">
         <p className="flex items-center gap-2 text-[15px] font-medium text-ink">
-          <Check className="h-4.5 w-4.5 text-forest-2" /> {t("contactPage.sentTitle")}
+          <Check className="h-4.5 w-4.5 text-green-2" /> {t("contactPage.sentTitle")}
         </p>
         <p className="mt-1.5 text-[13.5px] text-ink-2">{t("contactPage.sentBody")}</p>
       </div>

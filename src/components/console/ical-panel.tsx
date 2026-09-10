@@ -121,7 +121,7 @@ export function IcalPanel({
             onClick={copy}
             className="press inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-line px-3 text-[12.5px] font-medium text-ink-2 hover:border-ink/25"
           >
-            {copied ? <Check className="h-3.5 w-3.5 text-forest-2" /> : <Copy className="h-3.5 w-3.5" />}
+            {copied ? <Check className="h-3.5 w-3.5 text-green-2" /> : <Copy className="h-3.5 w-3.5" />}
             {copied ? t("ical.copied") : t("ical.copy")}
           </button>
         </div>

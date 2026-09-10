@@ -9,7 +9,7 @@ export async function Tourism({ content = {} }: { content?: Record<string, unkno
     ? (content.places as { name: string; when: string; note: string }[])
     : tList<{ name: string; when: string; note: string }>("home.tourismPlaces");
   return (
-    <section id="le-lieu" className="grain relative overflow-hidden bg-forest text-bone">
+    <section id="le-lieu" className="grain relative overflow-hidden bg-green text-bone">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
         <Reveal className="max-w-xl">
           <h2 className="display text-[2.1rem] leading-[1.06] sm:text-[2.7rem]">

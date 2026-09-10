@@ -107,7 +107,7 @@ export async function AnalyticsBoard() {
             {(daily ?? []).map((d) => (
               <div key={String(d.day)} className="flex flex-1 flex-col items-center gap-1">
                 <div
-                  className="w-full rounded-t-[3px] bg-forest-2"
+                  className="w-full rounded-t-[3px] bg-green-2"
                   style={{ height: `${(Number(d.sessions ?? 0) / maxDay) * 105 + 2}px` }}
                   title={`${d.day} · ${d.sessions} sessions · ${d.views} vues`}
                 />
@@ -140,7 +140,7 @@ export async function AnalyticsBoard() {
                 </div>
                 <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-bone-2">
                   <div
-                    className="h-full rounded-full bg-forest-2"
+                    className="h-full rounded-full bg-brass-2"
                     style={{ width: `${Math.round((Number(c.sessions) / maxCountry) * 100)}%` }}
                   />
                 </div>
@@ -213,7 +213,7 @@ export async function AnalyticsBoard() {
                     </span>
                   </div>
                   <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-bone-2">
-                    <div className="h-full rounded-full bg-forest-2" style={{ width: `${pct}%` }} />
+                    <div className={`h-full rounded-full ${i === funnel.length - 1 ? "bg-green-2" : "bg-forest-2"}`} style={{ width: `${pct}%` }} />
                   </div>
                 </li>
               );

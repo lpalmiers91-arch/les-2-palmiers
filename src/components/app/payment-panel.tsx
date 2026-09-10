@@ -244,7 +244,7 @@ export function PaymentPanel({
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : proofName ? (
                     <>
-                      <Check className="h-4 w-4 text-forest-2" /> {proofName}
+                      <Check className="h-4 w-4 text-green-2" /> {proofName}
                     </>
                   ) : (
                     <>

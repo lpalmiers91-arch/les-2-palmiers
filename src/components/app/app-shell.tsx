@@ -86,13 +86,17 @@ export function AppShell({
             href={n.href}
             onClick={onNav}
             className={`flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13.5px] transition-colors ${
-              on ? "bg-forest text-bone" : "text-ink-2 hover:bg-ink/5"
+              on ? "bg-brass text-bone" : "text-ink-2 hover:bg-ink/5"
             }`}
           >
             <Icon className="h-[18px] w-[18px]" strokeWidth={1.7} />
             <span className="flex-1">{n.label}</span>
             {n.href === "/app/messages" && unreadMessages > 0 && (
-              <span className="tnum rounded-full bg-brass px-1.5 text-[11px] font-semibold text-ink">
+              <span
+                className={`tnum rounded-full px-1.5 text-[11px] font-semibold ${
+                  on ? "bg-bone text-brass" : "bg-brass text-bone"
+                }`}
+              >
                 {unreadMessages}
               </span>
             )}
@@ -105,7 +109,7 @@ export function AppShell({
           onClick={onNav}
           className={`flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13.5px] transition-colors ${
             active("/app/verification")
-              ? "bg-forest text-bone"
+              ? "bg-brass text-bone"
               : "text-brass-2 hover:bg-ink/5"
           }`}
         >

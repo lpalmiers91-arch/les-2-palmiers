@@ -240,7 +240,7 @@ export function GiftCardPanel() {
           {credited != null ? (
             <div className="rounded-[12px] border border-forest/25 bg-forest/[0.04] p-4">
               <p className="flex items-center gap-2 text-[14px] font-medium text-ink">
-                <Check className="h-4 w-4 text-forest-2" /> {t("giftCard.redeemed", { amount: formatXOF(credited) })}
+                <Check className="h-4 w-4 text-green-2" /> {t("giftCard.redeemed", { amount: formatXOF(credited) })}
               </p>
               <p className="mt-1 text-[13px] text-ink-2">{t("giftCard.redeemedBody")}</p>
             </div>

@@ -41,7 +41,7 @@ export function CurrencySwitcher({ tone = "ink" }: { tone?: "ink" | "bone" }) {
                   <span className="font-medium">{c.code}</span>{" "}
                   <span className="text-ink-3">{c.symbol}</span>
                 </span>
-                {c.code === currency && <Check className="h-3.5 w-3.5 text-forest-2" />}
+                {c.code === currency && <Check className="h-3.5 w-3.5 text-green-2" />}
               </button>
             ))}
           </div>

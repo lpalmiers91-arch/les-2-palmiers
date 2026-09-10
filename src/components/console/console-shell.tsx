@@ -114,6 +114,9 @@ export function ConsoleShell({
   const [open, setOpen] = useState(false);
   const nav = NAVS[variant];
   const spaceLabel = variant === "admin" ? t("console.space.admin") : t("console.space.staff");
+  // couleur d'état actif propre à la surface : marine pour le staff (opérationnel),
+  // encre pour l'admin (neutre, autoritaire).
+  const activeCls = variant === "admin" ? "bg-ink text-bone" : "bg-forest text-bone";
 
   const active = (n: NavItem) =>
     n.exact ? pathname === n.href : pathname === n.href || pathname.startsWith(n.href + "/");
@@ -155,7 +158,7 @@ export function ConsoleShell({
                   href={n.href}
                   onClick={() => setOpen(false)}
                   className={`flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13.5px] transition-colors ${
-                    on ? "bg-forest text-bone" : "text-ink-2 hover:bg-ink/5"
+                    on ? activeCls : "text-ink-2 hover:bg-ink/5"
                   }`}
                 >
                   <Icon className="h-[18px] w-[18px]" strokeWidth={1.7} />
@@ -171,7 +174,7 @@ export function ConsoleShell({
           href={variant === "admin" ? "/admin/compte" : "/staff/compte"}
           onClick={() => setOpen(false)}
           className={`flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13px] transition-colors ${
-            pathname.endsWith("/compte") ? "bg-forest text-bone" : "text-ink-2 hover:bg-ink/5"
+            pathname.endsWith("/compte") ? activeCls : "text-ink-2 hover:bg-ink/5"
           }`}
         >
           <UserCog className="h-4 w-4" strokeWidth={1.7} /> {t("console.nav.myAccount")}

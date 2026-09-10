@@ -227,7 +227,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
                       {t("booking.capacityShort",{n:a.capacity})} · {t("booking.fromPerNight",{price:price(a.base_price)})}
                     </span>
                   </span>
-                  {aptId === a.id && <Check className="h-4 w-4 shrink-0 text-forest-2" />}
+                  {aptId === a.id && <Check className="h-4 w-4 shrink-0 text-green-2" />}
                 </button>
               ))}
             </div>
@@ -345,7 +345,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
                   <span className="text-[14px] font-medium text-ink">
                     {d === 50 ? t("booking.deposit50") : t("booking.payFull")}
                   </span>
-                  {deposit === d && <Check className="h-4 w-4 text-forest-2" />}
+                  {deposit === d && <Check className="h-4 w-4 text-green-2" />}
                 </span>
                 <span className="mt-1 block tnum text-[13px] text-ink-3">
                   {quote ? price(Math.round((stayTotal * d) / 100) + svcTotal) : "—"} {t("booking.now")}

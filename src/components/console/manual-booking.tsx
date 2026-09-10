@@ -97,7 +97,7 @@ export function ManualBooking({ apartments }: { apartments: Apt[] }) {
       {okRef ? (
         <div className="mt-4 rounded-[12px] border border-forest/25 bg-forest/[0.04] p-4">
           <p className="flex items-center gap-2 text-[13.5px] font-medium text-ink">
-            <Check className="h-4 w-4 text-forest-2" /> {t("manualBooking.done", { ref: okRef })}
+            <Check className="h-4 w-4 text-green-2" /> {t("manualBooking.done", { ref: okRef })}
           </p>
           <button
             onClick={() => {

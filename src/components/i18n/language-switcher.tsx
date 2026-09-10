@@ -68,7 +68,7 @@ export function LanguageSwitcher({
                 className="flex w-full items-center justify-between px-3 py-2 text-left text-[13px] text-ink-2 hover:bg-ink/5"
               >
                 <span>{l.label}</span>
-                {l.code === locale && <Check className="h-3.5 w-3.5 text-forest-2" />}
+                {l.code === locale && <Check className="h-3.5 w-3.5 text-green-2" />}
               </button>
             ))}
           </div>

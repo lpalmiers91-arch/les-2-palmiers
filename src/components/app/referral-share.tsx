@@ -43,7 +43,7 @@ export function ReferralShare({ code }: { code: string }) {
           className="press inline-flex h-11 w-11 items-center justify-center rounded-[10px] border border-line text-ink-2 hover:border-ink/25"
           aria-label={t("referral.copyCode")}
         >
-          {copied === "code" ? <Check className="h-4 w-4 text-forest-2" /> : <Copy className="h-4 w-4" />}
+          {copied === "code" ? <Check className="h-4 w-4 text-green-2" /> : <Copy className="h-4 w-4" />}
         </button>
       </div>
 
@@ -55,7 +55,7 @@ export function ReferralShare({ code }: { code: string }) {
           onClick={() => copy("link")}
           className="press inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-line px-3 text-[12.5px] font-medium text-ink-2 hover:border-ink/25"
         >
-          {copied === "link" ? <Check className="h-3.5 w-3.5 text-forest-2" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied === "link" ? <Check className="h-3.5 w-3.5 text-green-2" /> : <Copy className="h-3.5 w-3.5" />}
           {copied === "link" ? t("referral.copied") : t("referral.copyLink")}
         </button>
       </div>

@@ -105,7 +105,7 @@ export function ReservationChangePanel({
       <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
         <p className="flex items-center gap-2 text-[13.5px] font-medium text-ink">
           {request.status === "approved" ? (
-            <Check className="h-4 w-4 text-forest-2" />
+            <Check className="h-4 w-4 text-green-2" />
           ) : (
             <XCircle className="h-4 w-4 text-ink-3" />
           )}

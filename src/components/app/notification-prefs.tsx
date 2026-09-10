@@ -138,7 +138,7 @@ export function NotificationPrefs({
           {testBusy ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : testDone ? (
-            <Check className="h-4 w-4 text-forest-2" />
+            <Check className="h-4 w-4 text-green-2" />
           ) : (
             <Send className="h-4 w-4" />
           )}

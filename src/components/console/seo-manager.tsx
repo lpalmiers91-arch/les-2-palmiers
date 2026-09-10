@@ -254,7 +254,7 @@ export function SeoManager({
             {checks.map((c) => (
               <li key={c.key} className="flex items-start gap-3 px-4 py-3">
                 {c.ok ? (
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-forest-2" />
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-2" />
                 ) : (
                   <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warn" />
                 )}

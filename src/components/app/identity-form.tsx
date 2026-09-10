@@ -122,7 +122,7 @@ export function IdentityForm({
   if (status === "approved") {
     return (
       <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-6 text-center">
-        <ShieldCheck className="mx-auto h-8 w-8 text-forest-2" />
+        <ShieldCheck className="mx-auto h-8 w-8 text-green-2" />
         <p className="mt-3 text-[15px] font-medium text-ink">{t("idForm.verifiedT")}</p>
         <p className="mt-1 text-[13px] text-ink-3">{t("idForm.verifiedB")}</p>
       </div>
@@ -244,7 +244,7 @@ function FilePick({
         onClick={() => ref.current?.click()}
         className="press flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-line bg-bone px-3.5 text-[12.5px] font-medium text-ink hover:border-ink/30"
       >
-        {value ? <Check className="h-3.5 w-3.5 text-forest-2" /> : <Upload className="h-3.5 w-3.5" />}
+        {value ? <Check className="h-3.5 w-3.5 text-green-2" /> : <Upload className="h-3.5 w-3.5" />}
         {value ? tf("idForm.replace") : tf("idForm.choose")}
       </button>
       <input

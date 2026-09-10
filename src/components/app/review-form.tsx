@@ -49,7 +49,7 @@ export function ReviewForm({
     return (
       <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
         <p className="flex items-center gap-2 text-[14px] font-medium text-ink">
-          <Check className="h-4 w-4 text-forest-2" /> {t("reviewForm.thanks")}
+          <Check className="h-4 w-4 text-green-2" /> {t("reviewForm.thanks")}
         </p>
         <p className="mt-1 text-[13px] text-ink-3">
           {existing?.status === "published"

@@ -66,7 +66,7 @@ export default async function LoyaltyPage() {
     <div className="mx-auto max-w-2xl">
       <PageTitle title={t("loyaltyPage.title")} sub={t("loyaltyPage.sub")} />
 
-      <div className="rounded-[var(--radius-lg)] border border-line bg-forest p-6 text-bone">
+      <div className="rounded-[var(--radius-lg)] border border-line bg-gradient-to-br from-brass to-forest p-6 text-bone">
         <div className="flex items-center gap-2 text-[12px] uppercase tracking-[0.14em] text-bone/60">
           <Gift className="h-4 w-4" /> {t("loyaltyPage.tierLabel")} {currentTier}
         </div>
@@ -113,7 +113,7 @@ export default async function LoyaltyPage() {
                 <li
                   key={tier.name}
                   className={`flex items-start gap-3 rounded-[10px] border px-3 py-2.5 ${
-                    reached ? "border-forest/30 bg-forest/[0.04]" : "border-line"
+                    reached ? "border-green/30 bg-green/[0.05]" : "border-line"
                   }`}
                 >
                   <Star

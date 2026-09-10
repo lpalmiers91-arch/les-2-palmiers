@@ -40,27 +40,33 @@ export function Card({
   );
 }
 
+const OK = "bg-green/12 text-green-2";
+const WARN = "bg-warn/14 text-warn";
+const BAD = "bg-danger/12 text-danger";
+const MUTED = "bg-ink/8 text-ink-3";
+const INFO = "bg-forest/10 text-forest-2";
+
 const statusTone: Record<string, string> = {
-  pending_payment: "bg-warn/12 text-warn",
-  confirmed: "bg-ok/12 text-forest-2",
-  in_stay: "bg-ok/12 text-forest-2",
-  completed: "bg-ink/8 text-ink-3",
-  cancelled: "bg-danger/12 text-danger",
-  no_show: "bg-danger/12 text-danger",
-  requested: "bg-warn/12 text-warn",
-  accepted: "bg-ok/12 text-forest-2",
-  scheduled: "bg-ok/12 text-forest-2",
-  in_progress: "bg-ok/12 text-forest-2",
-  declined: "bg-danger/12 text-danger",
-  draft: "bg-ink/8 text-ink-3",
-  paid: "bg-ok/12 text-forest-2",
-  failed: "bg-danger/12 text-danger",
-  pending: "bg-warn/12 text-warn",
-  awaiting_review: "bg-warn/12 text-warn",
-  rejected: "bg-danger/12 text-danger",
-  refunded: "bg-ink/8 text-ink-3",
-  published: "bg-ok/12 text-forest-2",
-  hidden: "bg-ink/8 text-ink-3",
+  pending_payment: WARN,
+  confirmed: OK,
+  in_stay: INFO,
+  completed: MUTED,
+  cancelled: BAD,
+  no_show: BAD,
+  requested: WARN,
+  accepted: OK,
+  scheduled: INFO,
+  in_progress: INFO,
+  declined: BAD,
+  draft: MUTED,
+  paid: OK,
+  failed: BAD,
+  pending: WARN,
+  awaiting_review: WARN,
+  rejected: BAD,
+  refunded: MUTED,
+  published: OK,
+  hidden: MUTED,
 };
 
 export function StatusBadge({ status }: { status: string }) {
