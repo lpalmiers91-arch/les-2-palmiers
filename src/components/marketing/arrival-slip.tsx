@@ -191,7 +191,7 @@ export function ArrivalSlip() {
             >
               <span className="flex items-center gap-1.5 text-[12.5px] font-medium text-forest-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-forest-2" />
-                {apts.length > 1 ? t("arrival.nAvailable", { n: result.available }) : t("arrival.oneAvailable")}
+                {result.available > 1 ? t("arrival.nAvailable", { n: result.available }) : t("arrival.oneAvailable")}
               </span>
               <span className="text-[12.5px] text-ink-3">
                 {t("arrival.fromLabel")}{" "}
