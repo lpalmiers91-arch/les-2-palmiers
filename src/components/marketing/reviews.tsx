@@ -11,7 +11,7 @@ export async function Reviews({ content }: { content?: BlockContent }) {
   const { data } = await supabase
     .from("reviews")
     .select(
-      "id, rating, title, body, staff_reply, created_at, client:profiles!reviews_client_id_fkey(full_name)",
+      "id, rating, title, body, staff_reply, created_at, author_name, client:profiles!reviews_client_id_fkey(full_name)",
     )
     .eq("status", "published")
     .order("featured", { ascending: false })
@@ -67,7 +67,7 @@ export async function Reviews({ content }: { content?: BlockContent }) {
                 {r.body}
               </blockquote>
               <figcaption className="mt-3 text-[12px] text-ink-3">
-                {(r.client as { full_name?: string } | null)?.full_name ?? t("home.guestFallback")}
+                {r.author_name ?? (r.client as { full_name?: string } | null)?.full_name ?? t("home.guestFallback")}
               </figcaption>
               {r.staff_reply && (
                 <p className="mt-3 rounded-[10px] bg-bone-2 px-3 py-2 text-[12.5px] text-ink-2">
@@ -77,6 +77,14 @@ export async function Reviews({ content }: { content?: BlockContent }) {
               )}
             </figure>
           ))}
+        </Reveal>
+        <Reveal className="mt-10">
+          <a
+            href="/avis"
+            className="press inline-flex items-center gap-1.5 text-[13.5px] font-medium text-forest-2 hover:text-forest"
+          >
+            {t("home.reviewsAll")} →
+          </a>
         </Reveal>
       </div>
     </section>

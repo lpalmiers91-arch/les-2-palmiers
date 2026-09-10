@@ -2040,6 +2040,7 @@ export type Database = {
       reviews: {
         Row: {
           apartment_id: string | null
+          author_name: string | null
           body: string
           client_id: string
           created_at: string
@@ -2056,6 +2057,7 @@ export type Database = {
         }
         Insert: {
           apartment_id?: string | null
+          author_name?: string | null
           body?: string
           client_id: string
           created_at?: string
@@ -2072,6 +2074,7 @@ export type Database = {
         }
         Update: {
           apartment_id?: string | null
+          author_name?: string | null
           body?: string
           client_id?: string
           created_at?: string
@@ -3097,6 +3100,7 @@ export type Database = {
         }
         Returns: {
           apartment_id: string | null
+          author_name: string | null
           body: string
           client_id: string
           created_at: string
@@ -3607,6 +3611,7 @@ export type Database = {
         }
         Returns: {
           apartment_id: string | null
+          author_name: string | null
           body: string
           client_id: string
           created_at: string

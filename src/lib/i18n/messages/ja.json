@@ -10,7 +10,8 @@
     "close": "閉じる",
     "apartments": "アパートメント",
     "currency": "通貨",
-    "chooseLanguage": "言語を選択"
+    "chooseLanguage": "言語を選択",
+    "reviews": "レビュー"
   },
   "common": {
     "loading": "読み込み中…",
@@ -225,7 +226,8 @@
     "reviewsLede": "ご滞在を終えたお客様の声。",
     "reviewsCount": "{n} 件のレビュー",
     "reviewsReplyLabel": "Les 2 Palmiers：",
-    "guestFallback": "ゲスト"
+    "guestFallback": "ゲスト",
+    "reviewsAll": "すべてのレビューを見る"
   },
   "auth": {
     "signinTitle": "ログイン",
@@ -513,7 +515,12 @@
       "unfeature": "注目を解除",
       "reply": "返信",
       "editReply": "返信を編集",
-      "deleteConfirm": "このレビューを完全に削除しますか？"
+      "deleteConfirm": "このレビューを完全に削除しますか？",
+      "onSite": "サイトに表示中",
+      "noneOnSite": "サイトに表示中のレビューはまだありません。",
+      "onSiteBadge": "公開中",
+      "showOnSite": "サイトに表示",
+      "removeFromSite": "サイトから外す"
     },
     "proof": {
       "none": "保留中の支払い証明はありません。",
@@ -1631,5 +1638,8 @@
     "title": "通知",
     "empty": "まだ通知はありません。",
     "seeAll": "すべて表示"
+  },
+  "avisPage": {
+    "empty": "最初のレビューは、今後のご滞在の後にここに表示されます。"
   }
 }

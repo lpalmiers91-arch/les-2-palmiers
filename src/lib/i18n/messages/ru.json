@@ -10,7 +10,8 @@
     "close": "Закрыть",
     "apartments": "Апартаменты",
     "currency": "Валюта",
-    "chooseLanguage": "Выбрать язык"
+    "chooseLanguage": "Выбрать язык",
+    "reviews": "Отзывы"
   },
   "common": {
     "loading": "Загрузка…",
@@ -225,7 +226,8 @@
     "reviewsLede": "Отзывы наших гостей после проживания.",
     "reviewsCount": "{n} отзывов",
     "reviewsReplyLabel": "Les 2 Palmiers: ",
-    "guestFallback": "Гость"
+    "guestFallback": "Гость",
+    "reviewsAll": "Все отзывы"
   },
   "auth": {
     "signinTitle": "Вход",
@@ -513,7 +515,12 @@
       "unfeature": "Убрать из избранного",
       "reply": "Ответить",
       "editReply": "Изменить ответ",
-      "deleteConfirm": "Удалить этот отзыв навсегда?"
+      "deleteConfirm": "Удалить этот отзыв навсегда?",
+      "onSite": "Показаны на сайте",
+      "noneOnSite": "На сайте пока нет отзывов.",
+      "onSiteBadge": "На сайте",
+      "showOnSite": "Показать на сайте",
+      "removeFromSite": "Убрать с сайта"
     },
     "proof": {
       "none": "Нет подтверждений оплаты в ожидании.",
@@ -1631,5 +1638,8 @@
     "title": "Уведомления",
     "empty": "Пока ничего.",
     "seeAll": "Показать все"
+  },
+  "avisPage": {
+    "empty": "Первые отзывы появятся здесь после ближайших заездов."
   }
 }

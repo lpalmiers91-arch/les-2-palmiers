@@ -10,7 +10,8 @@
     "close": "Cerrar",
     "apartments": "Apartamentos",
     "currency": "Moneda",
-    "chooseLanguage": "Elegir idioma"
+    "chooseLanguage": "Elegir idioma",
+    "reviews": "Opiniones"
   },
   "common": {
     "loading": "Cargando…",
@@ -225,7 +226,8 @@
     "reviewsLede": "Las opiniones de nuestros clientes, tras su estancia.",
     "reviewsCount": "{n} opiniones",
     "reviewsReplyLabel": "Les 2 Palmiers: ",
-    "guestFallback": "Cliente"
+    "guestFallback": "Cliente",
+    "reviewsAll": "Ver todas las opiniones"
   },
   "auth": {
     "signinTitle": "Iniciar sesión",
@@ -513,7 +515,12 @@
       "unfeature": "Quitar de destacadas",
       "reply": "Responder",
       "editReply": "Editar la respuesta",
-      "deleteConfirm": "¿Eliminar esta opinión definitivamente?"
+      "deleteConfirm": "¿Eliminar esta opinión definitivamente?",
+      "onSite": "Mostrados en el sitio",
+      "noneOnSite": "Aún no hay opiniones mostradas en el sitio.",
+      "onSiteBadge": "En línea",
+      "showOnSite": "Mostrar en el sitio",
+      "removeFromSite": "Quitar del sitio"
     },
     "proof": {
       "none": "Ningún comprobante de pago pendiente.",
@@ -1631,5 +1638,8 @@
     "title": "Notificaciones",
     "empty": "Nada por ahora.",
     "seeAll": "Ver todo"
+  },
+  "avisPage": {
+    "empty": "Las primeras opiniones aparecerán aquí tras las próximas estancias."
   }
 }

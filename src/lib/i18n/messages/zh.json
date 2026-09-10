@@ -10,7 +10,8 @@
     "close": "关闭",
     "apartments": "公寓",
     "currency": "货币",
-    "chooseLanguage": "选择语言"
+    "chooseLanguage": "选择语言",
+    "reviews": "评价"
   },
   "common": {
     "loading": "加载中…",
@@ -225,7 +226,8 @@
     "reviewsLede": "客人入住后的真实反馈。",
     "reviewsCount": "{n} 条评价",
     "reviewsReplyLabel": "Les 2 Palmiers：",
-    "guestFallback": "客人"
+    "guestFallback": "客人",
+    "reviewsAll": "查看全部评价"
   },
   "auth": {
     "signinTitle": "登录",
@@ -513,7 +515,12 @@
       "unfeature": "取消推荐",
       "reply": "回复",
       "editReply": "编辑回复",
-      "deleteConfirm": "永久删除此评价？"
+      "deleteConfirm": "永久删除此评价？",
+      "onSite": "已在网站显示",
+      "noneOnSite": "网站尚未显示任何评价。",
+      "onSiteBadge": "已上线",
+      "showOnSite": "在网站显示",
+      "removeFromSite": "从网站移除"
     },
     "proof": {
       "none": "没有待处理的付款凭证。",
@@ -1631,5 +1638,8 @@
     "title": "通知",
     "empty": "暂无通知。",
     "seeAll": "查看全部"
+  },
+  "avisPage": {
+    "empty": "首批评价将在接下来的入住后显示于此。"
   }
 }

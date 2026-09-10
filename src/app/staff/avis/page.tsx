@@ -12,7 +12,7 @@ export default async function StaffReviews() {
   const { data } = await supabase
     .from("reviews")
     .select(
-      "id, rating, title, body, status, featured, staff_reply, created_at, client:profiles!reviews_client_id_fkey(full_name), apartment:apartments(name)",
+      "id, rating, title, body, status, featured, staff_reply, created_at, author_name, client:profiles!reviews_client_id_fkey(full_name), apartment:apartments(name)",
     )
     .order("created_at", { ascending: false });
 
@@ -25,7 +25,10 @@ export default async function StaffReviews() {
     featured: r.featured,
     staff_reply: r.staff_reply,
     created_at: r.created_at as string,
-    client_name: (r.client as { full_name?: string } | null)?.full_name ?? null,
+    client_name:
+      (r.author_name as string | null) ??
+      (r.client as { full_name?: string } | null)?.full_name ??
+      null,
     apartment_name: (r.apartment as { name?: string } | null)?.name ?? null,
   }));
 

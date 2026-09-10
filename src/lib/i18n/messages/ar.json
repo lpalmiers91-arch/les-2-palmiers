@@ -10,7 +10,8 @@
     "close": "إغلاق",
     "apartments": "الشقق",
     "currency": "العملة",
-    "chooseLanguage": "اختر اللغة"
+    "chooseLanguage": "اختر اللغة",
+    "reviews": "التقييمات"
   },
   "common": {
     "loading": "جارٍ التحميل…",
@@ -225,7 +226,8 @@
     "reviewsLede": "آراء ضيوفنا بعد إقامتهم.",
     "reviewsCount": "{n} مراجعة",
     "reviewsReplyLabel": "Les 2 Palmiers: ",
-    "guestFallback": "ضيف"
+    "guestFallback": "ضيف",
+    "reviewsAll": "عرض كل التقييمات"
   },
   "auth": {
     "signinTitle": "تسجيل الدخول",
@@ -513,7 +515,12 @@
       "unfeature": "إلغاء الإبراز",
       "reply": "رد",
       "editReply": "تعديل الرد",
-      "deleteConfirm": "حذف هذا التقييم نهائيًا؟"
+      "deleteConfirm": "حذف هذا التقييم نهائيًا؟",
+      "onSite": "معروضة على الموقع",
+      "noneOnSite": "لا توجد مراجعات معروضة على الموقع بعد.",
+      "onSiteBadge": "منشور",
+      "showOnSite": "إظهار على الموقع",
+      "removeFromSite": "إزالة من الموقع"
     },
     "proof": {
       "none": "لا إثبات دفع معلّق.",
@@ -1631,5 +1638,8 @@
     "title": "الإشعارات",
     "empty": "لا شيء حتى الآن.",
     "seeAll": "عرض الكل"
+  },
+  "avisPage": {
+    "empty": "ستظهر أولى المراجعات هنا بعد الإقامات القادمة."
   }
 }

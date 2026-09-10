@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/appartements",
     "/services",
     "/le-lieu",
+    "/avis",
     "/contact",
     "/reserver",
     "/connexion",

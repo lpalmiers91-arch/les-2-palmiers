@@ -10,7 +10,8 @@
     "close": "Fermer",
     "apartments": "Appartements",
     "currency": "Devise",
-    "chooseLanguage": "Choisir la langue"
+    "chooseLanguage": "Choisir la langue",
+    "reviews": "Avis"
   },
   "common": {
     "loading": "Chargement…",
@@ -225,7 +226,8 @@
     "reviewsLede": "Les retours de nos clients, après leur passage.",
     "reviewsCount": "{n} avis",
     "reviewsReplyLabel": "Les 2 Palmiers : ",
-    "guestFallback": "Client"
+    "guestFallback": "Client",
+    "reviewsAll": "Voir tous les avis"
   },
   "auth": {
     "signinTitle": "Se connecter",
@@ -513,7 +515,12 @@
       "unfeature": "Retirer de la une",
       "reply": "Répondre",
       "editReply": "Modifier la réponse",
-      "deleteConfirm": "Supprimer cet avis définitivement ?"
+      "deleteConfirm": "Supprimer cet avis définitivement ?",
+      "onSite": "Affichés sur le site",
+      "noneOnSite": "Aucun avis affiché sur le site pour l'instant.",
+      "onSiteBadge": "En ligne",
+      "showOnSite": "Afficher sur le site",
+      "removeFromSite": "Retirer du site"
     },
     "proof": {
       "none": "Aucune preuve de paiement en attente.",
@@ -1631,5 +1638,8 @@
     "title": "Notifications",
     "empty": "Rien pour le moment.",
     "seeAll": "Tout voir"
+  },
+  "avisPage": {
+    "empty": "Les premiers avis apparaîtront ici après les prochains séjours."
   }
 }

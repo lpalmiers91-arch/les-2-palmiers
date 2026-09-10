@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 import { Loader2, Star, Check, EyeOff, MessageSquareReply, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 import { formatDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/provider";
 import { AiDraftButton } from "@/components/console/ai-draft-button";
@@ -25,62 +27,143 @@ function Stars({ n }: { n: number }) {
   return (
     <span className="flex gap-0.5">
       {[1, 2, 3, 4, 5].map((i) => (
-        <Star
-          key={i}
-          className={`h-3.5 w-3.5 ${i <= n ? "fill-brass text-brass" : "text-line"}`}
-        />
+        <Star key={i} className={`h-3.5 w-3.5 ${i <= n ? "fill-brass text-brass" : "text-line"}`} />
       ))}
     </span>
   );
 }
 
-export function ReviewModeration({ rows }: { rows: ReviewRow[] }) {
+export function ReviewModeration({ rows: initial }: { rows: ReviewRow[] }) {
   const { t } = useT();
+  const router = useRouter();
+  const [rows, setRows] = useState<ReviewRow[]>(initial);
+
+  // fusion avec les données serveur rafraîchies
+  useEffect(() => {
+    setRows((prev) => {
+      const seen = new Map(prev.map((r) => [r.id, r]));
+      for (const r of initial) seen.set(r.id, { ...seen.get(r.id), ...r });
+      return [...seen.values()].sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
+    });
+  }, [initial]);
+
+  // temps réel : publication / masquage / réponse par un autre membre
+  useEffect(() => {
+    let alive = true;
+    let ch: RealtimeChannel | null = null;
+    ensureRealtimeAuth().then((supabase) => {
+      if (!alive) return;
+      ch = supabase
+        .channel(`reviews-mod-${Math.random().toString(36).slice(2)}`)
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "reviews" },
+          (payload) => {
+            if (payload.eventType === "DELETE") {
+              const id = (payload.old as { id?: string })?.id;
+              if (id) setRows((p) => p.filter((r) => r.id !== id));
+              return;
+            }
+            const n = payload.new as Partial<ReviewRow> & { id: string };
+            setRows((p) => p.map((r) => (r.id === n.id ? { ...r, ...n } : r)));
+          },
+        )
+        .subscribe();
+    });
+    return () => {
+      alive = false;
+      if (ch) createClient().removeChannel(ch);
+    };
+  }, []);
+
+  function patchRow(id: string, patch: Partial<ReviewRow>) {
+    setRows((p) => p.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+  }
+  function dropRow(id: string) {
+    setRows((p) => p.filter((r) => r.id !== id));
+  }
+
   const pending = rows.filter((r) => r.status === "pending");
-  const others = rows.filter((r) => r.status !== "pending");
+  const published = rows.filter((r) => r.status === "published");
+  const hidden = rows.filter((r) => r.status === "hidden");
+
   return (
     <div className="space-y-8">
-      <section>
-        <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-          {t("console.reviewMod.toModerate")} ({pending.length})
-        </h2>
+      <Section title={`${t("console.reviewMod.toModerate")} (${pending.length})`}>
         {pending.length === 0 ? (
-          <p className="mt-3 rounded-[var(--radius-lg)] border border-dashed border-line bg-bone/60 px-5 py-8 text-center text-[13px] text-ink-3">
-            {t("console.reviewMod.noneWaiting")}
-          </p>
+          <Empty>{t("console.reviewMod.noneWaiting")}</Empty>
         ) : (
-          <div className="mt-3 space-y-3">
-            {pending.map((r) => (
-              <ReviewCard key={r.id} row={r} />
-            ))}
-          </div>
+          pending.map((r) => (
+            <ReviewCard key={r.id} row={r} onPatch={patchRow} onDrop={dropRow} onSync={router.refresh} t={t} />
+          ))
         )}
-      </section>
-      {others.length > 0 && (
-        <section>
-          <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            {t("console.reviewMod.publishedHidden")}
-          </h2>
-          <div className="mt-3 space-y-3">
-            {others.map((r) => (
-              <ReviewCard key={r.id} row={r} />
-            ))}
-          </div>
-        </section>
+      </Section>
+
+      <Section title={`${t("console.reviewMod.onSite")} (${published.length})`}>
+        {published.length === 0 ? (
+          <Empty>{t("console.reviewMod.noneOnSite")}</Empty>
+        ) : (
+          published.map((r) => (
+            <ReviewCard key={r.id} row={r} onPatch={patchRow} onDrop={dropRow} onSync={router.refresh} t={t} />
+          ))
+        )}
+      </Section>
+
+      {hidden.length > 0 && (
+        <Section title={`${t("console.status.hidden")} (${hidden.length})`}>
+          {hidden.map((r) => (
+            <ReviewCard key={r.id} row={r} onPatch={patchRow} onDrop={dropRow} onSync={router.refresh} t={t} />
+          ))}
+        </Section>
       )}
     </div>
   );
 }
 
-function ReviewCard({ row }: { row: ReviewRow }) {
-  const router = useRouter();
-  const { t } = useT();
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section>
+      <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">{title}</h2>
+      <div className="mt-3 space-y-3">{children}</div>
+    </section>
+  );
+}
+function Empty({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="rounded-[var(--radius-lg)] border border-dashed border-line bg-bone/60 px-5 py-8 text-center text-[13px] text-ink-3">
+      {children}
+    </p>
+  );
+}
+
+function ReviewCard({
+  row,
+  onPatch,
+  onDrop,
+  onSync,
+  t,
+}: {
+  row: ReviewRow;
+  onPatch: (id: string, p: Partial<ReviewRow>) => void;
+  onDrop: (id: string) => void;
+  onSync: () => void;
+  t: (k: string, v?: Record<string, string | number>) => string;
+}) {
   const [busy, setBusy] = useState<string | null>(null);
   const [replyOpen, setReplyOpen] = useState(false);
   const [reply, setReply] = useState(row.staff_reply ?? "");
+  const prev = useRef(row);
 
   async function act(patch: { status?: string; featured?: boolean; reply?: string }) {
     setBusy(patch.status ?? (patch.featured != null ? "feature" : "reply"));
+    prev.current = row;
+    // maj optimiste immédiate
+    onPatch(row.id, {
+      ...(patch.status ? { status: patch.status } : {}),
+      ...(patch.featured != null ? { featured: patch.featured } : {}),
+      ...(patch.reply ? { staff_reply: patch.reply } : {}),
+    });
+    setReplyOpen(false);
     try {
       const { error } = await createClient().rpc("moderate_review", {
         p_id: row.id,
@@ -89,8 +172,9 @@ function ReviewCard({ row }: { row: ReviewRow }) {
         p_reply: patch.reply,
       });
       if (error) throw error;
-      router.refresh();
-      setReplyOpen(false);
+      onSync();
+    } catch {
+      onPatch(row.id, prev.current); // rollback
     } finally {
       setBusy(null);
     }
@@ -99,9 +183,13 @@ function ReviewCard({ row }: { row: ReviewRow }) {
   async function remove() {
     if (!confirm(t("console.reviewMod.deleteConfirm"))) return;
     setBusy("delete");
-    await createClient().rpc("delete_review", { p_id: row.id });
-    router.refresh();
-    setBusy(null);
+    onDrop(row.id);
+    try {
+      await createClient().rpc("delete_review", { p_id: row.id });
+      onSync();
+    } finally {
+      setBusy(null);
+    }
   }
 
   return (
@@ -126,14 +214,14 @@ function ReviewCard({ row }: { row: ReviewRow }) {
         <span
           className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
             row.status === "published"
-              ? "bg-ok/12 text-forest-2"
+              ? "bg-green/12 text-green-2"
               : row.status === "hidden"
                 ? "bg-ink/8 text-ink-3"
-                : "bg-warn/12 text-warn"
+                : "bg-warn/14 text-warn"
           }`}
         >
           {row.status === "published"
-            ? t("console.status.published")
+            ? t("console.reviewMod.onSiteBadge")
             : row.status === "hidden"
               ? t("console.status.hidden")
               : t("console.status.pending")}
@@ -177,30 +265,37 @@ function ReviewCard({ row }: { row: ReviewRow }) {
             disabled={busy !== null || reply.trim().length < 2}
             className="press mt-2 flex h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12.5px] font-medium text-bone disabled:opacity-50"
           >
-            {busy === "reply" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
+            {busy === "reply" ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <Check className="h-3.5 w-3.5" />
+            )}
             {t("console.reviewMod.saveReply")}
           </button>
         </div>
       )}
 
       <div className="mt-4 flex flex-wrap gap-2">
-        {row.status !== "published" && (
+        {row.status !== "published" ? (
           <button
             onClick={() => act({ status: "published" })}
             disabled={busy !== null}
-            className="press flex h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12.5px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
+            className="press flex h-9 items-center gap-1.5 rounded-full bg-green px-4 text-[12.5px] font-medium text-bone hover:opacity-90 disabled:opacity-50"
           >
-            {busy === "published" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
-            {t("console.action.publish")}
+            {busy === "published" ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <Check className="h-3.5 w-3.5" />
+            )}
+            {t("console.reviewMod.showOnSite")}
           </button>
-        )}
-        {row.status !== "hidden" && (
+        ) : (
           <button
             onClick={() => act({ status: "hidden" })}
             disabled={busy !== null}
             className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-4 text-[12.5px] font-medium text-ink hover:border-ink/30 disabled:opacity-50"
           >
-            <EyeOff className="h-3.5 w-3.5" /> {t("console.reviewMod.hide")}
+            <EyeOff className="h-3.5 w-3.5" /> {t("console.reviewMod.removeFromSite")}
           </button>
         )}
         {row.status === "published" && (
