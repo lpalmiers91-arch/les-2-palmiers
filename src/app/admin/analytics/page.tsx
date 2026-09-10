@@ -52,10 +52,10 @@ export default async function AnalyticsPage() {
       .map((r) => r.session_id),
   );
   const funnel = [
-    { label: "Visiteurs uniques", n: sessions },
-    { label: "Ouvrent /reserver", n: reserverViews.size },
-    { label: "Cliquent « réserver »", n: reserverClicks.size },
-    { label: "Réservations créées", n: bookings },
+    { label: t("console.analytics.fVisitors"), n: sessions },
+    { label: t("console.analytics.fOpenReserve"), n: reserverViews.size },
+    { label: t("console.analytics.fClickBook"), n: reserverClicks.size },
+    { label: t("console.analytics.fBookings"), n: bookings },
   ];
 
   const maxDay = Math.max(1, ...(daily ?? []).map((d) => Number(d.sessions ?? 0)));

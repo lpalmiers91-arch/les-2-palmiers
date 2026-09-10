@@ -9,6 +9,7 @@ import { formatXOF, formatDate, nightsBetween } from "@/lib/format";
 import { aptImg } from "@/lib/site";
 import { ServiceIcon } from "@/components/marketing/service-icon";
 import { track } from "@/lib/track";
+import { useT } from "@/lib/i18n/provider";
 
 type Quote = {
   nights: number;
@@ -43,6 +44,7 @@ function iso(offset: number) {
 export function ReservationFunnel({ authed }: { authed: boolean }) {
   const router = useRouter();
   const params = useSearchParams();
+  const { t } = useT();
 
   const [apts, setApts] = useState<Apt[]>([]);
   const [aptId, setAptId] = useState<string | null>(null);
@@ -174,7 +176,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
       void track("booking", { apartment: apt.slug, services: chosen.size, amount: depositAmount });
       router.push(`/app/reservations/${ref}?pay=1`);
     } catch (err) {
-      setError(translate(err));
+      setError(translate(err, t));
       setSubmitting(false);
     }
   }
@@ -183,16 +185,15 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
     <div className="grid gap-10 lg:grid-cols-[1fr_380px] lg:gap-16">
       {/* colonne saisie */}
       <div>
-        <h1 className="display text-[2rem] text-ink sm:text-[2.4rem]">Réserver un séjour</h1>
+        <h1 className="display text-[2rem] text-ink sm:text-[2.4rem]">{t("booking.title")}</h1>
         <p className="mt-2 text-[14px] text-ink-3">
-          Choisissez l&apos;appartement, vos dates et les services. Un seul récapitulatif, un seul
-          paiement.
+          {t("booking.sub")}
         </p>
 
         {apts.length > 1 && (
           <section className="mt-9">
             <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-              L&apos;appartement
+              {t("booking.apartment")}
             </h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {apts.map((a) => (
@@ -212,7 +213,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-[13.5px] font-medium text-ink">{a.name}</span>
                     <span className="block text-[12px] text-ink-3">
-                      {a.capacity} voy. · dès {formatXOF(a.base_price)}/nuit
+                      {t("booking.capacityShort",{n:a.capacity})} · {t("booking.fromPerNight",{price:formatXOF(a.base_price)})}
                     </span>
                   </span>
                   {aptId === a.id && <Check className="h-4 w-4 shrink-0 text-forest-2" />}
@@ -224,20 +225,20 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
 
         <section className="mt-9">
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Vos dates
+            {t("booking.yourDates")}
           </h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1.5 block text-[13px] text-ink-2">Arrivée</span>
+              <span className="mb-1.5 block text-[13px] text-ink-2">{t("booking.checkin")}</span>
               <input type="date" className="field tnum" min={iso(0)} value={start} onChange={(e) => setStart(e.target.value)} />
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-[13px] text-ink-2">Départ</span>
+              <span className="mb-1.5 block text-[13px] text-ink-2">{t("booking.checkout")}</span>
               <input type="date" className="field tnum" min={start || iso(1)} value={end} onChange={(e) => setEnd(e.target.value)} />
             </label>
           </div>
           <label className="mt-3 flex items-center justify-between rounded-[11px] border border-line bg-bone px-4 py-3">
-            <span className="text-[14px] text-ink-2">Voyageurs</span>
+            <span className="text-[14px] text-ink-2">{t("booking.guests")}</span>
             <span className="flex items-center gap-3">
               <button type="button" onClick={() => setGuests((g) => Math.max(1, g - 1))} className="press h-8 w-8 rounded-full border border-line text-[16px] leading-none">−</button>
               <span className="tnum w-4 text-center text-[15px]">{guests}</span>
@@ -247,17 +248,17 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
 
           {quote && !quote.available && (
             <p className="mt-3 rounded-[10px] bg-danger/10 px-3 py-2 text-[13px] text-danger">
-              Ces dates ne sont pas disponibles. Essayez une autre période.
+              {t("booking.unavailable")}
             </p>
           )}
           {quote && quote.over_capacity && (
             <p className="mt-3 rounded-[10px] bg-danger/10 px-3 py-2 text-[13px] text-danger">
-              Cet appartement accueille jusqu&apos;à {apt?.capacity} voyageurs.
+              {t("booking.overCapacity",{n:apt?.capacity ?? 4})}
             </p>
           )}
           {quote && !quote.meets_min_nights && (
             <p className="mt-3 rounded-[10px] bg-warn/10 px-3 py-2 text-[13px] text-warn">
-              Séjour minimum de {quote.min_nights} nuits sur cette période.
+              {t("booking.minNights",{n:quote.min_nights})}
             </p>
           )}
         </section>
@@ -265,7 +266,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
         {services.length > 0 && (
           <section className="mt-9">
             <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-              Ajouter des services <span className="font-normal text-ink-3/70">(facultatif)</span>
+              {t("booking.addServices")} <span className="font-normal text-ink-3/70">({t("booking.optional")})</span>
             </h2>
             <div className="mt-4 space-y-2">
               {services.map((sv) => {
@@ -285,7 +286,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
                     <span className="min-w-0 flex-1">
                       <span className="block text-[13.5px] font-medium text-ink">{sv.title}</span>
                       <span className="tnum block text-[12px] text-ink-3">
-                        {formatXOF(sv.base_price)} · prépayé
+                        {formatXOF(sv.base_price)} · {t("booking.prepaid")}
                       </span>
                     </span>
                     <span
@@ -300,13 +301,13 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
               })}
             </div>
             <p className="mt-2 text-[12px] text-ink-3">
-              D&apos;autres prestations (sur devis) se demandent depuis votre espace après réservation.
+              {t("booking.moreServices")}
             </p>
           </section>
         )}
 
         <section className="mt-9">
-          <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">Paiement</h2>
+          <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">{t("booking.payment")}</h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {([50, 100] as const).map((d) => (
               <button
@@ -319,19 +320,18 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
               >
                 <span className="flex items-center justify-between">
                   <span className="text-[14px] font-medium text-ink">
-                    {d === 50 ? "Acompte 50 %" : "Régler la totalité"}
+                    {d === 50 ? t("booking.deposit50") : t("booking.payFull")}
                   </span>
                   {deposit === d && <Check className="h-4 w-4 text-forest-2" />}
                 </span>
                 <span className="mt-1 block tnum text-[13px] text-ink-3">
-                  {quote ? formatXOF(Math.round((stayTotal * d) / 100) + svcTotal) : "—"} maintenant
+                  {quote ? formatXOF(Math.round((stayTotal * d) / 100) + svcTotal) : "—"} {t("booking.now")}
                 </span>
               </button>
             ))}
           </div>
           <p className="mt-3 text-[12.5px] text-ink-3">
-            Paiement Mobile Money (MTN, Moov, Celtis) ou carte. Environnement de démonstration : le
-            paiement est simulé.
+            {t("booking.paymentNote")}
           </p>
         </section>
 
@@ -350,23 +350,23 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
           </div>
           <div className="p-5">
             <p className="display text-[1.05rem] text-ink">{apt?.name ?? "Les 2 Palmiers"}</p>
-            <p className="text-[13px] text-ink-3">Appartement entier · Cotonou</p>
+            <p className="text-[13px] text-ink-3">{t("booking.wholeApt")}</p>
 
             <div className="mt-4 space-y-2 border-t border-line pt-4 text-[13.5px]">
-              <Row label="Dates">
+              <Row label={t("booking.dates")}>
                 {start && end
                   ? `${formatDate(start, { day: "numeric", month: "short" })} — ${formatDate(end, { day: "numeric", month: "short" })}`
                   : "—"}
               </Row>
-              <Row label="Voyageurs">{guests}</Row>
+              <Row label={t("booking.guests")}>{guests}</Row>
               {quote && (
                 <>
-                  <Row label={`${quote.nights} nuit${quote.nights > 1 ? "s" : ""}`}>
+                  <Row label={t("booking.nights",{n:quote.nights})}>
                     {formatXOF(quote.lodging_subtotal)}
                   </Row>
-                  <Row label="Ménage">{formatXOF(quote.cleaning_fee)}</Row>
+                  <Row label={t("booking.cleaning")}>{formatXOF(quote.cleaning_fee)}</Row>
                   {quote.discount_amount > 0 && (
-                    <Row label={`Remise ${quote.discount_percent}%`}>
+                    <Row label={t("booking.discount",{p:quote.discount_percent})}>
                       <span className="text-forest-2">−{formatXOF(quote.discount_amount)}</span>
                     </Row>
                   )}
@@ -382,14 +382,14 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
             </div>
 
             <div className="mt-4 flex items-baseline justify-between border-t border-line pt-4">
-              <span className="text-[14px] font-medium text-ink">Total</span>
+              <span className="text-[14px] font-medium text-ink">{t("booking.total")}</span>
               <span className="tnum display text-[1.3rem] text-ink">
                 {quote ? formatXOF(grandTotal) : "—"}
               </span>
             </div>
             {quote && (
               <p className="mt-1 text-right tnum text-[12.5px] text-ink-3">
-                {formatXOF(depositAmount)} à régler maintenant
+                {t("booking.dueNow",{price:formatXOF(depositAmount)})}
               </p>
             )}
 
@@ -402,7 +402,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <>
-                  {authed ? "Confirmer et payer" : "Se connecter pour réserver"}
+                  {authed ? t("booking.confirmPay") : t("booking.loginToBook")}
                   <ArrowRight className="h-4 w-4" />
                 </>
               )}
@@ -423,11 +423,11 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   );
 }
 
-function translate(err: unknown): string {
+function translate(err: unknown, t: (k: string) => string): string {
   const m = err instanceof Error ? err.message : String(err);
-  if (/dates_unavailable/.test(m)) return "Ces dates viennent d'être prises. Choisissez une autre période.";
-  if (/over_capacity/.test(m)) return "Le nombre de voyageurs dépasse la capacité de l'appartement.";
-  if (/below_min_nights/.test(m)) return "La durée minimale n'est pas atteinte sur cette période.";
-  if (/not_authenticated/.test(m)) return "Connectez-vous pour finaliser la réservation.";
-  return "La réservation n'a pas pu être créée. Réessayez.";
+  if (/dates_unavailable/.test(m)) return t("booking.errTaken");
+  if (/over_capacity/.test(m)) return t("booking.errCapacity");
+  if (/below_min_nights/.test(m)) return t("booking.errMinNights");
+  if (/not_authenticated/.test(m)) return t("booking.errAuth");
+  return t("booking.errGeneric");
 }

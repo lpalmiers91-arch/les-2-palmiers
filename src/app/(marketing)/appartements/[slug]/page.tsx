@@ -7,6 +7,7 @@ import { ApartmentGallery } from "@/components/marketing/apartment-gallery";
 import { ApartmentCard } from "@/components/marketing/apartment-card";
 import { AMENITY } from "@/lib/amenities";
 import { formatXOF } from "@/lib/format";
+import { getT } from "@/lib/i18n";
 
 export async function generateMetadata({
   params,
@@ -22,11 +23,9 @@ export async function generateMetadata({
   };
 }
 
-const CANCEL: Record<string, string> = {
-  flexible: "Annulation flexible",
-  moderate: "Annulation modérée",
-  strict: "Annulation stricte",
-};
+function cancelLabel(t: (k: string) => string, p: string) {
+  return { flexible: t("aptPub.cancelFlex"), moderate: t("aptPub.cancelMod"), strict: t("aptPub.cancelStrict") }[p] ?? t("aptPub.cancelMod");
+}
 
 export default async function ApartmentDetail({
   params,
@@ -34,6 +33,7 @@ export default async function ApartmentDetail({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const { t } = await getT();
   const apt = await getApartment(slug);
   if (!apt) notFound();
 
@@ -47,7 +47,7 @@ export default async function ApartmentDetail({
           href="/appartements"
           className="inline-flex items-center gap-1.5 text-[13px] text-ink-3 hover:text-ink"
         >
-          ← Tous les appartements
+          ← {t("aptPub.allApts")}
         </Link>
 
         <header className="mt-4 flex flex-wrap items-end justify-between gap-4">
@@ -62,13 +62,13 @@ export default async function ApartmentDetail({
                 </span>
               )}
               <span className="flex items-center gap-1.5">
-                <Users className="h-3.5 w-3.5" /> {apt.capacity} voyageurs
+                <Users className="h-3.5 w-3.5" /> {t("aptPub.guestsN",{n:apt.capacity})}
               </span>
               <span className="flex items-center gap-1.5">
-                <BedDouble className="h-3.5 w-3.5" /> {apt.bedrooms} chambre{apt.bedrooms > 1 ? "s" : ""}
+                <BedDouble className="h-3.5 w-3.5" /> {t("aptPub.bedroomsN",{n:apt.bedrooms})}
               </span>
               <span className="flex items-center gap-1.5">
-                <Bath className="h-3.5 w-3.5" /> {apt.bathrooms} salle{apt.bathrooms > 1 ? "s" : ""} d&apos;eau
+                <Bath className="h-3.5 w-3.5" /> {t("aptPub.bathroomsN",{n:apt.bathrooms})}
               </span>
             </p>
           </div>
@@ -76,7 +76,7 @@ export default async function ApartmentDetail({
             href={`/reserver?apartment=${apt.slug}`} data-track="reserver-apartment"
             className="press inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[14px] font-medium text-bone hover:bg-forest-2"
           >
-            Réserver — dès {formatXOF(apt.base_price)}/nuit
+            {t("aptPub.bookFrom",{price:formatXOF(apt.base_price)})}
             <ArrowRight className="h-4 w-4" />
           </Link>
         </header>
@@ -100,7 +100,7 @@ export default async function ApartmentDetail({
             {apt.amenities.length > 0 && (
               <>
                 <h2 className="mt-10 text-[13px] font-semibold uppercase tracking-[0.18em] text-ink-3">
-                  L&apos;équipement
+                  {t("aptPub.equipment")}
                 </h2>
                 <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
                   {apt.amenities.map((a) => {
@@ -127,19 +127,19 @@ export default async function ApartmentDetail({
             <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
               <p className="display text-[1.5rem] text-ink">
                 {formatXOF(apt.base_price)}
-                <span className="text-[13px] font-normal text-ink-3"> / nuit</span>
+                <span className="text-[13px] font-normal text-ink-3"> {t("aptPub.perNight")}</span>
               </p>
               <dl className="mt-4 space-y-2.5 border-t border-line pt-4 text-[13.5px]">
-                <Row k="Ménage">{formatXOF(apt.cleaning_fee)}</Row>
-                <Row k="Arrivée">{apt.checkin_from ? `dès ${apt.checkin_from.slice(0, 5)}` : "à partir de 15 h"}</Row>
-                <Row k="Départ">{apt.checkout_before ? `avant ${apt.checkout_before.slice(0, 5)}` : "avant 11 h"}</Row>
-                <Row k="Annulation">{CANCEL[apt.cancellation_policy] ?? "modérée"}</Row>
+                <Row k={t("aptPub.cleaning")}>{formatXOF(apt.cleaning_fee)}</Row>
+                <Row k={t("aptPub.checkin")}>{apt.checkin_from ? t("aptPub.fromTime",{time:apt.checkin_from.slice(0,5)}) : t("aptPub.checkinDefault")}</Row>
+                <Row k={t("aptPub.checkout")}>{apt.checkout_before ? t("aptPub.beforeTime",{time:apt.checkout_before.slice(0,5)}) : t("aptPub.checkoutDefault")}</Row>
+                <Row k={t("aptPub.cancellation")}>{cancelLabel(t, apt.cancellation_policy)}</Row>
               </dl>
               <Link
                 href={`/reserver?apartment=${apt.slug}`} data-track="reserver-apartment"
                 className="press mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-[14px] font-medium text-bone hover:bg-forest-2"
               >
-                Vérifier les dates <ArrowRight className="h-4 w-4" />
+                {t("aptPub.checkDates")} <ArrowRight className="h-4 w-4" />
               </Link>
               {apt.map_url && (
                 <a
@@ -148,7 +148,7 @@ export default async function ApartmentDetail({
                   rel="noreferrer"
                   className="press mt-2 flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-line text-[13px] font-medium text-ink hover:border-ink/30"
                 >
-                  <MapPin className="h-3.5 w-3.5" /> Voir sur la carte
+                  <MapPin className="h-3.5 w-3.5" /> {t("aptPub.viewMap")}
                 </a>
               )}
             </div>
@@ -157,7 +157,7 @@ export default async function ApartmentDetail({
 
         {others.length > 0 && (
           <section className="mt-20 border-t border-ink/15 pt-12">
-            <h2 className="display text-[1.6rem] text-ink">Les autres logements</h2>
+            <h2 className="display text-[1.6rem] text-ink">{t("aptPub.otherPlaces")}</h2>
             <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {others.map((a) => (
                 <ApartmentCard key={a.id} apt={a} />

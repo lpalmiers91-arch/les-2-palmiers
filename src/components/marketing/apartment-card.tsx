@@ -2,9 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Users, BedDouble, ArrowUpRight } from "lucide-react";
 import { formatXOF } from "@/lib/format";
+import { getT } from "@/lib/i18n";
 import type { ApartmentCard as Apt } from "@/lib/apartments";
 
-export function ApartmentCard({ apt }: { apt: Apt }) {
+export async function ApartmentCard({ apt }: { apt: Apt }) {
+  const { t } = await getT();
   return (
     <Link
       href={`/appartements/${apt.slug}`}
@@ -21,7 +23,7 @@ export function ApartmentCard({ apt }: { apt: Apt }) {
           />
         ) : null}
         <span className="absolute right-3 top-3 rounded-full bg-ink/80 px-2.5 py-1 text-[11px] font-medium text-bone backdrop-blur">
-          dès {formatXOF(apt.base_price)} / nuit
+          {t("aptPub.fromNight",{price:formatXOF(apt.base_price)})}
         </span>
       </div>
       <div className="flex flex-1 flex-col p-5">
@@ -32,14 +34,14 @@ export function ApartmentCard({ apt }: { apt: Apt }) {
         )}
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12.5px] text-ink-3">
           <span className="flex items-center gap-1.5">
-            <Users className="h-3.5 w-3.5" /> {apt.capacity} voyageurs
+            <Users className="h-3.5 w-3.5" /> {t("aptPub.guestsN",{n:apt.capacity})}
           </span>
           <span className="flex items-center gap-1.5">
-            <BedDouble className="h-3.5 w-3.5" /> {apt.bedrooms} chambre{apt.bedrooms > 1 ? "s" : ""}
+            <BedDouble className="h-3.5 w-3.5" /> {t("aptPub.bedroomsN",{n:apt.bedrooms})}
           </span>
         </div>
         <span className="mt-4 inline-flex items-center gap-1 text-[13px] font-medium text-forest-2">
-          Voir l&apos;appartement
+          {t("aptPub.viewApt")}
           <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>
       </div>
