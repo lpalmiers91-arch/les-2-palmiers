@@ -188,8 +188,9 @@
   <p class="csub">Description complète de la solution logicielle développée pour Les 2 Palmiers — Appartement de Rêve, Cotonou.</p>
   <dl class="meta">
     <dt>Référence</dt><dd>L2P-DT-001</dd>
-    <dt>Version</dt><dd>1.0</dd>
+    <dt>Version</dt><dd>1.1</dd>
     <dt>Date</dt><dd>Septembre 2026</dd>
+    <dt>Développeur de la solution</dt><dd>Welman GBAGUIDI</dd>
     <dt>Rédaction</dt><dd>Welman GBAGUIDI</dd>
     <dt>Durée du projet</dt><dd>Un mois de développement</dd>
     <dt>Diffusion</dt><dd>Restreinte — client et prestataire</dd>
@@ -203,6 +204,8 @@
 
 <p class="lead">Ce dossier décrit l'ensemble de la solution développée pour Les 2 Palmiers&nbsp;: son architecture, ses données, ses fonctionnalités, ses mécanismes de sécurité et les points à finaliser avant une exploitation commerciale.</p>
 
+<p>La solution a été <strong>conçue et développée par Welman GBAGUIDI</strong>, seul intervenant technique du projet, de l'architecture au déploiement.</p>
+
 <p>Il s'adresse à trois lecteurs. Au <strong>commanditaire</strong>, pour qu'il sache précisément ce qui a été livré et ce qu'il reste à décider. À un <strong>futur prestataire</strong> qui reprendrait la maintenance et qui a besoin d'une vue d'ensemble avant d'entrer dans le code. À un <strong>responsable technique</strong> côté client, enfin, qui doit arbitrer sur les intégrations (paiement, intelligence artificielle) et sur l'hébergement.</p>
 
 <p>La lecture ne suppose pas de connaître le code. Les termes techniques sont employés quand ils sont nécessaires et rassemblés dans le glossaire en fin de document. Le guide d'utilisation, livré séparément, décrit quant à lui l'usage quotidien des interfaces.</p>
@@ -214,6 +217,7 @@
   <thead><tr><th style="width:18mm">Version</th><th style="width:26mm">Date</th><th style="width:34mm">Auteur</th><th>Objet</th></tr></thead>
   <tbody>
     <tr><td class="k">1.0</td><td>Sept. 2026</td><td>W. GBAGUIDI</td><td>Première version, à la livraison de la plateforme.</td></tr>
+    <tr><td class="k">1.1</td><td>Sept. 2026</td><td>W. GBAGUIDI</td><td>Ajouts&nbsp;: frais de séjour, compte client prépayé, envoi des coordonnées de paiement, étape d'envoi du contrat, sélection des avis publiés, pages intégrées à l'espace client, correctifs (notifications mobiles, suppression de message visible).</td></tr>
   </tbody>
 </table>
 </figure>
@@ -292,15 +296,15 @@
   <caption><span class="cn">Tableau 1.2</span>Volumétrie de la solution</caption>
   <thead><tr><th>Élément</th><th style="width:26mm">Quantité</th></tr></thead>
   <tbody>
-    <tr><td>Écrans (pages applicatives et points d'accès techniques)</td><td class="num">69</td></tr>
-    <tr><td>Tables dans la base de données</td><td class="num">55</td></tr>
-    <tr><td>Fonctions de base de données (règles métier)</td><td class="num">105</td></tr>
-    <tr><td>Politiques de sécurité au niveau des lignes</td><td class="num">88</td></tr>
+    <tr><td>Écrans (pages applicatives et points d'accès techniques)</td><td class="num">72</td></tr>
+    <tr><td>Tables dans la base de données</td><td class="num">64</td></tr>
+    <tr><td>Fonctions de base de données (règles métier)</td><td class="num">117</td></tr>
+    <tr><td>Politiques de sécurité au niveau des lignes</td><td class="num">92</td></tr>
     <tr><td>Traitements serveur (fonctions Edge)</td><td class="num">9</td></tr>
     <tr><td>Langues d'interface</td><td class="num">10</td></tr>
-    <tr><td>Clés de traduction, identiques dans chaque langue</td><td class="num">1&nbsp;374</td></tr>
-    <tr><td>Migrations de schéma versionnées</td><td class="num">55</td></tr>
-    <tr><td>Lignes de code, hors bibliothèques</td><td class="num">≈ 33&nbsp;000</td></tr>
+    <tr><td>Clés de traduction, identiques dans chaque langue</td><td class="num">1&nbsp;513</td></tr>
+    <tr><td>Migrations de schéma versionnées</td><td class="num">63</td></tr>
+    <tr><td>Lignes de code, hors bibliothèques</td><td class="num">≈ 34&nbsp;000</td></tr>
   </tbody>
 </table>
 </figure>
@@ -350,10 +354,10 @@
 <!-- ============================ 3 ============================ -->
 <h1 id="s3"><span class="hn">3</span> Modèle de données</h1>
 
-<p class="lead">La base compte 55 tables. Chacune est protégée par la sécurité au niveau des lignes&nbsp;: la base elle-même refuse de renvoyer à un client des données qui ne le concernent pas, et à un membre de l'équipe ce que ses permissions ne couvrent pas.</p>
+<p class="lead">La base compte 64 tables. Chacune est protégée par la sécurité au niveau des lignes&nbsp;: la base elle-même refuse de renvoyer à un client des données qui ne le concernent pas, et à un membre de l'équipe ce que ses permissions ne couvrent pas.</p>
 
 <h2 id="s3-1">3.1&ensp;Principe de cloisonnement</h2>
-<p>Le cloisonnement ne repose pas seulement sur l'interface. Il est inscrit dans la base. Un client authentifié qui interrogerait directement la table des réservations ne verrait que les siennes. Un coordinateur verrait les réservations mais pas les réglages de paiement. Cette approche a un coût — 88 politiques à maintenir — mais elle garantit qu'une faille d'interface ne se traduit pas par une fuite de données.</p>
+<p>Le cloisonnement ne repose pas seulement sur l'interface. Il est inscrit dans la base. Un client authentifié qui interrogerait directement la table des réservations ne verrait que les siennes. Un coordinateur verrait les réservations mais pas les réglages de paiement. Cette approche a un coût — 92 politiques à maintenir — mais elle garantit qu'une faille d'interface ne se traduit pas par une fuite de données.</p>
 
 <h2 id="s3-2">3.2&ensp;Identité, rôles et permissions</h2>
 <figure>
@@ -404,8 +408,10 @@
   <caption><span class="cn">Tableau 3.4</span>Domaine « Paiements et facturation »</caption>
   <thead><tr><th style="width:52mm">Table</th><th>Contenu</th></tr></thead>
   <tbody>
-    <tr><td class="k">payments</td><td>Paiements&nbsp;: prestataire, méthode, canal (en ligne, preuve, hors ligne), objet (réservation, solde, service, carte cadeau), statut, référence externe.</td></tr>
-    <tr><td class="k">payment_settings</td><td>Prestataire actif, environnement, clés <em>publiques</em>, activation du multidevise et table des taux de change.</td></tr>
+    <tr><td class="k">payments</td><td>Paiements&nbsp;: prestataire, méthode, canal (en ligne, preuve, hors ligne, portefeuille), objet (réservation, solde, service, carte cadeau, frais de séjour, recharge de compte), statut, référence externe.</td></tr>
+    <tr><td class="k">payment_settings</td><td>Prestataire actif, environnement, clés <em>publiques</em>, activation du multidevise, table des taux de change et instructions de paiement manuel envoyées au client.</td></tr>
+    <tr><td class="k">reservation_charges</td><td>Frais de séjour&nbsp;: type, libellé, montant, statut (à régler, réglé, annulé, remboursé), référence <span class="m">FR-AAAA-NNNNN</span>, lien vers le paiement.</td></tr>
+    <tr><td class="k">wallet_accounts, wallet_ledger</td><td>Compte client prépayé&nbsp;: solde courant et grand livre des mouvements (recharge, paiement, remboursement, ajustement) avec solde après opération.</td></tr>
     <tr><td class="k">invoices</td><td>Factures&nbsp;: numéro stable au format <span class="m">FA-AAAA-NNNNN</span>, une par réservation.</td></tr>
   </tbody>
 </table>
@@ -470,7 +476,7 @@
 <!-- ============================ 4 ============================ -->
 <h1 id="s4"><span class="hn">4</span> Fonctionnalités</h1>
 
-<p class="lead">Vingt-deux fonctionnalités, présentées ici par ordre d'apparition dans le parcours. Le tableau 4.1 en donne d'abord une vue synthétique avec leur état.</p>
+<p class="lead">Dix-huit fonctionnalités, présentées ici par ordre d'apparition dans le parcours. Le tableau 4.1 en donne d'abord une vue synthétique avec leur état.</p>
 
 <figure>
 <table>
@@ -492,6 +498,9 @@
     <tr><td>Assistant conversationnel et aide à la rédaction</td><td>Clé d'IA à configurer</td></tr>
     <tr><td>Synchronisation des calendriers</td><td>En production</td></tr>
     <tr><td>Gestion de contenu et réservation au comptoir</td><td>En production</td></tr>
+    <tr><td>Journal d'audit</td><td>En production</td></tr>
+    <tr><td>Frais de séjour (caution, consommations, ménage)</td><td>En production</td></tr>
+    <tr><td>Compte client prépayé (portefeuille)</td><td>En production · rechargé par simulateur ou preuve</td></tr>
   </tbody>
 </table>
 </figure>
@@ -503,7 +512,9 @@
 <p>Depuis sa réservation, le client dépose une demande. L'équipe l'accepte ou la refuse. Une annulation enregistre le motif. Un changement de dates recalcule le prix du séjour et vérifie qu'aucune autre réservation n'occupe la nouvelle période avant de déplacer. Le changement de dates reste possible pendant le séjour, pour une demande de prolongation&nbsp;; l'annulation, non.</p>
 
 <h2>4.3&ensp;Paiement</h2>
-<p>Trois voies coexistent. Le <strong>simulateur</strong>, actif par défaut, laisse le client choisir l'issue de la transaction, sans aucun mouvement d'argent. La <strong>preuve de paiement</strong> permet au client de téléverser un justificatif que l'équipe valide ensuite. Le <strong>prestataire réel</strong>, enfin&nbsp;: les connecteurs pour FedaPay, Kkiapay et Stripe sont écrits, avec l'initialisation du paiement, la redirection, la réception des confirmations signées et le règlement automatique du solde et des services. Il ne manque que les clés secrètes, à déposer côté Supabase, et le choix du prestataire dans l'écran des paramètres. Aucune modification de code n'est nécessaire.</p>
+<p>Quatre voies coexistent. Le <strong>simulateur</strong>, actif par défaut, laisse le client choisir l'issue de la transaction, sans aucun mouvement d'argent. La <strong>preuve de paiement</strong> permet au client de téléverser un justificatif que l'équipe valide ensuite. Le <strong>compte prépayé</strong> (voir §4.18) règle un séjour ou un frais depuis le solde, sans ressaisir de moyen de paiement. Le <strong>prestataire réel</strong>, enfin&nbsp;: les connecteurs pour FedaPay, Kkiapay et Stripe sont écrits, avec l'initialisation du paiement, la redirection, la réception des confirmations signées et le règlement automatique du solde et des services. Il ne manque que les clés secrètes, à déposer côté Supabase, et le choix du prestataire dans l'écran des paramètres. Aucune modification de code n'est nécessaire.</p>
+
+<p>Quand le paiement n'est pas encore automatisé, l'équipe transmet les coordonnées de règlement (numéros Mobile Money, IBAN) en un clic depuis la fiche réservation&nbsp;: le message part dans la messagerie du client, avec le montant dû, et le client répond avec sa capture. Ces coordonnées sont saisies une fois pour toutes dans l'écran des paramètres de l'administration.</p>
 
 <h2>4.4&ensp;Affichage multidevise</h2>
 <p>Selon le pays d'où il se connecte, le visiteur voit les prix en francs CFA, en euros, en dollars, en livres ou en dollars canadiens. Les taux sont modifiables dans l'administration. Le débit, lui, se fait toujours en francs CFA&nbsp;: la conversion sert uniquement à l'affichage.</p>
@@ -515,7 +526,7 @@
 <p>Le client téléverse un selfie et une pièce d'identité dans un espace de stockage privé. L'équipe approuve ou refuse. Tant que la vérification n'est pas validée, le paiement de la réservation reste bloqué.</p>
 
 <h2>4.7&ensp;Contrat de séjour</h2>
-<p>Un contrat est créé automatiquement à la réservation. Le client le complète et le signe en ligne. L'équipe peut modifier les champs et les clauses, puis contre-signer. Une page dédiée permet de l'imprimer.</p>
+<p>Un contrat est créé automatiquement à la réservation. Il suit quatre états&nbsp;: <em>brouillon</em>, <em>envoyé</em>, <em>signé</em>, <em>contresigné</em>. L'équipe prépare les champs et les clauses pendant que le contrat est en brouillon, puis l'envoie au client depuis sa console. Tant que le contrat n'a pas été envoyé, le client voit un écran «&nbsp;en préparation&nbsp;» et ne peut pas signer&nbsp;: la signature n'est possible qu'après l'envoi, l'équipe et le client ayant pu échanger au préalable par messagerie. Une fois le client signataire, l'équipe contresigne. Une page dédiée permet d'imprimer le document à chaque étape.</p>
 
 <h2>4.8&ensp;Facturation</h2>
 <p>Chaque réservation reçoit une facture à numéro stable, au format <span class="m">FA-AAAA-NNNNN</span>, sous forme de page imprimable. Chaque paiement donne lieu à un reçu.</p>
@@ -524,7 +535,7 @@
 <p>Le programme de fidélité crédite des points au paiement, affiche des paliers et une progression, et permet d'échanger les points contre du crédit appliqué au paiement suivant. Le parrainage donne à chaque client un code à partager&nbsp;: au premier séjour payé du filleul, parrain et filleul reçoivent leurs points. Les cartes cadeaux s'achètent pour un montant libre&nbsp;; le bénéficiaire saisit le code et son solde alimente son crédit. Les favoris, enfin, regroupent les appartements qu'un client a marqués.</p>
 
 <h2>4.10&ensp;Messagerie et notifications</h2>
-<p>Client et équipe échangent par fils de discussion, avec pièces jointes et indication de présence en ligne. Les notifications partent sur trois canaux&nbsp;: dans l'application, par e-mail et en notification poussée. Chacun règle ses préférences par canal&nbsp;; la notification dans l'application reste toujours active. Ces envois sont déclenchés par la base elle-même&nbsp;: une nouvelle inscription prévient l'équipe, une réservation confirmée prévient le client, et ainsi de suite.</p>
+<p>Client et équipe échangent par fils de discussion, avec pièces jointes et indication de présence en ligne. Chaque partie peut supprimer un de ses messages&nbsp;; l'autre voit alors, à la place du contenu, la mention «&nbsp;message supprimé&nbsp;», la synchronisation étant immédiate des deux côtés. Les notifications partent sur trois canaux&nbsp;: dans l'application, par e-mail et en notification poussée. Chacun règle ses préférences par canal&nbsp;; la notification dans l'application reste toujours active. Sur téléphone, la cloche ouvre un panneau plein écran au-dessus du reste de l'interface. Ces envois sont déclenchés par la base elle-même&nbsp;: une nouvelle inscription prévient l'équipe, une réservation confirmée prévient le client, un frais de séjour ajouté prévient le client, et ainsi de suite.</p>
 
 <h2>4.11&ensp;Mesure d'audience</h2>
 <p>Le suivi respecte le consentement du visiteur. Il enregistre les pages vues, les clics sur les boutons d'action, les sources de trafic, un tunnel de conversion qui va du visiteur à la réservation créée, le pays des visiteurs et les pages depuis lesquelles ils quittent le site. Les données s'exportent au format tableur.</p>
@@ -543,6 +554,14 @@
 
 <h2>4.16&ensp;Journal d'audit</h2>
 <p>Toute écriture sensible est tracée&nbsp;: qui, quel rôle, quelle action, quelles valeurs avant et après. Le journal se consulte dans la console d'administration.</p>
+
+<h2>4.17&ensp;Frais de séjour</h2>
+<p>Au-delà du prix du séjour, l'équipe facture au fil de l'eau les frais annexes&nbsp;: caution, consommations d'eau et d'électricité, ménage supplémentaire, remise en état, prestation ou frais divers. Depuis la fiche réservation, elle saisit le type, un libellé, un montant et une note facultative&nbsp;; le frais apparaît aussitôt dans l'espace du client, qui reçoit une notification adaptée au type («&nbsp;Caution demandée&nbsp;», «&nbsp;Consommations à régler&nbsp;», etc.).</p>
+<p>Le client règle chaque frais par le moyen de son choix&nbsp;: son solde de compte, le simulateur, ou une preuve de paiement validée par l'équipe. Un reçu numéroté au format <span class="m">FR-AAAA-NNNNN</span> est disponible une fois le frais soldé. L'équipe peut aussi marquer un frais comme réglé hors ligne, l'annuler ou le rembourser. Les deux côtés voient l'état se mettre à jour sans recharger la page.</p>
+
+<h2>4.18&ensp;Compte client (portefeuille)</h2>
+<p>Chaque client dispose d'un compte prépayé. Il le recharge du montant de son choix, soit par le simulateur, soit en téléversant une preuve de virement que l'équipe valide&nbsp;; le solde est alors crédité automatiquement. Un grand livre conserve chaque mouvement — recharge, paiement, remboursement, ajustement — avec le solde après opération.</p>
+<p>Le solde sert ensuite à régler un frais de séjour ou le solde d'une réservation en un geste, sans ressaisir de coordonnées bancaires. La base garantit qu'un débit ne peut jamais rendre le solde négatif&nbsp;: la vérification et l'écriture se font dans la même transaction verrouillée. L'équipe voit le solde de chaque client sur sa fiche.</p>
 
 <!-- ============================ 5 ============================ -->
 <h1 id="s5"><span class="hn">5</span> Sécurité</h1>
@@ -572,7 +591,7 @@
   <thead><tr><th style="width:44mm">Aspect</th><th>Détail</th></tr></thead>
   <tbody>
     <tr><td>Langues</td><td>Français (par défaut), anglais, espagnol, chinois, arabe (lecture de droite à gauche), portugais, allemand, italien, russe, japonais.</td></tr>
-    <tr><td>Couverture</td><td>Les quatre espaces, soit 1&nbsp;374 clés de traduction, avec parité vérifiée par un test.</td></tr>
+    <tr><td>Couverture</td><td>Les quatre espaces, soit 1&nbsp;513 clés de traduction, avec parité vérifiée par un test.</td></tr>
     <tr><td>Détection</td><td>Choix explicite, puis langue du navigateur, puis français.</td></tr>
     <tr><td>Choix manuel</td><td>Un sélecteur discret, uniquement au pied de la vitrine. Aucun sélecteur sur les écrans de connexion ni dans les consoles.</td></tr>
     <tr><td>Contenu éditorial</td><td>Descriptions d'appartements, services et blocs du site traduits en base.</td></tr>

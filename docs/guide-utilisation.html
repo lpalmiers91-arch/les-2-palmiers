@@ -151,8 +151,9 @@
   <p class="csub">Chaque écran et chaque action, du côté du client, de l'équipe et de l'administration.</p>
   <dl class="meta">
     <dt>Référence</dt><dd>L2P-GU-001</dd>
-    <dt>Version</dt><dd>1.0</dd>
+    <dt>Version</dt><dd>1.1</dd>
     <dt>Date</dt><dd>Septembre 2026</dd>
+    <dt>Développeur de la solution</dt><dd>Welman GBAGUIDI</dd>
     <dt>Rédaction</dt><dd>Welman GBAGUIDI</dd>
     <dt>S'utilise avec</dt><dd>Le dossier technique L2P-DT-001</dd>
   </dl>
@@ -164,6 +165,8 @@
 <h1>À qui s'adresse ce guide</h1>
 
 <p class="lead">Ce guide explique comment se servir de la plateforme Les 2 Palmiers au quotidien. Il ne suppose aucune connaissance technique.</p>
+
+<p>La plateforme a été conçue et développée par <strong>Welman GBAGUIDI</strong>.</p>
 
 <p>La plateforme se divise en trois usages, et donc en trois lecteurs. Le <strong>client</strong> réserve son séjour et le vit depuis son espace personnel. L'<strong>équipe</strong> assure l'exploitation&nbsp;: réservations, demandes, paiements, contenu du site. L'<strong>administrateur</strong> supervise, règle les paramètres et gère les membres de l'équipe. Chacun a sa connexion et son interface. Vous pouvez lire directement la partie qui vous concerne.</p>
 
@@ -260,9 +263,10 @@
 <h4>Depuis une réservation, vous pouvez&nbsp;:</h4>
 <ul>
   <li>payer l'acompte, puis le solde à l'approche du séjour&nbsp;;</li>
+  <li>régler les <strong>frais de séjour</strong> ajoutés par l'équipe — caution, consommations d'eau et d'électricité, ménage supplémentaire&nbsp;: chaque frais indique le montant, et vous le payez par votre solde de compte, le simulateur ou une preuve de paiement. Un reçu est disponible une fois le frais réglé&nbsp;;</li>
   <li>télécharger la facture au format PDF&nbsp;;</li>
   <li>consulter les informations de séjour — code Wi-Fi, manuel de la maison, consignes d'arrivée — qui apparaissent quand la date approche&nbsp;;</li>
-  <li>signer le contrat&nbsp;;</li>
+  <li>signer le contrat, une fois que l'équipe vous l'a envoyé&nbsp;;</li>
   <li>laisser un avis, une fois le séjour terminé&nbsp;;</li>
   <li>ajouter un service au séjour.</li>
 </ul>
@@ -277,7 +281,7 @@
 
 <div class="screen">
 <h3>2.5&ensp;Signer le contrat <span class="addr">/contrat/[réf]</span></h3>
-<p>Complétez les champs demandés, lisez les clauses, signez. Vous pouvez ensuite imprimer ou enregistrer le contrat. Si l'équipe le modifie de son côté, la page se met à jour sans que vous ayez à la recharger.</p>
+<p>Le contrat est d'abord préparé par l'équipe. Tant qu'elle ne vous l'a pas envoyé, vous voyez un écran «&nbsp;contrat en préparation&nbsp;» et un lien pour en discuter par messagerie. Une fois le contrat envoyé, la carte «&nbsp;Contrat de séjour&nbsp;» passe en «&nbsp;à signer&nbsp;»&nbsp;: complétez les champs demandés, lisez les clauses, signez. Vous pouvez ensuite imprimer ou enregistrer le contrat. Si l'équipe le modifie de son côté, la page se met à jour sans que vous ayez à la recharger.</p>
 </div>
 
 <div class="screen">
@@ -287,7 +291,7 @@
 
 <div class="screen">
 <h3>2.7&ensp;Échanger avec l'équipe <span class="addr">/app/messages</span></h3>
-<p>Écrivez à l'équipe et joignez un fichier si besoin. Un point vert vous indique quand un conseiller est en ligne.</p>
+<p>Écrivez à l'équipe et joignez un fichier si besoin. Un point vert vous indique quand un conseiller est en ligne. Vous pouvez supprimer un de vos messages&nbsp;: l'équipe voit alors la mention «&nbsp;message supprimé&nbsp;» à la place du contenu, et inversement si l'équipe supprime un des siens. C'est aussi ici que l'équipe vous transmet, sur demande, les coordonnées de paiement (Mobile Money, virement)&nbsp;: réglez, puis répondez avec la capture d'écran.</p>
 </div>
 
 <div class="screen">
@@ -307,16 +311,21 @@
 
 <div class="screen">
 <h3>2.11&ensp;Favoris <span class="addr">/app/favoris</span></h3>
-<p>Retrouvez ici les appartements que vous avez marqués d'un cœur sur leur fiche.</p>
+<p>Retrouvez ici les appartements que vous avez marqués d'un cœur sur leur fiche. La page est intégrée à votre espace&nbsp;: vous ne quittez jamais <span class="m">/app</span>.</p>
+</div>
+
+<div class="screen" id="s2-12">
+<h3>2.12&ensp;Mon compte prépayé <span class="addr">/app/portefeuille</span></h3>
+<p>Rechargez votre compte du montant de votre choix, par le simulateur ou en joignant une preuve de virement que l'équipe valide. Le solde s'affiche en haut de page, suivi de l'historique des mouvements. Au moment de payer un séjour ou un frais, l'option «&nbsp;Mon solde&nbsp;» apparaît dès que le solde suffit&nbsp;: le règlement est immédiat, sans ressaisir de coordonnées.</p>
 </div>
 
 <div class="screen">
-<h3>2.12&ensp;Notifications et compte <span class="addr">/app/notifications · /app/compte</span></h3>
-<p>La page des notifications les liste et permet de les effacer. Dans « Mon compte », réglez vos préférences — e-mail, notification poussée&nbsp;; celle dans l'application reste toujours active — modifiez votre profil, votre photo et votre langue, et supprimez votre compte si vous le souhaitez.</p>
+<h3>2.13&ensp;Notifications et compte <span class="addr">cloche · /app/compte</span></h3>
+<p>La cloche, en haut de l'écran, ouvre la liste des notifications&nbsp;; sur téléphone, elle s'affiche en plein écran. «&nbsp;Mon compte&nbsp;» est accessible sous votre nom, en bas du menu, à côté de «&nbsp;Se déconnecter&nbsp;»&nbsp;: réglez-y vos préférences — e-mail, notification poussée&nbsp;; celle dans l'application reste toujours active — modifiez votre profil, votre photo et votre langue, et supprimez votre compte si vous le souhaitez.</p>
 </div>
 
-<div class="scenario" id="s2-13">
-  <h4>2.13 — Parcours complet, de la réservation au séjour</h4>
+<div class="scenario" id="s2-14">
+  <h4>2.14 — Parcours complet, de la réservation au séjour</h4>
   <ol class="steps">
     <li>Sur la vitrine, cliquez « Réserver ». Choisissez vos dates et l'appartement, validez un acompte de 30&nbsp;%.</li>
     <li>Créez votre compte, revenez au récapitulatif, confirmez.</li>
@@ -345,7 +354,11 @@
 
 <div class="screen" id="s3-3">
 <h3>3.3&ensp;Réservations <span class="addr">/staff/reservations</span></h3>
-<p>Toutes les réservations sont ici. Ouvrez une fiche pour faire avancer le statut&nbsp;: « Enregistrer l'arrivée » fait passer la réservation « en séjour », « Enregistrer le départ » la clôture. Vous pouvez aussi l'annuler.</p>
+<p>Toutes les réservations sont ici. Ouvrez une fiche pour faire avancer le statut&nbsp;: « Enregistrer l'arrivée » fait passer la réservation « en séjour », « Enregistrer le départ » la clôture. Vous pouvez aussi l'annuler. Les boutons d'arrivée et de départ n'apparaissent qu'aux dates pertinentes, pour éviter de clôturer un séjour par mégarde.</p>
+<h4>Frais de séjour</h4>
+<p>Depuis la fiche, le bloc «&nbsp;Frais de séjour&nbsp;» sert à facturer la caution, les consommations d'eau et d'électricité, un ménage supplémentaire ou une remise en état. Indiquez le type, un libellé, un montant, une note facultative, puis «&nbsp;Enregistrer et notifier le client&nbsp;»&nbsp;: le client reçoit une notification et voit le frais dans son espace. Vous suivez ensuite chaque frais&nbsp;: le marquer réglé, l'annuler, le rembourser. Un reçu est généré quand le client paie.</p>
+<h4>Envoyer les coordonnées de paiement</h4>
+<p>Le bouton «&nbsp;Envoyer les coordonnées de paiement&nbsp;» publie dans la messagerie du client les instructions de règlement (Mobile Money, virement), avec le montant dû. Le client paie hors ligne puis répond avec sa capture, que vous validez dans «&nbsp;Paiements&nbsp;».</p>
 <h4>Réservation au comptoir</h4>
 <p>Le bouton « Nouvelle réservation » sert aux réservations prises par téléphone ou sur place. Saisissez les dates et l'invité&nbsp;: la plateforme crée le compte client, la réservation, et vous permet de marquer l'acompte ou le total comme réglé en espèces ou par virement.</p>
 <h4>Demandes de changement</h4>
@@ -359,7 +372,7 @@
 
 <div class="screen">
 <h3>3.5&ensp;Paiements <span class="addr">/staff/paiements</span></h3>
-<p>La liste de tous les paiements et leur statut. Quand un client a téléversé une preuve de paiement, vous la validez ou la refusez avec un motif.</p>
+<p>La liste de tous les paiements et leur statut, y compris les recharges de compte client et les règlements de frais de séjour. Quand un client a téléversé une preuve de paiement — pour un séjour, un frais ou une recharge —, vous la validez ou la refusez avec un motif&nbsp;; une validation crédite aussitôt ce qui doit l'être.</p>
 </div>
 
 <div class="screen">
@@ -374,7 +387,7 @@
 
 <div class="screen">
 <h3>3.8&ensp;Clients <span class="addr">/staff/clients</span></h3>
-<p>Recherchez un client et ouvrez sa fiche&nbsp;: coordonnées, historique des séjours, présence en ligne, points de fidélité.</p>
+<p>Recherchez un client et ouvrez sa fiche&nbsp;: coordonnées, historique des séjours, présence en ligne, points de fidélité, solde du compte prépayé.</p>
 </div>
 
 <div class="screen" id="s3-9">
@@ -396,12 +409,12 @@
 
 <div class="screen">
 <h3>3.12&ensp;Avis <span class="addr">/staff/avis</span></h3>
-<p>Modérez les avis — publier, masquer, mettre en avant — et répondez publiquement, là aussi avec l'aide du brouillon.</p>
+<p>La page sépare les avis « à modérer », ceux « affichés sur le site » et ceux « masqués ». Pour chaque avis, «&nbsp;Afficher sur le site&nbsp;» le publie, «&nbsp;Retirer du site&nbsp;» le masque&nbsp;: la vitrine et la page « Avis » se mettent à jour sans rechargement. Vous pouvez aussi mettre un avis en avant et répondre publiquement, là encore avec l'aide du brouillon.</p>
 </div>
 
 <div class="screen">
 <h3>3.13&ensp;Fidélité et contrats <span class="addr">/staff/fidelite · /staff/contrats</span></h3>
-<p>Réglez le programme de fidélité&nbsp;: points par palier, taux d'échange, montant minimum. Côté contrats, éditez les champs et les clauses, puis contre-signez une fois que le client a signé.</p>
+<p>Réglez le programme de fidélité&nbsp;: points par palier, taux d'échange, montant minimum. Côté contrats, éditez les champs et les clauses en brouillon, puis «&nbsp;Enregistrer et envoyer&nbsp;»&nbsp;: le client est prévenu et peut alors signer. Vous contre-signez une fois qu'il a signé. Un contrat non envoyé ne peut pas être signé par le client.</p>
 </div>
 
 <div class="screen">
@@ -426,7 +439,8 @@
     <li>Vérifiez que le client a bien fait valider son identité. Sinon, il ne pourra pas payer.</li>
     <li>Le client paie l'acompte&nbsp;: la réservation passe « confirmée » d'elle-même.</li>
     <li>Renseignez les informations de séjour de l'appartement si ce n'est pas déjà fait.</li>
-    <li>Contre-signez le contrat une fois que le client a signé.</li>
+    <li>Préparez le contrat, puis «&nbsp;Enregistrer et envoyer&nbsp;» pour que le client puisse le signer. Contre-signez ensuite.</li>
+    <li>Si besoin, ajoutez les frais de séjour (caution, consommations) depuis la fiche réservation.</li>
     <li>Le jour de l'arrivée, cliquez « Enregistrer l'arrivée ». La réservation passe « en séjour ».</li>
     <li>Le jour du départ, cliquez « Enregistrer le départ ». Le client peut alors laisser un avis.</li>
   </ol>
@@ -472,8 +486,10 @@
 <ul>
   <li>Les informations de l'entreprise&nbsp;: nom, ville, e-mail, téléphones, domaine.</li>
   <li><strong>Prestataire de paiement</strong>&nbsp;: choisissez entre le simulateur, FedaPay, Kkiapay ou Stripe. Saisissez la clé <em>publique</em> du prestataire. L'adresse à déclarer chez lui est affichée. Les clés secrètes ne se saisissent jamais ici&nbsp;; elles se mettent côté Supabase.</li>
+  <li><strong>Instructions de paiement manuel</strong>&nbsp;: numéros Mobile Money et coordonnées bancaires. Ce texte est celui que l'équipe envoie au client depuis la fiche réservation quand le règlement se fait hors ligne.</li>
   <li><strong>Devises</strong>&nbsp;: activez l'affichage en plusieurs monnaies et ajustez les taux. Le débit reste en francs CFA.</li>
 </ul>
+<p>Chaque page de l'administration s'ouvre bien dans la console d'administration&nbsp;: le référencement, en particulier, reste sous <span class="m">/admin/seo</span> et non dans la console équipe.</p>
 </div>
 
 <div class="screen">
