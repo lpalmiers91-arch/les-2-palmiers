@@ -932,5 +932,13 @@
     "approve": "批准",
     "decline": "拒绝",
     "decide": "处理"
+  },
+  "calendar": {
+    "prevMonth": "上个月",
+    "nextMonth": "下个月",
+    "pickCheckin": "选择入住日期",
+    "pickCheckout": "选择退房日期",
+    "reset": "重置",
+    "rangeBlocked": "此区间内有一晚或多晚不可预订。"
   }
 }

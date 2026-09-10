@@ -2398,6 +2398,10 @@ export type Database = {
     }
     Functions: {
       ai_space_enabled: { Args: { p_space: string }; Returns: boolean }
+      apartment_calendar: {
+        Args: { p_apartment: string; p_from?: string; p_to?: string }
+        Returns: string[]
+      }
       apartment_is_visible: { Args: { aid: string }; Returns: boolean }
       auth_has_permission: { Args: { perm: string }; Returns: boolean }
       auth_has_role: { Args: { role_key: string }; Returns: boolean }

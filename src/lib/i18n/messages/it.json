@@ -932,5 +932,13 @@
     "approve": "Approva",
     "decline": "Rifiuta",
     "decide": "Gestisci"
+  },
+  "calendar": {
+    "prevMonth": "Mese precedente",
+    "nextMonth": "Mese successivo",
+    "pickCheckin": "Scegli la data di arrivo",
+    "pickCheckout": "Scegli la data di partenza",
+    "reset": "Reimposta",
+    "rangeBlocked": "Una o più notti di questo periodo non sono disponibili."
   }
 }

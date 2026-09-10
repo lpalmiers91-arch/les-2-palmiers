@@ -932,5 +932,13 @@
     "approve": "承認",
     "decline": "却下",
     "decide": "対応する"
+  },
+  "calendar": {
+    "prevMonth": "前の月",
+    "nextMonth": "次の月",
+    "pickCheckin": "チェックイン日を選択",
+    "pickCheckout": "チェックアウト日を選択",
+    "reset": "リセット",
+    "rangeBlocked": "この期間のうち1泊以上が予約できません。"
   }
 }

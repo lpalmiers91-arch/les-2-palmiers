@@ -932,5 +932,13 @@
     "approve": "موافقة",
     "decline": "رفض",
     "decide": "معالجة"
+  },
+  "calendar": {
+    "prevMonth": "الشهر السابق",
+    "nextMonth": "الشهر التالي",
+    "pickCheckin": "اختر تاريخ الوصول",
+    "pickCheckout": "اختر تاريخ المغادرة",
+    "reset": "إعادة تعيين",
+    "rangeBlocked": "ليلة أو أكثر في هذه الفترة غير متاحة."
   }
 }

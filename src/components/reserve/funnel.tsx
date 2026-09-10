@@ -10,6 +10,7 @@ import { aptImg } from "@/lib/site";
 import { ServiceIcon } from "@/components/marketing/service-icon";
 import { track } from "@/lib/track";
 import { useT } from "@/lib/i18n/provider";
+import { AvailabilityCalendar } from "./availability-calendar";
 
 type Quote = {
   nights: number;
@@ -236,6 +237,18 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
               <span className="mb-1.5 block text-[13px] text-ink-2">{t("booking.checkout")}</span>
               <input type="date" className="field tnum" min={start || iso(1)} value={end} onChange={(e) => setEnd(e.target.value)} />
             </label>
+          </div>
+
+          <div className="mt-3">
+            <AvailabilityCalendar
+              apartmentId={aptId}
+              start={start}
+              end={end}
+              onChange={(s, e) => {
+                setStart(s);
+                setEnd(e);
+              }}
+            />
           </div>
           <label className="mt-3 flex items-center justify-between rounded-[11px] border border-line bg-bone px-4 py-3">
             <span className="text-[14px] text-ink-2">{t("booking.guests")}</span>

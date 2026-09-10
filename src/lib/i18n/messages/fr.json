@@ -932,5 +932,13 @@
     "approve": "Approuver",
     "decline": "Refuser",
     "decide": "Traiter"
+  },
+  "calendar": {
+    "prevMonth": "Mois précédent",
+    "nextMonth": "Mois suivant",
+    "pickCheckin": "Choisissez votre date d'arrivée",
+    "pickCheckout": "Choisissez votre date de départ",
+    "reset": "Réinitialiser",
+    "rangeBlocked": "Une ou plusieurs nuits de cette période ne sont pas disponibles."
   }
 }
