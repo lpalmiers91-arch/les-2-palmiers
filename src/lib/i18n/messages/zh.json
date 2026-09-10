@@ -910,6 +910,40 @@
       "notePlaceholder": "例如：请在入住前付款。",
       "err": "发送失败，请重试。",
       "send": "发送到聊天"
+    },
+    "payAccounts": {
+      "title": "收款账户",
+      "help": "保存您的移动支付号码、银行账户或加密钱包。在对话中发送付款请求时可供选择。",
+      "add": "添加账户",
+      "empty": "尚未保存账户。",
+      "inactive": "已停用",
+      "edit": "编辑",
+      "delete": "删除",
+      "confirmDelete": "删除此收款账户？",
+      "kind": "类型",
+      "label": "名称",
+      "labelPlaceholder": "例如：MoMo — 前台",
+      "value": "号码 / IBAN / 地址",
+      "valuePlaceholder": "+229 …  /  BJ66 …  /  0x…",
+      "holder": "账户持有人",
+      "instructions": "说明",
+      "activeLabel": "启用账户（提供给客人）",
+      "labelRequired": "请输入名称。",
+      "valueRequired": "请输入号码或地址。",
+      "err": "出现错误，请重试。",
+      "save": "保存",
+      "cancel": "取消"
+    },
+    "payReq": {
+      "cta": "请求付款",
+      "sent": "请求已发送",
+      "title": "在对话中请求付款",
+      "noAccounts": "尚未保存收款账户。请在“付款”中添加。将使用全局手动说明。",
+      "amount": "应付金额",
+      "note": "留言",
+      "err": "发送失败，请重试。",
+      "send": "发送到对话",
+      "cancel": "取消"
     }
   },
   "notifPrefs": {

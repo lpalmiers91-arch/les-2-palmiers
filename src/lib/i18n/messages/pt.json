@@ -910,6 +910,40 @@
       "notePlaceholder": "Ex. Por favor, pague antes da sua chegada.",
       "err": "O envio falhou. Tente novamente.",
       "send": "Enviar no chat"
+    },
+    "payAccounts": {
+      "title": "Contas de recebimento",
+      "help": "Guarde os seus números de Mobile Money, contas bancárias ou carteiras cripto. São propostos ao enviar um pedido de pagamento numa conversa.",
+      "add": "Adicionar uma conta",
+      "empty": "Nenhuma conta guardada.",
+      "inactive": "inativo",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "confirmDelete": "Eliminar esta conta de recebimento?",
+      "kind": "Tipo",
+      "label": "Rótulo",
+      "labelPlaceholder": "Ex. MoMo — receção",
+      "value": "Número / IBAN / endereço",
+      "valuePlaceholder": "+229 …  /  BJ66 …  /  0x…",
+      "holder": "Titular",
+      "instructions": "Instrução",
+      "activeLabel": "Conta ativa (proposta aos hóspedes)",
+      "labelRequired": "Introduza um rótulo.",
+      "valueRequired": "Introduza o número ou o endereço.",
+      "err": "Ocorreu um erro. Tente novamente.",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    },
+    "payReq": {
+      "cta": "Pedir um pagamento",
+      "sent": "Pedido enviado",
+      "title": "Pedido de pagamento na conversa",
+      "noAccounts": "Nenhuma conta de recebimento guardada. Adicione uma em «Pagamentos». Serão usadas as instruções manuais globais.",
+      "amount": "Valor a pagar",
+      "note": "Mensagem",
+      "err": "O envio falhou. Tente novamente.",
+      "send": "Enviar na conversa",
+      "cancel": "Cancelar"
     }
   },
   "notifPrefs": {

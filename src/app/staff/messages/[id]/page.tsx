@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { MessagesThread } from "@/components/app/messages-thread";
+import { SendPaymentRequest } from "@/components/console/send-payment-request";
 
 export default async function StaffConversation({
   params,
@@ -23,19 +24,27 @@ export default async function StaffConversation({
   if (!conv) notFound();
   const customerName = (conv.customer as { full_name?: string } | null)?.full_name ?? "Client";
 
-  const { data: msgs } = await supabase
-    .from("messages")
-    .select("id, body, sender_id, system, created_at, attachments, deleted_at, deleted_by")
-    .eq("conversation_id", id)
-    .order("created_at", { ascending: true })
-    .limit(200);
+  const [{ data: msgs }, { data: accounts }] = await Promise.all([
+    supabase
+      .from("messages")
+      .select("id, body, sender_id, system, created_at, attachments, deleted_at, deleted_by")
+      .eq("conversation_id", id)
+      .order("created_at", { ascending: true })
+      .limit(200),
+    supabase
+      .from("payment_accounts")
+      .select("id, kind, label, value")
+      .eq("active", true)
+      .order("sort")
+      .order("created_at"),
+  ]);
 
   return (
     <div className="mx-auto max-w-2xl">
       <Link href="/staff/messages" className="inline-flex items-center gap-1.5 text-[13px] text-ink-3 hover:text-ink">
         <ArrowLeft className="h-4 w-4" /> Conversations
       </Link>
-      <div className="mb-4 mt-3 flex items-center justify-between gap-3">
+      <div className="mb-3 mt-3 flex flex-wrap items-center justify-between gap-3">
         <h1 className="display text-[1.5rem] text-ink">{customerName}</h1>
         <Link
           href={`/staff/clients/${conv.customer_id}`}
@@ -43,6 +52,9 @@ export default async function StaffConversation({
         >
           Fiche client
         </Link>
+      </div>
+      <div className="mb-4">
+        <SendPaymentRequest conversationId={id} accounts={accounts ?? []} />
       </div>
       <MessagesThread
         conversationId={id}

@@ -910,6 +910,40 @@
       "notePlaceholder": "e.g. Please pay before your arrival.",
       "err": "Sending failed. Please try again.",
       "send": "Send in the chat"
+    },
+    "payAccounts": {
+      "title": "Payout accounts",
+      "help": "Save your Mobile Money numbers, bank accounts or crypto wallets. They are offered when you send a payment request in a conversation.",
+      "add": "Add an account",
+      "empty": "No account saved.",
+      "inactive": "inactive",
+      "edit": "Edit",
+      "delete": "Delete",
+      "confirmDelete": "Delete this payout account?",
+      "kind": "Type",
+      "label": "Label",
+      "labelPlaceholder": "e.g. MoMo — front desk",
+      "value": "Number / IBAN / address",
+      "valuePlaceholder": "+229 …  /  BJ66 …  /  0x…",
+      "holder": "Account holder",
+      "instructions": "Instruction",
+      "activeLabel": "Active account (offered to guests)",
+      "labelRequired": "Enter a label.",
+      "valueRequired": "Enter the number or address.",
+      "err": "Something went wrong. Please try again.",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "payReq": {
+      "cta": "Request a payment",
+      "sent": "Request sent",
+      "title": "Payment request in the conversation",
+      "noAccounts": "No payout account saved. Add one under “Payments”. The global manual instructions will be used.",
+      "amount": "Amount to pay",
+      "note": "Message",
+      "err": "Sending failed. Please try again.",
+      "send": "Send in the conversation",
+      "cancel": "Cancel"
     }
   },
   "notifPrefs": {

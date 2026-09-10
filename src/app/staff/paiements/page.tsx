@@ -4,6 +4,10 @@ import { createClient } from "@/lib/supabase/server";
 import { PageTitle, StatusBadge } from "@/components/app/ui";
 import { getT } from "@/lib/i18n";
 import { PaymentProofReview, type ProofRow } from "@/components/console/payment-proof-review";
+import {
+  PaymentAccountsManager,
+  type PaymentAccount,
+} from "@/components/console/payment-accounts-manager";
 import { formatXOF, formatDate } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Paiements" };
@@ -12,7 +16,7 @@ export default async function StaffPayments() {
   const { t } = await getT();
   const supabase = await createClient();
 
-  const [{ data: pending }, { data: recent }] = await Promise.all([
+  const [{ data: pending }, { data: recent }, { data: accounts }] = await Promise.all([
     supabase
       .from("payments")
       .select(
@@ -28,6 +32,11 @@ export default async function StaffPayments() {
       .neq("status", "awaiting_review")
       .order("created_at", { ascending: false })
       .limit(30),
+    supabase
+      .from("payment_accounts")
+      .select("id, kind, label, value, holder, instructions, active")
+      .order("sort")
+      .order("created_at"),
   ]);
 
   const rows: ProofRow[] = (pending ?? []).map((p) => ({
@@ -61,6 +70,10 @@ export default async function StaffPayments() {
         <div className="mt-3">
           <PaymentProofReview rows={rows} />
         </div>
+      </section>
+
+      <section className="mt-8">
+        <PaymentAccountsManager initial={(accounts ?? []) as PaymentAccount[]} />
       </section>
 
       {recent && recent.length > 0 && (

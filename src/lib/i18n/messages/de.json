@@ -910,6 +910,40 @@
       "notePlaceholder": "z. B. Bitte vor Ihrer Ankunft bezahlen.",
       "err": "Senden fehlgeschlagen. Bitte erneut versuchen.",
       "send": "In den Chat senden"
+    },
+    "payAccounts": {
+      "title": "Zahlungseingangskonten",
+      "help": "Speichern Sie Ihre Mobile-Money-Nummern, Bankkonten oder Krypto-Wallets. Sie werden beim Senden einer Zahlungsanfrage in einer Unterhaltung angeboten.",
+      "add": "Konto hinzufügen",
+      "empty": "Kein Konto gespeichert.",
+      "inactive": "inaktiv",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "confirmDelete": "Dieses Zahlungseingangskonto löschen?",
+      "kind": "Art",
+      "label": "Bezeichnung",
+      "labelPlaceholder": "z. B. MoMo — Empfang",
+      "value": "Nummer / IBAN / Adresse",
+      "valuePlaceholder": "+229 …  /  BJ66 …  /  0x…",
+      "holder": "Kontoinhaber",
+      "instructions": "Hinweis",
+      "activeLabel": "Aktives Konto (Gästen angeboten)",
+      "labelRequired": "Bezeichnung eingeben.",
+      "valueRequired": "Nummer oder Adresse eingeben.",
+      "err": "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    },
+    "payReq": {
+      "cta": "Zahlung anfordern",
+      "sent": "Anfrage gesendet",
+      "title": "Zahlungsanfrage in der Unterhaltung",
+      "noAccounts": "Kein Zahlungseingangskonto gespeichert. Fügen Sie eines unter „Zahlungen“ hinzu. Die globalen manuellen Anweisungen werden verwendet.",
+      "amount": "Zu zahlender Betrag",
+      "note": "Nachricht",
+      "err": "Senden fehlgeschlagen. Bitte erneut versuchen.",
+      "send": "In die Unterhaltung senden",
+      "cancel": "Abbrechen"
     }
   },
   "notifPrefs": {

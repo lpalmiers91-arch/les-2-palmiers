@@ -910,6 +910,40 @@
       "notePlaceholder": "Es. Si prega di pagare prima dell'arrivo.",
       "err": "Invio non riuscito. Riprova.",
       "send": "Invia in chat"
+    },
+    "payAccounts": {
+      "title": "Conti di incasso",
+      "help": "Salva i tuoi numeri Mobile Money, conti bancari o wallet crypto. Vengono proposti quando invii una richiesta di pagamento in una conversazione.",
+      "add": "Aggiungi un conto",
+      "empty": "Nessun conto salvato.",
+      "inactive": "inattivo",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "confirmDelete": "Eliminare questo conto di incasso?",
+      "kind": "Tipo",
+      "label": "Etichetta",
+      "labelPlaceholder": "Es. MoMo — reception",
+      "value": "Numero / IBAN / indirizzo",
+      "valuePlaceholder": "+229 …  /  BJ66 …  /  0x…",
+      "holder": "Intestatario",
+      "instructions": "Istruzione",
+      "activeLabel": "Conto attivo (proposto agli ospiti)",
+      "labelRequired": "Inserisci un'etichetta.",
+      "valueRequired": "Inserisci il numero o l'indirizzo.",
+      "err": "Si è verificato un errore. Riprova.",
+      "save": "Salva",
+      "cancel": "Annulla"
+    },
+    "payReq": {
+      "cta": "Richiedi un pagamento",
+      "sent": "Richiesta inviata",
+      "title": "Richiesta di pagamento nella conversazione",
+      "noAccounts": "Nessun conto di incasso salvato. Aggiungine uno in «Pagamenti». Verranno usate le istruzioni manuali globali.",
+      "amount": "Importo da pagare",
+      "note": "Messaggio",
+      "err": "Invio non riuscito. Riprova.",
+      "send": "Invia nella conversazione",
+      "cancel": "Annulla"
     }
   },
   "notifPrefs": {

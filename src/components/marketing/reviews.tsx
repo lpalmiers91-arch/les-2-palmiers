@@ -78,14 +78,6 @@ export async function Reviews({ content }: { content?: BlockContent }) {
             </figure>
           ))}
         </Reveal>
-        <Reveal className="mt-10">
-          <a
-            href="/avis"
-            className="press inline-flex items-center gap-1.5 text-[13.5px] font-medium text-forest-2 hover:text-forest"
-          >
-            {t("home.reviewsAll")} →
-          </a>
-        </Reveal>
       </div>
     </section>
   );

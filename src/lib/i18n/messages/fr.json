@@ -910,6 +910,40 @@
       "notePlaceholder": "Ex. Merci de régler avant votre arrivée.",
       "err": "L'envoi a échoué. Réessayez.",
       "send": "Envoyer dans la messagerie"
+    },
+    "payAccounts": {
+      "title": "Comptes d'encaissement",
+      "help": "Enregistrez vos numéros Mobile Money, comptes bancaires ou portefeuilles crypto. Ils sont proposés au moment d'envoyer une demande de paiement dans une conversation.",
+      "add": "Ajouter un compte",
+      "empty": "Aucun compte enregistré.",
+      "inactive": "inactif",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "confirmDelete": "Supprimer ce compte d'encaissement ?",
+      "kind": "Type",
+      "label": "Libellé",
+      "labelPlaceholder": "Ex. MoMo — accueil",
+      "value": "Numéro / IBAN / adresse",
+      "valuePlaceholder": "+229 …  /  BJ66 …  /  0x…",
+      "holder": "Titulaire",
+      "instructions": "Consigne",
+      "activeLabel": "Compte actif (proposé aux clients)",
+      "labelRequired": "Indiquez un libellé.",
+      "valueRequired": "Indiquez le numéro ou l'adresse.",
+      "err": "Une erreur est survenue. Réessayez.",
+      "save": "Enregistrer",
+      "cancel": "Annuler"
+    },
+    "payReq": {
+      "cta": "Demander un paiement",
+      "sent": "Demande envoyée",
+      "title": "Demande de paiement dans la conversation",
+      "noAccounts": "Aucun compte d'encaissement enregistré. Ajoutez-en dans « Paiements ». Les instructions manuelles globales seront utilisées.",
+      "amount": "Montant à régler",
+      "note": "Message",
+      "err": "L'envoi a échoué. Réessayez.",
+      "send": "Envoyer dans la conversation",
+      "cancel": "Annuler"
     }
   },
   "notifPrefs": {

@@ -910,6 +910,40 @@
       "notePlaceholder": "Ej. Por favor, paga antes de tu llegada.",
       "err": "El envío ha fallado. Inténtalo de nuevo.",
       "send": "Enviar en el chat"
+    },
+    "payAccounts": {
+      "title": "Cuentas de cobro",
+      "help": "Guarda tus números de Mobile Money, cuentas bancarias o monederos cripto. Se ofrecen al enviar una solicitud de pago en una conversación.",
+      "add": "Añadir una cuenta",
+      "empty": "No hay cuentas guardadas.",
+      "inactive": "inactivo",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "confirmDelete": "¿Eliminar esta cuenta de cobro?",
+      "kind": "Tipo",
+      "label": "Etiqueta",
+      "labelPlaceholder": "Ej. MoMo — recepción",
+      "value": "Número / IBAN / dirección",
+      "valuePlaceholder": "+229 …  /  BJ66 …  /  0x…",
+      "holder": "Titular",
+      "instructions": "Instrucción",
+      "activeLabel": "Cuenta activa (se ofrece a los huéspedes)",
+      "labelRequired": "Introduce una etiqueta.",
+      "valueRequired": "Introduce el número o la dirección.",
+      "err": "Se ha producido un error. Inténtalo de nuevo.",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    },
+    "payReq": {
+      "cta": "Solicitar un pago",
+      "sent": "Solicitud enviada",
+      "title": "Solicitud de pago en la conversación",
+      "noAccounts": "No hay cuentas de cobro guardadas. Añade una en «Pagos». Se usarán las instrucciones manuales globales.",
+      "amount": "Importe a pagar",
+      "note": "Mensaje",
+      "err": "El envío ha fallado. Inténtalo de nuevo.",
+      "send": "Enviar en la conversación",
+      "cancel": "Cancelar"
     }
   },
   "notifPrefs": {

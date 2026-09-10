@@ -1357,6 +1357,45 @@ export type Database = {
           },
         ]
       }
+      payment_accounts: {
+        Row: {
+          active: boolean
+          created_at: string
+          holder: string | null
+          id: string
+          instructions: string | null
+          kind: string
+          label: string
+          sort: number
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          holder?: string | null
+          id?: string
+          instructions?: string | null
+          kind?: string
+          label: string
+          sort?: number
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          holder?: string | null
+          id?: string
+          instructions?: string | null
+          kind?: string
+          label?: string
+          sort?: number
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
       payment_settings: {
         Row: {
           active_provider: string
@@ -3359,6 +3398,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      payment_account_kind_label: { Args: { p_kind: string }; Returns: string }
       payment_init: {
         Args: { p_method: string; p_purpose: string; p_target: string }
         Returns: {
@@ -3763,6 +3803,10 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      staff_delete_payment_account: {
+        Args: { p_id: string }
+        Returns: undefined
+      }
       staff_place_booking: {
         Args: {
           p_apartment: string
@@ -3803,6 +3847,31 @@ export type Database = {
       }
       staff_send_payment_details: {
         Args: { p_amount?: number; p_note?: string; p_reservation: string }
+        Returns: {
+          attachments: Json
+          body: string
+          conversation_id: string
+          created_at: string
+          deleted_at: string | null
+          deleted_by: string | null
+          id: string
+          sender_id: string | null
+          system: boolean
+        }
+        SetofOptions: {
+          from: "*"
+          to: "messages"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      staff_send_payment_request: {
+        Args: {
+          p_account_ids: string[]
+          p_amount?: number
+          p_conversation: string
+          p_note?: string
+        }
         Returns: {
           attachments: Json
           body: string
@@ -3869,6 +3938,35 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "contracts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      staff_upsert_payment_account: {
+        Args: {
+          p_active?: boolean
+          p_holder?: string
+          p_id: string
+          p_instructions?: string
+          p_kind: string
+          p_label: string
+          p_value: string
+        }
+        Returns: {
+          active: boolean
+          created_at: string
+          holder: string | null
+          id: string
+          instructions: string | null
+          kind: string
+          label: string
+          sort: number
+          updated_at: string
+          value: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payment_accounts"
           isOneToOne: true
           isSetofReturn: false
         }

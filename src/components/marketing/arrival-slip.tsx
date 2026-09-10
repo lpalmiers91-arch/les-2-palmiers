@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2, Minus, Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { site } from "@/lib/site";
 import { easeOut } from "@/lib/motion";
@@ -17,8 +17,9 @@ function isoPlus(days: number) {
 }
 
 type Apt = { id: string; base_price: number; capacity: number };
+type Result = { available: number; total: number; nightly: number } | null;
 
-export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
+export function ArrivalSlip() {
   const router = useRouter();
   const { t } = useT();
   const { price } = useCurrency();
@@ -27,11 +28,10 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
   const [end, setEnd] = useState("");
   const [guests, setGuests] = useState(2);
   const [apts, setApts] = useState<Apt[]>([]);
-  const [result, setResult] = useState<{ available: number; minTotal: number; minNightly: number } | null>(null);
+  const [result, setResult] = useState<Result>(null);
   const [loading, setLoading] = useState(false);
   const seq = useRef(0);
 
-  // dates par défaut : ~1 mois plus tard (fenêtre libre)
   useEffect(() => {
     setStart((s) => s || isoPlus(30));
     setEnd((e) => e || isoPlus(34));
@@ -46,10 +46,7 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
       .then(({ data }) => setApts((data ?? []) as Apt[]));
   }, []);
 
-  const maxGuests = useMemo(
-    () => Math.max(4, ...apts.map((a) => a.capacity || 0)),
-    [apts],
-  );
+  const maxGuests = useMemo(() => Math.max(4, ...apts.map((a) => a.capacity || 0)), [apts]);
   const nights = useMemo(() => {
     if (!start || !end) return 0;
     const a = new Date(start).getTime();
@@ -58,7 +55,6 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
     return Math.max(0, Math.round((b - a) / 86_400_000));
   }, [start, end]);
 
-  // quote de chaque appartement pour les dates choisies
   useEffect(() => {
     if (!start || !end || nights < 1 || apts.length === 0) {
       setResult(null);
@@ -79,15 +75,15 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
         if (id !== seq.current) return;
         const ok = quotes.filter((q) => q?.available && typeof q.total === "number") as { total: number }[];
         if (ok.length > 0) {
-          const minTotal = Math.min(...ok.map((q) => q.total));
-          setResult({ available: ok.length, minTotal, minNightly: Math.round(minTotal / nights) });
+          const total = Math.min(...ok.map((q) => q.total));
+          setResult({ available: ok.length, total, nightly: Math.round(total / nights) });
         } else {
-          setResult({ available: 0, minTotal: 0, minNightly: 0 });
+          setResult({ available: 0, total: 0, nightly: 0 });
         }
       } catch {
         if (id === seq.current) {
           const nightly = Math.min(...apts.map((a) => a.base_price));
-          setResult({ available: apts.length, minTotal: nightly * nights, minNightly: nightly });
+          setResult({ available: apts.length, total: nightly * nights, nightly });
         }
       } finally {
         if (id === seq.current) setLoading(false);
@@ -103,26 +99,25 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
     router.push(`/reserver?${p.toString()}`);
   }
 
-  const shell =
-    tone === "bare"
-      ? "bg-transparent"
-      : "bg-bone text-ink shadow-[0_24px_60px_-24px_rgba(23,19,13,0.45)] ring-1 ring-ink/10";
-
   return (
     <form
       onSubmit={submit}
-      className={`w-full max-w-sm rounded-[var(--radius-lg)] p-5 sm:p-6 ${shell}`}
       aria-label={t("arrival.title")}
+      className="w-full max-w-[380px] rounded-[22px] bg-bone p-2 text-ink shadow-[0_30px_70px_-28px_rgba(15,20,17,0.55)] ring-1 ring-ink/[0.06]"
     >
-      <div className="flex items-baseline justify-between border-b border-ink/15 pb-3">
+      <div className="flex items-baseline justify-between px-3.5 pb-2.5 pt-3">
         <span className="display text-[15px] text-ink">{t("arrival.title")}</span>
-        <span className="text-[12px] text-ink-3">
+        <span className="text-[11.5px] text-ink-3">
           {site.city} · {site.country}
         </span>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        <Field label={t("arrival.arrival")}>
+      {/* dates : deux colonnes séparées par un filet */}
+      <div className="grid grid-cols-2 overflow-hidden rounded-[15px] bg-bone-2/60">
+        <label className="group flex flex-col gap-1 px-3.5 py-3 transition-colors focus-within:bg-bone">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+            {t("arrival.arrival")}
+          </span>
           <input
             type="date"
             value={start}
@@ -135,70 +130,76 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
                 setEnd(d.toISOString().slice(0, 10));
               }
             }}
-            className="slip-input"
+            className="slip-input text-[13.5px] font-medium"
           />
-        </Field>
-        <Field label={t("arrival.departure")}>
+        </label>
+        <label className="flex flex-col gap-1 border-l border-ink/10 px-3.5 py-3 transition-colors focus-within:bg-bone">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+            {t("arrival.departure")}
+          </span>
           <input
             type="date"
             value={end}
-            min={start ? isoPlus(1) : isoPlus(2)}
+            min={start ? isoPlus(2) : isoPlus(2)}
             onChange={(e) => setEnd(e.target.value)}
-            className="slip-input"
+            className="slip-input text-[13.5px] font-medium"
           />
-        </Field>
+        </label>
       </div>
 
-      <div className="mt-3">
-        <Field label={t("arrival.guests")}>
-          <div className="flex items-center justify-between">
-            <span className="tnum text-[15px] text-ink">{guests}</span>
-            <div className="flex gap-1.5">
-              <StepBtn onClick={() => setGuests((g) => Math.max(1, g - 1))} label={t("arrival.guestMinus")}>
-                −
-              </StepBtn>
-              <StepBtn
-                onClick={() => setGuests((g) => Math.min(maxGuests, g + 1))}
-                label={t("arrival.guestPlus")}
-              >
-                +
-              </StepBtn>
-            </div>
-          </div>
-        </Field>
+      {/* voyageurs */}
+      <div className="mt-1.5 flex items-center justify-between rounded-[15px] bg-bone-2/60 px-3.5 py-2.5">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+            {t("arrival.guests")}
+          </span>
+          <span className="tnum text-[13.5px] font-medium text-ink">{guests}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Step onClick={() => setGuests((g) => Math.max(1, g - 1))} disabled={guests <= 1} label={t("arrival.guestMinus")}>
+            <Minus className="h-3.5 w-3.5" />
+          </Step>
+          <Step
+            onClick={() => setGuests((g) => Math.min(maxGuests, g + 1))}
+            disabled={guests >= maxGuests}
+            label={t("arrival.guestPlus")}
+          >
+            <Plus className="h-3.5 w-3.5" />
+          </Step>
+        </div>
       </div>
 
-      <div className="mt-4 min-h-[62px] border-t border-dashed border-ink/25 pt-3">
+      {/* résultat */}
+      <div className="flex min-h-[46px] items-center px-3.5 py-2.5">
         <AnimatePresence mode="wait" initial={false}>
           {nights < 1 ? (
-            <motion.p key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[13px] text-ink-3">
+            <motion.p key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[12.5px] text-ink-3">
               {t("arrival.pickDates")}
             </motion.p>
           ) : result === null || loading ? (
-            <motion.p key="load" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2 text-[13px] text-ink-3">
+            <motion.p key="load" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2 text-[12.5px] text-ink-3">
               <Loader2 className="h-3.5 w-3.5 animate-spin" /> {t("arrival.checking")}
             </motion.p>
           ) : result.available > 0 ? (
             <motion.div
-              key={`ok-${result.minTotal}`}
-              initial={{ opacity: 0, y: 6 }}
+              key={`ok-${result.total}`}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: easeOut }}
+              transition={{ duration: 0.28, ease: easeOut }}
+              className="flex w-full items-center justify-between"
             >
-              <p className="text-[13px] font-medium text-ok">
-                {apts.length > 1
-                  ? t("arrival.nAvailable", { n: result.available })
-                  : t("arrival.oneAvailable")}
-              </p>
-              <p className="mt-1 flex items-baseline gap-1.5">
-                <span className="text-[12px] text-ink-3">{t("arrival.fromLabel")}</span>
-                <span className="tnum display text-[20px] text-ink">{price(result.minTotal)}</span>
-                <span className="text-[12px] text-ink-3">{t("arrival.forNights", { nights })}</span>
-              </p>
+              <span className="flex items-center gap-1.5 text-[12.5px] font-medium text-forest-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-forest-2" />
+                {apts.length > 1 ? t("arrival.nAvailable", { n: result.available }) : t("arrival.oneAvailable")}
+              </span>
+              <span className="text-[12.5px] text-ink-3">
+                {t("arrival.fromLabel")}{" "}
+                <span className="tnum font-semibold text-ink">{price(result.total)}</span>
+              </span>
             </motion.div>
           ) : (
-            <motion.p key="full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[13px] text-ink-2">
+            <motion.p key="full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[12.5px] text-ink-2">
               {t("arrival.fullDates")}
             </motion.p>
           )}
@@ -208,7 +209,7 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
       <button
         type="submit"
         disabled={nights < 1}
-        className="press mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-[14px] font-medium text-bone transition-colors hover:bg-forest-2 disabled:opacity-40"
+        className="press flex h-12 w-full items-center justify-center gap-2 rounded-[15px] bg-ink text-[13.5px] font-medium text-bone transition-colors hover:bg-forest-2 disabled:opacity-40"
       >
         {t("arrival.checkAvailability")}
         <ArrowRight className="h-4 w-4" />
@@ -217,30 +218,24 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block rounded-[10px] bg-bone-2/70 px-3 py-2">
-      <span className="block text-[11px] font-medium uppercase tracking-[0.14em] text-ink-3">{label}</span>
-      <div className="mt-1">{children}</div>
-    </label>
-  );
-}
-
-function StepBtn({
+function Step({
   children,
   onClick,
+  disabled,
   label,
 }: {
   children: React.ReactNode;
   onClick: () => void;
+  disabled?: boolean;
   label: string;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       aria-label={label}
-      className="press flex h-7 w-7 items-center justify-center rounded-full border border-ink/20 text-[15px] leading-none text-ink hover:border-ink/45"
+      className="press flex h-8 w-8 items-center justify-center rounded-full border border-ink/15 text-ink transition-colors hover:border-ink/40 disabled:opacity-30 disabled:hover:border-ink/15"
     >
       {children}
     </button>
