@@ -13,7 +13,11 @@ export type PaymentSettings = {
   kkiapay_public_key: string | null;
   stripe_public_key: string | null;
   currency: string;
+  multicurrency_enabled: boolean;
+  fx_rates: Record<string, number>;
 };
+
+const FX_CODES = ["EUR", "USD", "GBP", "CAD"];
 
 const PROVIDERS = ["sim", "fedapay", "kkiapay", "stripe"] as const;
 
@@ -41,6 +45,8 @@ export function PaymentSettingsForm({ initial }: { initial: PaymentSettings }) {
         kkiapay_public_key: s.kkiapay_public_key || null,
         stripe_public_key: s.stripe_public_key || null,
         currency: s.currency || "XOF",
+        multicurrency_enabled: s.multicurrency_enabled,
+        fx_rates: s.fx_rates,
         updated_at: new Date().toISOString(),
       })
       .eq("id", 1);
@@ -144,6 +150,39 @@ export function PaymentSettingsForm({ initial }: { initial: PaymentSettings }) {
           </div>
         </>
       )}
+
+      <div className="border-t border-line-soft pt-4">
+        <label className="flex items-center gap-2.5 text-[13px] font-medium text-ink-2">
+          <input
+            type="checkbox"
+            checked={s.multicurrency_enabled}
+            onChange={(e) => f("multicurrency_enabled", e.target.checked)}
+            className="h-4 w-4 accent-forest"
+          />
+          {t("paySettings.multicurrency")}
+        </label>
+        {s.multicurrency_enabled && (
+          <>
+            <p className="mt-1.5 text-[12px] text-ink-3">{t("paySettings.fxNote")}</p>
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {FX_CODES.map((code) => (
+                <label key={code} className="block">
+                  <span className="mb-1 block text-[12px] text-ink-3">1 {code} =</span>
+                  <input
+                    type="number"
+                    className="field tnum"
+                    value={s.fx_rates[code] ?? ""}
+                    onChange={(e) =>
+                      f("fx_rates", { ...s.fx_rates, [code]: Number(e.target.value) || 0 })
+                    }
+                  />
+                </label>
+              ))}
+            </div>
+            <p className="mt-1 text-[11.5px] text-ink-3">{t("paySettings.fxUnit")}</p>
+          </>
+        )}
+      </div>
 
       <div className="flex items-center gap-3 pt-1">
         <button

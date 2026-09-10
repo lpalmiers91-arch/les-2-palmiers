@@ -1221,9 +1221,11 @@ export type Database = {
           active_provider: string
           currency: string
           fedapay_public_key: string | null
+          fx_rates: Json
           id: number
           kkiapay_public_key: string | null
           mode: string
+          multicurrency_enabled: boolean
           stripe_public_key: string | null
           updated_at: string
           updated_by: string | null
@@ -1232,9 +1234,11 @@ export type Database = {
           active_provider?: string
           currency?: string
           fedapay_public_key?: string | null
+          fx_rates?: Json
           id?: number
           kkiapay_public_key?: string | null
           mode?: string
+          multicurrency_enabled?: boolean
           stripe_public_key?: string | null
           updated_at?: string
           updated_by?: string | null
@@ -1243,9 +1247,11 @@ export type Database = {
           active_provider?: string
           currency?: string
           fedapay_public_key?: string | null
+          fx_rates?: Json
           id?: number
           kkiapay_public_key?: string | null
           mode?: string
+          multicurrency_enabled?: boolean
           stripe_public_key?: string | null
           updated_at?: string
           updated_by?: string | null
@@ -2720,6 +2726,7 @@ export type Database = {
       delete_review: { Args: { p_id: string }; Returns: undefined }
       delete_service: { Args: { p_id: string }; Returns: undefined }
       delete_stay_info: { Args: { p_apartment: string }; Returns: undefined }
+      fx_config: { Args: never; Returns: Json }
       get_or_create_invoice: {
         Args: { p_reservation: string }
         Returns: {

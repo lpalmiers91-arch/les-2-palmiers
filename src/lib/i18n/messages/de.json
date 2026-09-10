@@ -8,7 +8,8 @@
     "book": "Buchen",
     "menu": "Menü",
     "close": "Schließen",
-    "apartments": "Apartments"
+    "apartments": "Apartments",
+    "currency": "Währung"
   },
   "common": {
     "loading": "Wird geladen…",
@@ -775,7 +776,8 @@
     "cancelStrict": "streng",
     "checkDates": "Verfügbarkeit prüfen",
     "viewMap": "Auf Karte ansehen",
-    "otherPlaces": "Weitere Unterkünfte"
+    "otherPlaces": "Weitere Unterkünfte",
+    "from": "ab"
   },
   "booking": {
     "title": "Buchen Sie Ihren Aufenthalt",
@@ -812,7 +814,8 @@
     "errCapacity": "Gästezahl übersteigt die Kapazität.",
     "errMinNights": "Aufenthalt für diese Daten zu kurz.",
     "errAuth": "Bitte melden Sie sich erneut an.",
-    "errGeneric": "Die Buchung konnte nicht erstellt werden. Bitte erneut versuchen."
+    "errGeneric": "Die Buchung konnte nicht erstellt werden. Bitte erneut versuchen.",
+    "chargedXof": "Betrag wird in CFA-Franc (XOF) abgebucht. Umrechnung ist ein Richtwert."
   },
   "loyaltyPage": {
     "rSignup": "Kontoerstellung",
@@ -1025,6 +1028,9 @@
     "webhookHint": "Webhook-URL, die beim Anbieter zu hinterlegen ist:",
     "save": "Speichern",
     "saved": "Gespeichert",
-    "errSave": "Speichern fehlgeschlagen."
+    "errSave": "Speichern fehlgeschlagen.",
+    "multicurrency": "Preise in mehreren Währungen anzeigen",
+    "fxNote": "Besucher wählen ihre Währung im Header. Abgebucht wird immer in XOF.",
+    "fxUnit": "Kurs in XOF pro 1 Einheit der Währung."
   }
 }

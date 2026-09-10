@@ -5,11 +5,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { ArrowRight, Check, Loader2, Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { formatXOF, formatDate, nightsBetween } from "@/lib/format";
+import { formatDate, nightsBetween } from "@/lib/format";
 import { aptImg } from "@/lib/site";
 import { ServiceIcon } from "@/components/marketing/service-icon";
 import { track } from "@/lib/track";
 import { useT } from "@/lib/i18n/provider";
+import { useCurrency } from "@/lib/currency";
 import { AvailabilityCalendar } from "./availability-calendar";
 
 type Quote = {
@@ -46,6 +47,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
   const router = useRouter();
   const params = useSearchParams();
   const { t } = useT();
+  const { price, currency, enabled: fxOn } = useCurrency();
 
   const [apts, setApts] = useState<Apt[]>([]);
   const [aptId, setAptId] = useState<string | null>(null);
@@ -214,7 +216,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-[13.5px] font-medium text-ink">{a.name}</span>
                     <span className="block text-[12px] text-ink-3">
-                      {t("booking.capacityShort",{n:a.capacity})} · {t("booking.fromPerNight",{price:formatXOF(a.base_price)})}
+                      {t("booking.capacityShort",{n:a.capacity})} · {t("booking.fromPerNight",{price:price(a.base_price)})}
                     </span>
                   </span>
                   {aptId === a.id && <Check className="h-4 w-4 shrink-0 text-forest-2" />}
@@ -299,7 +301,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
                     <span className="min-w-0 flex-1">
                       <span className="block text-[13.5px] font-medium text-ink">{sv.title}</span>
                       <span className="tnum block text-[12px] text-ink-3">
-                        {formatXOF(sv.base_price)} · {t("booking.prepaid")}
+                        {price(sv.base_price)} · {t("booking.prepaid")}
                       </span>
                     </span>
                     <span
@@ -338,7 +340,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
                   {deposit === d && <Check className="h-4 w-4 text-forest-2" />}
                 </span>
                 <span className="mt-1 block tnum text-[13px] text-ink-3">
-                  {quote ? formatXOF(Math.round((stayTotal * d) / 100) + svcTotal) : "—"} {t("booking.now")}
+                  {quote ? price(Math.round((stayTotal * d) / 100) + svcTotal) : "—"} {t("booking.now")}
                 </span>
               </button>
             ))}
@@ -375,19 +377,19 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
               {quote && (
                 <>
                   <Row label={t("booking.nights",{n:quote.nights})}>
-                    {formatXOF(quote.lodging_subtotal)}
+                    {price(quote.lodging_subtotal)}
                   </Row>
-                  <Row label={t("booking.cleaning")}>{formatXOF(quote.cleaning_fee)}</Row>
+                  <Row label={t("booking.cleaning")}>{price(quote.cleaning_fee)}</Row>
                   {quote.discount_amount > 0 && (
                     <Row label={t("booking.discount",{p:quote.discount_percent})}>
-                      <span className="text-forest-2">−{formatXOF(quote.discount_amount)}</span>
+                      <span className="text-forest-2">−{price(quote.discount_amount)}</span>
                     </Row>
                   )}
                   {services
                     .filter((s) => chosen.has(s.id))
                     .map((s) => (
                       <Row key={s.id} label={s.title}>
-                        {formatXOF(s.base_price)}
+                        {price(s.base_price)}
                       </Row>
                     ))}
                 </>
@@ -397,13 +399,16 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
             <div className="mt-4 flex items-baseline justify-between border-t border-line pt-4">
               <span className="text-[14px] font-medium text-ink">{t("booking.total")}</span>
               <span className="tnum display text-[1.3rem] text-ink">
-                {quote ? formatXOF(grandTotal) : "—"}
+                {quote ? price(grandTotal) : "—"}
               </span>
             </div>
             {quote && (
               <p className="mt-1 text-right tnum text-[12.5px] text-ink-3">
-                {t("booking.dueNow",{price:formatXOF(depositAmount)})}
+                {t("booking.dueNow",{price:price(depositAmount)})}
               </p>
+            )}
+            {quote && fxOn && currency !== "XOF" && (
+              <p className="mt-1 text-right text-[11.5px] text-ink-3">{t("booking.chargedXof")}</p>
             )}
 
             <button

@@ -8,6 +8,8 @@ import { ReservationFunnel } from "@/components/reserve/funnel";
 import { site } from "@/lib/site";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
+import { CurrencyProvider } from "@/lib/currency";
+import { getFxConfig } from "@/lib/fx";
 
 export const metadata: Metadata = { title: "Réserver" };
 
@@ -18,9 +20,11 @@ export default async function ReservePage() {
   } = await supabase.auth.getUser();
   const locale = await getLocale();
   const messages = await getMessages(locale);
+  const fx = await getFxConfig();
 
   return (
     <I18nProvider locale={locale} messages={messages}>
+    <CurrencyProvider rates={fx.rates} enabled={fx.enabled}>
     <div className="min-h-dvh bg-bone-2">
       <header className="border-b border-line bg-bone">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
@@ -45,6 +49,7 @@ export default async function ReservePage() {
         </Suspense>
       </div>
     </div>
+    </CurrencyProvider>
     </I18nProvider>
   );
 }

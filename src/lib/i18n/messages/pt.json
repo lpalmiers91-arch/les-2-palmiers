@@ -8,7 +8,8 @@
     "book": "Reservar",
     "menu": "Menu",
     "close": "Fechar",
-    "apartments": "Apartamentos"
+    "apartments": "Apartamentos",
+    "currency": "Moeda"
   },
   "common": {
     "loading": "A carregar…",
@@ -775,7 +776,8 @@
     "cancelStrict": "rígida",
     "checkDates": "Verificar as datas",
     "viewMap": "Ver no mapa",
-    "otherPlaces": "Os outros alojamentos"
+    "otherPlaces": "Os outros alojamentos",
+    "from": "a partir de"
   },
   "booking": {
     "title": "Reserve a sua estadia",
@@ -812,7 +814,8 @@
     "errCapacity": "O número de hóspedes excede a capacidade.",
     "errMinNights": "Estadia demasiado curta para estas datas.",
     "errAuth": "Volte a iniciar sessão.",
-    "errGeneric": "Não foi possível criar a reserva. Tente novamente."
+    "errGeneric": "Não foi possível criar a reserva. Tente novamente.",
+    "chargedXof": "Valor cobrado em francos CFA (XOF). A conversão é indicativa."
   },
   "loyaltyPage": {
     "rSignup": "Criação da conta",
@@ -1025,6 +1028,9 @@
     "webhookHint": "URL de webhook para registar junto do fornecedor:",
     "save": "Guardar",
     "saved": "Guardado",
-    "errSave": "Não foi possível guardar."
+    "errSave": "Não foi possível guardar.",
+    "multicurrency": "Mostrar os preços em várias moedas",
+    "fxNote": "O visitante escolhe a moeda no cabeçalho. A cobrança é sempre em XOF.",
+    "fxUnit": "Taxa expressa em XOF por 1 unidade da moeda."
   }
 }

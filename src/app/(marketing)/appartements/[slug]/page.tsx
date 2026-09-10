@@ -6,8 +6,8 @@ import { getApartment, listApartments } from "@/lib/apartments";
 import { ApartmentGallery } from "@/components/marketing/apartment-gallery";
 import { ApartmentCard } from "@/components/marketing/apartment-card";
 import { AMENITY } from "@/lib/amenities";
-import { formatXOF } from "@/lib/format";
 import { getT } from "@/lib/i18n";
+import { Price } from "@/lib/currency";
 import { createClient } from "@/lib/supabase/server";
 import { JsonLd, apartmentLd, breadcrumbLd } from "@/components/seo/json-ld";
 import { site } from "@/lib/site";
@@ -99,7 +99,7 @@ export default async function ApartmentDetail({
             href={`/reserver?apartment=${apt.slug}`} data-track="reserver-apartment"
             className="press inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[14px] font-medium text-bone hover:bg-forest-2"
           >
-            {t("aptPub.bookFrom",{price:formatXOF(apt.base_price)})}
+            {t("aptPub.from")} <Price xof={apt.base_price} />{t("aptPub.perNight")}
             <ArrowRight className="h-4 w-4" />
           </Link>
         </header>
@@ -149,11 +149,11 @@ export default async function ApartmentDetail({
           <aside className="lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
               <p className="display text-[1.5rem] text-ink">
-                {formatXOF(apt.base_price)}
+                <Price xof={apt.base_price} />
                 <span className="text-[13px] font-normal text-ink-3"> {t("aptPub.perNight")}</span>
               </p>
               <dl className="mt-4 space-y-2.5 border-t border-line pt-4 text-[13.5px]">
-                <Row k={t("aptPub.cleaning")}>{formatXOF(apt.cleaning_fee)}</Row>
+                <Row k={t("aptPub.cleaning")}><Price xof={apt.cleaning_fee} /></Row>
                 <Row k={t("aptPub.checkin")}>{apt.checkin_from ? t("aptPub.fromTime",{time:apt.checkin_from.slice(0,5)}) : t("aptPub.checkinDefault")}</Row>
                 <Row k={t("aptPub.checkout")}>{apt.checkout_before ? t("aptPub.beforeTime",{time:apt.checkout_before.slice(0,5)}) : t("aptPub.checkoutDefault")}</Row>
                 <Row k={t("aptPub.cancellation")}>{cancelLabel(t, apt.cancellation_policy)}</Row>

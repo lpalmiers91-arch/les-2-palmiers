@@ -8,7 +8,8 @@
     "book": "予約",
     "menu": "メニュー",
     "close": "閉じる",
-    "apartments": "アパートメント"
+    "apartments": "アパートメント",
+    "currency": "通貨"
   },
   "common": {
     "loading": "読み込み中…",
@@ -775,7 +776,8 @@
     "cancelStrict": "厳格",
     "checkDates": "空室を確認",
     "viewMap": "地図で見る",
-    "otherPlaces": "ほかの住まい"
+    "otherPlaces": "ほかの住まい",
+    "from": ""
   },
   "booking": {
     "title": "ご滞在を予約",
@@ -812,7 +814,8 @@
     "errCapacity": "人数が定員を超えています。",
     "errMinNights": "この日程には滞在が短すぎます。",
     "errAuth": "再度ログインしてください。",
-    "errGeneric": "予約を作成できませんでした。もう一度お試しください。"
+    "errGeneric": "予約を作成できませんでした。もう一度お試しください。",
+    "chargedXof": "決済は CFA フラン(XOF)で行われます。換算はあくまで目安です。"
   },
   "loyaltyPage": {
     "rSignup": "アカウント作成",
@@ -1025,6 +1028,9 @@
     "webhookHint": "プロバイダーに登録する Webhook URL:",
     "save": "保存",
     "saved": "保存しました",
-    "errSave": "保存に失敗しました。"
+    "errSave": "保存に失敗しました。",
+    "multicurrency": "複数通貨で価格を表示する",
+    "fxNote": "訪問者はヘッダーで通貨を選びます。決済は常に XOF です。",
+    "fxUnit": "レートは通貨1単位あたりの XOF で表します。"
   }
 }

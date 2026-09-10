@@ -10,6 +10,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { easeOut } from "@/lib/motion";
 import { useT } from "@/lib/i18n/provider";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { CurrencySwitcher } from "@/components/marketing/currency-switcher";
 
 export function SiteHeader({
   wordmark,
@@ -95,6 +96,7 @@ export function SiteHeader({
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
+            <CurrencySwitcher tone={dark ? "bone" : "ink"} />
             <LanguageSwitcher tone={dark ? "bone" : "ink"} />
             <Link
               href="/connexion"
@@ -150,6 +152,10 @@ export function SiteHeader({
               <div className="mt-4 flex items-center justify-between border-b border-line-soft py-3.5">
                 <span className="text-[15px] text-ink-3">Langue</span>
                 <LanguageSwitcher />
+              </div>
+              <div className="flex items-center justify-between border-b border-line-soft py-3.5">
+                <span className="text-[15px] text-ink-3">{t("nav.currency")}</span>
+                <CurrencySwitcher />
               </div>
               <div className="mt-5 flex items-center gap-3">
                 <ButtonLink href="/reserver" data-track="reserver-header" className="flex-1" onClick={() => setOpen(false)}>

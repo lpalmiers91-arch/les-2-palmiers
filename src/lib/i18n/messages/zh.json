@@ -8,7 +8,8 @@
     "book": "预订",
     "menu": "菜单",
     "close": "关闭",
-    "apartments": "公寓"
+    "apartments": "公寓",
+    "currency": "货币"
   },
   "common": {
     "loading": "加载中…",
@@ -775,7 +776,8 @@
     "cancelStrict": "严格",
     "checkDates": "查询空档",
     "viewMap": "在地图上查看",
-    "otherPlaces": "其他住所"
+    "otherPlaces": "其他住所",
+    "from": "低至"
   },
   "booking": {
     "title": "预订您的行程",
@@ -812,7 +814,8 @@
     "errCapacity": "住客人数超过容量。",
     "errMinNights": "此日期入住时间过短。",
     "errAuth": "请重新登录。",
-    "errGeneric": "预订创建失败,请重试。"
+    "errGeneric": "预订创建失败,请重试。",
+    "chargedXof": "实际以西非法郎(XOF)扣款。换算仅供参考。"
   },
   "loyaltyPage": {
     "rSignup": "账户创建",
@@ -1025,6 +1028,9 @@
     "webhookHint": "需在服务商处登记的 Webhook 地址:",
     "save": "保存",
     "saved": "已保存",
-    "errSave": "保存失败。"
+    "errSave": "保存失败。",
+    "multicurrency": "以多种货币显示价格",
+    "fxNote": "访客在页头选择货币。扣款始终以 XOF 进行。",
+    "fxUnit": "汇率以每 1 单位外币折合多少 XOF 表示。"
   }
 }

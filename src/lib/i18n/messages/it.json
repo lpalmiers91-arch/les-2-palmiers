@@ -8,7 +8,8 @@
     "book": "Prenota",
     "menu": "Menu",
     "close": "Chiudi",
-    "apartments": "Appartamenti"
+    "apartments": "Appartamenti",
+    "currency": "Valuta"
   },
   "common": {
     "loading": "Caricamento…",
@@ -775,7 +776,8 @@
     "cancelStrict": "rigida",
     "checkDates": "Verifica le date",
     "viewMap": "Vedi sulla mappa",
-    "otherPlaces": "Gli altri alloggi"
+    "otherPlaces": "Gli altri alloggi",
+    "from": "da"
   },
   "booking": {
     "title": "Prenota il tuo soggiorno",
@@ -812,7 +814,8 @@
     "errCapacity": "Il numero di ospiti supera la capienza.",
     "errMinNights": "Soggiorno troppo breve per queste date.",
     "errAuth": "Effettua di nuovo l'accesso.",
-    "errGeneric": "Impossibile creare la prenotazione. Riprova."
+    "errGeneric": "Impossibile creare la prenotazione. Riprova.",
+    "chargedXof": "Importo addebitato in franchi CFA (XOF). La conversione è indicativa."
   },
   "loyaltyPage": {
     "rSignup": "Creazione dell'account",
@@ -1025,6 +1028,9 @@
     "webhookHint": "URL webhook da registrare presso il fornitore:",
     "save": "Salva",
     "saved": "Salvato",
-    "errSave": "Salvataggio non riuscito."
+    "errSave": "Salvataggio non riuscito.",
+    "multicurrency": "Mostra i prezzi in più valute",
+    "fxNote": "Il visitatore sceglie la valuta nell'intestazione. L'addebito resta sempre in XOF.",
+    "fxUnit": "Tasso espresso in XOF per 1 unità della valuta."
   }
 }

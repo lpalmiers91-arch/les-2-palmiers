@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { apartmentFallback, formatXOF } from "@/lib/site";
+import { apartmentFallback } from "@/lib/site";
 import { easeOut } from "@/lib/motion";
 import { useT } from "@/lib/i18n/provider";
+import { useCurrency } from "@/lib/currency";
 
 function isoPlus(days: number) {
   const d = new Date();
@@ -27,6 +28,7 @@ type Quote = {
 export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
   const router = useRouter();
   const { t } = useT();
+  const { price } = useCurrency();
   // état initial stable (SSR = client). Les dates réelles sont posées au montage.
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -183,7 +185,7 @@ export function ArrivalSlip({ tone = "light" }: { tone?: "light" | "bare" }) {
               </div>
               <div className="mt-1 flex items-baseline justify-between">
                 <span className="tnum display text-[22px] text-ink">
-                  {formatXOF(quote.total)}
+                  {price(quote.total)}
                 </span>
                 {quote.available ? (
                   <span className="text-[12px] font-medium text-ok">{t("arrival.available")}</span>

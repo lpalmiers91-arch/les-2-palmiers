@@ -13,7 +13,9 @@ export default async function ParametresPage() {
     supabase.from("site_settings").select("*").eq("id", 1).maybeSingle(),
     supabase
       .from("payment_settings")
-      .select("active_provider, mode, fedapay_public_key, kkiapay_public_key, stripe_public_key, currency")
+      .select(
+        "active_provider, mode, fedapay_public_key, kkiapay_public_key, stripe_public_key, currency, multicurrency_enabled, fx_rates",
+      )
       .eq("id", 1)
       .maybeSingle(),
   ]);
@@ -62,6 +64,8 @@ export default async function ParametresPage() {
                 kkiapay_public_key: null,
                 stripe_public_key: null,
                 currency: "XOF",
+                multicurrency_enabled: true,
+                fx_rates: { EUR: 655.957, USD: 605, GBP: 770, CAD: 445 },
               }
             }
           />

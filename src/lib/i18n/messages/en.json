@@ -8,7 +8,8 @@
     "book": "Book",
     "menu": "Menu",
     "close": "Close",
-    "apartments": "Apartments"
+    "apartments": "Apartments",
+    "currency": "Currency"
   },
   "common": {
     "loading": "Loading…",
@@ -775,7 +776,8 @@
     "cancelStrict": "strict",
     "checkDates": "Check availability",
     "viewMap": "View on map",
-    "otherPlaces": "Other places"
+    "otherPlaces": "Other places",
+    "from": "from"
   },
   "booking": {
     "title": "Book your stay",
@@ -812,7 +814,8 @@
     "errCapacity": "Number of guests exceeds capacity.",
     "errMinNights": "Stay too short for these dates.",
     "errAuth": "Please sign in again.",
-    "errGeneric": "The booking could not be created. Please try again."
+    "errGeneric": "The booking could not be created. Please try again.",
+    "chargedXof": "Amount charged in CFA francs (XOF). Conversion is indicative."
   },
   "loyaltyPage": {
     "rSignup": "Account created",
@@ -1025,6 +1028,9 @@
     "webhookHint": "Webhook URL to register with the provider:",
     "save": "Save",
     "saved": "Saved",
-    "errSave": "Saving failed."
+    "errSave": "Saving failed.",
+    "multicurrency": "Show prices in multiple currencies",
+    "fxNote": "Visitors pick their currency in the header. Charges always stay in XOF.",
+    "fxUnit": "Rate expressed in XOF for 1 unit of the currency."
   }
 }

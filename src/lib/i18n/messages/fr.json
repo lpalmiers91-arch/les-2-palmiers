@@ -8,7 +8,8 @@
     "book": "Réserver",
     "menu": "Menu",
     "close": "Fermer",
-    "apartments": "Appartements"
+    "apartments": "Appartements",
+    "currency": "Devise"
   },
   "common": {
     "loading": "Chargement…",
@@ -775,7 +776,8 @@
     "cancelStrict": "stricte",
     "checkDates": "Vérifier les dates",
     "viewMap": "Voir sur la carte",
-    "otherPlaces": "Les autres logements"
+    "otherPlaces": "Les autres logements",
+    "from": "dès"
   },
   "booking": {
     "title": "Réservez votre séjour",
@@ -812,7 +814,8 @@
     "errCapacity": "Nombre de voyageurs au-dessus de la capacité.",
     "errMinNights": "Séjour trop court pour ces dates.",
     "errAuth": "Veuillez vous reconnecter.",
-    "errGeneric": "La réservation n'a pas pu être créée. Réessayez."
+    "errGeneric": "La réservation n'a pas pu être créée. Réessayez.",
+    "chargedXof": "Montant débité en francs CFA (XOF). Conversion indicative."
   },
   "loyaltyPage": {
     "rSignup": "Création du compte",
@@ -1025,6 +1028,9 @@
     "webhookHint": "URL de webhook à déclarer chez le prestataire :",
     "save": "Enregistrer",
     "saved": "Enregistré",
-    "errSave": "L'enregistrement a échoué."
+    "errSave": "L'enregistrement a échoué.",
+    "multicurrency": "Afficher les prix en plusieurs devises",
+    "fxNote": "Le visiteur choisit sa devise dans l'en-tête. Le débit reste toujours en XOF.",
+    "fxUnit": "Taux exprimé en XOF pour 1 unité de la devise."
   }
 }

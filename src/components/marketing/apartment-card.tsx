@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Users, BedDouble, ArrowUpRight } from "lucide-react";
-import { formatXOF } from "@/lib/format";
 import { getT } from "@/lib/i18n";
+import { Price } from "@/lib/currency";
 import type { ApartmentCard as Apt } from "@/lib/apartments";
 
 export async function ApartmentCard({ apt }: { apt: Apt }) {
@@ -23,7 +23,7 @@ export async function ApartmentCard({ apt }: { apt: Apt }) {
           />
         ) : null}
         <span className="absolute right-3 top-3 rounded-full bg-ink/80 px-2.5 py-1 text-[11px] font-medium text-bone backdrop-blur">
-          {t("aptPub.fromNight",{price:formatXOF(apt.base_price)})}
+          {t("aptPub.from")} <Price xof={apt.base_price} /> {t("aptPub.perNight")}
         </span>
       </div>
       <div className="flex flex-1 flex-col p-5">
