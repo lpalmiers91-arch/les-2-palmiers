@@ -899,5 +899,38 @@
       "handled": "Erledigt",
       "archived": "Archiviert"
     }
+  },
+  "resChange": {
+    "title": "Aufenthalt ändern oder stornieren",
+    "askDates": "Andere Daten anfragen",
+    "askCancel": "Stornierung anfragen",
+    "newCheckin": "Neue Anreise",
+    "newCheckout": "Neue Abreise",
+    "cancelReason": "Grund für die Stornierung",
+    "noteOptional": "Eine Notiz für das Team (optional)",
+    "cancelPolicyNote": "Eine mögliche Anzahlungserstattung richtet sich nach der Stornierungsrichtlinie Ihres Vertrags. Das Team bestätigt die Details.",
+    "sendRequest": "Anfrage senden",
+    "back": "Zurück",
+    "withdraw": "Anfrage zurückziehen",
+    "pendingCancel": "Stornierungsanfrage wird geprüft",
+    "pendingDates": "Terminänderung wird geprüft",
+    "requestedDates": "Gewünschte Daten:",
+    "pendingHint": "Das Team meldet sich in Kürze. Sie können Ihre Anfrage zurückziehen, solange sie nicht bearbeitet ist.",
+    "declined": "Anfrage nicht angenommen",
+    "approved": "Anfrage angenommen",
+    "errRange": "Wählen Sie gültige Daten in der Zukunft.",
+    "errNotChangeable": "Diese Buchung kann nicht mehr geändert werden.",
+    "errGeneric": "Senden fehlgeschlagen. Bitte erneut versuchen.",
+    "staffTitle": "Änderungsanfragen",
+    "staffConflict": "Diese neuen Daten überschneiden sich mit einer anderen Buchung.",
+    "kindCancel": "Stornierung",
+    "kindDates": "Terminänderung",
+    "aGuest": "Ein Gast",
+    "ref": "Ref.",
+    "current": "Aktuell:",
+    "staffNotePlaceholder": "Notiz an den Gast (optional)",
+    "approve": "Genehmigen",
+    "decline": "Ablehnen",
+    "decide": "Bearbeiten"
   }
 }

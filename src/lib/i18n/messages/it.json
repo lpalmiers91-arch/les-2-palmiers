@@ -899,5 +899,38 @@
       "handled": "Gestito",
       "archived": "Archiviato"
     }
+  },
+  "resChange": {
+    "title": "Modifica o annulla questo soggiorno",
+    "askDates": "Richiedi altre date",
+    "askCancel": "Richiedi l'annullamento",
+    "newCheckin": "Nuovo arrivo",
+    "newCheckout": "Nuova partenza",
+    "cancelReason": "Motivo dell'annullamento",
+    "noteOptional": "Una nota per il team (facoltativo)",
+    "cancelPolicyNote": "L'eventuale rimborso dell'acconto segue la politica di cancellazione del tuo contratto. Il team ti confermerà le modalità.",
+    "sendRequest": "Invia richiesta",
+    "back": "Indietro",
+    "withdraw": "Ritira la richiesta",
+    "pendingCancel": "Richiesta di annullamento in esame",
+    "pendingDates": "Richiesta di nuove date in esame",
+    "requestedDates": "Date richieste:",
+    "pendingHint": "Il team ti risponderà a breve. Puoi ritirare la richiesta finché non viene gestita.",
+    "declined": "Richiesta non accettata",
+    "approved": "Richiesta accettata",
+    "errRange": "Scegli date valide nel futuro.",
+    "errNotChangeable": "Questa prenotazione non può più essere modificata.",
+    "errGeneric": "Invio non riuscito. Riprova.",
+    "staffTitle": "Richieste di modifica",
+    "staffConflict": "Queste nuove date si sovrappongono a un'altra prenotazione.",
+    "kindCancel": "Annullamento",
+    "kindDates": "Cambio date",
+    "aGuest": "Un ospite",
+    "ref": "Rif.",
+    "current": "Attuale:",
+    "staffNotePlaceholder": "Nota inviata all'ospite (facoltativo)",
+    "approve": "Approva",
+    "decline": "Rifiuta",
+    "decide": "Gestisci"
   }
 }

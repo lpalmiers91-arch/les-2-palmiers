@@ -899,5 +899,38 @@
       "handled": "対応済み",
       "archived": "アーカイブ"
     }
+  },
+  "resChange": {
+    "title": "ご滞在の変更・キャンセル",
+    "askDates": "別の日程を希望する",
+    "askCancel": "キャンセルを希望する",
+    "newCheckin": "新しいチェックイン",
+    "newCheckout": "新しいチェックアウト",
+    "cancelReason": "キャンセル理由",
+    "noteOptional": "チームへのメッセージ(任意)",
+    "cancelPolicyNote": "内金の返金がある場合は、契約のキャンセルポリシーに従います。詳細はチームより確認いたします。",
+    "sendRequest": "リクエストを送信",
+    "back": "戻る",
+    "withdraw": "リクエストを取り消す",
+    "pendingCancel": "キャンセル申請を確認中",
+    "pendingDates": "日程変更の申請を確認中",
+    "requestedDates": "希望日程:",
+    "pendingHint": "チームより間もなくご連絡します。処理される前であれば申請を取り消せます。",
+    "declined": "申請は承認されませんでした",
+    "approved": "申請が承認されました",
+    "errRange": "未来の有効な日程をお選びください。",
+    "errNotChangeable": "この予約はもう変更できません。",
+    "errGeneric": "送信に失敗しました。もう一度お試しください。",
+    "staffTitle": "変更申請",
+    "staffConflict": "この新しい日程は別の予約と重複しています。",
+    "kindCancel": "キャンセル",
+    "kindDates": "日程変更",
+    "aGuest": "お客様",
+    "ref": "予約番号",
+    "current": "現在:",
+    "staffNotePlaceholder": "お客様へのメモ(任意)",
+    "approve": "承認",
+    "decline": "却下",
+    "decide": "対応する"
   }
 }

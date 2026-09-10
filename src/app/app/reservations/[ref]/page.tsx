@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Card, StatusBadge } from "@/components/app/ui";
 import { PaymentPanel } from "@/components/app/payment-panel";
 import { ReviewForm } from "@/components/app/review-form";
+import { ReservationChangePanel, type ChangeRequest } from "@/components/app/reservation-change-panel";
 import { formatXOF, formatDate, parseRange, nightsBetween } from "@/lib/format";
 
 export default async function ReservationDetail({
@@ -32,7 +33,14 @@ export default async function ReservationDetail({
   const balance = Math.max(0, total - paid); // solde total restant
   const fees = (r.fees ?? {}) as Record<string, number>;
 
-  const [{ data: payments }, { data: idStatus }, { data: contract }, { data: review }, { data: stay }] =
+  const [
+    { data: payments },
+    { data: idStatus },
+    { data: contract },
+    { data: review },
+    { data: stay },
+    { data: changeReq },
+  ] =
     await Promise.all([
       supabase
         .from("payments")
@@ -50,6 +58,13 @@ export default async function ReservationDetail({
         .from("stay_info")
         .select("wifi_ssid, wifi_password, house_manual, checkin_notes, emergency_contact")
         .eq("apartment_id", r.apartment_id as string)
+        .maybeSingle(),
+      supabase
+        .from("reservation_change_requests")
+        .select("id, kind, status, new_range, reason, staff_note, created_at")
+        .eq("reservation_id", r.id)
+        .order("created_at", { ascending: false })
+        .limit(1)
         .maybeSingle(),
     ]);
   const verified = idStatus === "approved";
@@ -142,6 +157,15 @@ export default async function ReservationDetail({
                 </details>
               )}
             </Card>
+          )}
+
+          {["pending_payment", "confirmed"].includes(r.status as string) && (
+            <ReservationChangePanel
+              reservationId={r.id as string}
+              start={start}
+              end={end}
+              request={(changeReq as ChangeRequest | null) ?? null}
+            />
           )}
 
           {canReview && (

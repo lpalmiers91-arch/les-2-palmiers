@@ -899,5 +899,38 @@
       "handled": "已处理",
       "archived": "已归档"
     }
+  },
+  "resChange": {
+    "title": "更改或取消此次入住",
+    "askDates": "申请更改日期",
+    "askCancel": "申请取消",
+    "newCheckin": "新的入住日期",
+    "newCheckout": "新的退房日期",
+    "cancelReason": "取消原因",
+    "noteOptional": "给团队的留言(可选)",
+    "cancelPolicyNote": "定金退还(如适用)依据您合同的取消政策。团队将向您确认具体条款。",
+    "sendRequest": "发送申请",
+    "back": "返回",
+    "withdraw": "撤回申请",
+    "pendingCancel": "取消申请审核中",
+    "pendingDates": "日期更改申请审核中",
+    "requestedDates": "申请日期:",
+    "pendingHint": "团队会尽快回复您。在处理之前,您可以撤回申请。",
+    "declined": "申请未通过",
+    "approved": "申请已通过",
+    "errRange": "请选择未来的有效日期。",
+    "errNotChangeable": "此预订已无法更改。",
+    "errGeneric": "发送失败。请重试。",
+    "staffTitle": "更改申请",
+    "staffConflict": "新日期与另一预订冲突。",
+    "kindCancel": "取消",
+    "kindDates": "更改日期",
+    "aGuest": "一位住客",
+    "ref": "编号",
+    "current": "当前:",
+    "staffNotePlaceholder": "发送给住客的备注(可选)",
+    "approve": "批准",
+    "decline": "拒绝",
+    "decide": "处理"
   }
 }

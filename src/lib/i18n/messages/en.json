@@ -899,5 +899,38 @@
       "handled": "Handled",
       "archived": "Archived"
     }
+  },
+  "resChange": {
+    "title": "Change or cancel this stay",
+    "askDates": "Request other dates",
+    "askCancel": "Request cancellation",
+    "newCheckin": "New check-in",
+    "newCheckout": "New check-out",
+    "cancelReason": "Reason for cancellation",
+    "noteOptional": "A note for the team (optional)",
+    "cancelPolicyNote": "Any deposit refund follows your contract's cancellation policy. The team will confirm the details.",
+    "sendRequest": "Send request",
+    "back": "Back",
+    "withdraw": "Withdraw request",
+    "pendingCancel": "Cancellation request under review",
+    "pendingDates": "Date change request under review",
+    "requestedDates": "Requested dates:",
+    "pendingHint": "The team will get back to you shortly. You can withdraw your request until it is handled.",
+    "declined": "Request not accepted",
+    "approved": "Request accepted",
+    "errRange": "Choose valid dates in the future.",
+    "errNotChangeable": "This booking can no longer be changed.",
+    "errGeneric": "Sending failed. Please try again.",
+    "staffTitle": "Change requests",
+    "staffConflict": "These new dates overlap another booking.",
+    "kindCancel": "Cancellation",
+    "kindDates": "Date change",
+    "aGuest": "A guest",
+    "ref": "Ref.",
+    "current": "Current:",
+    "staffNotePlaceholder": "Note sent to the guest (optional)",
+    "approve": "Approve",
+    "decline": "Decline",
+    "decide": "Handle"
   }
 }

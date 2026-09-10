@@ -899,5 +899,38 @@
       "handled": "Traité",
       "archived": "Archivé"
     }
+  },
+  "resChange": {
+    "title": "Modifier ou annuler ce séjour",
+    "askDates": "Demander d'autres dates",
+    "askCancel": "Demander l'annulation",
+    "newCheckin": "Nouvelle arrivée",
+    "newCheckout": "Nouveau départ",
+    "cancelReason": "Motif de l'annulation",
+    "noteOptional": "Un mot pour l'équipe (facultatif)",
+    "cancelPolicyNote": "Le remboursement éventuel de l'acompte suit la politique d'annulation de votre contrat. L'équipe vous confirme les modalités.",
+    "sendRequest": "Envoyer la demande",
+    "back": "Retour",
+    "withdraw": "Retirer la demande",
+    "pendingCancel": "Demande d'annulation en cours d'examen",
+    "pendingDates": "Demande de nouvelles dates en cours d'examen",
+    "requestedDates": "Dates demandées :",
+    "pendingHint": "L'équipe revient vers vous très vite. Vous pouvez retirer votre demande tant qu'elle n'est pas traitée.",
+    "declined": "Demande non retenue",
+    "approved": "Demande acceptée",
+    "errRange": "Choisissez des dates valides, dans le futur.",
+    "errNotChangeable": "Cette réservation ne peut plus être modifiée.",
+    "errGeneric": "L'envoi a échoué. Réessayez.",
+    "staffTitle": "Demandes de modification",
+    "staffConflict": "Ces nouvelles dates chevauchent une autre réservation.",
+    "kindCancel": "Annulation",
+    "kindDates": "Changement de dates",
+    "aGuest": "Un client",
+    "ref": "Réf.",
+    "current": "Actuel :",
+    "staffNotePlaceholder": "Note transmise au client (facultatif)",
+    "approve": "Approuver",
+    "decline": "Refuser",
+    "decide": "Traiter"
   }
 }

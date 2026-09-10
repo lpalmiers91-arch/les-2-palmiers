@@ -899,5 +899,38 @@
       "handled": "Atendido",
       "archived": "Archivado"
     }
+  },
+  "resChange": {
+    "title": "Modificar o cancelar esta estancia",
+    "askDates": "Solicitar otras fechas",
+    "askCancel": "Solicitar la cancelación",
+    "newCheckin": "Nueva llegada",
+    "newCheckout": "Nueva salida",
+    "cancelReason": "Motivo de la cancelación",
+    "noteOptional": "Una nota para el equipo (opcional)",
+    "cancelPolicyNote": "El posible reembolso del anticipo sigue la política de cancelación de su contrato. El equipo le confirmará las condiciones.",
+    "sendRequest": "Enviar solicitud",
+    "back": "Volver",
+    "withdraw": "Retirar la solicitud",
+    "pendingCancel": "Solicitud de cancelación en revisión",
+    "pendingDates": "Solicitud de cambio de fechas en revisión",
+    "requestedDates": "Fechas solicitadas:",
+    "pendingHint": "El equipo se pondrá en contacto pronto. Puede retirar su solicitud mientras no se haya tramitado.",
+    "declined": "Solicitud no aceptada",
+    "approved": "Solicitud aceptada",
+    "errRange": "Elija fechas válidas en el futuro.",
+    "errNotChangeable": "Esta reserva ya no se puede modificar.",
+    "errGeneric": "El envío ha fallado. Inténtelo de nuevo.",
+    "staffTitle": "Solicitudes de cambio",
+    "staffConflict": "Estas nuevas fechas se solapan con otra reserva.",
+    "kindCancel": "Cancelación",
+    "kindDates": "Cambio de fechas",
+    "aGuest": "Un huésped",
+    "ref": "Ref.",
+    "current": "Actual:",
+    "staffNotePlaceholder": "Nota enviada al huésped (opcional)",
+    "approve": "Aprobar",
+    "decline": "Rechazar",
+    "decide": "Tramitar"
   }
 }

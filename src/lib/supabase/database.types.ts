@@ -1511,6 +1511,70 @@ export type Database = {
           },
         ]
       }
+      reservation_change_requests: {
+        Row: {
+          created_at: string
+          decided_at: string | null
+          decided_by: string | null
+          id: string
+          kind: string
+          new_range: unknown
+          reason: string | null
+          requested_by: string
+          reservation_id: string
+          staff_note: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          kind: string
+          new_range?: unknown
+          reason?: string | null
+          requested_by: string
+          reservation_id: string
+          staff_note?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          kind?: string
+          new_range?: unknown
+          reason?: string | null
+          requested_by?: string
+          reservation_id?: string
+          staff_note?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservation_change_requests_decided_by_fkey"
+            columns: ["decided_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservation_change_requests_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservation_change_requests_reservation_id_fkey"
+            columns: ["reservation_id"]
+            isOneToOne: false
+            referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reservation_events: {
         Row: {
           actor_id: string | null
@@ -2819,6 +2883,19 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      request_reservation_change: {
+        Args: {
+          p_kind: string
+          p_new_range?: unknown
+          p_reason?: string
+          p_reservation: string
+        }
+        Returns: string
+      }
+      resolve_reservation_change: {
+        Args: { p_approve: boolean; p_id: string; p_note?: string }
+        Returns: undefined
+      }
       review_identity_verification: {
         Args: { p_decision: string; p_id: string; p_reason?: string }
         Returns: {
@@ -3022,6 +3099,10 @@ export type Database = {
           p_ua?: string
           p_utm?: Json
         }
+        Returns: undefined
+      }
+      withdraw_reservation_change: {
+        Args: { p_id: string }
         Returns: undefined
       }
     }
