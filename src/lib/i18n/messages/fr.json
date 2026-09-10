@@ -842,5 +842,15 @@
     "pointsN": "{n} points",
     "creditAdded": "Crédit ajouté",
     "redeem": "Échanger"
+  },
+  "a11y": {
+    "skipToContent": "Aller au contenu"
+  },
+  "notFound": {
+    "title": "Cette page n'existe pas",
+    "body": "Le lien est peut-être erroné ou la page a été déplacée. Revenez à l'accueil ou explorez les appartements.",
+    "home": "Accueil",
+    "apartments": "Les appartements",
+    "help": "Besoin d'aide ?"
   }
 }

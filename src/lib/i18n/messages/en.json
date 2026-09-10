@@ -842,5 +842,15 @@
     "pointsN": "{n} points",
     "creditAdded": "Credit added",
     "redeem": "Redeem"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
+  "notFound": {
+    "title": "This page doesn't exist",
+    "body": "The link may be wrong or the page has moved. Head back home or explore the apartments.",
+    "home": "Home",
+    "apartments": "The apartments",
+    "help": "Need help?"
   }
 }

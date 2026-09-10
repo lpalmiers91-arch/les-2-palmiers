@@ -207,7 +207,7 @@ export function ConsoleShell({
         </div>
       )}
 
-      <main className="min-w-0 px-4 py-6 sm:px-8 sm:py-9">
+      <main id="main-content" className="min-w-0 px-4 py-6 sm:px-8 sm:py-9">
         <PresenceProvider userId={userId} role="staff">
           {children}
         </PresenceProvider>

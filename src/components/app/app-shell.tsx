@@ -180,7 +180,7 @@ export function AppShell({
         </div>
       )}
 
-      <main className="min-w-0 px-4 py-6 sm:px-8 sm:py-10">
+      <main id="main-content" className="min-w-0 px-4 py-6 sm:px-8 sm:py-10">
         <PresenceProvider userId={userId} role="client">
           {children}
         </PresenceProvider>

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
-import { getLocale } from "@/lib/i18n";
+import { getLocale, getT } from "@/lib/i18n";
 import { localeDir } from "@/lib/i18n/languages";
 import { getBranding } from "@/lib/cms";
 import { Analytics } from "@/components/analytics";
@@ -71,6 +71,7 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const locale = await getLocale();
   const b = await getBranding();
+  const { t } = await getT();
 
   const overrides: string[] = [];
   if (b.accent) overrides.push(`--brass:${b.accent};--brass-2:${b.accent};`);
@@ -97,6 +98,12 @@ export default async function RootLayout({
         )}
       </head>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only left-4 top-4 z-[200] rounded-full bg-ink px-4 py-2 text-[13px] font-medium text-bone focus:not-sr-only focus:fixed"
+        >
+          {t("a11y.skipToContent")}
+        </a>
         {children}
         <Analytics />
       </body>

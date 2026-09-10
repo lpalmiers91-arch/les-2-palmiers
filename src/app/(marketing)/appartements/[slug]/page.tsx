@@ -8,6 +8,9 @@ import { ApartmentCard } from "@/components/marketing/apartment-card";
 import { AMENITY } from "@/lib/amenities";
 import { formatXOF } from "@/lib/format";
 import { getT } from "@/lib/i18n";
+import { createClient } from "@/lib/supabase/server";
+import { JsonLd, apartmentLd, breadcrumbLd } from "@/components/seo/json-ld";
+import { site } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -40,8 +43,28 @@ export default async function ApartmentDetail({
   const others = (await listApartments()).filter((a) => a.slug !== slug).slice(0, 3);
   const paras = (apt.description ?? "").split(/\n{2,}/).filter(Boolean);
 
+  const supabase = await createClient();
+  const { data: rev } = await supabase
+    .from("reviews")
+    .select("rating")
+    .eq("status", "published");
+  const rating =
+    rev && rev.length > 0
+      ? { value: Math.round((rev.reduce((s, r) => s + r.rating, 0) / rev.length) * 10) / 10, count: rev.length }
+      : null;
+
   return (
     <div className="bg-bone">
+      <JsonLd
+        data={[
+          apartmentLd({ ...apt, rating }),
+          breadcrumbLd([
+            { name: "Les 2 Palmiers", url: site.url },
+            { name: t("aptPub.eyebrow"), url: `${site.url}/appartements` },
+            { name: apt.name, url: `${site.url}/appartements/${apt.slug}` },
+          ]),
+        ]}
+      />
       <div className="mx-auto max-w-6xl px-5 pb-24 pt-[104px] md:px-8 md:pt-[132px]">
         <Link
           href="/appartements"

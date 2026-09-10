@@ -10,6 +10,7 @@ import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
 import { getBranding, getNavPages } from "@/lib/cms";
 import { aiSpaceEnabled } from "@/lib/ai";
+import { JsonLd, organizationLd } from "@/components/seo/json-ld";
 
 export default async function MarketingLayout({ children }: { children: ReactNode }) {
   const locale = await getLocale();
@@ -21,6 +22,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
   ]);
   return (
     <I18nProvider locale={locale} messages={messages}>
+      <JsonLd data={organizationLd()} />
       <MotionConfig reducedMotion="user">
         <SmoothScroll />
         <SiteHeader
@@ -28,7 +30,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
           logoUrl={branding.logo_url}
           navExtra={navPages}
         />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <SiteFooter />
         <CookieConsent />
         {aiOn && <PublicAssistant />}

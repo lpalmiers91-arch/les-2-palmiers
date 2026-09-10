@@ -842,5 +842,15 @@
     "pointsN": "{n} 积分",
     "creditAdded": "余额已添加",
     "redeem": "兑换"
+  },
+  "a11y": {
+    "skipToContent": "跳到主要内容"
+  },
+  "notFound": {
+    "title": "此页面不存在",
+    "body": "链接可能有误,或页面已移动。返回首页或浏览公寓。",
+    "home": "首页",
+    "apartments": "查看公寓",
+    "help": "需要帮助?"
   }
 }

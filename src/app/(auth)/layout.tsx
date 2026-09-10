@@ -39,7 +39,7 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
       </aside>
 
       {/* volet droit — formulaire */}
-      <main className="flex min-h-dvh flex-col">
+      <main id="main-content" className="flex min-h-dvh flex-col">
         <div className="flex items-center justify-between px-6 py-6">
           <Link href="/" className="flex items-center gap-2.5 text-ink lg:invisible">
             <Mark className="h-7 w-7" tone="ink" />

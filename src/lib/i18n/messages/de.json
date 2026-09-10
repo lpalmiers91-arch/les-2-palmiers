@@ -842,5 +842,15 @@
     "pointsN": "{n} Punkte",
     "creditAdded": "Guthaben hinzugefügt",
     "redeem": "Einlösen"
+  },
+  "a11y": {
+    "skipToContent": "Zum Inhalt springen"
+  },
+  "notFound": {
+    "title": "Diese Seite existiert nicht",
+    "body": "Der Link ist womöglich falsch oder die Seite wurde verschoben. Zurück zur Startseite oder die Wohnungen entdecken.",
+    "home": "Startseite",
+    "apartments": "Die Wohnungen",
+    "help": "Brauchen Sie Hilfe?"
   }
 }
