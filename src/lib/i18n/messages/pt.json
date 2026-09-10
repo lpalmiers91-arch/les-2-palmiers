@@ -836,7 +836,8 @@
       "idVerified": "Identidade verificada",
       "idPending": "Verificação pendente",
       "idRejected": "Verificação recusada",
-      "idNone": "Não verificado"
+      "idNone": "Não verificado",
+      "walletBalance": "Saldo da conta"
     },
     "refund": {
       "action": "Reembolsar",
@@ -898,6 +899,17 @@
       "nights": "noites",
       "money": "Pagamento",
       "contract": "Contrato de estadia"
+    },
+    "payDetails": {
+      "cta": "Enviar os dados de pagamento",
+      "sent": "Dados enviados",
+      "title": "Enviar os dados de pagamento ao hóspede",
+      "help": "As instruções (Mobile Money / transferência) são enviadas no chat. O hóspede paga e anexa a captura.",
+      "amount": "Valor a pagar",
+      "note": "Mensagem de acompanhamento",
+      "notePlaceholder": "Ex. Por favor, pague antes da sua chegada.",
+      "err": "O envio falhou. Tente novamente.",
+      "send": "Enviar no chat"
     }
   },
   "notifPrefs": {
@@ -1221,7 +1233,10 @@
     "errSave": "Não foi possível guardar.",
     "multicurrency": "Mostrar os preços em várias moedas",
     "fxNote": "O visitante escolhe a moeda no cabeçalho. A cobrança é sempre em XOF.",
-    "fxUnit": "Taxa expressa em XOF por 1 unidade da moeda."
+    "fxUnit": "Taxa expressa em XOF por 1 unidade da moeda.",
+    "manualInstr": "Instruções de pagamento manual",
+    "manualInstrHint": "Números de Mobile Money, dados bancários / IBAN. Enviados ao hóspede a partir da reserva.",
+    "manualInstrPlaceholder": "Mobile Money (MTN / Moov): +229 ...\nTransferência: IBAN ..."
   },
   "appNav": {
     "overview": "Resumo",
@@ -1237,7 +1252,8 @@
     "signOut": "Terminar sessão",
     "menu": "Menu",
     "close": "Fechar",
-    "apartments": "Apartamentos"
+    "apartments": "Apartamentos",
+    "wallet": "A minha conta"
   },
   "favorites": {
     "title": "Os meus favoritos",
@@ -1721,6 +1737,47 @@
       "paid": "Pago",
       "waived": "Dispensado",
       "refunded": "Reembolsado"
-    }
+    },
+    "tabWallet": "O meu saldo",
+    "walletErr": "O pagamento com saldo falhou. Verifique o seu saldo.",
+    "walletAvail": "{amount} disponíveis na sua conta.",
+    "payFromWallet": "Pagar com o meu saldo"
+  },
+  "wallet": {
+    "title": "A minha conta",
+    "sub": "Carregue a sua conta e pague as suas estadias e encargos num só gesto.",
+    "balance": "Saldo disponível",
+    "balanceHint": "Utilizável nas suas reservas e encargos da estadia.",
+    "topUp": "Carregar a conta",
+    "topUpDone": "Conta carregada",
+    "topUpAgain": "Carregar novamente",
+    "proofSentT": "Comprovativo enviado",
+    "proofSentB": "O seu carregamento será creditado após validação da equipa.",
+    "payOnline": "Pagar online",
+    "alreadyPaid": "Já paguei",
+    "simNote": "Ambiente de demonstração: confirme para creditar {amount} na sua conta.",
+    "confirmPay": "Confirmar carregamento",
+    "cancel": "Cancelar",
+    "amount": "Valor",
+    "method": "Meio de pagamento",
+    "screenshot": "Captura do pagamento",
+    "chooseFile": "Escolher um ficheiro",
+    "notePlaceholder": "Referência da transação (opcional)",
+    "err": "Ocorreu um erro. Tente novamente.",
+    "uploadErr": "Falha ao enviar o ficheiro.",
+    "needProof": "Anexe primeiro um comprovativo de pagamento.",
+    "amountTooLow": "O valor mínimo é de 500 XOF.",
+    "topUpCta": "Carregar {amount}",
+    "sendProof": "Enviar comprovativo",
+    "history": "Movimentos",
+    "historyEmpty": "Ainda sem movimentos.",
+    "kind": {
+      "topup": "Carregamento",
+      "spend": "Pagamento",
+      "refund": "Reembolso",
+      "adjust": "Ajuste"
+    },
+    "footNote": "O saldo pode ser usado ao pagar uma estadia ou um encargo.",
+    "footLink": "Ver as minhas reservas"
   }
 }

@@ -836,7 +836,8 @@
       "idVerified": "Identité vérifiée",
       "idPending": "Vérification en attente",
       "idRejected": "Vérification refusée",
-      "idNone": "Non vérifié"
+      "idNone": "Non vérifié",
+      "walletBalance": "Solde du compte"
     },
     "refund": {
       "action": "Rembourser",
@@ -898,6 +899,17 @@
       "nights": "nuits",
       "money": "Paiement",
       "contract": "Contrat de séjour"
+    },
+    "payDetails": {
+      "cta": "Envoyer les coordonnées de paiement",
+      "sent": "Coordonnées envoyées",
+      "title": "Envoyer les coordonnées de paiement au client",
+      "help": "Les instructions (Mobile Money / virement) sont envoyées dans la messagerie. Le client règle puis joint sa capture.",
+      "amount": "Montant à régler",
+      "note": "Message d'accompagnement",
+      "notePlaceholder": "Ex. Merci de régler avant votre arrivée.",
+      "err": "L'envoi a échoué. Réessayez.",
+      "send": "Envoyer dans la messagerie"
     }
   },
   "notifPrefs": {
@@ -1221,7 +1233,10 @@
     "errSave": "L'enregistrement a échoué.",
     "multicurrency": "Afficher les prix en plusieurs devises",
     "fxNote": "Le visiteur choisit sa devise dans l'en-tête. Le débit reste toujours en XOF.",
-    "fxUnit": "Taux exprimé en XOF pour 1 unité de la devise."
+    "fxUnit": "Taux exprimé en XOF pour 1 unité de la devise.",
+    "manualInstr": "Instructions de paiement manuel",
+    "manualInstrHint": "Numéros Mobile Money, RIB / IBAN. Envoyés au client depuis la fiche réservation.",
+    "manualInstrPlaceholder": "Mobile Money (MTN / Moov) : +229 ...\nVirement : IBAN ..."
   },
   "appNav": {
     "overview": "Aperçu",
@@ -1237,7 +1252,8 @@
     "signOut": "Se déconnecter",
     "menu": "Menu",
     "close": "Fermer",
-    "apartments": "Appartements"
+    "apartments": "Appartements",
+    "wallet": "Mon compte"
   },
   "favorites": {
     "title": "Mes favoris",
@@ -1721,6 +1737,47 @@
       "paid": "Réglé",
       "waived": "Annulé",
       "refunded": "Remboursé"
-    }
+    },
+    "tabWallet": "Mon solde",
+    "walletErr": "Le paiement par solde a échoué. Vérifiez votre solde.",
+    "walletAvail": "{amount} disponibles sur votre compte.",
+    "payFromWallet": "Régler avec mon solde"
+  },
+  "wallet": {
+    "title": "Mon compte",
+    "sub": "Rechargez votre compte et réglez vos séjours et vos frais en un geste.",
+    "balance": "Solde disponible",
+    "balanceHint": "Utilisable pour vos réservations et vos frais de séjour.",
+    "topUp": "Recharger le compte",
+    "topUpDone": "Compte rechargé",
+    "topUpAgain": "Recharger à nouveau",
+    "proofSentT": "Preuve envoyée",
+    "proofSentB": "Votre recharge sera créditée après validation par l'équipe.",
+    "payOnline": "Payer en ligne",
+    "alreadyPaid": "J'ai déjà payé",
+    "simNote": "Environnement de démonstration : confirmez pour créditer {amount} sur votre compte.",
+    "confirmPay": "Confirmer la recharge",
+    "cancel": "Annuler",
+    "amount": "Montant",
+    "method": "Moyen de paiement",
+    "screenshot": "Capture du paiement",
+    "chooseFile": "Choisir un fichier",
+    "notePlaceholder": "Référence de la transaction (facultatif)",
+    "err": "Une erreur est survenue. Réessayez.",
+    "uploadErr": "Échec de l'envoi du fichier.",
+    "needProof": "Ajoutez d'abord une preuve de paiement.",
+    "amountTooLow": "Le montant minimum est de 500 XOF.",
+    "topUpCta": "Recharger {amount}",
+    "sendProof": "Envoyer la preuve",
+    "history": "Mouvements",
+    "historyEmpty": "Aucun mouvement pour le moment.",
+    "kind": {
+      "topup": "Recharge",
+      "spend": "Paiement",
+      "refund": "Remboursement",
+      "adjust": "Ajustement"
+    },
+    "footNote": "Le solde est utilisable au moment du paiement d'un séjour ou d'un frais.",
+    "footLink": "Voir mes réservations"
   }
 }

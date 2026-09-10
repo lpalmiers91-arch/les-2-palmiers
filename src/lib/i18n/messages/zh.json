@@ -836,7 +836,8 @@
       "idVerified": "身份已验证",
       "idPending": "身份验证待处理",
       "idRejected": "身份验证被驳回",
-      "idNone": "未验证"
+      "idNone": "未验证",
+      "walletBalance": "账户余额"
     },
     "refund": {
       "action": "退款",
@@ -898,6 +899,17 @@
       "nights": "晚",
       "money": "付款",
       "contract": "住宿合同"
+    },
+    "payDetails": {
+      "cta": "发送付款信息",
+      "sent": "信息已发送",
+      "title": "向客人发送付款信息",
+      "help": "付款说明（移动支付／银行转账）将发送到聊天中。客人付款后附上截图。",
+      "amount": "应付金额",
+      "note": "附言",
+      "notePlaceholder": "例如：请在入住前付款。",
+      "err": "发送失败，请重试。",
+      "send": "发送到聊天"
     }
   },
   "notifPrefs": {
@@ -1221,7 +1233,10 @@
     "errSave": "保存失败。",
     "multicurrency": "以多种货币显示价格",
     "fxNote": "访客在页头选择货币。扣款始终以 XOF 进行。",
-    "fxUnit": "汇率以每 1 单位外币折合多少 XOF 表示。"
+    "fxUnit": "汇率以每 1 单位外币折合多少 XOF 表示。",
+    "manualInstr": "手动付款说明",
+    "manualInstrHint": "移动支付号码、银行账号 / IBAN。从预订页面发送给客人。",
+    "manualInstrPlaceholder": "移动支付（MTN / Moov）：+229 ...\n转账：IBAN ..."
   },
   "appNav": {
     "overview": "概览",
@@ -1237,7 +1252,8 @@
     "signOut": "退出登录",
     "menu": "菜单",
     "close": "关闭",
-    "apartments": "公寓"
+    "apartments": "公寓",
+    "wallet": "我的账户"
   },
   "favorites": {
     "title": "我的收藏",
@@ -1721,6 +1737,47 @@
       "paid": "已付",
       "waived": "已豁免",
       "refunded": "已退款"
-    }
+    },
+    "tabWallet": "我的余额",
+    "walletErr": "余额支付失败，请检查您的余额。",
+    "walletAvail": "您的账户中有 {amount} 可用。",
+    "payFromWallet": "用余额支付"
+  },
+  "wallet": {
+    "title": "我的账户",
+    "sub": "为账户充值，一键结清住宿和费用。",
+    "balance": "可用余额",
+    "balanceHint": "可用于预订和住宿费用。",
+    "topUp": "充值",
+    "topUpDone": "充值成功",
+    "topUpAgain": "再次充值",
+    "proofSentT": "凭证已发送",
+    "proofSentB": "团队核实后将为您充值到账。",
+    "payOnline": "在线支付",
+    "alreadyPaid": "我已付款",
+    "simNote": "演示环境：确认后将向您的账户充值 {amount}。",
+    "confirmPay": "确认充值",
+    "cancel": "取消",
+    "amount": "金额",
+    "method": "支付方式",
+    "screenshot": "付款截图",
+    "chooseFile": "选择文件",
+    "notePlaceholder": "交易参考号（可选）",
+    "err": "出现错误，请重试。",
+    "uploadErr": "文件上传失败。",
+    "needProof": "请先附上付款凭证。",
+    "amountTooLow": "最低金额为 500 XOF。",
+    "topUpCta": "充值 {amount}",
+    "sendProof": "发送凭证",
+    "history": "交易记录",
+    "historyEmpty": "暂无交易记录。",
+    "kind": {
+      "topup": "充值",
+      "spend": "支付",
+      "refund": "退款",
+      "adjust": "调整"
+    },
+    "footNote": "余额可在支付住宿或费用时使用。",
+    "footLink": "查看我的预订"
   }
 }

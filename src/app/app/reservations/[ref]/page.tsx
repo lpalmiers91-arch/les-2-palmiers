@@ -51,6 +51,7 @@ export default async function ReservationDetail({
     { data: stay },
     { data: changeReq },
     { data: chargeRows },
+    { data: walletBal },
   ] =
     await Promise.all([
       supabase
@@ -84,6 +85,7 @@ export default async function ReservationDetail({
         )
         .eq("reservation_id", r.id)
         .order("created_at", { ascending: false }),
+      supabase.rpc("wallet_balance", { p_user: r.guest_id as string }),
     ]);
   const charges: Charge[] = (chargeRows ?? []).map((c) => ({
     id: c.id as string,
@@ -206,7 +208,11 @@ export default async function ReservationDetail({
           )}
 
           {charges.length > 0 && (
-            <ChargesList reservationId={r.id as string} initial={charges} />
+            <ChargesList
+              reservationId={r.id as string}
+              initial={charges}
+              walletBalance={Number(walletBal ?? 0)}
+            />
           )}
 
           {/* Avis : bloc dédié, visible dès que le séjour est en cours ou terminé */}

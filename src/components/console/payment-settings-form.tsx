@@ -15,6 +15,7 @@ export type PaymentSettings = {
   currency: string;
   multicurrency_enabled: boolean;
   fx_rates: Record<string, number>;
+  manual_instructions: string | null;
 };
 
 const FX_CODES = ["EUR", "USD", "GBP", "CAD"];
@@ -47,6 +48,7 @@ export function PaymentSettingsForm({ initial }: { initial: PaymentSettings }) {
         currency: s.currency || "XOF",
         multicurrency_enabled: s.multicurrency_enabled,
         fx_rates: s.fx_rates,
+        manual_instructions: s.manual_instructions?.trim() || null,
         updated_at: new Date().toISOString(),
       })
       .eq("id", 1);
@@ -150,6 +152,19 @@ export function PaymentSettingsForm({ initial }: { initial: PaymentSettings }) {
           </div>
         </>
       )}
+
+      <div className="border-t border-line-soft pt-4">
+        <label className="mb-1.5 block text-[13px] font-medium text-ink-2">
+          {t("paySettings.manualInstr")}
+        </label>
+        <p className="mb-2 text-[12px] text-ink-3">{t("paySettings.manualInstrHint")}</p>
+        <textarea
+          className="field min-h-[120px] resize-y py-2 leading-relaxed"
+          value={s.manual_instructions ?? ""}
+          onChange={(e) => f("manual_instructions", e.target.value)}
+          placeholder={t("paySettings.manualInstrPlaceholder")}
+        />
+      </div>
 
       <div className="border-t border-line-soft pt-4">
         <label className="flex items-center gap-2.5 text-[13px] font-medium text-ink-2">

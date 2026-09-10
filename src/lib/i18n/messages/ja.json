@@ -836,7 +836,8 @@
       "idVerified": "本人確認済み",
       "idPending": "本人確認待ち",
       "idRejected": "本人確認却下",
-      "idNone": "未確認"
+      "idNone": "未確認",
+      "walletBalance": "アカウント残高"
     },
     "refund": {
       "action": "返金",
@@ -898,6 +899,17 @@
       "nights": "泊",
       "money": "支払い",
       "contract": "滞在契約"
+    },
+    "payDetails": {
+      "cta": "支払い情報を送信",
+      "sent": "情報を送信しました",
+      "title": "ゲストに支払い情報を送信",
+      "help": "支払い手順（モバイルマネー／振込）がチャットに送信されます。ゲストが支払い後にスクリーンショットを添付します。",
+      "amount": "支払い金額",
+      "note": "添えるメッセージ",
+      "notePlaceholder": "例：ご到着前にお支払いください。",
+      "err": "送信に失敗しました。もう一度お試しください。",
+      "send": "チャットに送信"
     }
   },
   "notifPrefs": {
@@ -1221,7 +1233,10 @@
     "errSave": "保存に失敗しました。",
     "multicurrency": "複数通貨で価格を表示する",
     "fxNote": "訪問者はヘッダーで通貨を選びます。決済は常に XOF です。",
-    "fxUnit": "レートは通貨1単位あたりの XOF で表します。"
+    "fxUnit": "レートは通貨1単位あたりの XOF で表します。",
+    "manualInstr": "手動支払いの案内",
+    "manualInstrHint": "モバイルマネー番号、銀行口座 / IBAN。予約ページからゲストに送信されます。",
+    "manualInstrPlaceholder": "モバイルマネー（MTN / Moov）：+229 ...\n振込：IBAN ..."
   },
   "appNav": {
     "overview": "概要",
@@ -1237,7 +1252,8 @@
     "signOut": "ログアウト",
     "menu": "メニュー",
     "close": "閉じる",
-    "apartments": "アパートメント"
+    "apartments": "アパートメント",
+    "wallet": "マイアカウント"
   },
   "favorites": {
     "title": "お気に入り",
@@ -1721,6 +1737,47 @@
       "paid": "支払い済み",
       "waived": "免除",
       "refunded": "返金済み"
-    }
+    },
+    "tabWallet": "残高",
+    "walletErr": "残高での支払いに失敗しました。残高をご確認ください。",
+    "walletAvail": "アカウントに {amount} 利用可能です。",
+    "payFromWallet": "残高で支払う"
+  },
+  "wallet": {
+    "title": "マイアカウント",
+    "sub": "アカウントに入金し、滞在費や諸費用をワンタップで精算できます。",
+    "balance": "利用可能残高",
+    "balanceHint": "予約や滞在費用にご利用いただけます。",
+    "topUp": "入金する",
+    "topUpDone": "入金が完了しました",
+    "topUpAgain": "もう一度入金する",
+    "proofSentT": "証明を送信しました",
+    "proofSentB": "チームの確認後に入金が反映されます。",
+    "payOnline": "オンラインで支払う",
+    "alreadyPaid": "支払い済みです",
+    "simNote": "デモ環境：確認するとアカウントに {amount} が入金されます。",
+    "confirmPay": "入金を確認",
+    "cancel": "キャンセル",
+    "amount": "金額",
+    "method": "支払い方法",
+    "screenshot": "支払いのスクリーンショット",
+    "chooseFile": "ファイルを選択",
+    "notePlaceholder": "取引番号（任意）",
+    "err": "エラーが発生しました。もう一度お試しください。",
+    "uploadErr": "ファイルのアップロードに失敗しました。",
+    "needProof": "先に支払いの証明を添付してください。",
+    "amountTooLow": "最低金額は500 XOFです。",
+    "topUpCta": "{amount} を入金",
+    "sendProof": "証明を送信",
+    "history": "利用明細",
+    "historyEmpty": "まだ利用明細はありません。",
+    "kind": {
+      "topup": "入金",
+      "spend": "支払い",
+      "refund": "返金",
+      "adjust": "調整"
+    },
+    "footNote": "残高は滞在費や諸費用の支払い時に利用できます。",
+    "footLink": "予約を見る"
   }
 }

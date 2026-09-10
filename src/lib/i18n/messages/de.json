@@ -836,7 +836,8 @@
       "idVerified": "Identität bestätigt",
       "idPending": "Verifizierung ausstehend",
       "idRejected": "Verifizierung abgelehnt",
-      "idNone": "Nicht verifiziert"
+      "idNone": "Nicht verifiziert",
+      "walletBalance": "Kontoguthaben"
     },
     "refund": {
       "action": "Erstatten",
@@ -898,6 +899,17 @@
       "nights": "Nächte",
       "money": "Zahlung",
       "contract": "Aufenthaltsvertrag"
+    },
+    "payDetails": {
+      "cta": "Zahlungsdaten senden",
+      "sent": "Daten gesendet",
+      "title": "Zahlungsdaten an den Gast senden",
+      "help": "Die Anweisungen (Mobile Money / Überweisung) werden im Chat gesendet. Der Gast zahlt und hängt den Screenshot an.",
+      "amount": "Zu zahlender Betrag",
+      "note": "Begleitende Nachricht",
+      "notePlaceholder": "z. B. Bitte vor Ihrer Ankunft bezahlen.",
+      "err": "Senden fehlgeschlagen. Bitte erneut versuchen.",
+      "send": "In den Chat senden"
     }
   },
   "notifPrefs": {
@@ -1221,7 +1233,10 @@
     "errSave": "Speichern fehlgeschlagen.",
     "multicurrency": "Preise in mehreren Währungen anzeigen",
     "fxNote": "Besucher wählen ihre Währung im Header. Abgebucht wird immer in XOF.",
-    "fxUnit": "Kurs in XOF pro 1 Einheit der Währung."
+    "fxUnit": "Kurs in XOF pro 1 Einheit der Währung.",
+    "manualInstr": "Anleitung für manuelle Zahlung",
+    "manualInstrHint": "Mobile-Money-Nummern, Bankverbindung / IBAN. Wird dem Gast von der Reservierungsseite gesendet.",
+    "manualInstrPlaceholder": "Mobile Money (MTN / Moov): +229 ...\nÜberweisung: IBAN ..."
   },
   "appNav": {
     "overview": "Übersicht",
@@ -1237,7 +1252,8 @@
     "signOut": "Abmelden",
     "menu": "Menü",
     "close": "Schließen",
-    "apartments": "Apartments"
+    "apartments": "Apartments",
+    "wallet": "Mein Konto"
   },
   "favorites": {
     "title": "Meine Favoriten",
@@ -1721,6 +1737,47 @@
       "paid": "Bezahlt",
       "waived": "Erlassen",
       "refunded": "Erstattet"
-    }
+    },
+    "tabWallet": "Mein Guthaben",
+    "walletErr": "Zahlung mit Guthaben fehlgeschlagen. Prüfen Sie Ihr Guthaben.",
+    "walletAvail": "{amount} auf Ihrem Konto verfügbar.",
+    "payFromWallet": "Mit Guthaben bezahlen"
+  },
+  "wallet": {
+    "title": "Mein Konto",
+    "sub": "Laden Sie Ihr Konto auf und begleichen Sie Aufenthalte und Kosten mit einem Klick.",
+    "balance": "Verfügbares Guthaben",
+    "balanceHint": "Verwendbar für Reservierungen und Aufenthaltskosten.",
+    "topUp": "Konto aufladen",
+    "topUpDone": "Konto aufgeladen",
+    "topUpAgain": "Erneut aufladen",
+    "proofSentT": "Nachweis gesendet",
+    "proofSentB": "Ihre Aufladung wird nach Prüfung durch das Team gutgeschrieben.",
+    "payOnline": "Online bezahlen",
+    "alreadyPaid": "Ich habe bereits bezahlt",
+    "simNote": "Demo-Umgebung: Bestätigen Sie, um {amount} Ihrem Konto gutzuschreiben.",
+    "confirmPay": "Aufladung bestätigen",
+    "cancel": "Abbrechen",
+    "amount": "Betrag",
+    "method": "Zahlungsmethode",
+    "screenshot": "Zahlungs-Screenshot",
+    "chooseFile": "Datei auswählen",
+    "notePlaceholder": "Transaktionsreferenz (optional)",
+    "err": "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",
+    "uploadErr": "Datei-Upload fehlgeschlagen.",
+    "needProof": "Zuerst einen Zahlungsnachweis anhängen.",
+    "amountTooLow": "Der Mindestbetrag beträgt 500 XOF.",
+    "topUpCta": "{amount} aufladen",
+    "sendProof": "Nachweis senden",
+    "history": "Bewegungen",
+    "historyEmpty": "Noch keine Bewegungen.",
+    "kind": {
+      "topup": "Aufladung",
+      "spend": "Zahlung",
+      "refund": "Erstattung",
+      "adjust": "Anpassung"
+    },
+    "footNote": "Das Guthaben kann bei der Zahlung eines Aufenthalts oder einer Gebühr verwendet werden.",
+    "footLink": "Meine Reservierungen ansehen"
   }
 }

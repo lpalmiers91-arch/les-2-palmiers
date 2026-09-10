@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { StatusBadge } from "@/components/app/ui";
 import { ReservationActions } from "@/components/console/reservation-actions";
 import { ChargesManager, type ManagedCharge } from "@/components/console/charges-manager";
+import { SendPaymentDetails } from "@/components/console/send-payment-details";
 import { formatXOF, formatDate, parseRange, nightsBetween } from "@/lib/format";
 import { getT } from "@/lib/i18n";
 
@@ -106,12 +107,19 @@ export default async function StaffReservationDetail({
               <dd className="tnum text-ink">{formatXOF(Number(r.amount_paid))}</dd>
             </div>
           </dl>
-          <div className="mt-4 border-t border-line pt-3">
+          <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-3">
             <ReservationActions
               id={r.id as string}
               status={r.status as string}
               start={start}
               end={end}
+            />
+            <SendPaymentDetails
+              reservationId={r.id as string}
+              suggestedAmount={Math.max(
+                0,
+                Number(r.total_amount) - Number(r.amount_paid),
+              )}
             />
           </div>
         </section>

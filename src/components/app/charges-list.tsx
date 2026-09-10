@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { RealtimeChannel } from "@supabase/supabase-js";
-import { Loader2, Check, Upload, Wallet, Receipt } from "lucide-react";
+import { Loader2, Check, Upload, Wallet, Receipt, WalletCards } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 import { formatXOF, formatDate } from "@/lib/format";
@@ -34,9 +34,11 @@ const KIND_KEY: Record<string, string> = {
 export function ChargesList({
   reservationId,
   initial,
+  walletBalance = 0,
 }: {
   reservationId: string;
   initial: Charge[];
+  walletBalance?: number;
 }) {
   const { t } = useT();
   const router = useRouter();
@@ -109,6 +111,7 @@ export function ChargesList({
                 {openId === c.id ? (
                   <ChargePay
                     charge={c}
+                    walletBalance={walletBalance}
                     onDone={() => {
                       setOpenId(null);
                       router.refresh();
@@ -167,15 +170,18 @@ const METHODS = ["mtn", "moov", "celtis", "card"] as const;
 
 function ChargePay({
   charge,
+  walletBalance,
   onDone,
   onCancel,
 }: {
   charge: Charge;
+  walletBalance: number;
   onDone: () => void;
   onCancel: () => void;
 }) {
   const { t } = useT();
-  const [tab, setTab] = useState<"sim" | "proof">("sim");
+  const canWallet = walletBalance >= charge.amount;
+  const [tab, setTab] = useState<"wallet" | "sim" | "proof">(canWallet ? "wallet" : "sim");
   const [method, setMethod] = useState<(typeof METHODS)[number]>("mtn");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -184,6 +190,20 @@ function ChargePay({
   const [uploading, setUploading] = useState(false);
   const [note, setNote] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
+
+  async function payWallet() {
+    setBusy(true);
+    setErr(null);
+    try {
+      const { error } = await createClient().rpc("wallet_pay_charge", { p_charge: charge.id });
+      if (error) throw error;
+      onDone();
+    } catch {
+      setErr(t("charges.walletErr"));
+    } finally {
+      setBusy(false);
+    }
+  }
 
   async function paySim(outcome: "success" | "failed" | "pending") {
     setBusy(true);
@@ -253,8 +273,8 @@ function ChargePay({
 
   return (
     <div className="mt-1 rounded-[10px] border border-line bg-bone-2/50 p-3">
-      <div className="flex gap-1.5">
-        {(["sim", "proof"] as const).map((k) => (
+      <div className="flex flex-wrap gap-1.5">
+        {([...(canWallet ? (["wallet"] as const) : []), "sim", "proof"] as const).map((k) => (
           <button
             key={k}
             onClick={() => setTab(k)}
@@ -262,26 +282,46 @@ function ChargePay({
               tab === k ? "bg-ink text-bone" : "border border-line text-ink-2"
             }`}
           >
-            {k === "sim" ? t("charges.tabSim") : t("charges.tabProof")}
+            {k === "wallet"
+              ? t("charges.tabWallet")
+              : k === "sim"
+                ? t("charges.tabSim")
+                : t("charges.tabProof")}
           </button>
         ))}
       </div>
 
-      <div className="mt-2.5 flex flex-wrap gap-1.5">
-        {METHODS.map((m) => (
+      {tab !== "wallet" && (
+        <div className="mt-2.5 flex flex-wrap gap-1.5">
+          {METHODS.map((m) => (
+            <button
+              key={m}
+              onClick={() => setMethod(m)}
+              className={`press rounded-full px-2.5 py-1 text-[11px] ${
+                method === m ? "bg-forest text-bone" : "border border-line text-ink-2"
+              }`}
+            >
+              {m === "card" ? t("payPanel.card") : m.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {tab === "wallet" ? (
+        <div className="mt-2.5">
+          <p className="text-[11.5px] text-ink-3">
+            {t("charges.walletAvail", { amount: formatXOF(walletBalance) })}
+          </p>
           <button
-            key={m}
-            onClick={() => setMethod(m)}
-            className={`press rounded-full px-2.5 py-1 text-[11px] ${
-              method === m ? "bg-forest text-bone" : "border border-line text-ink-2"
-            }`}
+            onClick={payWallet}
+            disabled={busy}
+            className="press mt-2 inline-flex h-8 items-center gap-1.5 rounded-full bg-ink px-3 text-[11.5px] font-medium text-bone disabled:opacity-50"
           >
-            {m === "card" ? t("payPanel.card") : m.toUpperCase()}
+            {busy ? <Loader2 className="h-3 w-3 animate-spin" /> : <WalletCards className="h-3 w-3" />}
+            {t("charges.payFromWallet")}
           </button>
-        ))}
-      </div>
-
-      {tab === "sim" ? (
+        </div>
+      ) : tab === "sim" ? (
         <div className="mt-2.5 flex flex-wrap gap-1.5">
           <button
             onClick={() => paySim("success")}

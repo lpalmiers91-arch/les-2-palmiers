@@ -1365,6 +1365,7 @@ export type Database = {
           fx_rates: Json
           id: number
           kkiapay_public_key: string | null
+          manual_instructions: string | null
           mode: string
           multicurrency_enabled: boolean
           stripe_public_key: string | null
@@ -1378,6 +1379,7 @@ export type Database = {
           fx_rates?: Json
           id?: number
           kkiapay_public_key?: string | null
+          manual_instructions?: string | null
           mode?: string
           multicurrency_enabled?: boolean
           stripe_public_key?: string | null
@@ -1391,6 +1393,7 @@ export type Database = {
           fx_rates?: Json
           id?: number
           kkiapay_public_key?: string | null
+          manual_instructions?: string | null
           mode?: string
           multicurrency_enabled?: boolean
           stripe_public_key?: string | null
@@ -2814,6 +2817,80 @@ export type Database = {
           },
         ]
       }
+      wallet_accounts: {
+        Row: {
+          balance: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_accounts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wallet_ledger: {
+        Row: {
+          amount: number
+          balance_after: number
+          created_at: string
+          id: string
+          kind: string
+          note: string | null
+          payment_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          balance_after: number
+          created_at?: string
+          id?: string
+          kind: string
+          note?: string | null
+          payment_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          balance_after?: number
+          created_at?: string
+          id?: string
+          kind?: string
+          note?: string | null
+          payment_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_ledger_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wallet_ledger_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       v_analytics_daily: {
@@ -3724,6 +3801,26 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      staff_send_payment_details: {
+        Args: { p_amount?: number; p_note?: string; p_reservation: string }
+        Returns: {
+          attachments: Json
+          body: string
+          conversation_id: string
+          created_at: string
+          deleted_at: string | null
+          deleted_by: string | null
+          id: string
+          sender_id: string | null
+          system: boolean
+        }
+        SetofOptions: {
+          from: "*"
+          to: "messages"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       staff_update_charge: {
         Args: { p_charge: string; p_status: string }
         Returns: {
@@ -3886,6 +3983,122 @@ export type Database = {
             Returns: undefined
           }
       trigger_ical_sync: { Args: never; Returns: undefined }
+      wallet_apply: {
+        Args: {
+          p_amount: number
+          p_kind: string
+          p_note: string
+          p_payment: string
+          p_user: string
+        }
+        Returns: number
+      }
+      wallet_balance: { Args: { p_user?: string }; Returns: number }
+      wallet_pay_charge: {
+        Args: { p_charge: string }
+        Returns: {
+          amount: number
+          channel: string
+          charge_id: string | null
+          created_at: string
+          currency: string
+          id: string
+          internal_ref: string
+          method: string
+          paid_at: string | null
+          payer_id: string
+          proof_note: string | null
+          proof_path: string | null
+          provider: string
+          provider_ref: string | null
+          purpose: string
+          raw_webhook: Json | null
+          reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          service_order_id: string | null
+          sim_outcome: string | null
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      wallet_pay_reservation: {
+        Args: { p_amount: number; p_reservation: string }
+        Returns: {
+          amount: number
+          channel: string
+          charge_id: string | null
+          created_at: string
+          currency: string
+          id: string
+          internal_ref: string
+          method: string
+          paid_at: string | null
+          payer_id: string
+          proof_note: string | null
+          proof_path: string | null
+          provider: string
+          provider_ref: string | null
+          purpose: string
+          raw_webhook: Json | null
+          reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          service_order_id: string | null
+          sim_outcome: string | null
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      wallet_topup_sim: {
+        Args: { p_amount: number; p_method: string; p_outcome: string }
+        Returns: {
+          amount: number
+          channel: string
+          charge_id: string | null
+          created_at: string
+          currency: string
+          id: string
+          internal_ref: string
+          method: string
+          paid_at: string | null
+          payer_id: string
+          proof_note: string | null
+          proof_path: string | null
+          provider: string
+          provider_ref: string | null
+          purpose: string
+          raw_webhook: Json | null
+          reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          service_order_id: string | null
+          sim_outcome: string | null
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       withdraw_reservation_change: {
         Args: { p_id: string }
         Returns: undefined

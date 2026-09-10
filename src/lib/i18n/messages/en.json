@@ -836,7 +836,8 @@
       "idVerified": "Identity verified",
       "idPending": "Verification pending",
       "idRejected": "Verification rejected",
-      "idNone": "Not verified"
+      "idNone": "Not verified",
+      "walletBalance": "Account balance"
     },
     "refund": {
       "action": "Refund",
@@ -898,6 +899,17 @@
       "nights": "nights",
       "money": "Payment",
       "contract": "Stay contract"
+    },
+    "payDetails": {
+      "cta": "Send payment details",
+      "sent": "Details sent",
+      "title": "Send payment details to the guest",
+      "help": "The instructions (Mobile Money / bank transfer) are sent in the chat. The guest pays then attaches their screenshot.",
+      "amount": "Amount to pay",
+      "note": "Accompanying message",
+      "notePlaceholder": "e.g. Please pay before your arrival.",
+      "err": "Sending failed. Please try again.",
+      "send": "Send in the chat"
     }
   },
   "notifPrefs": {
@@ -1221,7 +1233,10 @@
     "errSave": "Saving failed.",
     "multicurrency": "Show prices in multiple currencies",
     "fxNote": "Visitors pick their currency in the header. Charges always stay in XOF.",
-    "fxUnit": "Rate expressed in XOF for 1 unit of the currency."
+    "fxUnit": "Rate expressed in XOF for 1 unit of the currency.",
+    "manualInstr": "Manual payment instructions",
+    "manualInstrHint": "Mobile Money numbers, bank details / IBAN. Sent to the guest from the reservation page.",
+    "manualInstrPlaceholder": "Mobile Money (MTN / Moov): +229 ...\nBank transfer: IBAN ..."
   },
   "appNav": {
     "overview": "Overview",
@@ -1237,7 +1252,8 @@
     "signOut": "Sign out",
     "menu": "Menu",
     "close": "Close",
-    "apartments": "Apartments"
+    "apartments": "Apartments",
+    "wallet": "My account"
   },
   "favorites": {
     "title": "My favorites",
@@ -1721,6 +1737,47 @@
       "paid": "Paid",
       "waived": "Waived",
       "refunded": "Refunded"
-    }
+    },
+    "tabWallet": "My balance",
+    "walletErr": "Balance payment failed. Check your balance.",
+    "walletAvail": "{amount} available in your account.",
+    "payFromWallet": "Pay from my balance"
+  },
+  "wallet": {
+    "title": "My account",
+    "sub": "Top up your account and settle your stays and charges in one tap.",
+    "balance": "Available balance",
+    "balanceHint": "Usable for your reservations and stay charges.",
+    "topUp": "Top up",
+    "topUpDone": "Account topped up",
+    "topUpAgain": "Top up again",
+    "proofSentT": "Proof sent",
+    "proofSentB": "Your top-up will be credited once the team validates it.",
+    "payOnline": "Pay online",
+    "alreadyPaid": "I already paid",
+    "simNote": "Demo environment: confirm to credit {amount} to your account.",
+    "confirmPay": "Confirm top-up",
+    "cancel": "Cancel",
+    "amount": "Amount",
+    "method": "Payment method",
+    "screenshot": "Payment screenshot",
+    "chooseFile": "Choose a file",
+    "notePlaceholder": "Transaction reference (optional)",
+    "err": "Something went wrong. Please try again.",
+    "uploadErr": "File upload failed.",
+    "needProof": "Attach a payment proof first.",
+    "amountTooLow": "The minimum amount is 500 XOF.",
+    "topUpCta": "Top up {amount}",
+    "sendProof": "Send proof",
+    "history": "Activity",
+    "historyEmpty": "No activity yet.",
+    "kind": {
+      "topup": "Top-up",
+      "spend": "Payment",
+      "refund": "Refund",
+      "adjust": "Adjustment"
+    },
+    "footNote": "The balance can be used when paying for a stay or a charge.",
+    "footLink": "View my reservations"
   }
 }

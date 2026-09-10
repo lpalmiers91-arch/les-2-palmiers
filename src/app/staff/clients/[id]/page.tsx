@@ -29,6 +29,7 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
     { data: orders },
     { data: payments },
     { data: convos },
+    { data: walletBal },
   ] = await Promise.all([
     supabase
       .from("identity_verifications")
@@ -55,6 +56,7 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
       .select("id, subject, status, last_message_at")
       .eq("customer_id", id)
       .order("last_message_at", { ascending: false }),
+    supabase.rpc("wallet_balance", { p_user: id }),
   ]);
 
   const idStatus = verifs?.[0]?.status ?? "none";
@@ -119,6 +121,9 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
             <Row label={t("console.title.reservations")}>{reservations?.length ?? 0}</Row>
             <Row label={t("console.clientDetail.serviceOrders")}>{orders?.length ?? 0}</Row>
             <Row label={t("console.clientDetail.totalPaid")}>{formatXOF(totalPaid)}</Row>
+            <Row label={t("console.clientDetail.walletBalance")}>
+              {formatXOF(Number(walletBal ?? 0))}
+            </Row>
             <Row label={t("console.clientDetail.conversations")}>{convos?.length ?? 0}</Row>
           </dl>
           {idStatus === "pending" && (

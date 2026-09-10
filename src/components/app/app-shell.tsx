@@ -15,6 +15,7 @@ import {
   Heart,
   Users,
   Building2,
+  Wallet,
   LogOut,
   Menu,
   X,
@@ -60,6 +61,7 @@ export function AppShell({
     { href: "/app/appartements", label: t("appNav.apartments"), icon: Building2 },
     { href: "/app/services", label: t("appNav.services"), icon: ConciergeBell },
     { href: "/app/messages", label: t("appNav.messages"), icon: MessageSquare },
+    { href: "/app/portefeuille", label: t("appNav.wallet"), icon: Wallet },
     { href: "/app/favoris", label: t("appNav.favorites"), icon: Heart },
     ...(loyaltyEnabled
       ? [
