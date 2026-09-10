@@ -2987,6 +2987,44 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      staff_place_booking: {
+        Args: {
+          p_apartment: string
+          p_channel?: string
+          p_guest_id: string
+          p_guests?: number
+          p_mark_paid?: string
+          p_note?: string
+          p_range: unknown
+        }
+        Returns: {
+          amount_paid: number
+          apartment_id: string
+          cancellation: Json | null
+          created_at: string
+          currency: string
+          date_range: unknown
+          deposit_amount: number
+          discount_amount: number
+          fees: Json
+          guest_id: string
+          guests_count: number
+          id: string
+          nightly_price: number
+          nights: number | null
+          reference: string
+          source: string
+          status: string
+          total_amount: number
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "reservations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       staff_update_contract: {
         Args: { p_contract: string; p_terms: Json }
         Returns: {

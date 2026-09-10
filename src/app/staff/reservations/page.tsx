@@ -4,6 +4,7 @@ import { PageTitle, StatusBadge, EmptyState } from "@/components/app/ui";
 import { getT } from "@/lib/i18n";
 import { ReservationActions } from "@/components/console/reservation-actions";
 import { ChangeRequestsBoard, type PendingChange } from "@/components/console/change-requests-board";
+import { ManualBooking } from "@/components/console/manual-booking";
 import { formatDate, formatXOF, parseRange } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Réservations" };
@@ -27,6 +28,12 @@ export default async function StaffReservations() {
       .order("created_at", { ascending: false }),
   ]);
 
+  const { data: apts } = await supabase
+    .from("apartments")
+    .select("id, name")
+    .in("status", ["published", "draft"])
+    .order("created_at");
+
   const pendingChanges: PendingChange[] = (changeRows ?? []).map((c) => {
     const res = c.reservation as {
       reference?: string;
@@ -47,7 +54,11 @@ export default async function StaffReservations() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <PageTitle title={t("console.title.reservations")} sub={t("console.sub.reservations")} />
+      <PageTitle
+        title={t("console.title.reservations")}
+        sub={t("console.sub.reservations")}
+        action={<ManualBooking apartments={apts ?? []} />}
+      />
       <ChangeRequestsBoard rows={pendingChanges} />
       {!rows || rows.length === 0 ? (
         <EmptyState title={t("console.empty.reservationsT")} body={t("console.empty.reservationsB")} />
