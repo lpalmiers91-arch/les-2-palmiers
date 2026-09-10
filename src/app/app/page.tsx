@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, CalendarDays, ConciergeBell, FileText, ShieldCheck, Gift } from "lucide-react";
+import { ArrowRight, CalendarDays, ConciergeBell, FileText, ShieldCheck, Gift, Star } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card, StatusBadge, EmptyState } from "@/components/app/ui";
 import { MessagingCard } from "@/components/app/messaging-card";
@@ -61,6 +61,17 @@ export default async function AppHome() {
           .filter((x) => x.min_points > (loyalty?.points ?? 0))
           .sort((a, b) => a.min_points - b.min_points)[0]
       : undefined;
+
+  // séjour terminé sans avis -> invitation à noter
+  const { data: doneStays } = await supabase
+    .from("reservations")
+    .select("reference, date_range, review:reviews(id)")
+    .eq("status", "completed")
+    .order("created_at", { ascending: false })
+    .limit(3);
+  const toReview = (doneStays ?? []).find(
+    (s) => !(Array.isArray(s.review) ? s.review.length : s.review),
+  );
 
   const next = reservations?.[0];
   const identity = typeof idStatus === "string" ? idStatus : "none";
@@ -127,6 +138,20 @@ export default async function AppHome() {
         )}
       </div>
 
+      {toReview && (
+        <Link
+          href={`/app/reservations/${toReview.reference}`}
+          className="press mt-4 flex items-center gap-3 rounded-[var(--radius-lg)] border border-brass/40 bg-brass/[0.06] p-4 transition-colors hover:bg-brass/12"
+        >
+          <Star className="h-5 w-5 shrink-0 fill-brass text-brass" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[13.5px] font-medium text-ink">{t("appHome.reviewT")}</p>
+            <p className="text-[12.5px] text-ink-3">{t("appHome.reviewB")}</p>
+          </div>
+          <ArrowRight className="h-4 w-4 text-ink-3" />
+        </Link>
+      )}
+
       {pendingContract && (
         <Link
           href={`/contrat/${pendingContract.reference}`}
@@ -146,7 +171,7 @@ export default async function AppHome() {
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         <QuickLink href="/app/reservations" icon={CalendarDays} label={t("appHome.qlReservations")} />
         <QuickLink href="/app/services" icon={ConciergeBell} label={t("appHome.qlServices")} />
-        <QuickLink href="/app/compte" icon={ShieldCheck} label={t("appHome.qlProfile")} />
+        <QuickLink href="/app/appartements" icon={FileText} label={t("appNav.apartments")} />
       </div>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">

@@ -1275,7 +1275,9 @@
     "stayMeta": "{nights} Nächte · {guests} Gäste · Ref. {ref}",
     "dueLabel": "Restbetrag:",
     "payNow": "Jetzt zahlen",
-    "viewDetail": "Details ansehen"
+    "viewDetail": "Details ansehen",
+    "reviewT": "Wie war Ihr Aufenthalt?",
+    "reviewB": "Hinterlassen Sie eine Bewertung und ein paar Worte — das hilft uns sehr."
   },
   "appRes": {
     "title": "Ihre Buchungen",
@@ -1319,7 +1321,8 @@
     "contractSigned": "Unterschrieben",
     "invoice": "Rechnung (PDF)",
     "addService": "Service zu diesem Aufenthalt hinzufügen",
-    "askTeam": "Eine Frage? Team kontaktieren"
+    "askTeam": "Eine Frage? Team kontaktieren",
+    "stayInfoSoon": "Der WLAN-Code und das Hausbuch werden Ihnen kurz vor der Ankunft mitgeteilt."
   },
   "appServices": {
     "title": "Services vor Ort",
@@ -1360,7 +1363,8 @@
     "starsN": "{n} Sterne",
     "titlePlaceholder": "Titel (optional)",
     "bodyPlaceholder": "Ihre Erfahrung…",
-    "send": "Senden"
+    "send": "Senden",
+    "sectionTitle": "Ihre Bewertung dieses Aufenthalts"
   },
   "payPanel": {
     "heading": "Aufenthalt bezahlen",
@@ -1621,5 +1625,10 @@
       "Ich möchte am Freitagabend einen Koch",
       "Wie lautet der WLAN-Code?"
     ]
+  },
+  "notif": {
+    "title": "Benachrichtigungen",
+    "empty": "Noch nichts.",
+    "seeAll": "Alle ansehen"
   }
 }

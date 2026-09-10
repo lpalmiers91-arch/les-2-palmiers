@@ -1275,7 +1275,9 @@
     "stayMeta": "{nights} 泊 · {guests} 名 · 番号 {ref}",
     "dueLabel": "残額:",
     "payNow": "今すぐ支払う",
-    "viewDetail": "詳細を見る"
+    "viewDetail": "詳細を見る",
+    "reviewT": "ご滞在はいかがでしたか？",
+    "reviewB": "評価と一言をお寄せください。とても励みになります。"
   },
   "appRes": {
     "title": "ご予約",
@@ -1319,7 +1321,8 @@
     "contractSigned": "署名済み",
     "invoice": "請求書(PDF)",
     "addService": "この滞在にサービスを追加",
-    "askTeam": "ご質問はチームへ"
+    "askTeam": "ご質問はチームへ",
+    "stayInfoSoon": "Wi-Fi パスワードとハウスマニュアルは、到着が近づいたらお知らせします。"
   },
   "appServices": {
     "title": "出張サービス",
@@ -1360,7 +1363,8 @@
     "starsN": "星 {n} つ",
     "titlePlaceholder": "タイトル(任意)",
     "bodyPlaceholder": "ご感想…",
-    "send": "送信"
+    "send": "送信",
+    "sectionTitle": "この滞在の評価"
   },
   "payPanel": {
     "heading": "ご滞在のお支払い",
@@ -1621,5 +1625,10 @@
       "金曜の夜にシェフをお願いしたい",
       "Wi-Fi のパスワードは？"
     ]
+  },
+  "notif": {
+    "title": "通知",
+    "empty": "まだ通知はありません。",
+    "seeAll": "すべて表示"
   }
 }

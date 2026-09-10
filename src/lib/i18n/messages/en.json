@@ -1275,7 +1275,9 @@
     "stayMeta": "{nights} nights · {guests} guests · ref. {ref}",
     "dueLabel": "Balance due:",
     "payNow": "Pay now",
-    "viewDetail": "View details"
+    "viewDetail": "View details",
+    "reviewT": "How was your stay?",
+    "reviewB": "Leave a rating and a few words — it helps us a lot."
   },
   "appRes": {
     "title": "Your bookings",
@@ -1319,7 +1321,8 @@
     "contractSigned": "Signed",
     "invoice": "Invoice (PDF)",
     "addService": "Add a service to this stay",
-    "askTeam": "A question? Message the team"
+    "askTeam": "A question? Message the team",
+    "stayInfoSoon": "The Wi-Fi code and house manual will be shared as your arrival approaches."
   },
   "appServices": {
     "title": "Home services",
@@ -1360,7 +1363,8 @@
     "starsN": "{n} stars",
     "titlePlaceholder": "Title (optional)",
     "bodyPlaceholder": "Your experience…",
-    "send": "Send"
+    "send": "Send",
+    "sectionTitle": "Your review of this stay"
   },
   "payPanel": {
     "heading": "Pay for your stay",
@@ -1621,5 +1625,10 @@
       "I'd like a chef on Friday evening",
       "What's the Wi-Fi code?"
     ]
+  },
+  "notif": {
+    "title": "Notifications",
+    "empty": "Nothing yet.",
+    "seeAll": "See all"
   }
 }

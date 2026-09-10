@@ -1275,7 +1275,9 @@
     "stayMeta": "{nights} nuits · {guests} voyageurs · réf. {ref}",
     "dueLabel": "Reste à régler :",
     "payNow": "Régler maintenant",
-    "viewDetail": "Voir le détail"
+    "viewDetail": "Voir le détail",
+    "reviewT": "Comment s'est passé votre séjour ?",
+    "reviewB": "Laissez une note et quelques mots, cela nous aide beaucoup."
   },
   "appRes": {
     "title": "Vos réservations",
@@ -1319,7 +1321,8 @@
     "contractSigned": "Signé",
     "invoice": "Facture (PDF)",
     "addService": "Ajouter un service à ce séjour",
-    "askTeam": "Une question ? Écrire à l'équipe"
+    "askTeam": "Une question ? Écrire à l'équipe",
+    "stayInfoSoon": "Le code Wi-Fi et le manuel de la maison vous seront communiqués à l'approche de l'arrivée."
   },
   "appServices": {
     "title": "Services à domicile",
@@ -1360,7 +1363,8 @@
     "starsN": "{n} étoiles",
     "titlePlaceholder": "Titre (facultatif)",
     "bodyPlaceholder": "Votre expérience…",
-    "send": "Envoyer"
+    "send": "Envoyer",
+    "sectionTitle": "Votre avis sur ce séjour"
   },
   "payPanel": {
     "heading": "Régler votre séjour",
@@ -1621,5 +1625,10 @@
       "Je veux un cuisinier vendredi soir",
       "Quel est le code wifi ?"
     ]
+  },
+  "notif": {
+    "title": "Notifications",
+    "empty": "Rien pour le moment.",
+    "seeAll": "Tout voir"
   }
 }

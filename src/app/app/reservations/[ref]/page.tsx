@@ -20,11 +20,18 @@ export default async function ReservationDetail({
 
   const { data: r } = await supabase
     .from("reservations")
-    .select("*")
+    .select("*, apartment:apartments(name, address, checkin_from, checkout_before, map_url)")
     .eq("reference", decodeURIComponent(ref))
     .maybeSingle();
 
   if (!r) notFound();
+  const apt = (r.apartment ?? {}) as {
+    name?: string;
+    address?: string | null;
+    checkin_from?: string | null;
+    checkout_before?: string | null;
+    map_url?: string | null;
+  };
 
   const { start, end } = parseRange(r.date_range as string);
   const nights = nightsBetween(start, end);
@@ -89,6 +96,7 @@ export default async function ReservationDetail({
             {formatDate(start, { day: "numeric", month: "long" })} — {formatDate(end)}
           </h1>
           <p className="mt-1 text-[13px] text-ink-3">
+            {apt.name ? `${apt.name} · ` : ""}
             {t("appResDetail.metaLine", { ref: r.reference as string, nights, guests: String(r.guests_count) })}
           </p>
         </div>
@@ -115,6 +123,55 @@ export default async function ReservationDetail({
             </Card>
           )}
 
+          {/* Infos séjour : mises en avant dès que la réservation est confirmée */}
+          {["confirmed", "in_stay", "completed"].includes(r.status as string) && (
+            <Card className="!border-forest/25 !bg-forest/[0.04]">
+              <h2 className="flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-forest-2">
+                <Wifi className="h-3.5 w-3.5" /> {t("appResDetail.stayInfo")}
+              </h2>
+              <dl className="mt-3 space-y-2 text-[13.5px]">
+                <Line label={t("appResDetail.checkin")}>
+                  {apt.checkin_from
+                    ? t("aptPub.fromTime", { time: apt.checkin_from.slice(0, 5) })
+                    : t("appResDetail.checkinVal")}
+                </Line>
+                <Line label={t("appResDetail.checkout")}>
+                  {apt.checkout_before
+                    ? t("aptPub.beforeTime", { time: apt.checkout_before.slice(0, 5) })
+                    : t("appResDetail.checkoutVal")}
+                </Line>
+                <Line label={t("appResDetail.address")}>
+                  {apt.address || t("appResDetail.addressVal")}
+                </Line>
+                {stay?.wifi_ssid && <Line label={t("appResDetail.wifi")}>{stay.wifi_ssid}</Line>}
+                {stay?.wifi_password && (
+                  <Line label={t("appResDetail.wifiPass")}>
+                    <span className="tnum select-all font-medium text-ink">{stay.wifi_password}</span>
+                  </Line>
+                )}
+                {stay?.emergency_contact && (
+                  <Line label={t("appResDetail.emergency")}>{stay.emergency_contact}</Line>
+                )}
+              </dl>
+              {stay?.checkin_notes && (
+                <p className="mt-3 whitespace-pre-wrap border-t border-forest/15 pt-3 text-[13px] text-ink-2">
+                  {stay.checkin_notes}
+                </p>
+              )}
+              {stay?.house_manual && (
+                <details className="mt-2">
+                  <summary className="cursor-pointer text-[13px] font-medium text-forest-2">
+                    {t("appResDetail.houseManual")}
+                  </summary>
+                  <p className="mt-2 whitespace-pre-wrap text-[13px] text-ink-2">{stay.house_manual}</p>
+                </details>
+              )}
+              {!stay?.wifi_ssid && (
+                <p className="mt-3 text-[12.5px] text-ink-3">{t("appResDetail.stayInfoSoon")}</p>
+              )}
+            </Card>
+          )}
+
           {r.status === "pending_payment" && dueNow > 0 && verified && (
             <PaymentPanel purpose="reservation" targetId={r.id as string} amountDue={dueNow} />
           )}
@@ -127,34 +184,26 @@ export default async function ReservationDetail({
             />
           )}
 
-          {stay && (stay.wifi_ssid || stay.house_manual || stay.checkin_notes) && (
-            <Card>
-              <h2 className="flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-                <Wifi className="h-3.5 w-3.5" /> {t("appResDetail.stayInfo")}
+          {/* Avis : bloc dédié, visible dès que le séjour est en cours ou terminé */}
+          {canReview && (
+            <div>
+              <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+                {t("reviewForm.sectionTitle")}
               </h2>
-              <dl className="mt-3 space-y-2 text-[13.5px]">
-                {stay.wifi_ssid && <Line label={t("appResDetail.wifi")}>{stay.wifi_ssid}</Line>}
-                {stay.wifi_password && (
-                  <Line label={t("appResDetail.wifiPass")}>
-                    <span className="tnum select-all">{stay.wifi_password}</span>
-                  </Line>
-                )}
-                {stay.emergency_contact && <Line label={t("appResDetail.emergency")}>{stay.emergency_contact}</Line>}
-              </dl>
-              {stay.checkin_notes && (
-                <p className="mt-3 whitespace-pre-wrap border-t border-line-soft pt-3 text-[13px] text-ink-2">
-                  {stay.checkin_notes}
-                </p>
-              )}
-              {stay.house_manual && (
-                <details className="mt-2">
-                  <summary className="cursor-pointer text-[13px] font-medium text-ink">
-                    {t("appResDetail.houseManual")}
-                  </summary>
-                  <p className="mt-2 whitespace-pre-wrap text-[13px] text-ink-2">{stay.house_manual}</p>
-                </details>
-              )}
-            </Card>
+              <ReviewForm
+                reservationId={r.id as string}
+                existing={
+                  review
+                    ? {
+                        rating: review.rating,
+                        title: review.title,
+                        body: review.body,
+                        status: review.status,
+                      }
+                    : null
+                }
+              />
+            </div>
           )}
 
           {["pending_payment", "confirmed", "in_stay"].includes(r.status as string) && (
@@ -164,22 +213,6 @@ export default async function ReservationDetail({
               end={end}
               allowCancel={["pending_payment", "confirmed"].includes(r.status as string)}
               request={(changeReq as ChangeRequest | null) ?? null}
-            />
-          )}
-
-          {canReview && (
-            <ReviewForm
-              reservationId={r.id as string}
-              existing={
-                review
-                  ? {
-                      rating: review.rating,
-                      title: review.title,
-                      body: review.body,
-                      status: review.status,
-                    }
-                  : null
-              }
             />
           )}
 
@@ -250,10 +283,30 @@ export default async function ReservationDetail({
               {t("appResDetail.yourStay")}
             </h3>
             <dl className="mt-3 space-y-2 text-[13.5px]">
-              <Line label={t("appResDetail.checkin")}>{t("appResDetail.checkinVal")}</Line>
-              <Line label={t("appResDetail.checkout")}>{t("appResDetail.checkoutVal")}</Line>
-              <Line label={t("appResDetail.address")}>{t("appResDetail.addressVal")}</Line>
+              <Line label={t("appResDetail.checkin")}>
+                {apt.checkin_from
+                  ? t("aptPub.fromTime", { time: apt.checkin_from.slice(0, 5) })
+                  : t("appResDetail.checkinVal")}
+              </Line>
+              <Line label={t("appResDetail.checkout")}>
+                {apt.checkout_before
+                  ? t("aptPub.beforeTime", { time: apt.checkout_before.slice(0, 5) })
+                  : t("appResDetail.checkoutVal")}
+              </Line>
+              <Line label={t("appResDetail.address")}>
+                {apt.address || t("appResDetail.addressVal")}
+              </Line>
             </dl>
+            {apt.map_url && (
+              <a
+                href={apt.map_url}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-3 inline-block text-[12.5px] font-medium text-forest-2 underline underline-offset-2"
+              >
+                {t("aptPub.viewMap")}
+              </a>
+            )}
           </Card>
 
           {contract && (

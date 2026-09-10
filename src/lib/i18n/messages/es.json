@@ -1275,7 +1275,9 @@
     "stayMeta": "{nights} noches · {guests} huéspedes · ref. {ref}",
     "dueLabel": "Saldo pendiente:",
     "payNow": "Pagar ahora",
-    "viewDetail": "Ver el detalle"
+    "viewDetail": "Ver el detalle",
+    "reviewT": "¿Qué tal su estancia?",
+    "reviewB": "Deje una valoración y unas palabras, nos ayuda mucho."
   },
   "appRes": {
     "title": "Sus reservas",
@@ -1319,7 +1321,8 @@
     "contractSigned": "Firmado",
     "invoice": "Factura (PDF)",
     "addService": "Añadir un servicio a esta estancia",
-    "askTeam": "¿Una pregunta? Escriba al equipo"
+    "askTeam": "¿Una pregunta? Escriba al equipo",
+    "stayInfoSoon": "La clave del wifi y el manual de la casa se le facilitarán al acercarse la llegada."
   },
   "appServices": {
     "title": "Servicios a domicilio",
@@ -1360,7 +1363,8 @@
     "starsN": "{n} estrellas",
     "titlePlaceholder": "Título (opcional)",
     "bodyPlaceholder": "Su experiencia…",
-    "send": "Enviar"
+    "send": "Enviar",
+    "sectionTitle": "Su opinión sobre esta estancia"
   },
   "payPanel": {
     "heading": "Pagar su estancia",
@@ -1621,5 +1625,10 @@
       "Quiero un cocinero el viernes por la noche",
       "¿Cuál es la clave del wifi?"
     ]
+  },
+  "notif": {
+    "title": "Notificaciones",
+    "empty": "Nada por ahora.",
+    "seeAll": "Ver todo"
   }
 }

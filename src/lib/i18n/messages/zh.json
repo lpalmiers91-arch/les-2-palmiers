@@ -1275,7 +1275,9 @@
     "stayMeta": "{nights} 晚 · {guests} 位住客 · 编号 {ref}",
     "dueLabel": "应付余额:",
     "payNow": "立即付款",
-    "viewDetail": "查看详情"
+    "viewDetail": "查看详情",
+    "reviewT": "您的入住体验如何？",
+    "reviewB": "留下评分和几句评价，对我们帮助很大。"
   },
   "appRes": {
     "title": "您的预订",
@@ -1319,7 +1321,8 @@
     "contractSigned": "已签署",
     "invoice": "发票(PDF)",
     "addService": "为本次行程添加服务",
-    "askTeam": "有疑问?联系团队"
+    "askTeam": "有疑问?联系团队",
+    "stayInfoSoon": "Wi-Fi 密码和居家手册将在入住临近时提供。"
   },
   "appServices": {
     "title": "上门服务",
@@ -1360,7 +1363,8 @@
     "starsN": "{n} 星",
     "titlePlaceholder": "标题(可选)",
     "bodyPlaceholder": "您的体验……",
-    "send": "发送"
+    "send": "发送",
+    "sectionTitle": "对本次入住的评价"
   },
   "payPanel": {
     "heading": "支付您的行程",
@@ -1621,5 +1625,10 @@
       "我想周五晚上请一位厨师",
       "Wi-Fi 密码是多少？"
     ]
+  },
+  "notif": {
+    "title": "通知",
+    "empty": "暂无通知。",
+    "seeAll": "查看全部"
   }
 }
