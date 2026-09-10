@@ -23,7 +23,6 @@ export function GiftCardPanel() {
   const [msg, setMsg] = useState("");
   const [method, setMethod] = useState<(typeof METHODS)[number]>("card");
   const [payId, setPayId] = useState<string | null>(null);
-  const [payRef, setPayRef] = useState<string | null>(null);
   const [boughtCode, setBoughtCode] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -47,7 +46,6 @@ export function GiftCardPanel() {
       });
       if (error) throw error;
       const r = data as { code: string; payment_ref: string };
-      setPayRef(r.payment_ref);
       setBoughtCode(r.code);
 
       const { data: pay } = await supabase
@@ -89,7 +87,6 @@ export function GiftCardPanel() {
     }
     if (outcome === "failure") {
       setPayId(null);
-      setPayRef(null);
       setBoughtCode(null);
     } else {
       setPayId("done");

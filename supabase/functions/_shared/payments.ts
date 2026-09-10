@@ -65,7 +65,7 @@ export const fedapay = {
 
 // -------------------------------------------------------------------- KkiaPay
 export const kkiapay = {
-  async checkout(i: CheckoutInput): Promise<{ url: string } | { error: string }> {
+  async checkout(_i: CheckoutInput): Promise<{ url: string } | { error: string }> {
     // KkiaPay est un widget côté client : on renvoie une URL de page hébergée
     // qui ouvre le widget avec la clé publique. Ici on signale au client de
     // basculer sur le widget (pas de redirection serveur possible sans compte).
