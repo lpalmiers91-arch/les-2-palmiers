@@ -1442,7 +1442,8 @@
     "deletedByTeam": "Mensagem eliminada pela equipa",
     "attach": "Anexar um ficheiro",
     "placeholder": "A sua mensagem…",
-    "send": "Enviar"
+    "send": "Enviar",
+    "deleteConfirm": "Eliminar esta mensagem? A outra pessoa verá que foi eliminada."
   },
   "idForm": {
     "docIdCard": "Cartão de cidadão",

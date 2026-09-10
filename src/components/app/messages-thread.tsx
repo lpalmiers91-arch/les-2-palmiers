@@ -56,6 +56,7 @@ export function MessagesThread({
   const canModerate = variant === "staff";
 
   async function deleteMessage(id: string) {
+    if (!window.confirm(t("thread.deleteConfirm"))) return;
     setMessages((prev) =>
       prev.map((m) =>
         m.id === id
@@ -241,7 +242,7 @@ export function MessagesThread({
                 <button
                   onClick={() => deleteMessage(m.id)}
                   aria-label={t("thread.deleteMsg")}
-                  className="press mb-4 shrink-0 p-1 text-ink-3 opacity-0 transition-opacity hover:text-danger group-hover:opacity-100"
+                  className="press mb-4 shrink-0 p-1 text-ink-3 transition-opacity hover:text-danger sm:opacity-0 sm:group-hover:opacity-100"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
@@ -284,7 +285,7 @@ export function MessagesThread({
                 <button
                   onClick={() => deleteMessage(m.id)}
                   aria-label={t("thread.deleteMsg")}
-                  className="press mb-4 shrink-0 p-1 text-ink-3 opacity-0 transition-opacity hover:text-danger group-hover:opacity-100"
+                  className="press mb-4 shrink-0 p-1 text-ink-3 transition-opacity hover:text-danger sm:opacity-0 sm:group-hover:opacity-100"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>

@@ -1442,7 +1442,8 @@
     "deletedByTeam": "Nachricht vom Team gelöscht",
     "attach": "Datei anhängen",
     "placeholder": "Ihre Nachricht…",
-    "send": "Senden"
+    "send": "Senden",
+    "deleteConfirm": "Diese Nachricht löschen? Die andere Person sieht, dass sie gelöscht wurde."
   },
   "idForm": {
     "docIdCard": "Personalausweis",

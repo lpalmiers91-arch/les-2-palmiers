@@ -1442,7 +1442,8 @@
     "deletedByTeam": "Message supprimé par l'équipe",
     "attach": "Joindre un fichier",
     "placeholder": "Votre message…",
-    "send": "Envoyer"
+    "send": "Envoyer",
+    "deleteConfirm": "Supprimer ce message ? L'autre personne verra qu'il a été supprimé."
   },
   "idForm": {
     "docIdCard": "Carte nationale d'identité",

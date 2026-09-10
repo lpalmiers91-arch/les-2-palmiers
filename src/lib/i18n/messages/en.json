@@ -1442,7 +1442,8 @@
     "deletedByTeam": "Message deleted by the team",
     "attach": "Attach a file",
     "placeholder": "Your message…",
-    "send": "Send"
+    "send": "Send",
+    "deleteConfirm": "Delete this message? The other person will see it was deleted."
   },
   "idForm": {
     "docIdCard": "National ID card",

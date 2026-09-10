@@ -1442,7 +1442,8 @@
     "deletedByTeam": "チームが削除したメッセージ",
     "attach": "ファイルを添付",
     "placeholder": "メッセージ…",
-    "send": "送信"
+    "send": "送信",
+    "deleteConfirm": "このメッセージを削除しますか？ 相手には削除されたことが表示されます。"
   },
   "idForm": {
     "docIdCard": "国民 ID カード",

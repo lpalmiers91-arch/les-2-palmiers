@@ -1442,7 +1442,8 @@
     "deletedByTeam": "Messaggio eliminato dal team",
     "attach": "Allega un file",
     "placeholder": "Il tuo messaggio…",
-    "send": "Invia"
+    "send": "Invia",
+    "deleteConfirm": "Eliminare questo messaggio? L'altra persona vedrà che è stato eliminato."
   },
   "idForm": {
     "docIdCard": "Carta d'identità",
