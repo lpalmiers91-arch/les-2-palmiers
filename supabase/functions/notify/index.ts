@@ -46,8 +46,9 @@ Deno.serve(async (req) => {
   const { data: authUser } = await admin.auth.admin.getUserById(notif.user_id);
   const email = authUser?.user?.email;
   const { data: profile } = await admin
-    .from("profiles").select("full_name, preferences").eq("id", notif.user_id).maybeSingle();
+    .from("profiles").select("full_name, preferences, locale").eq("id", notif.user_id).maybeSingle();
   const prefs = (profile?.preferences ?? {}) as Record<string, unknown>;
+  const locale = (profile?.locale as string) || "fr";
   // préférences par canal : preferences.notif = { email: bool, push: bool }
   // (in-app toujours actif). Repli : tout activé.
   const notifPref = (prefs.notif ?? {}) as { email?: boolean; push?: boolean };
@@ -66,7 +67,19 @@ Deno.serve(async (req) => {
 
   // 3. e-mail
   if (channels.includes("email") && prefChannels.includes("email") && email) {
-    results.email = await sendEmail(email, notif.title, notif.body ?? "", notif.data ?? {}, isTeam);
+    // titre / corps localisés si la notification les porte (data.i18n[locale])
+    const i18n = ((notif.data ?? {}) as Record<string, unknown>).i18n as
+      | Record<string, { title?: string; body?: string }>
+      | undefined;
+    const tr = i18n?.[locale];
+    results.email = await sendEmail(
+      email,
+      tr?.title ?? notif.title,
+      tr?.body ?? notif.body ?? "",
+      notif.data ?? {},
+      isTeam,
+      locale,
+    );
   }
 
   // 4. push web (VAPID)
@@ -116,13 +129,28 @@ Deno.serve(async (req) => {
   return json({ ok: true, results });
 });
 
+const EMAIL_UI: Record<string, { open: string; dir: string }> = {
+  fr: { open: "Ouvrir", dir: "ltr" },
+  en: { open: "Open", dir: "ltr" },
+  es: { open: "Abrir", dir: "ltr" },
+  zh: { open: "打开", dir: "ltr" },
+  ar: { open: "فتح", dir: "rtl" },
+  pt: { open: "Abrir", dir: "ltr" },
+  de: { open: "Öffnen", dir: "ltr" },
+  it: { open: "Apri", dir: "ltr" },
+  ru: { open: "Открыть", dir: "ltr" },
+  ja: { open: "開く", dir: "ltr" },
+};
+
 async function sendEmail(
   to: string,
   subject: string,
   body: string,
   data: Record<string, unknown>,
   isTeam = false,
+  locale = "fr",
 ): Promise<string> {
+  const ui = EMAIL_UI[locale] ?? EMAIL_UI.fr;
   let link: string;
   if (isTeam) {
     link = data.conversation_id
@@ -144,15 +172,15 @@ async function sendEmail(
       : `${APP_URL}/app/notifications`;
   }
 
-  const html = `<!doctype html><html lang="fr"><body style="margin:0;background:#f6f3ec;">
+  const html = `<!doctype html><html lang="${locale}" dir="${ui.dir}"><body style="margin:0;background:#f6f3ec;">
 <table role="presentation" width="100%" style="background:#f6f3ec;padding:32px 12px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;"><tr><td align="center">
 <table role="presentation" width="480" style="max-width:480px;background:#fff;border:1px solid #e0d6c3;border-radius:14px;overflow:hidden;">
 <tr><td style="background:#14315b;padding:22px 32px 18px;text-align:center;"><img src="https://les2palmiers.site/brand/wordmark-light.png" alt="Les 2 Palmiers" height="30" style="height:30px;width:auto;"></td></tr>
 <tr><td style="height:3px;background:#aa6548;font-size:0;line-height:3px;">&nbsp;</td></tr>
-<tr><td style="padding:30px 32px;color:#16130f;font-size:15px;line-height:1.6;">
+<tr><td style="padding:30px 32px;color:#16130f;font-size:15px;line-height:1.6;" dir="${ui.dir}">
 <p style="margin:0 0 10px;font-weight:600;">${escapeHtml(subject)}</p>
 <p style="margin:0 0 22px;color:#3c352c;">${escapeHtml(body)}</p>
-<div style="text-align:center;"><a href="${link}" style="background:#14315b;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 26px;border-radius:999px;display:inline-block;font-size:14px;">Ouvrir</a></div>
+<div style="text-align:center;"><a href="${link}" style="background:#14315b;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 26px;border-radius:999px;display:inline-block;font-size:14px;">${escapeHtml(ui.open)}</a></div>
 </td></tr>
 <tr><td style="padding:16px 32px;border-top:1px solid #ece4d5;color:#6f665a;font-size:13px;text-align:center;">les2palmiers.site</td></tr>
 </table></td></tr></table></body></html>`;

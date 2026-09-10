@@ -14,7 +14,7 @@ type Mode = "signin" | "signup" | "reset";
 export function AuthForm({ mode }: { mode: Mode }) {
   const router = useRouter();
   const params = useSearchParams();
-  const { t } = useT();
+  const { t, locale } = useT();
   const suite = params.get("suite") || "/app";
   const [ref, setRef] = useState(params.get("ref") ?? "");
 
@@ -54,6 +54,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
           options: {
             data: {
               full_name: name || null,
+              locale,
               ...(ref.trim() ? { referral_code: ref.trim().toUpperCase() } : {}),
             },
             emailRedirectTo: `${location.origin}/auth/confirm?suite=${encodeURIComponent(suite)}`,
