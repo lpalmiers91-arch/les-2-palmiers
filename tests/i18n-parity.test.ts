@@ -34,14 +34,14 @@ test("every locale has the exact same keys as fr", () => {
 
 test("no locale has an empty-string value where fr is non-empty (except deliberate)", () => {
   const fr = load("fr");
-  const frFlat = Object.fromEntries(flat(fr).map((k) => [k, k.split(".").reduce<any>((a, p) => a?.[p], fr)]));
+  const frFlat = Object.fromEntries(flat(fr).map((k) => [k, k.split(".").reduce<unknown>((a, p) => (a as Record<string, unknown>)?.[p],fr)]));
   const allowEmpty = new Set(["aptPub.from"]); // « dès » n'a pas d'équivalent court en japonais
   for (const loc of LOCALES) {
     if (loc === "fr") continue;
     const m = load(loc);
     for (const [key, frVal] of Object.entries(frFlat)) {
       if (allowEmpty.has(key)) continue;
-      const v = key.split(".").reduce<any>((a, p) => a?.[p], m);
+      const v = key.split(".").reduce<unknown>((a, p) => (a as Record<string, unknown>)?.[p],m);
       if (typeof frVal === "string" && frVal.length > 0) {
         assert.ok(typeof v === "string" && v.length > 0, `${loc}: ${key} is empty`);
       }
