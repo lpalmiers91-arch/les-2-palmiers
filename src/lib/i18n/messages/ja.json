@@ -351,7 +351,8 @@
       "published": "公開済み",
       "hidden": "非表示",
       "signed": "署名済み",
-      "countersigned": "連署済み"
+      "countersigned": "連署済み",
+      "sent": "送信済み"
     },
     "title": {
       "appartements": "アパートメント",
@@ -868,6 +869,35 @@
       "sessionsShort": "セッション",
       "exitPages": "離脱ページ",
       "exitHint": "サイトを離れる前に最後に見たページ。"
+    },
+    "charges": {
+      "title": "滞在費用",
+      "add": "費用を追加",
+      "empty": "この予約に費用はありません。",
+      "totalBilled": "請求合計",
+      "outstanding": "未払い残高",
+      "labelRequired": "項目名を入力してください。",
+      "badAmount": "金額は0より大きくしてください。",
+      "err": "エラーが発生しました。もう一度お試しください。",
+      "kindLabel": "費用の種類",
+      "amountLabel": "金額（XOF）",
+      "labelLabel": "項目名",
+      "labelPlaceholder": "例：返金可能な保証金",
+      "noteLabel": "ゲストへのメモ",
+      "optional": "任意",
+      "notePlaceholder": "詳細または根拠",
+      "notifyClient": "保存してゲストに通知",
+      "cancel": "キャンセル",
+      "markPaid": "支払い済みにする",
+      "waive": "費用を免除",
+      "receipt": "領収書",
+      "refund": "返金"
+    },
+    "resvDetail": {
+      "all": "すべての予約",
+      "nights": "泊",
+      "money": "支払い",
+      "contract": "滞在契約"
     }
   },
   "notifPrefs": {
@@ -1661,5 +1691,36 @@
   },
   "avisPage": {
     "empty": "最初のレビューは、今後のご滞在の後にここに表示されます。"
+  },
+  "charges": {
+    "title": "滞在費用",
+    "dueTotal": "支払い残高 {amount}",
+    "pay": "支払う",
+    "receipt": "領収書",
+    "err": "エラーが発生しました。もう一度お試しください。",
+    "uploadErr": "ファイルのアップロードに失敗しました。",
+    "needProof": "先に支払いの証明を添付してください。",
+    "tabSim": "今すぐ支払う",
+    "tabProof": "支払い済みです",
+    "simSuccess": "支払いを確認",
+    "simFail": "失敗をシミュレート",
+    "attachProof": "スクリーンショットを添付",
+    "notePlaceholder": "取引番号（任意）",
+    "sendProof": "証明を送信",
+    "cancel": "キャンセル",
+    "kind": {
+      "deposit": "保証金",
+      "utility": "光熱費（水道・電気）",
+      "cleaning": "追加清掃",
+      "damage": "原状回復",
+      "service": "サービス",
+      "other": "その他"
+    },
+    "status": {
+      "pending": "未払い",
+      "paid": "支払い済み",
+      "waived": "免除",
+      "refunded": "返金済み"
+    }
   }
 }

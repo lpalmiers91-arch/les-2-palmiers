@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, StatusBadge, EmptyState } from "@/components/app/ui";
 import { getT } from "@/lib/i18n";
@@ -71,10 +73,14 @@ export default async function StaffReservations() {
               <li key={r.id} className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="text-[14.5px] font-medium text-ink">
+                    <Link
+                      href={`/staff/reservations/${encodeURIComponent(r.reference as string)}`}
+                      className="group inline-flex items-center gap-1 text-[14.5px] font-medium text-ink hover:text-forest-2"
+                    >
                       {formatDate(start, { day: "numeric", month: "short" })} —{" "}
                       {formatDate(end, { day: "numeric", month: "short", year: "numeric" })}
-                    </p>
+                      <ChevronRight className="h-4 w-4 text-ink-3 transition-transform group-hover:translate-x-0.5" />
+                    </Link>
                     <p className="mt-0.5 text-[12.5px] text-ink-3">
                       {g?.full_name ?? t("console.lists.client")} {g?.phone ? `· ${g.phone}` : ""} ·{" "}
                       {r.guests_count} {t("console.lists.guestsAbbr")} · {t("console.lists.ref")}{" "}

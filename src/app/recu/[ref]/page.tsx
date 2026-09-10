@@ -26,7 +26,7 @@ export default async function ReceiptPage({
   const { data: p } = await supabase
     .from("payments")
     .select(
-      "internal_ref, method, amount, currency, status, purpose, paid_at, created_at, reservation:reservations!payments_reservation_id_fkey(reference, date_range, guests_count), service_order:service_orders!payments_service_order_id_fkey(reference, service:services(title)), payer:profiles!payments_payer_id_fkey(full_name)",
+      "internal_ref, method, amount, currency, status, purpose, paid_at, created_at, reservation:reservations!payments_reservation_id_fkey(reference, date_range, guests_count), service_order:service_orders!payments_service_order_id_fkey(reference, service:services(title)), charge:reservation_charges!payments_charge_id_fkey(reference, label), payer:profiles!payments_payer_id_fkey(full_name)",
     )
     .eq("internal_ref", decodeURIComponent(ref))
     .maybeSingle();
@@ -35,6 +35,7 @@ export default async function ReceiptPage({
 
   const res = p.reservation as { reference?: string; date_range?: string; guests_count?: number } | null;
   const ord = p.service_order as { reference?: string; service?: { title?: string } } | null;
+  const chg = p.charge as { reference?: string; label?: string } | null;
   const paidAt = p.paid_at ?? p.created_at;
 
   return (
@@ -93,6 +94,14 @@ export default async function ReceiptPage({
               <div className="mt-2 text-[13.5px]">
                 <p className="text-ink">{ord.service?.title ?? "Service à domicile"}</p>
                 <p className="text-ink-3">Réf. {ord.reference}</p>
+              </div>
+            ) : chg ? (
+              <div className="mt-2 text-[13.5px]">
+                <p className="text-ink">{chg.label ?? "Frais de séjour"}</p>
+                <p className="text-ink-3">
+                  Réf. {chg.reference}
+                  {res?.reference ? ` · séjour ${res.reference}` : ""}
+                </p>
               </div>
             ) : (
               <p className="mt-2 text-[13.5px] text-ink">Paiement</p>

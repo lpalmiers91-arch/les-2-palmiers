@@ -1411,6 +1411,7 @@ export type Database = {
         Row: {
           amount: number
           channel: string
+          charge_id: string | null
           created_at: string
           currency: string
           id: string
@@ -1436,6 +1437,7 @@ export type Database = {
         Insert: {
           amount: number
           channel?: string
+          charge_id?: string | null
           created_at?: string
           currency?: string
           id?: string
@@ -1461,6 +1463,7 @@ export type Database = {
         Update: {
           amount?: number
           channel?: string
+          charge_id?: string | null
           created_at?: string
           currency?: string
           id?: string
@@ -1484,6 +1487,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "payments_charge_id_fkey"
+            columns: ["charge_id"]
+            isOneToOne: false
+            referencedRelation: "reservation_charges"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "payments_payer_id_fkey"
             columns: ["payer_id"]
@@ -1913,6 +1923,79 @@ export type Database = {
           },
           {
             foreignKeyName: "reservation_change_requests_reservation_id_fkey"
+            columns: ["reservation_id"]
+            isOneToOne: false
+            referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reservation_charges: {
+        Row: {
+          amount: number
+          created_at: string
+          created_by: string | null
+          currency: string
+          id: string
+          kind: string
+          label: string
+          note: string | null
+          paid_at: string | null
+          payment_id: string | null
+          reference: string
+          reservation_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          kind?: string
+          label: string
+          note?: string | null
+          paid_at?: string | null
+          payment_id?: string | null
+          reference?: string
+          reservation_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          kind?: string
+          label?: string
+          note?: string | null
+          paid_at?: string | null
+          payment_id?: string | null
+          reference?: string
+          reservation_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservation_charges_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservation_charges_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservation_charges_reservation_id_fkey"
             columns: ["reservation_id"]
             isOneToOne: false
             referencedRelation: "reservations"
@@ -2836,6 +2919,41 @@ export type Database = {
       auth_has_permission: { Args: { perm: string }; Returns: boolean }
       auth_has_role: { Args: { role_key: string }; Returns: boolean }
       can_see_stay_info: { Args: { aid: string }; Returns: boolean }
+      charge_pay_sim: {
+        Args: { p_charge: string; p_method: string; p_outcome: string }
+        Returns: {
+          amount: number
+          channel: string
+          charge_id: string | null
+          created_at: string
+          currency: string
+          id: string
+          internal_ref: string
+          method: string
+          paid_at: string | null
+          payer_id: string
+          proof_note: string | null
+          proof_path: string | null
+          provider: string
+          provider_ref: string | null
+          purpose: string
+          raw_webhook: Json | null
+          reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          service_order_id: string | null
+          sim_outcome: string | null
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       claim_referral: { Args: { p_code: string }; Returns: undefined }
       clear_notifications: { Args: never; Returns: undefined }
       countersign_contract: {
@@ -3169,6 +3287,7 @@ export type Database = {
         Returns: {
           amount: number
           channel: string
+          charge_id: string | null
           created_at: string
           currency: string
           id: string
@@ -3212,6 +3331,7 @@ export type Database = {
         Returns: {
           amount: number
           channel: string
+          charge_id: string | null
           created_at: string
           currency: string
           id: string
@@ -3265,6 +3385,7 @@ export type Database = {
         Returns: {
           amount: number
           channel: string
+          charge_id: string | null
           created_at: string
           currency: string
           id: string
@@ -3299,6 +3420,7 @@ export type Database = {
         Returns: {
           amount: number
           channel: string
+          charge_id: string | null
           created_at: string
           currency: string
           id: string
@@ -3341,6 +3463,7 @@ export type Database = {
         Returns: {
           amount: number
           channel: string
+          charge_id: string | null
           created_at: string
           currency: string
           id: string
@@ -3532,6 +3655,37 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      staff_add_charge: {
+        Args: {
+          p_amount: number
+          p_kind: string
+          p_label: string
+          p_note?: string
+          p_reservation: string
+        }
+        Returns: {
+          amount: number
+          created_at: string
+          created_by: string | null
+          currency: string
+          id: string
+          kind: string
+          label: string
+          note: string | null
+          paid_at: string | null
+          payment_id: string | null
+          reference: string
+          reservation_id: string
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "reservation_charges"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       staff_place_booking: {
         Args: {
           p_apartment: string
@@ -3566,6 +3720,31 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "reservations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      staff_update_charge: {
+        Args: { p_charge: string; p_status: string }
+        Returns: {
+          amount: number
+          created_at: string
+          created_by: string | null
+          currency: string
+          id: string
+          kind: string
+          label: string
+          note: string | null
+          paid_at: string | null
+          payment_id: string | null
+          reference: string
+          reservation_id: string
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "reservation_charges"
           isOneToOne: true
           isSetofReturn: false
         }

@@ -351,7 +351,8 @@
       "published": "Publicado",
       "hidden": "Oculto",
       "signed": "Assinado",
-      "countersigned": "Contra-assinado"
+      "countersigned": "Contra-assinado",
+      "sent": "Enviado"
     },
     "title": {
       "appartements": "Apartamentos",
@@ -868,6 +869,35 @@
       "sessionsShort": "ses.",
       "exitPages": "Páginas de saída",
       "exitHint": "Última página vista antes de sair do site."
+    },
+    "charges": {
+      "title": "Encargos da estadia",
+      "add": "Adicionar um encargo",
+      "empty": "Sem encargos para esta reserva.",
+      "totalBilled": "Total faturado",
+      "outstanding": "Em dívida",
+      "labelRequired": "Introduza um rótulo.",
+      "badAmount": "O valor deve ser superior a zero.",
+      "err": "Ocorreu um erro. Tente novamente.",
+      "kindLabel": "Tipo de encargo",
+      "amountLabel": "Valor (XOF)",
+      "labelLabel": "Rótulo",
+      "labelPlaceholder": "Ex. Caução reembolsável",
+      "noteLabel": "Nota para o hóspede",
+      "optional": "opcional",
+      "notePlaceholder": "Detalhe ou justificação",
+      "notifyClient": "Guardar e notificar o hóspede",
+      "cancel": "Cancelar",
+      "markPaid": "Marcar como pago",
+      "waive": "Dispensar encargo",
+      "receipt": "Recibo",
+      "refund": "Reembolsar"
+    },
+    "resvDetail": {
+      "all": "Todas as reservas",
+      "nights": "noites",
+      "money": "Pagamento",
+      "contract": "Contrato de estadia"
     }
   },
   "notifPrefs": {
@@ -1661,5 +1691,36 @@
   },
   "avisPage": {
     "empty": "As primeiras avaliações aparecerão aqui após as próximas estadias."
+  },
+  "charges": {
+    "title": "Encargos da estadia",
+    "dueTotal": "{amount} a pagar",
+    "pay": "Pagar",
+    "receipt": "Recibo",
+    "err": "Ocorreu um erro. Tente novamente.",
+    "uploadErr": "Falha ao enviar o ficheiro.",
+    "needProof": "Anexe primeiro um comprovativo de pagamento.",
+    "tabSim": "Pagar agora",
+    "tabProof": "Já paguei",
+    "simSuccess": "Confirmar pagamento",
+    "simFail": "Simular uma falha",
+    "attachProof": "Anexar uma captura de ecrã",
+    "notePlaceholder": "Referência da transação (opcional)",
+    "sendProof": "Enviar comprovativo",
+    "cancel": "Cancelar",
+    "kind": {
+      "deposit": "Caução",
+      "utility": "Consumos (água, eletricidade)",
+      "cleaning": "Limpeza adicional",
+      "damage": "Reparações",
+      "service": "Serviço",
+      "other": "Outros"
+    },
+    "status": {
+      "pending": "A pagar",
+      "paid": "Pago",
+      "waived": "Dispensado",
+      "refunded": "Reembolsado"
+    }
   }
 }

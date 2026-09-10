@@ -351,7 +351,8 @@
       "published": "Published",
       "hidden": "Hidden",
       "signed": "Signed",
-      "countersigned": "Countersigned"
+      "countersigned": "Countersigned",
+      "sent": "Sent"
     },
     "title": {
       "appartements": "Apartments",
@@ -868,6 +869,35 @@
       "sessionsShort": "sess.",
       "exitPages": "Exit pages",
       "exitHint": "Last page viewed before leaving the site."
+    },
+    "charges": {
+      "title": "Stay charges",
+      "add": "Add a charge",
+      "empty": "No charges for this reservation.",
+      "totalBilled": "Total billed",
+      "outstanding": "Outstanding",
+      "labelRequired": "Enter a label.",
+      "badAmount": "The amount must be greater than zero.",
+      "err": "Something went wrong. Please try again.",
+      "kindLabel": "Charge type",
+      "amountLabel": "Amount (XOF)",
+      "labelLabel": "Label",
+      "labelPlaceholder": "e.g. Refundable deposit",
+      "noteLabel": "Note for the guest",
+      "optional": "optional",
+      "notePlaceholder": "Detail or justification",
+      "notifyClient": "Save and notify the guest",
+      "cancel": "Cancel",
+      "markPaid": "Mark as paid",
+      "waive": "Waive charge",
+      "receipt": "Receipt",
+      "refund": "Refund"
+    },
+    "resvDetail": {
+      "all": "All reservations",
+      "nights": "nights",
+      "money": "Payment",
+      "contract": "Stay contract"
     }
   },
   "notifPrefs": {
@@ -1661,5 +1691,36 @@
   },
   "avisPage": {
     "empty": "The first reviews will appear here after upcoming stays."
+  },
+  "charges": {
+    "title": "Stay charges",
+    "dueTotal": "{amount} to pay",
+    "pay": "Pay",
+    "receipt": "Receipt",
+    "err": "Something went wrong. Please try again.",
+    "uploadErr": "File upload failed.",
+    "needProof": "Attach a payment proof first.",
+    "tabSim": "Pay now",
+    "tabProof": "I already paid",
+    "simSuccess": "Confirm payment",
+    "simFail": "Simulate a failure",
+    "attachProof": "Attach a screenshot",
+    "notePlaceholder": "Transaction reference (optional)",
+    "sendProof": "Send proof",
+    "cancel": "Cancel",
+    "kind": {
+      "deposit": "Deposit",
+      "utility": "Utilities (water, electricity)",
+      "cleaning": "Extra cleaning",
+      "damage": "Repairs",
+      "service": "Service",
+      "other": "Other"
+    },
+    "status": {
+      "pending": "Due",
+      "paid": "Paid",
+      "waived": "Waived",
+      "refunded": "Refunded"
+    }
   }
 }

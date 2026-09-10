@@ -4,6 +4,7 @@ import { ArrowLeft, ShieldCheck, FileText, Check, Wifi } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card, StatusBadge } from "@/components/app/ui";
 import { PaymentPanel } from "@/components/app/payment-panel";
+import { ChargesList, type Charge } from "@/components/app/charges-list";
 import { ReviewForm } from "@/components/app/review-form";
 import { ReservationChangePanel, type ChangeRequest } from "@/components/app/reservation-change-panel";
 import { formatXOF, formatDate, parseRange, nightsBetween } from "@/lib/format";
@@ -49,6 +50,7 @@ export default async function ReservationDetail({
     { data: review },
     { data: stay },
     { data: changeReq },
+    { data: chargeRows },
   ] =
     await Promise.all([
       supabase
@@ -75,7 +77,26 @@ export default async function ReservationDetail({
         .order("created_at", { ascending: false })
         .limit(1)
         .maybeSingle(),
+      supabase
+        .from("reservation_charges")
+        .select(
+          "id, reference, kind, label, amount, status, note, created_at, payment:payments!reservation_charges_payment_id_fkey(internal_ref)",
+        )
+        .eq("reservation_id", r.id)
+        .order("created_at", { ascending: false }),
     ]);
+  const charges: Charge[] = (chargeRows ?? []).map((c) => ({
+    id: c.id as string,
+    reference: c.reference as string,
+    kind: c.kind as string,
+    label: c.label as string,
+    amount: Number(c.amount),
+    status: c.status as string,
+    note: (c.note as string | null) ?? null,
+    created_at: c.created_at as string,
+    payment_ref: (c.payment as { internal_ref?: string } | null)?.internal_ref ?? null,
+  }));
+
   const verified = idStatus === "approved";
   const canReview = ["confirmed", "in_stay", "completed"].includes(r.status as string);
   const needsPayment =
@@ -182,6 +203,10 @@ export default async function ReservationDetail({
               amountDue={balance}
               label={t("appResDetail.payBalance")}
             />
+          )}
+
+          {charges.length > 0 && (
+            <ChargesList reservationId={r.id as string} initial={charges} />
           )}
 
           {/* Avis : bloc dédié, visible dès que le séjour est en cours ou terminé */}

@@ -351,7 +351,8 @@
       "published": "已发布",
       "hidden": "已隐藏",
       "signed": "已签署",
-      "countersigned": "已会签"
+      "countersigned": "已会签",
+      "sent": "已发送"
     },
     "title": {
       "appartements": "公寓",
@@ -868,6 +869,35 @@
       "sessionsShort": "次会话",
       "exitPages": "退出页面",
       "exitHint": "离开网站前浏览的最后一个页面。"
+    },
+    "charges": {
+      "title": "住宿费用",
+      "add": "添加费用",
+      "empty": "此预订暂无费用。",
+      "totalBilled": "已开票总额",
+      "outstanding": "未结余额",
+      "labelRequired": "请输入名称。",
+      "badAmount": "金额必须大于零。",
+      "err": "出现错误，请重试。",
+      "kindLabel": "费用类型",
+      "amountLabel": "金额（XOF）",
+      "labelLabel": "名称",
+      "labelPlaceholder": "例如：可退押金",
+      "noteLabel": "给客人的备注",
+      "optional": "可选",
+      "notePlaceholder": "明细或说明",
+      "notifyClient": "保存并通知客人",
+      "cancel": "取消",
+      "markPaid": "标记为已付",
+      "waive": "豁免费用",
+      "receipt": "收据",
+      "refund": "退款"
+    },
+    "resvDetail": {
+      "all": "所有预订",
+      "nights": "晚",
+      "money": "付款",
+      "contract": "住宿合同"
     }
   },
   "notifPrefs": {
@@ -1661,5 +1691,36 @@
   },
   "avisPage": {
     "empty": "首批评价将在接下来的入住后显示于此。"
+  },
+  "charges": {
+    "title": "住宿费用",
+    "dueTotal": "待付 {amount}",
+    "pay": "支付",
+    "receipt": "收据",
+    "err": "出现错误，请重试。",
+    "uploadErr": "文件上传失败。",
+    "needProof": "请先附上付款凭证。",
+    "tabSim": "立即支付",
+    "tabProof": "我已付款",
+    "simSuccess": "确认付款",
+    "simFail": "模拟失败",
+    "attachProof": "附上截图",
+    "notePlaceholder": "交易参考号（可选）",
+    "sendProof": "发送凭证",
+    "cancel": "取消",
+    "kind": {
+      "deposit": "押金",
+      "utility": "水电费",
+      "cleaning": "额外清洁",
+      "damage": "维修",
+      "service": "服务",
+      "other": "其他"
+    },
+    "status": {
+      "pending": "待付",
+      "paid": "已付",
+      "waived": "已豁免",
+      "refunded": "已退款"
+    }
   }
 }

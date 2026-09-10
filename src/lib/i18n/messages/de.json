@@ -351,7 +351,8 @@
       "published": "Veröffentlicht",
       "hidden": "Ausgeblendet",
       "signed": "Unterschrieben",
-      "countersigned": "Gegengezeichnet"
+      "countersigned": "Gegengezeichnet",
+      "sent": "Gesendet"
     },
     "title": {
       "appartements": "Apartments",
@@ -868,6 +869,35 @@
       "sessionsShort": "Sitz.",
       "exitPages": "Ausstiegsseiten",
       "exitHint": "Zuletzt angesehene Seite vor dem Verlassen der Website."
+    },
+    "charges": {
+      "title": "Aufenthaltskosten",
+      "add": "Kosten hinzufügen",
+      "empty": "Keine Kosten für diese Reservierung.",
+      "totalBilled": "Gesamt berechnet",
+      "outstanding": "Ausstehend",
+      "labelRequired": "Bezeichnung eingeben.",
+      "badAmount": "Der Betrag muss größer als null sein.",
+      "err": "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",
+      "kindLabel": "Kostenart",
+      "amountLabel": "Betrag (XOF)",
+      "labelLabel": "Bezeichnung",
+      "labelPlaceholder": "z. B. Erstattbare Kaution",
+      "noteLabel": "Notiz für den Gast",
+      "optional": "optional",
+      "notePlaceholder": "Detail oder Nachweis",
+      "notifyClient": "Speichern und Gast benachrichtigen",
+      "cancel": "Abbrechen",
+      "markPaid": "Als bezahlt markieren",
+      "waive": "Kosten erlassen",
+      "receipt": "Beleg",
+      "refund": "Erstatten"
+    },
+    "resvDetail": {
+      "all": "Alle Reservierungen",
+      "nights": "Nächte",
+      "money": "Zahlung",
+      "contract": "Aufenthaltsvertrag"
     }
   },
   "notifPrefs": {
@@ -1661,5 +1691,36 @@
   },
   "avisPage": {
     "empty": "Die ersten Bewertungen erscheinen hier nach den nächsten Aufenthalten."
+  },
+  "charges": {
+    "title": "Aufenthaltskosten",
+    "dueTotal": "{amount} zu zahlen",
+    "pay": "Bezahlen",
+    "receipt": "Beleg",
+    "err": "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",
+    "uploadErr": "Datei-Upload fehlgeschlagen.",
+    "needProof": "Zuerst einen Zahlungsnachweis anhängen.",
+    "tabSim": "Jetzt bezahlen",
+    "tabProof": "Ich habe bereits bezahlt",
+    "simSuccess": "Zahlung bestätigen",
+    "simFail": "Fehlschlag simulieren",
+    "attachProof": "Screenshot anhängen",
+    "notePlaceholder": "Transaktionsreferenz (optional)",
+    "sendProof": "Nachweis senden",
+    "cancel": "Abbrechen",
+    "kind": {
+      "deposit": "Kaution",
+      "utility": "Nebenkosten (Wasser, Strom)",
+      "cleaning": "Zusätzliche Reinigung",
+      "damage": "Instandsetzung",
+      "service": "Leistung",
+      "other": "Sonstiges"
+    },
+    "status": {
+      "pending": "Offen",
+      "paid": "Bezahlt",
+      "waived": "Erlassen",
+      "refunded": "Erstattet"
+    }
   }
 }

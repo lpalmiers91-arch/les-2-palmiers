@@ -351,7 +351,8 @@
       "published": "Publié",
       "hidden": "Masqué",
       "signed": "Signé",
-      "countersigned": "Contresigné"
+      "countersigned": "Contresigné",
+      "sent": "Envoyé"
     },
     "title": {
       "appartements": "Appartements",
@@ -868,6 +869,35 @@
       "sessionsShort": "sess.",
       "exitPages": "Pages de sortie",
       "exitHint": "Dernière page vue avant de quitter le site."
+    },
+    "charges": {
+      "title": "Frais de séjour",
+      "add": "Ajouter un frais",
+      "empty": "Aucun frais pour cette réservation.",
+      "totalBilled": "Total facturé",
+      "outstanding": "Reste à régler",
+      "labelRequired": "Indiquez un libellé.",
+      "badAmount": "Le montant doit être supérieur à zéro.",
+      "err": "Une erreur est survenue. Réessayez.",
+      "kindLabel": "Type de frais",
+      "amountLabel": "Montant (XOF)",
+      "labelLabel": "Libellé",
+      "labelPlaceholder": "Ex. Caution remboursable",
+      "noteLabel": "Note pour le client",
+      "optional": "facultatif",
+      "notePlaceholder": "Détail ou justificatif",
+      "notifyClient": "Enregistrer et notifier le client",
+      "cancel": "Annuler",
+      "markPaid": "Marquer réglé",
+      "waive": "Annuler le frais",
+      "receipt": "Reçu",
+      "refund": "Rembourser"
+    },
+    "resvDetail": {
+      "all": "Toutes les réservations",
+      "nights": "nuits",
+      "money": "Paiement",
+      "contract": "Contrat de séjour"
     }
   },
   "notifPrefs": {
@@ -1661,5 +1691,36 @@
   },
   "avisPage": {
     "empty": "Les premiers avis apparaîtront ici après les prochains séjours."
+  },
+  "charges": {
+    "title": "Frais de séjour",
+    "dueTotal": "{amount} à régler",
+    "pay": "Régler",
+    "receipt": "Reçu",
+    "err": "Une erreur est survenue. Réessayez.",
+    "uploadErr": "Échec de l'envoi du fichier.",
+    "needProof": "Ajoutez d'abord une preuve de paiement.",
+    "tabSim": "Payer maintenant",
+    "tabProof": "J'ai déjà payé",
+    "simSuccess": "Confirmer le paiement",
+    "simFail": "Simuler un échec",
+    "attachProof": "Joindre une capture",
+    "notePlaceholder": "Référence de la transaction (facultatif)",
+    "sendProof": "Envoyer la preuve",
+    "cancel": "Annuler",
+    "kind": {
+      "deposit": "Caution",
+      "utility": "Consommations (eau, électricité)",
+      "cleaning": "Ménage supplémentaire",
+      "damage": "Remise en état",
+      "service": "Prestation",
+      "other": "Divers"
+    },
+    "status": {
+      "pending": "À régler",
+      "paid": "Réglé",
+      "waived": "Annulé",
+      "refunded": "Remboursé"
+    }
   }
 }

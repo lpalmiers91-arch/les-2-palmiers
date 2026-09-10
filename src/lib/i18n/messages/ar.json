@@ -351,7 +351,8 @@
       "published": "منشور",
       "hidden": "مخفي",
       "signed": "موقَّع",
-      "countersigned": "موقَّع من الطرفين"
+      "countersigned": "موقَّع من الطرفين",
+      "sent": "أُرسل"
     },
     "title": {
       "appartements": "الشقق",
@@ -868,6 +869,35 @@
       "sessionsShort": "جلسة",
       "exitPages": "صفحات الخروج",
       "exitHint": "آخر صفحة تمت مشاهدتها قبل مغادرة الموقع."
+    },
+    "charges": {
+      "title": "رسوم الإقامة",
+      "add": "إضافة رسم",
+      "empty": "لا توجد رسوم لهذا الحجز.",
+      "totalBilled": "إجمالي الفواتير",
+      "outstanding": "المتبقي",
+      "labelRequired": "أدخل وصفًا.",
+      "badAmount": "يجب أن يكون المبلغ أكبر من صفر.",
+      "err": "حدث خطأ. حاول مرة أخرى.",
+      "kindLabel": "نوع الرسم",
+      "amountLabel": "المبلغ (XOF)",
+      "labelLabel": "الوصف",
+      "labelPlaceholder": "مثال: وديعة قابلة للاسترداد",
+      "noteLabel": "ملاحظة للضيف",
+      "optional": "اختياري",
+      "notePlaceholder": "تفاصيل أو مبرر",
+      "notifyClient": "حفظ وإشعار الضيف",
+      "cancel": "إلغاء",
+      "markPaid": "وضع علامة مدفوع",
+      "waive": "إلغاء الرسم",
+      "receipt": "إيصال",
+      "refund": "استرداد"
+    },
+    "resvDetail": {
+      "all": "جميع الحجوزات",
+      "nights": "ليالٍ",
+      "money": "الدفع",
+      "contract": "عقد الإقامة"
     }
   },
   "notifPrefs": {
@@ -1661,5 +1691,36 @@
   },
   "avisPage": {
     "empty": "ستظهر أولى المراجعات هنا بعد الإقامات القادمة."
+  },
+  "charges": {
+    "title": "رسوم الإقامة",
+    "dueTotal": "{amount} مستحقة الدفع",
+    "pay": "ادفع",
+    "receipt": "إيصال",
+    "err": "حدث خطأ. حاول مرة أخرى.",
+    "uploadErr": "فشل رفع الملف.",
+    "needProof": "أرفق إثبات الدفع أولاً.",
+    "tabSim": "ادفع الآن",
+    "tabProof": "لقد دفعت بالفعل",
+    "simSuccess": "تأكيد الدفع",
+    "simFail": "محاكاة فشل",
+    "attachProof": "إرفاق لقطة شاشة",
+    "notePlaceholder": "مرجع المعاملة (اختياري)",
+    "sendProof": "إرسال الإثبات",
+    "cancel": "إلغاء",
+    "kind": {
+      "deposit": "وديعة",
+      "utility": "المرافق (ماء، كهرباء)",
+      "cleaning": "تنظيف إضافي",
+      "damage": "إصلاحات",
+      "service": "خدمة",
+      "other": "أخرى"
+    },
+    "status": {
+      "pending": "مستحقة",
+      "paid": "مدفوعة",
+      "waived": "ملغاة",
+      "refunded": "مستردة"
+    }
   }
 }

@@ -351,7 +351,8 @@
       "published": "Pubblicato",
       "hidden": "Nascosto",
       "signed": "Firmato",
-      "countersigned": "Controfirmato"
+      "countersigned": "Controfirmato",
+      "sent": "Inviato"
     },
     "title": {
       "appartements": "Appartamenti",
@@ -868,6 +869,35 @@
       "sessionsShort": "ses.",
       "exitPages": "Pagine di uscita",
       "exitHint": "Ultima pagina vista prima di lasciare il sito."
+    },
+    "charges": {
+      "title": "Spese del soggiorno",
+      "add": "Aggiungi una spesa",
+      "empty": "Nessuna spesa per questa prenotazione.",
+      "totalBilled": "Totale fatturato",
+      "outstanding": "Da saldare",
+      "labelRequired": "Inserisci un'etichetta.",
+      "badAmount": "L'importo deve essere maggiore di zero.",
+      "err": "Si è verificato un errore. Riprova.",
+      "kindLabel": "Tipo di spesa",
+      "amountLabel": "Importo (XOF)",
+      "labelLabel": "Etichetta",
+      "labelPlaceholder": "Es. Cauzione rimborsabile",
+      "noteLabel": "Nota per l'ospite",
+      "optional": "facoltativo",
+      "notePlaceholder": "Dettaglio o giustificazione",
+      "notifyClient": "Salva e avvisa l'ospite",
+      "cancel": "Annulla",
+      "markPaid": "Segna come saldato",
+      "waive": "Annulla la spesa",
+      "receipt": "Ricevuta",
+      "refund": "Rimborsa"
+    },
+    "resvDetail": {
+      "all": "Tutte le prenotazioni",
+      "nights": "notti",
+      "money": "Pagamento",
+      "contract": "Contratto di soggiorno"
     }
   },
   "notifPrefs": {
@@ -1661,5 +1691,36 @@
   },
   "avisPage": {
     "empty": "Le prime recensioni appariranno qui dopo i prossimi soggiorni."
+  },
+  "charges": {
+    "title": "Spese del soggiorno",
+    "dueTotal": "{amount} da saldare",
+    "pay": "Salda",
+    "receipt": "Ricevuta",
+    "err": "Si è verificato un errore. Riprova.",
+    "uploadErr": "Caricamento del file non riuscito.",
+    "needProof": "Allega prima una prova di pagamento.",
+    "tabSim": "Paga ora",
+    "tabProof": "Ho già pagato",
+    "simSuccess": "Conferma il pagamento",
+    "simFail": "Simula un errore",
+    "attachProof": "Allega uno screenshot",
+    "notePlaceholder": "Riferimento della transazione (facoltativo)",
+    "sendProof": "Invia la prova",
+    "cancel": "Annulla",
+    "kind": {
+      "deposit": "Cauzione",
+      "utility": "Utenze (acqua, elettricità)",
+      "cleaning": "Pulizia aggiuntiva",
+      "damage": "Ripristino",
+      "service": "Servizio",
+      "other": "Varie"
+    },
+    "status": {
+      "pending": "Da saldare",
+      "paid": "Saldato",
+      "waived": "Annullato",
+      "refunded": "Rimborsato"
+    }
   }
 }
