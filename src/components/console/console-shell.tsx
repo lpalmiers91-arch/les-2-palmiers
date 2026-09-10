@@ -30,7 +30,6 @@ import {
   Activity,
   type LucideIcon,
 } from "lucide-react";
-import { Mark } from "@/components/brand/mark";
 import { createClient } from "@/lib/supabase/client";
 import { PresenceProvider } from "@/lib/presence";
 import { NotificationBell } from "@/components/app/notification-bell";
@@ -126,8 +125,12 @@ export function ConsoleShell({
     <>
       <div className="flex items-center justify-between px-1">
         <Link href={variant === "admin" ? "/admin" : "/staff"} className="flex items-center gap-2.5 px-2 text-ink">
-          <Mark className="h-7 w-7" tone="ink" />
-          <span className="display text-[1rem]">Les 2 Palmiers</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={variant === "admin" ? "/brand/logo-admin-navy.png" : "/brand/logo-staff-navy.png"}
+            alt={variant === "admin" ? "Les 2 Palmiers — Admin" : "Les 2 Palmiers — Staff"}
+            className="h-11 w-auto"
+          />
         </Link>
         <NotificationBell userId={userId} initial={notifications} align="right" space={variant} />
       </div>

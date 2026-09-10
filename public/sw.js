@@ -1,7 +1,7 @@
 /* Les 2 Palmiers — service worker minimal.
    Objectif : installabilité PWA + repli hors-ligne, SANS jamais casser une
    navigation en ligne. */
-const CACHE = "l2p-v5";
+const CACHE = "l2p-v6";
 
 // Sur l'ancien domaine Vercel, le SW se désinstalle (tout passe sur le domaine
 // de marque). Évite un SW orphelin qui servirait des pages cassées.
@@ -50,8 +50,8 @@ self.addEventListener("push", (e) => {
   e.waitUntil(
     self.registration.showNotification(title, {
       body: d.body || "",
-      icon: "/apple-icon",
-      badge: "/apple-icon",
+      icon: "/brand/icon-192.png",
+      badge: "/brand/icon-192.png",
       tag: d.tag || "l2p",
       renotify: true,
       requireInteraction: false,

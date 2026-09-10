@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Mark } from "@/components/brand/mark";
 import { site } from "@/lib/site";
 import { servicesFallback, destinationsFallback } from "@/lib/site";
 import { getT } from "@/lib/i18n";
@@ -42,13 +41,12 @@ export async function SiteFooter() {
               className="flex items-center justify-center gap-2.5 md:justify-start"
               aria-label="Les 2 Palmiers"
             >
-              {branding.logo_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={branding.logo_url} alt={brand} className="h-8 w-auto" />
-              ) : (
-                <Mark className="h-8 w-8" tone="bone" />
-              )}
-              <span className="display text-[1.15rem]">{brand}</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={branding.logo_url || "/brand/wordmark-light.png"}
+                alt={brand}
+                className="h-9 w-auto"
+              />
             </Link>
             <p className="mx-auto mt-5 max-w-xs text-[14px] leading-relaxed text-bone/55 md:mx-0">
               {t("footer.tagline", { city: site.city, country: site.country })}

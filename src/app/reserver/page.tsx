@@ -3,13 +3,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Phone } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { Mark } from "@/components/brand/mark";
 import { ReservationFunnel } from "@/components/reserve/funnel";
 import { site } from "@/lib/site";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
 import { CurrencyProvider } from "@/lib/currency";
 import { getFxConfig } from "@/lib/fx";
+import { autoCurrency } from "@/lib/geo";
 
 export const metadata: Metadata = { title: "Réserver" };
 
@@ -20,17 +20,17 @@ export default async function ReservePage() {
   } = await supabase.auth.getUser();
   const locale = await getLocale();
   const messages = await getMessages(locale);
-  const fx = await getFxConfig();
+  const [fx, curr] = await Promise.all([getFxConfig(), autoCurrency()]);
 
   return (
     <I18nProvider locale={locale} messages={messages}>
-    <CurrencyProvider rates={fx.rates} enabled={fx.enabled}>
+    <CurrencyProvider rates={fx.rates} enabled={fx.enabled} initial={curr}>
     <div className="min-h-dvh bg-bone-2">
       <header className="border-b border-line bg-bone">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
           <Link href="/" className="flex items-center gap-2.5 text-ink">
-            <Mark className="h-7 w-7" tone="ink" />
-            <span className="display text-[1.02rem]">Les 2 Palmiers</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/wordmark.png" alt="Les 2 Palmiers" className="h-7 w-auto" />
           </Link>
           <a
             href={`tel:${site.phones[0].replace(/\s/g, "")}`}

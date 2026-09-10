@@ -18,19 +18,23 @@ const KEY = "currency";
 export function CurrencyProvider({
   rates,
   enabled,
+  initial = "XOF",
   children,
 }: {
   rates: Rates;
   enabled: boolean;
+  initial?: string;
   children: React.ReactNode;
 }) {
-  const [currency, setCur] = useState("XOF");
+  const [currency, setCur] = useState(initial);
 
   useEffect(() => {
     if (!enabled) return;
+    // devise détectée automatiquement (pays) ; une préférence explicite reste prioritaire
     const saved = getPref(KEY);
     if (isCurrency(saved)) setCur(saved);
-  }, [enabled]);
+    else if (isCurrency(initial)) setCur(initial);
+  }, [enabled, initial]);
 
   const setCurrency = useCallback((c: string) => {
     setCur(c);

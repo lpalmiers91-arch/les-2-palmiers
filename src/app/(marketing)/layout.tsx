@@ -13,19 +13,24 @@ import { aiSpaceEnabled } from "@/lib/ai";
 import { JsonLd, organizationLd } from "@/components/seo/json-ld";
 import { CurrencyProvider } from "@/lib/currency";
 import { getFxConfig } from "@/lib/fx";
+import { autoCurrency } from "@/lib/geo";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function MarketingLayout({ children }: { children: ReactNode }) {
   const locale = await getLocale();
   const messages = await getMessages(locale);
-  const [branding, navPages, aiOn, fx] = await Promise.all([
+  const supabase = await createClient();
+  const [branding, navPages, aiOn, fx, { data: auth }] = await Promise.all([
     getBranding(),
     getNavPages(),
     aiSpaceEnabled("public"),
     getFxConfig(),
+    supabase.auth.getUser(),
   ]);
+  const curr = await autoCurrency();
   return (
     <I18nProvider locale={locale} messages={messages}>
-      <CurrencyProvider rates={fx.rates} enabled={fx.enabled}>
+      <CurrencyProvider rates={fx.rates} enabled={fx.enabled} initial={curr}>
         <JsonLd data={organizationLd()} />
         <MotionConfig reducedMotion="user">
           <SmoothScroll />
@@ -38,7 +43,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
           <SiteFooter />
           <CookieConsent />
           {aiOn && <PublicAssistant />}
-          <InstallPrompt />
+          <InstallPrompt authed={!!auth?.user} />
         </MotionConfig>
       </CurrencyProvider>
     </I18nProvider>

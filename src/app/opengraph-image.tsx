@@ -1,11 +1,18 @@
 import { ImageResponse } from "next/og";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { site } from "@/lib/site";
 
 export const alt = "Les 2 Palmiers — Appartement de rêve & conciergerie à Cotonou";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+function b64(p: string) {
+  return "data:image/png;base64," + readFileSync(join(process.cwd(), p)).toString("base64");
+}
+
 export default function OgImage() {
+  const wordmark = b64("public/brand/wordmark-light.png");
   return new ImageResponse(
     (
       <div
@@ -15,27 +22,27 @@ export default function OgImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#1e3a2b",
-          color: "#f4f1ea",
+          background: "#14315b",
+          color: "#f6f3ec",
           padding: 80,
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 30, letterSpacing: 6, textTransform: "uppercase" }}>
-          <div style={{ width: 44, height: 44, borderRadius: 12, background: "#cc9c54" }} />
-          {site.name}
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={wordmark} alt="" height={72} style={{ objectFit: "contain", alignSelf: "flex-start" }} />
 
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <div style={{ fontSize: 74, fontWeight: 700, lineHeight: 1.05, maxWidth: 900 }}>
+          <div style={{ fontSize: 72, fontWeight: 700, lineHeight: 1.05, maxWidth: 940 }}>
             Profitez pleinement de votre temps.
           </div>
-          <div style={{ fontSize: 40, color: "#c9bfa6" }}>Nous nous occupons du reste.</div>
+          <div style={{ fontSize: 38, color: "#cbc0a7" }}>Nous nous occupons du reste.</div>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 28, color: "#c9bfa6" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26, color: "#cbc0a7" }}>
           <span>Appartement meublé d&apos;exception · Conciergerie</span>
-          <span>{site.city}, {site.country}</span>
+          <span>
+            {site.city}, {site.country}
+          </span>
         </div>
       </div>
     ),

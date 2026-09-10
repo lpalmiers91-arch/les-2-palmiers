@@ -26,7 +26,7 @@ function isIOS() {
   return /iphone|ipad|ipod/i.test(navigator.userAgent) && !/crios|fxios/i.test(navigator.userAgent);
 }
 
-export function InstallPrompt() {
+export function InstallPrompt({ authed = false }: { authed?: boolean }) {
   const { t } = useT();
   const [deferred, setDeferred] = useState<BIPEvent | null>(null);
   const [show, setShow] = useState(false);
@@ -37,6 +37,10 @@ export function InstallPrompt() {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sw.js").catch(() => {});
     }
+
+    // jamais de proposition d'installation pour un utilisateur connecté :
+    // il utilise déjà le site, on ne l'interrompt pas.
+    if (authed) return;
 
     // affiché une seule fois en auto ; ensuite plus jamais (l'utilisateur peut
     // toujours installer via le menu du navigateur / les réglages).
@@ -75,7 +79,7 @@ export function InstallPrompt() {
       window.removeEventListener("beforeinstallprompt", onBIP);
       timers.forEach((t) => window.clearTimeout(t));
     };
-  }, []);
+  }, [authed]);
 
   function close() {
     setShow(false);

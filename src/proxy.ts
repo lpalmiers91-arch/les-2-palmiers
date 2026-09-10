@@ -8,5 +8,5 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   // tout sauf les assets statiques, les fichiers Next et les fichiers avec extension
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|sw.js|manifest.webmanifest|icon.svg|apple-icon|.*\\.[\\w]+$).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|sw.js|manifest.webmanifest|.*\\.[\\w]+$).*)"],
 };

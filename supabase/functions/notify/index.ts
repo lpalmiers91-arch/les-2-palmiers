@@ -144,17 +144,17 @@ async function sendEmail(
       : `${APP_URL}/app/notifications`;
   }
 
-  const html = `<!doctype html><html lang="fr"><body style="margin:0;background:#f8f5ec;">
-<table role="presentation" width="100%" style="background:#f8f5ec;padding:32px 12px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;"><tr><td align="center">
-<table role="presentation" width="480" style="max-width:480px;background:#fff;border:1px solid #e7e0cf;border-radius:14px;overflow:hidden;">
-<tr><td style="background:#22392c;padding:24px 32px;text-align:center;">
-<div style="color:#f8f5ec;font-size:16px;letter-spacing:.16em;font-weight:600;">LES 2 PALMIERS</div></td></tr>
-<tr><td style="padding:30px 32px;color:#15160f;font-size:15px;line-height:1.6;">
+  const html = `<!doctype html><html lang="fr"><body style="margin:0;background:#f6f3ec;">
+<table role="presentation" width="100%" style="background:#f6f3ec;padding:32px 12px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;"><tr><td align="center">
+<table role="presentation" width="480" style="max-width:480px;background:#fff;border:1px solid #e0d6c3;border-radius:14px;overflow:hidden;">
+<tr><td style="background:#14315b;padding:22px 32px 18px;text-align:center;"><img src="https://les2palmiers.site/brand/wordmark-light.png" alt="Les 2 Palmiers" height="30" style="height:30px;width:auto;"></td></tr>
+<tr><td style="height:3px;background:#aa6548;font-size:0;line-height:3px;">&nbsp;</td></tr>
+<tr><td style="padding:30px 32px;color:#16130f;font-size:15px;line-height:1.6;">
 <p style="margin:0 0 10px;font-weight:600;">${escapeHtml(subject)}</p>
-<p style="margin:0 0 22px;color:#4a4a3e;">${escapeHtml(body)}</p>
-<div style="text-align:center;"><a href="${link}" style="background:#b6903f;color:#15160f;text-decoration:none;font-weight:600;padding:12px 26px;border-radius:999px;display:inline-block;font-size:14px;">Ouvrir</a></div>
+<p style="margin:0 0 22px;color:#3c352c;">${escapeHtml(body)}</p>
+<div style="text-align:center;"><a href="${link}" style="background:#14315b;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 26px;border-radius:999px;display:inline-block;font-size:14px;">Ouvrir</a></div>
 </td></tr>
-<tr><td style="padding:16px 32px;border-top:1px solid #ede6d6;color:#8f8c7d;font-size:13px;text-align:center;">les2palmiers.site</td></tr>
+<tr><td style="padding:16px 32px;border-top:1px solid #ece4d5;color:#6f665a;font-size:13px;text-align:center;">les2palmiers.site</td></tr>
 </table></td></tr></table></body></html>`;
 
   if (EMAIL_PROVIDER !== "resend") {

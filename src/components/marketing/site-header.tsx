@@ -5,12 +5,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
-import { Mark } from "@/components/brand/mark";
 import { ButtonLink } from "@/components/ui/button";
 import { easeOut } from "@/lib/motion";
 import { useT } from "@/lib/i18n/provider";
-import { LanguageSwitcher } from "@/components/i18n/language-switcher";
-import { CurrencySwitcher } from "@/components/marketing/currency-switcher";
 
 export function SiteHeader({
   wordmark,
@@ -63,18 +60,18 @@ export function SiteHeader({
         }`}
       >
         <div className="mx-auto flex h-[68px] max-w-6xl items-center justify-between px-5 md:px-8">
-          <Link
-            href="/"
-            className={`flex items-center gap-2.5 transition-colors ${dark ? "text-bone" : "text-ink"}`}
-            aria-label="Les 2 Palmiers, accueil"
-          >
+          <Link href="/" className="flex items-center" aria-label="Les 2 Palmiers, accueil">
             {logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={logoUrl} alt={brand} className="h-7 w-auto" />
+              <img src={logoUrl} alt={brand} className="h-8 w-auto" />
             ) : (
-              <Mark className="h-7 w-7" tone={dark ? "bone" : "ink"} />
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={dark ? "/brand/wordmark-light.png" : "/brand/wordmark.png"}
+                alt="Les 2 Palmiers"
+                className="h-[26px] w-auto sm:h-7"
+              />
             )}
-            <span className="display text-[1.06rem] leading-none">{brand}</span>
           </Link>
 
           <nav
@@ -95,9 +92,7 @@ export function SiteHeader({
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
-            <CurrencySwitcher tone={dark ? "bone" : "ink"} />
-            <LanguageSwitcher tone={dark ? "bone" : "ink"} />
+          <div className="hidden items-center gap-4 md:flex">
             <Link
               href="/connexion"
               className={`text-[13px] font-medium transition-colors ${
@@ -149,14 +144,6 @@ export function SiteHeader({
                   {l.label}
                 </Link>
               ))}
-              <div className="mt-4 flex items-center justify-between border-b border-line-soft py-3.5">
-                <span className="text-[15px] text-ink-3">Langue</span>
-                <LanguageSwitcher />
-              </div>
-              <div className="flex items-center justify-between border-b border-line-soft py-3.5">
-                <span className="text-[15px] text-ink-3">{t("nav.currency")}</span>
-                <CurrencySwitcher />
-              </div>
               <div className="mt-5 flex items-center gap-3">
                 <ButtonLink href="/reserver" data-track="reserver-header" className="flex-1" onClick={() => setOpen(false)}>
                   {t("nav.book")}

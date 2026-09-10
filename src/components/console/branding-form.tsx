@@ -133,7 +133,7 @@ export function BrandingForm({ initial }: { initial: Record<string, string> }) {
           <input
             type="color"
             className="h-11 w-full cursor-pointer rounded-[11px] border border-line"
-            value={b.accent || "#a9772f"}
+            value={b.accent || "#aa6548"}
             onChange={(e) => f("accent", e.target.value)}
           />
         </label>

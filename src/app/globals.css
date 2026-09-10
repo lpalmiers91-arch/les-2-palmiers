@@ -7,34 +7,54 @@
    ============================================================ */
 
 :root {
+  /* ============================================================
+     Palette officielle Les 2 Palmiers (réf. logo)
+       bleu marine  #14315b   — couleur engagée / primaire
+       terracotta   #aa6548   — accent unique
+       vert palme   #046635   — nature / succès
+       brique       #994441   — alerte / erreur
+       encre        #16130f   — texte
+       crème        #f6f3ec   — sol
+     Les classes historiques `forest-*` / `brass-*` sont conservées
+     et re-pointées sur la nouvelle identité (marine / terracotta).
+     ============================================================ */
+
   /* encre & sol */
-  --ink: #17130d;
-  --ink-2: #3a352b;
-  --ink-3: #6b6559;
-  --bone: #f4f1ea;
-  --bone-2: #e9e3d5;
-  --bone-3: #ded6c3;
+  --ink: #16130f;
+  --ink-2: #3c352c;
+  --ink-3: #6f665a;
+  --bone: #f6f3ec;
+  --bone-2: #ece4d5;
+  --bone-3: #e0d6c3;
 
-  /* vert botanique — la couleur engagée */
-  --forest: #1e3a2b;
-  --forest-2: #2c5540;
-  --forest-3: #47705a;
+  /* bleu marine — la couleur engagée (ex-"forest") */
+  --forest: #14315b;
+  --forest-2: #1d4680;
+  --forest-3: #416a9d;
 
-  /* laiton — accent unique */
-  --brass: #a9772f;
-  --brass-2: #cc9c54;
-  --brass-3: #e6c58b;
+  /* terracotta — accent unique (ex-"brass") */
+  --brass: #aa6548;
+  --brass-2: #c17f60;
+  --brass-3: #d8aa90;
+
+  /* vert palme — nature & succès */
+  --green: #046635;
+  --green-2: #1a7c4b;
+  --green-3: #4f9c76;
+
+  /* brique — chaleur & alerte */
+  --clay: #994441;
 
   /* neutres sur fond sombre */
-  --sand: #c9bfa6;
-  --line-dark: rgba(244, 241, 234, 0.14);
-  --line: rgba(23, 19, 13, 0.12);
-  --line-soft: rgba(23, 19, 13, 0.07);
+  --sand: #cbc0a7;
+  --line-dark: rgba(246, 243, 236, 0.14);
+  --line: rgba(22, 19, 15, 0.12);
+  --line-soft: rgba(22, 19, 15, 0.07);
 
   /* fonctionnel */
-  --ok: #2c5540;
-  --warn: #a9772f;
-  --danger: #9a3b2c;
+  --ok: #046635;
+  --warn: #aa6548;
+  --danger: #994441;
 
   --radius: 14px;
   --radius-lg: 22px;
@@ -61,9 +81,17 @@
   --color-brass: var(--brass);
   --color-brass-2: var(--brass-2);
   --color-brass-3: var(--brass-3);
+  --color-green: var(--green);
+  --color-green-2: var(--green-2);
+  --color-green-3: var(--green-3);
+  --color-clay: var(--clay);
+  --color-navy: var(--forest);
+  --color-navy-2: var(--forest-2);
+  --color-terracotta: var(--brass);
   --color-sand: var(--sand);
   --color-line: var(--line);
   --color-ok: var(--ok);
+  --color-warn: var(--warn);
   --color-danger: var(--danger);
 
   --font-display: var(--font-bricolage), Georgia, serif;

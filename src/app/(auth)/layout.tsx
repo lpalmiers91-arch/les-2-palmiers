@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Mark } from "@/components/brand/mark";
 import { aptImg } from "@/lib/site";
 import { I18nProvider } from "@/lib/i18n/provider";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
@@ -25,8 +24,8 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
         />
         <div className="relative flex h-full flex-col justify-between p-12">
           <Link href="/" className="flex items-center gap-2.5">
-            <Mark className="h-8 w-8" tone="bone" />
-            <span className="display text-[1.15rem]">Les 2 Palmiers</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/wordmark-light.png" alt="Les 2 Palmiers" className="h-8 w-auto" />
           </Link>
           <div>
             <p className="display max-w-sm text-[2rem] leading-[1.12]">{t("hero.titleA")} {t("hero.titleB")}</p>
@@ -42,8 +41,8 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
       <main id="main-content" className="flex min-h-dvh flex-col">
         <div className="flex items-center justify-between px-6 py-6">
           <Link href="/" className="flex items-center gap-2.5 text-ink lg:invisible">
-            <Mark className="h-7 w-7" tone="ink" />
-            <span className="display text-[1.05rem]">Les 2 Palmiers</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/wordmark.png" alt="Les 2 Palmiers" className="h-7 w-auto" />
           </Link>
           <div className="lg:hidden">
             <LanguageSwitcher />

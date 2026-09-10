@@ -26,8 +26,8 @@ export default function GlobalError({
           alignItems: "center",
           justifyContent: "center",
           gap: "1rem",
-          background: "#f4f1ea",
-          color: "#17130d",
+          background: "#f6f3ec",
+          color: "#16130f",
           fontFamily: "ui-sans-serif, system-ui, sans-serif",
           textAlign: "center",
           padding: "2rem",
@@ -36,11 +36,11 @@ export default function GlobalError({
         <h1 style={{ fontSize: "1.6rem", fontWeight: 600, margin: 0 }}>
           Les 2 Palmiers
         </h1>
-        <p style={{ maxWidth: "32rem", lineHeight: 1.6, color: "#3a352b" }}>
+        <p style={{ maxWidth: "32rem", lineHeight: 1.6, color: "#3c352c" }}>
           Une erreur inattendue est survenue. Rechargez la page dans un instant.
         </p>
         {error.digest && (
-          <p style={{ fontSize: "0.75rem", color: "#6b6559" }}>Référence&nbsp;: {error.digest}</p>
+          <p style={{ fontSize: "0.75rem", color: "#6f665a" }}>Référence&nbsp;: {error.digest}</p>
         )}
         <button
           onClick={reset}
@@ -49,8 +49,8 @@ export default function GlobalError({
             padding: "0 1.5rem",
             borderRadius: "999px",
             border: 0,
-            background: "#17130d",
-            color: "#f4f1ea",
+            background: "#16130f",
+            color: "#f6f3ec",
             fontSize: "0.875rem",
             fontWeight: 500,
             cursor: "pointer",

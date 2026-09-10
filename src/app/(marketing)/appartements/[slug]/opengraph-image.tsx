@@ -15,7 +15,7 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
 
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", background: "#17130d", fontFamily: "sans-serif" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", background: "#16130f", fontFamily: "sans-serif" }}>
         {cover && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={cover} alt="" width={620} height={630} style={{ objectFit: "cover", height: "100%" }} />
@@ -27,21 +27,21 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
             flexDirection: "column",
             justifyContent: "space-between",
             padding: 64,
-            color: "#f4f1ea",
+            color: "#f6f3ec",
           }}
         >
-          <div style={{ fontSize: 26, letterSpacing: 5, textTransform: "uppercase", color: "#cc9c54" }}>
+          <div style={{ fontSize: 26, letterSpacing: 5, textTransform: "uppercase", color: "#c9985f" }}>
             {site.name}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ fontSize: 60, fontWeight: 700, lineHeight: 1.05 }}>{name}</div>
             {apt && (
-              <div style={{ fontSize: 30, color: "#c9bfa6" }}>
+              <div style={{ fontSize: 30, color: "#cbc0a7" }}>
                 {apt.capacity} voyageurs · {apt.bedrooms} chambres · dès {formatXOF(apt.base_price)}/nuit
               </div>
             )}
           </div>
-          <div style={{ fontSize: 24, color: "#c9bfa6" }}>{site.city}, {site.country}</div>
+          <div style={{ fontSize: 24, color: "#cbc0a7" }}>{site.city}, {site.country}</div>
         </div>
       </div>
     ),

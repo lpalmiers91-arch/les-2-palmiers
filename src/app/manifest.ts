@@ -6,15 +6,11 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
   const name = b.wordmark?.trim() || "Les 2 Palmiers – Appartement de Rêve";
   const short = b.wordmark?.trim() || "Les 2 Palmiers";
 
-  const icons: MetadataRoute.Manifest["icons"] = b.logo_url
-    ? [
-        { src: b.logo_url, sizes: "any", type: "image/png", purpose: "any" },
-        { src: b.logo_url, sizes: "512x512", type: "image/png", purpose: "maskable" },
-      ]
-    : [
-        { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
-        { src: "/apple-icon", sizes: "180x180", type: "image/png", purpose: "maskable" },
-      ];
+  const icons: MetadataRoute.Manifest["icons"] = [
+    { src: "/brand/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+    { src: "/brand/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+    { src: "/brand/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+  ];
 
   return {
     name,
@@ -23,8 +19,8 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
       "Appartement d'exception et conciergerie à Cotonou. Réservez, commandez, profitez.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f4f1ea",
-    theme_color: "#1e3a2b",
+    background_color: "#f6f3ec",
+    theme_color: "#14315b",
     lang: "fr",
     orientation: "portrait",
     icons,

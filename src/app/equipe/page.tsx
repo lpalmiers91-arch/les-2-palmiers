@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Mark } from "@/components/brand/mark";
 import { aptImg } from "@/lib/site";
 import { TeamAuthForm } from "@/components/auth/team-auth-form";
 
@@ -25,8 +24,8 @@ export default function EquipePage() {
         />
         <div className="relative flex h-full flex-col justify-between p-12">
           <Link href="/" className="flex items-center gap-2.5">
-            <Mark className="h-8 w-8" tone="bone" />
-            <span className="display text-[1.15rem]">Les 2 Palmiers</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/logo-staff.png" alt="Les 2 Palmiers — Équipe" className="h-16 w-auto" />
           </Link>
           <div>
             <p className="display max-w-sm text-[2rem] leading-[1.12]">
@@ -43,8 +42,8 @@ export default function EquipePage() {
       <main className="flex min-h-dvh flex-col">
         <div className="flex items-center justify-between px-6 py-6">
           <Link href="/" className="flex items-center gap-2.5 text-ink lg:invisible">
-            <Mark className="h-7 w-7" tone="ink" />
-            <span className="display text-[1.05rem]">Les 2 Palmiers</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/wordmark.png" alt="Les 2 Palmiers" className="h-7 w-auto" />
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-center px-6 pb-16 pt-4 lg:pt-16">

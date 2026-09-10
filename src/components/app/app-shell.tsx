@@ -18,7 +18,6 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { Mark } from "@/components/brand/mark";
 import { createClient } from "@/lib/supabase/client";
 import { PresenceProvider } from "@/lib/presence";
 import { useT } from "@/lib/i18n/provider";
@@ -122,8 +121,8 @@ export function AppShell({
       <aside className="sticky top-0 hidden h-dvh flex-col border-r border-line bg-bone px-3 py-5 lg:flex">
         <div className="flex items-center justify-between px-1">
           <Link href="/" className="flex items-center gap-2.5 px-2 text-ink">
-            <Mark className="h-7 w-7" tone="ink" />
-            <span className="display text-[1.02rem]">Les 2 Palmiers</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/wordmark.png" alt="Les 2 Palmiers" className="h-6 w-auto" />
           </Link>
           <NotificationBell userId={userId} initial={notifications} align="left" />
         </div>
@@ -147,8 +146,8 @@ export function AppShell({
 
       <header className="sticky top-0 z-40 flex items-center justify-between border-b border-line bg-bone/90 px-4 py-3 backdrop-blur-lg lg:hidden">
         <Link href="/app" className="flex items-center gap-2 text-ink">
-          <Mark className="h-6 w-6" tone="ink" />
-          <span className="display text-[0.98rem]">Les 2 Palmiers</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/wordmark.png" alt="Les 2 Palmiers" className="h-5 w-auto" />
         </Link>
         <div className="flex items-center gap-1">
           <NotificationBell userId={userId} initial={notifications} align="right" />
