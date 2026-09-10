@@ -160,7 +160,8 @@
       "team": "チームとアクセス",
       "settings": "設定",
       "myAccount": "マイアカウント",
-      "analytics": "アナリティクス"
+      "analytics": "アナリティクス",
+      "contactInbox": "問い合わせ"
     },
     "action": {
       "signOut": "ログアウト",
@@ -852,5 +853,51 @@
     "home": "ホーム",
     "apartments": "お部屋一覧",
     "help": "お困りですか?"
+  },
+  "contactPage": {
+    "eyebrow": "お問い合わせ",
+    "title": "ご滞在についてご相談ください",
+    "lede": "お部屋のご質問、サービスのご依頼、ご滞在のご相談など、お気軽にどうぞ。24時間以内にご返信します。",
+    "byEmail": "メールで",
+    "byPhone": "電話で",
+    "whatsappCta": "チャットを開く",
+    "location": "所在地",
+    "name": "お名前",
+    "email": "メールアドレス",
+    "phone": "電話番号",
+    "subject": "件名",
+    "message": "メッセージ",
+    "optional": "任意",
+    "send": "メッセージを送信",
+    "privacyNote": "ご入力いただいた情報はお問い合わせへの回答のみに使用します。",
+    "errInvalid": "お名前、メールアドレス、10文字以上のメッセージをご確認ください。",
+    "errRate": "送信回数が多すぎます。1時間後にもう一度お試しください。",
+    "errGeneric": "送信に失敗しました。もう一度お試しいただくか、メールで直接ご連絡ください。",
+    "sentTitle": "送信しました",
+    "sentBody": "ありがとうございます。Les 2 Palmiers チームより、通常24時間以内にご返信いたします。"
+  },
+  "contactInbox": {
+    "title": "問い合わせ一覧",
+    "sub": "サイトのフォームから届いた問い合わせ。",
+    "subOpen": "未対応 {count} 件。",
+    "deleteConfirm": "このメッセージを完全に削除しますか?",
+    "empty": "メッセージはありません。",
+    "reSubject": "お問い合わせ",
+    "reply": "返信",
+    "markHandled": "対応済みにする",
+    "reopen": "再開",
+    "archive": "アーカイブ",
+    "delete": "削除",
+    "filter": {
+      "new": "未対応",
+      "handled": "対応済み",
+      "archived": "アーカイブ",
+      "all": "すべて"
+    },
+    "status": {
+      "new": "新規",
+      "handled": "対応済み",
+      "archived": "アーカイブ"
+    }
   }
 }

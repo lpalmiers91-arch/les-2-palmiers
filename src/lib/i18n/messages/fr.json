@@ -160,7 +160,8 @@
       "team": "Équipe & accès",
       "settings": "Paramètres",
       "myAccount": "Mon compte",
-      "analytics": "Suivi & données"
+      "analytics": "Suivi & données",
+      "contactInbox": "Contact"
     },
     "action": {
       "signOut": "Se déconnecter",
@@ -852,5 +853,51 @@
     "home": "Accueil",
     "apartments": "Les appartements",
     "help": "Besoin d'aide ?"
+  },
+  "contactPage": {
+    "eyebrow": "Contact",
+    "title": "Parlons de votre séjour",
+    "lede": "Une question sur l'appartement, une demande de service, un projet de séjour ? Écrivez-nous, nous répondons sous 24 heures.",
+    "byEmail": "Par e-mail",
+    "byPhone": "Par téléphone",
+    "whatsappCta": "Ouvrir une conversation",
+    "location": "Où nous sommes",
+    "name": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "subject": "Sujet",
+    "message": "Message",
+    "optional": "facultatif",
+    "send": "Envoyer le message",
+    "privacyNote": "Vos coordonnées servent uniquement à répondre à votre demande.",
+    "errInvalid": "Vérifiez votre nom, votre e-mail et un message d'au moins 10 caractères.",
+    "errRate": "Trop de messages envoyés. Réessayez dans une heure.",
+    "errGeneric": "L'envoi a échoué. Réessayez ou écrivez-nous directement par e-mail.",
+    "sentTitle": "Message envoyé",
+    "sentBody": "Merci. L'équipe des 2 Palmiers vous répond très vite, en général sous 24 heures."
+  },
+  "contactInbox": {
+    "title": "Messages de contact",
+    "sub": "Les demandes reçues via le formulaire du site.",
+    "subOpen": "{count} message(s) à traiter.",
+    "deleteConfirm": "Supprimer définitivement ce message ?",
+    "empty": "Aucun message ici.",
+    "reSubject": "votre message",
+    "reply": "Répondre",
+    "markHandled": "Marquer traité",
+    "reopen": "Rouvrir",
+    "archive": "Archiver",
+    "delete": "Supprimer",
+    "filter": {
+      "new": "À traiter",
+      "handled": "Traités",
+      "archived": "Archivés",
+      "all": "Tous"
+    },
+    "status": {
+      "new": "Nouveau",
+      "handled": "Traité",
+      "archived": "Archivé"
+    }
   }
 }

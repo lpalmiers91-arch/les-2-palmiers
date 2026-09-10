@@ -31,7 +31,7 @@ export function SiteHeader({
     { href: "/appartements", label: t("nav.apartments") },
     { href: "/services", label: t("nav.services") },
     { href: "/le-lieu", label: t("nav.place") },
-    { href: "/#contact", label: t("nav.contact") },
+    { href: "/contact", label: t("nav.contact") },
     ...navExtra,
   ];
 

@@ -160,7 +160,8 @@
       "team": "团队与权限",
       "settings": "设置",
       "myAccount": "我的账户",
-      "analytics": "数据分析"
+      "analytics": "数据分析",
+      "contactInbox": "联系消息"
     },
     "action": {
       "signOut": "退出登录",
@@ -852,5 +853,51 @@
     "home": "首页",
     "apartments": "查看公寓",
     "help": "需要帮助?"
+  },
+  "contactPage": {
+    "eyebrow": "联系我们",
+    "title": "聊聊您的行程",
+    "lede": "关于公寓的问题、服务需求或行程计划?给我们留言,我们将在 24 小时内回复。",
+    "byEmail": "电子邮件",
+    "byPhone": "电话",
+    "whatsappCta": "开始对话",
+    "location": "我们的位置",
+    "name": "姓名",
+    "email": "邮箱",
+    "phone": "电话",
+    "subject": "主题",
+    "message": "留言",
+    "optional": "可选",
+    "send": "发送留言",
+    "privacyNote": "您的信息仅用于回复您的请求。",
+    "errInvalid": "请检查姓名、邮箱,以及至少 10 个字符的留言。",
+    "errRate": "发送消息过多。请一小时后重试。",
+    "errGeneric": "发送失败。请重试或直接发邮件给我们。",
+    "sentTitle": "留言已发送",
+    "sentBody": "谢谢。Les 2 Palmiers 团队会尽快回复您,通常在 24 小时内。"
+  },
+  "contactInbox": {
+    "title": "联系消息",
+    "sub": "通过网站表单收到的请求。",
+    "subOpen": "{count} 条待处理消息。",
+    "deleteConfirm": "永久删除此消息?",
+    "empty": "这里没有消息。",
+    "reSubject": "您的留言",
+    "reply": "回复",
+    "markHandled": "标记已处理",
+    "reopen": "重新打开",
+    "archive": "归档",
+    "delete": "删除",
+    "filter": {
+      "new": "待处理",
+      "handled": "已处理",
+      "archived": "已归档",
+      "all": "全部"
+    },
+    "status": {
+      "new": "新",
+      "handled": "已处理",
+      "archived": "已归档"
+    }
   }
 }

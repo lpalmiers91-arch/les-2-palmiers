@@ -160,7 +160,8 @@
       "team": "Team & Zugriff",
       "settings": "Einstellungen",
       "myAccount": "Mein Konto",
-      "analytics": "Analytics"
+      "analytics": "Analytics",
+      "contactInbox": "Kontakt"
     },
     "action": {
       "signOut": "Abmelden",
@@ -852,5 +853,51 @@
     "home": "Startseite",
     "apartments": "Die Wohnungen",
     "help": "Brauchen Sie Hilfe?"
+  },
+  "contactPage": {
+    "eyebrow": "Kontakt",
+    "title": "Sprechen wir über Ihren Aufenthalt",
+    "lede": "Eine Frage zur Wohnung, ein Service-Wunsch, ein geplanter Aufenthalt? Schreiben Sie uns — wir antworten innerhalb von 24 Stunden.",
+    "byEmail": "Per E-Mail",
+    "byPhone": "Per Telefon",
+    "whatsappCta": "Konversation starten",
+    "location": "Wo wir sind",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "subject": "Betreff",
+    "message": "Nachricht",
+    "optional": "optional",
+    "send": "Nachricht senden",
+    "privacyNote": "Ihre Daten werden nur zur Beantwortung Ihrer Anfrage verwendet.",
+    "errInvalid": "Bitte prüfen Sie Name, E-Mail und eine Nachricht mit mindestens 10 Zeichen.",
+    "errRate": "Zu viele Nachrichten gesendet. Bitte in einer Stunde erneut versuchen.",
+    "errGeneric": "Senden fehlgeschlagen. Bitte erneut versuchen oder direkt per E-Mail schreiben.",
+    "sentTitle": "Nachricht gesendet",
+    "sentBody": "Danke. Das Team von Les 2 Palmiers meldet sich sehr bald, meist innerhalb von 24 Stunden."
+  },
+  "contactInbox": {
+    "title": "Kontaktnachrichten",
+    "sub": "Über das Website-Formular eingegangene Anfragen.",
+    "subOpen": "{count} Nachricht(en) zu bearbeiten.",
+    "deleteConfirm": "Diese Nachricht endgültig löschen?",
+    "empty": "Keine Nachrichten hier.",
+    "reSubject": "Ihre Nachricht",
+    "reply": "Antworten",
+    "markHandled": "Als erledigt markieren",
+    "reopen": "Wieder öffnen",
+    "archive": "Archivieren",
+    "delete": "Löschen",
+    "filter": {
+      "new": "Zu bearbeiten",
+      "handled": "Erledigt",
+      "archived": "Archiviert",
+      "all": "Alle"
+    },
+    "status": {
+      "new": "Neu",
+      "handled": "Erledigt",
+      "archived": "Archiviert"
+    }
   }
 }

@@ -160,7 +160,8 @@
       "team": "Equipo y accesos",
       "settings": "Ajustes",
       "myAccount": "Mi cuenta",
-      "analytics": "Analítica"
+      "analytics": "Analítica",
+      "contactInbox": "Contacto"
     },
     "action": {
       "signOut": "Cerrar sesión",
@@ -852,5 +853,51 @@
     "home": "Inicio",
     "apartments": "Los apartamentos",
     "help": "¿Necesita ayuda?"
+  },
+  "contactPage": {
+    "eyebrow": "Contacto",
+    "title": "Hablemos de su estancia",
+    "lede": "¿Una pregunta sobre el apartamento, una solicitud de servicio, una estancia por planificar? Escríbanos, respondemos en 24 horas.",
+    "byEmail": "Por correo",
+    "byPhone": "Por teléfono",
+    "whatsappCta": "Iniciar una conversación",
+    "location": "Dónde estamos",
+    "name": "Nombre",
+    "email": "Correo",
+    "phone": "Teléfono",
+    "subject": "Asunto",
+    "message": "Mensaje",
+    "optional": "opcional",
+    "send": "Enviar mensaje",
+    "privacyNote": "Sus datos se utilizan únicamente para responder a su solicitud.",
+    "errInvalid": "Compruebe su nombre, su correo y un mensaje de al menos 10 caracteres.",
+    "errRate": "Demasiados mensajes enviados. Inténtelo de nuevo en una hora.",
+    "errGeneric": "El envío ha fallado. Inténtelo de nuevo o escríbanos directamente.",
+    "sentTitle": "Mensaje enviado",
+    "sentBody": "Gracias. El equipo de Les 2 Palmiers le responderá muy pronto, normalmente en 24 horas."
+  },
+  "contactInbox": {
+    "title": "Mensajes de contacto",
+    "sub": "Solicitudes recibidas por el formulario del sitio.",
+    "subOpen": "{count} mensaje(s) por atender.",
+    "deleteConfirm": "¿Eliminar definitivamente este mensaje?",
+    "empty": "No hay mensajes aquí.",
+    "reSubject": "su mensaje",
+    "reply": "Responder",
+    "markHandled": "Marcar atendido",
+    "reopen": "Reabrir",
+    "archive": "Archivar",
+    "delete": "Eliminar",
+    "filter": {
+      "new": "Por atender",
+      "handled": "Atendidos",
+      "archived": "Archivados",
+      "all": "Todos"
+    },
+    "status": {
+      "new": "Nuevo",
+      "handled": "Atendido",
+      "archived": "Archivado"
+    }
   }
 }

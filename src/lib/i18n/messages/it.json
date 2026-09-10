@@ -160,7 +160,8 @@
       "team": "Team e accessi",
       "settings": "Impostazioni",
       "myAccount": "Il mio account",
-      "analytics": "Analisi"
+      "analytics": "Analisi",
+      "contactInbox": "Contatti"
     },
     "action": {
       "signOut": "Esci",
@@ -852,5 +853,51 @@
     "home": "Home",
     "apartments": "Gli appartamenti",
     "help": "Serve aiuto?"
+  },
+  "contactPage": {
+    "eyebrow": "Contatti",
+    "title": "Parliamo del tuo soggiorno",
+    "lede": "Una domanda sull'appartamento, una richiesta di servizio, un soggiorno da organizzare? Scrivici, rispondiamo entro 24 ore.",
+    "byEmail": "Via e-mail",
+    "byPhone": "Per telefono",
+    "whatsappCta": "Avvia una conversazione",
+    "location": "Dove siamo",
+    "name": "Nome",
+    "email": "E-mail",
+    "phone": "Telefono",
+    "subject": "Oggetto",
+    "message": "Messaggio",
+    "optional": "facoltativo",
+    "send": "Invia messaggio",
+    "privacyNote": "I tuoi dati sono usati solo per rispondere alla tua richiesta.",
+    "errInvalid": "Controlla nome, e-mail e un messaggio di almeno 10 caratteri.",
+    "errRate": "Troppi messaggi inviati. Riprova tra un'ora.",
+    "errGeneric": "Invio non riuscito. Riprova o scrivici direttamente via e-mail.",
+    "sentTitle": "Messaggio inviato",
+    "sentBody": "Grazie. Il team di Les 2 Palmiers ti risponderà molto presto, di solito entro 24 ore."
+  },
+  "contactInbox": {
+    "title": "Messaggi di contatto",
+    "sub": "Richieste ricevute dal modulo del sito.",
+    "subOpen": "{count} messaggio/i da gestire.",
+    "deleteConfirm": "Eliminare definitivamente questo messaggio?",
+    "empty": "Nessun messaggio qui.",
+    "reSubject": "il tuo messaggio",
+    "reply": "Rispondi",
+    "markHandled": "Segna gestito",
+    "reopen": "Riapri",
+    "archive": "Archivia",
+    "delete": "Elimina",
+    "filter": {
+      "new": "Da gestire",
+      "handled": "Gestiti",
+      "archived": "Archiviati",
+      "all": "Tutti"
+    },
+    "status": {
+      "new": "Nuovo",
+      "handled": "Gestito",
+      "archived": "Archiviato"
+    }
   }
 }

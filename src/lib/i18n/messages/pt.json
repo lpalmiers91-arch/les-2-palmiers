@@ -160,7 +160,8 @@
       "team": "Equipa e acessos",
       "settings": "Definições",
       "myAccount": "A minha conta",
-      "analytics": "Analítica"
+      "analytics": "Analítica",
+      "contactInbox": "Contacto"
     },
     "action": {
       "signOut": "Terminar sessão",
@@ -852,5 +853,51 @@
     "home": "Início",
     "apartments": "Os apartamentos",
     "help": "Precisa de ajuda?"
+  },
+  "contactPage": {
+    "eyebrow": "Contacto",
+    "title": "Vamos falar da sua estadia",
+    "lede": "Uma pergunta sobre o apartamento, um pedido de serviço, uma estadia a planear? Escreva-nos — respondemos em 24 horas.",
+    "byEmail": "Por e-mail",
+    "byPhone": "Por telefone",
+    "whatsappCta": "Iniciar uma conversa",
+    "location": "Onde estamos",
+    "name": "Nome",
+    "email": "E-mail",
+    "phone": "Telefone",
+    "subject": "Assunto",
+    "message": "Mensagem",
+    "optional": "opcional",
+    "send": "Enviar mensagem",
+    "privacyNote": "Os seus dados são usados apenas para responder ao seu pedido.",
+    "errInvalid": "Verifique o seu nome, o e-mail e uma mensagem com pelo menos 10 caracteres.",
+    "errRate": "Demasiadas mensagens enviadas. Tente novamente dentro de uma hora.",
+    "errGeneric": "O envio falhou. Tente novamente ou escreva-nos diretamente por e-mail.",
+    "sentTitle": "Mensagem enviada",
+    "sentBody": "Obrigado. A equipa dos 2 Palmiers responde-lhe muito em breve, normalmente em 24 horas."
+  },
+  "contactInbox": {
+    "title": "Mensagens de contacto",
+    "sub": "Pedidos recebidos pelo formulário do site.",
+    "subOpen": "{count} mensagem(ns) por tratar.",
+    "deleteConfirm": "Eliminar definitivamente esta mensagem?",
+    "empty": "Nenhuma mensagem aqui.",
+    "reSubject": "a sua mensagem",
+    "reply": "Responder",
+    "markHandled": "Marcar tratado",
+    "reopen": "Reabrir",
+    "archive": "Arquivar",
+    "delete": "Eliminar",
+    "filter": {
+      "new": "Por tratar",
+      "handled": "Tratados",
+      "archived": "Arquivados",
+      "all": "Todos"
+    },
+    "status": {
+      "new": "Novo",
+      "handled": "Tratado",
+      "archived": "Arquivado"
+    }
   }
 }

@@ -31,6 +31,7 @@ function href(n: Notif, space: Space): string {
   }
   // équipe (staff / admin)
   if (d.conversation_id) return `/staff/messages/${d.conversation_id}`;
+  if (d.contact_id || n.type === "contact") return "/staff/contact";
   if (d.verification_id || n.type === "identity") return "/staff/verifications";
   if (d.contract_id || n.type === "contract") return "/staff/reservations";
   if (d.reservation_id) return "/staff/reservations";

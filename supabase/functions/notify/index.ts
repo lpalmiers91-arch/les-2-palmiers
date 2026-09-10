@@ -77,6 +77,7 @@ Deno.serve(async (req) => {
     const d = (notif.data ?? {}) as Record<string, unknown>;
     let path = isTeam ? "/staff" : "/app/notifications";
     if (d.conversation_id) path = isTeam ? `/staff/messages/${d.conversation_id}` : "/app/messages";
+    else if (d.contact_id) path = isTeam ? "/staff/contact" : "/app/notifications";
     else if (d.verification_id) path = isTeam ? "/staff/verifications" : "/app/verification";
     else if (d.payment_id) path = isTeam ? "/staff/paiements" : "/app/reservations";
     else if (d.reservation_id) path = isTeam ? "/staff/reservations" : "/app/reservations";
@@ -126,6 +127,8 @@ async function sendEmail(
   if (isTeam) {
     link = data.conversation_id
       ? `${STAFF_URL}/staff/messages/${data.conversation_id}`
+      : data.contact_id
+      ? `${STAFF_URL}/staff/contact`
       : data.verification_id
       ? `${STAFF_URL}/staff/verifications`
       : data.reservation_id || data.contract_id

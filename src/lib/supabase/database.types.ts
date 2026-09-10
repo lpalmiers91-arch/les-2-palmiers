@@ -522,6 +522,69 @@ export type Database = {
           },
         ]
       }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          handled_at: string | null
+          handled_by: string | null
+          id: string
+          locale: string | null
+          message: string
+          name: string
+          phone: string | null
+          source: string | null
+          status: string
+          subject: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          locale?: string | null
+          message: string
+          name: string
+          phone?: string | null
+          source?: string | null
+          status?: string
+          subject?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          locale?: string | null
+          message?: string
+          name?: string
+          phone?: string | null
+          source?: string | null
+          status?: string
+          subject?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_messages_handled_by_fkey"
+            columns: ["handled_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_messages_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contracts: {
         Row: {
           client_id: string
@@ -1381,6 +1444,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      rate_limits: {
+        Row: {
+          bucket: string
+          hits: number
+          window_start: string
+        }
+        Insert: {
+          bucket: string
+          hits?: number
+          window_start: string
+        }
+        Update: {
+          bucket?: string
+          hits?: number
+          window_start?: string
+        }
+        Relationships: []
       }
       refunds: {
         Row: {
@@ -2418,6 +2499,7 @@ export type Database = {
         }
       }
       delete_apartment: { Args: { p_apartment: string }; Returns: undefined }
+      delete_contact_message: { Args: { p_id: string }; Returns: undefined }
       delete_message: { Args: { p_message: string }; Returns: undefined }
       delete_notification: { Args: { p_id: string }; Returns: undefined }
       delete_review: { Args: { p_id: string }; Returns: undefined }
@@ -2766,6 +2848,10 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      rl_hit: {
+        Args: { p_key: string; p_max: number; p_window?: string }
+        Returns: boolean
+      }
       send_message: {
         Args: { p_attachments?: Json; p_body: string; p_conversation: string }
         Returns: {
@@ -2787,6 +2873,10 @@ export type Database = {
         }
       }
       send_test_notification: { Args: never; Returns: undefined }
+      set_contact_status: {
+        Args: { p_id: string; p_status: string }
+        Returns: undefined
+      }
       set_notification_prefs: {
         Args: { p_email: boolean; p_push: boolean }
         Returns: undefined
@@ -2840,6 +2930,18 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      submit_contact_message: {
+        Args: {
+          p_email: string
+          p_locale?: string
+          p_message: string
+          p_name: string
+          p_phone?: string
+          p_rl_key?: string
+          p_subject?: string
+        }
+        Returns: string
       }
       submit_identity_verification: {
         Args: {

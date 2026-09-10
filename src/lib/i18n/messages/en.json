@@ -160,7 +160,8 @@
       "team": "Team & access",
       "settings": "Settings",
       "myAccount": "My account",
-      "analytics": "Analytics"
+      "analytics": "Analytics",
+      "contactInbox": "Contact"
     },
     "action": {
       "signOut": "Sign out",
@@ -852,5 +853,51 @@
     "home": "Home",
     "apartments": "The apartments",
     "help": "Need help?"
+  },
+  "contactPage": {
+    "eyebrow": "Contact",
+    "title": "Let's talk about your stay",
+    "lede": "A question about the apartment, a service request, a stay to plan? Write to us — we reply within 24 hours.",
+    "byEmail": "By email",
+    "byPhone": "By phone",
+    "whatsappCta": "Start a conversation",
+    "location": "Where we are",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "subject": "Subject",
+    "message": "Message",
+    "optional": "optional",
+    "send": "Send message",
+    "privacyNote": "Your details are used only to reply to your request.",
+    "errInvalid": "Please check your name, email and a message of at least 10 characters.",
+    "errRate": "Too many messages sent. Please try again in an hour.",
+    "errGeneric": "Sending failed. Please try again or email us directly.",
+    "sentTitle": "Message sent",
+    "sentBody": "Thank you. The Les 2 Palmiers team will get back to you very soon, usually within 24 hours."
+  },
+  "contactInbox": {
+    "title": "Contact messages",
+    "sub": "Requests received via the website form.",
+    "subOpen": "{count} message(s) to handle.",
+    "deleteConfirm": "Permanently delete this message?",
+    "empty": "No messages here.",
+    "reSubject": "your message",
+    "reply": "Reply",
+    "markHandled": "Mark handled",
+    "reopen": "Reopen",
+    "archive": "Archive",
+    "delete": "Delete",
+    "filter": {
+      "new": "To handle",
+      "handled": "Handled",
+      "archived": "Archived",
+      "all": "All"
+    },
+    "status": {
+      "new": "New",
+      "handled": "Handled",
+      "archived": "Archived"
+    }
   }
 }
