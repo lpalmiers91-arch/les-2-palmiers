@@ -1007,5 +1007,24 @@
     "balanceDue": "Restbetrag",
     "payments": "Zahlungen",
     "demoNote": "Demo-Umgebung — simulierte Transaktion. Dieses Dokument hat keinen steuerlichen Wert."
+  },
+  "paySettings": {
+    "title": "Zahlungsanbieter",
+    "lede": "Der Simulator ist standardmäßig aktiv. Wechseln Sie zu einem echten Anbieter, sobald Ihre Schlüssel bereit sind — ohne Codeänderung.",
+    "provider": "Aktiver Anbieter",
+    "sim": "Simulator",
+    "simNote": "Zahlungen werden simuliert: Der Gast wählt das Ergebnis (Erfolg, Fehlschlag, ausstehend). Kein echter Geldfluss.",
+    "mode": "Umgebung",
+    "modeTest": "Test",
+    "modeLive": "Live",
+    "fedapayPk": "FedaPay Public Key",
+    "kkiapayPk": "KkiaPay Public Key",
+    "stripePk": "Stripe Publishable Key",
+    "secretsTitle": "Geheime Schlüssel",
+    "secretsBody": "Werden hier nie eingegeben. Fügen Sie sie zu den Supabase-Secrets (Edge Functions) hinzu:",
+    "webhookHint": "Webhook-URL, die beim Anbieter zu hinterlegen ist:",
+    "save": "Speichern",
+    "saved": "Gespeichert",
+    "errSave": "Speichern fehlgeschlagen."
   }
 }

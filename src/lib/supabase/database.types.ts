@@ -1216,6 +1216,50 @@ export type Database = {
           },
         ]
       }
+      payment_settings: {
+        Row: {
+          active_provider: string
+          currency: string
+          fedapay_public_key: string | null
+          id: number
+          kkiapay_public_key: string | null
+          mode: string
+          stripe_public_key: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          active_provider?: string
+          currency?: string
+          fedapay_public_key?: string | null
+          id?: number
+          kkiapay_public_key?: string | null
+          mode?: string
+          stripe_public_key?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          active_provider?: string
+          currency?: string
+          fedapay_public_key?: string | null
+          id?: number
+          kkiapay_public_key?: string | null
+          mode?: string
+          stripe_public_key?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_settings_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       payments: {
         Row: {
           amount: number
@@ -2852,6 +2896,49 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      payment_mark_failed_external: {
+        Args: { p_internal_ref: string; p_raw?: Json }
+        Returns: undefined
+      }
+      payment_mark_paid_external: {
+        Args: {
+          p_internal_ref: string
+          p_provider: string
+          p_provider_ref: string
+          p_raw?: Json
+        }
+        Returns: {
+          amount: number
+          channel: string
+          created_at: string
+          currency: string
+          id: string
+          internal_ref: string
+          method: string
+          paid_at: string | null
+          payer_id: string
+          proof_note: string | null
+          proof_path: string | null
+          provider: string
+          provider_ref: string | null
+          purpose: string
+          raw_webhook: Json | null
+          reservation_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          service_order_id: string | null
+          sim_outcome: string | null
+          status: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       payment_refund: {
         Args: { p_amount: number; p_payment: string; p_reason?: string }
         Returns: {
@@ -2939,6 +3026,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      payment_settings_public: { Args: never; Returns: Json }
       payment_submit_proof: {
         Args: {
           p_amount: number

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Check, Loader2, X, Clock, Download, Upload } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { FUNCTIONS_URL, SUPABASE_ANON_KEY } from "@/lib/supabase/config";
 import { formatXOF } from "@/lib/format";
 
 type Method = "mtn" | "moov" | "celtis" | "card";
@@ -64,6 +65,30 @@ export function PaymentPanel({
       const row = data as { id: string; internal_ref: string };
       setPaymentId(row.id);
       setPaymentRef(row.internal_ref);
+
+      // PSP actif : le simulateur reste le défaut. Si un vrai prestataire est
+      // configuré, on redirige vers sa page de paiement.
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        const res = await fetch(`${FUNCTIONS_URL}/payment-checkout`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${session?.access_token ?? ""}`,
+          },
+          body: JSON.stringify({ payment_ref: row.internal_ref }),
+        });
+        const j = await res.json();
+        if (j?.mode === "redirect" && j.url) {
+          window.location.href = j.url as string;
+          return;
+        }
+      } catch {
+        /* prestataire indisponible -> simulateur */
+      }
       setStep("screen");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Erreur");

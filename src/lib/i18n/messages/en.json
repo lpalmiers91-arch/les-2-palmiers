@@ -1007,5 +1007,24 @@
     "balanceDue": "Balance due",
     "payments": "Payments",
     "demoNote": "Demonstration environment — simulated transaction. This document has no fiscal value."
+  },
+  "paySettings": {
+    "title": "Payment provider",
+    "lede": "The simulator is active by default. Switch to a real provider once your keys are ready — no code change.",
+    "provider": "Active provider",
+    "sim": "Simulator",
+    "simNote": "Payments are simulated: the guest picks the outcome (success, failure, pending). No real money moves.",
+    "mode": "Environment",
+    "modeTest": "Test",
+    "modeLive": "Live",
+    "fedapayPk": "FedaPay public key",
+    "kkiapayPk": "KkiaPay public key",
+    "stripePk": "Stripe publishable key",
+    "secretsTitle": "Secret keys",
+    "secretsBody": "Never entered here. Add them to the Supabase secrets (Edge Functions):",
+    "webhookHint": "Webhook URL to register with the provider:",
+    "save": "Save",
+    "saved": "Saved",
+    "errSave": "Saving failed."
   }
 }

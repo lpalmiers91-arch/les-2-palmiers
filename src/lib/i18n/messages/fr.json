@@ -1007,5 +1007,24 @@
     "balanceDue": "Reste à régler",
     "payments": "Règlements",
     "demoNote": "Environnement de démonstration — transaction simulée. Ce document n'a pas de valeur fiscale."
+  },
+  "paySettings": {
+    "title": "Prestataire de paiement",
+    "lede": "Le simulateur est actif par défaut. Passez à un vrai prestataire quand vos clés sont prêtes — aucun changement de code.",
+    "provider": "Prestataire actif",
+    "sim": "Simulateur",
+    "simNote": "Les paiements sont simulés : le client choisit l'issue (succès, échec, en attente). Aucun mouvement d'argent réel.",
+    "mode": "Environnement",
+    "modeTest": "Test",
+    "modeLive": "Production",
+    "fedapayPk": "Clé publique FedaPay",
+    "kkiapayPk": "Clé publique KkiaPay",
+    "stripePk": "Clé publiable Stripe",
+    "secretsTitle": "Clés secrètes",
+    "secretsBody": "Ne se saisissent jamais ici. Ajoutez-les dans les secrets Supabase (Edge Functions) :",
+    "webhookHint": "URL de webhook à déclarer chez le prestataire :",
+    "save": "Enregistrer",
+    "saved": "Enregistré",
+    "errSave": "L'enregistrement a échoué."
   }
 }

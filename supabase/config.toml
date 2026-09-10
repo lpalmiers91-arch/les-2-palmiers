@@ -408,6 +408,22 @@ verify_jwt = true
 [functions.admin-invite]
 verify_jwt = true
 
+# Réservation manuelle par l'équipe (crée le compte invité).
+[functions.staff-booking]
+verify_jwt = true
+
+# Synchronisation iCal (cron avec clé anon + déclenchement manuel équipe).
+[functions.ical-sync]
+verify_jwt = true
+
+# Démarrage d'un paiement avec le PSP actif.
+[functions.payment-checkout]
+verify_jwt = true
+
+# Callbacks des PSP — sécurité assurée par la signature du prestataire.
+[functions.payment-webhook]
+verify_jwt = false
+
 [analytics]
 enabled = true
 port = 54327

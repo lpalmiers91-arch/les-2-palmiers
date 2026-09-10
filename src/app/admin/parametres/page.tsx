@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, Card } from "@/components/app/ui";
+import { PaymentSettingsForm, type PaymentSettings } from "@/components/console/payment-settings-form";
 import { getT } from "@/lib/i18n";
 
 export const metadata: Metadata = { title: "Paramètres" };
@@ -8,7 +9,14 @@ export const metadata: Metadata = { title: "Paramètres" };
 export default async function ParametresPage() {
   const { t } = await getT();
   const supabase = await createClient();
-  const { data: s } = await supabase.from("site_settings").select("*").eq("id", 1).maybeSingle();
+  const [{ data: s }, { data: pay }] = await Promise.all([
+    supabase.from("site_settings").select("*").eq("id", 1).maybeSingle(),
+    supabase
+      .from("payment_settings")
+      .select("active_provider, mode, fedapay_public_key, kkiapay_public_key, stripe_public_key, currency")
+      .eq("id", 1)
+      .maybeSingle(),
+  ]);
   const company = (s?.company ?? {}) as Record<string, unknown>;
 
   return (
@@ -38,6 +46,27 @@ export default async function ParametresPage() {
           </ul>
         </Card>
       </div>
+
+      <Card className="mt-4">
+        <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
+          {t("paySettings.title")}
+        </h2>
+        <p className="mt-1.5 text-[13px] text-ink-3">{t("paySettings.lede")}</p>
+        <div className="mt-4">
+          <PaymentSettingsForm
+            initial={
+              (pay as PaymentSettings | null) ?? {
+                active_provider: "sim",
+                mode: "test",
+                fedapay_public_key: null,
+                kkiapay_public_key: null,
+                stripe_public_key: null,
+                currency: "XOF",
+              }
+            }
+          />
+        </div>
+      </Card>
 
       <Card className="mt-4">
         <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">

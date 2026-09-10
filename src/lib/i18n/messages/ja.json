@@ -1007,5 +1007,24 @@
     "balanceDue": "残額",
     "payments": "お支払い",
     "demoNote": "デモ環境 — 模擬取引です。この書類に税務上の効力はありません。"
+  },
+  "paySettings": {
+    "title": "決済プロバイダー",
+    "lede": "既定ではシミュレーターが有効です。キーが用意できたら、コード変更なしで実際のプロバイダーに切り替えられます。",
+    "provider": "有効なプロバイダー",
+    "sim": "シミュレーター",
+    "simNote": "決済は模擬です。お客様が結果(成功・失敗・保留)を選びます。実際の資金移動はありません。",
+    "mode": "環境",
+    "modeTest": "テスト",
+    "modeLive": "本番",
+    "fedapayPk": "FedaPay 公開キー",
+    "kkiapayPk": "KkiaPay 公開キー",
+    "stripePk": "Stripe 公開可能キー",
+    "secretsTitle": "シークレットキー",
+    "secretsBody": "ここには入力しません。Supabase のシークレット(Edge Functions)に追加してください:",
+    "webhookHint": "プロバイダーに登録する Webhook URL:",
+    "save": "保存",
+    "saved": "保存しました",
+    "errSave": "保存に失敗しました。"
   }
 }

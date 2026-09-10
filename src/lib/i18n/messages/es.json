@@ -1007,5 +1007,24 @@
     "balanceDue": "Saldo pendiente",
     "payments": "Pagos",
     "demoNote": "Entorno de demostración — transacción simulada. Este documento no tiene valor fiscal."
+  },
+  "paySettings": {
+    "title": "Proveedor de pago",
+    "lede": "El simulador está activo por defecto. Cambie a un proveedor real cuando tenga las claves listas, sin cambios de código.",
+    "provider": "Proveedor activo",
+    "sim": "Simulador",
+    "simNote": "Los pagos son simulados: el huésped elige el resultado (éxito, fallo, pendiente). No hay movimiento de dinero real.",
+    "mode": "Entorno",
+    "modeTest": "Prueba",
+    "modeLive": "Producción",
+    "fedapayPk": "Clave pública de FedaPay",
+    "kkiapayPk": "Clave pública de KkiaPay",
+    "stripePk": "Clave publicable de Stripe",
+    "secretsTitle": "Claves secretas",
+    "secretsBody": "Nunca se introducen aquí. Añádalas a los secretos de Supabase (Edge Functions):",
+    "webhookHint": "URL de webhook para registrar con el proveedor:",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "errSave": "No se pudo guardar."
   }
 }

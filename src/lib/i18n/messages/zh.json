@@ -1007,5 +1007,24 @@
     "balanceDue": "应付余额",
     "payments": "付款记录",
     "demoNote": "演示环境 — 模拟交易。本文件不具税务效力。"
+  },
+  "paySettings": {
+    "title": "支付服务商",
+    "lede": "默认启用模拟器。密钥准备好后可切换到真实服务商,无需改动代码。",
+    "provider": "当前服务商",
+    "sim": "模拟器",
+    "simNote": "付款为模拟:住客选择结果(成功、失败、待处理)。无真实资金流动。",
+    "mode": "环境",
+    "modeTest": "测试",
+    "modeLive": "生产",
+    "fedapayPk": "FedaPay 公钥",
+    "kkiapayPk": "KkiaPay 公钥",
+    "stripePk": "Stripe 可发布密钥",
+    "secretsTitle": "私密密钥",
+    "secretsBody": "切勿在此输入。请将其添加到 Supabase 密钥(Edge Functions):",
+    "webhookHint": "需在服务商处登记的 Webhook 地址:",
+    "save": "保存",
+    "saved": "已保存",
+    "errSave": "保存失败。"
   }
 }
