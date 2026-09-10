@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { aptImg } from "@/lib/site";
 import { I18nProvider } from "@/lib/i18n/provider";
-import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { getLocale, getMessages, getT } from "@/lib/i18n";
 
 export default async function AuthLayout({ children }: { children: ReactNode }) {
@@ -32,9 +31,6 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
             <p className="mt-3 max-w-sm text-[15px] italic text-brass-3">{t("hero.titleEm")}</p>
           </div>
         </div>
-        <div className="absolute right-6 top-6">
-          <LanguageSwitcher tone="bone" />
-        </div>
       </aside>
 
       {/* volet droit — formulaire */}
@@ -44,9 +40,6 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/wordmark.png" alt="Les 2 Palmiers" className="h-7 w-auto" />
           </Link>
-          <div className="lg:hidden">
-            <LanguageSwitcher />
-          </div>
         </div>
         <div className="flex flex-1 items-center justify-center px-6 pb-16 pt-4 lg:pt-16">
           <div className="w-full max-w-[380px]">{children}</div>

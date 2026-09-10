@@ -9,7 +9,8 @@
     "menu": "Menu",
     "close": "Close",
     "apartments": "Apartments",
-    "currency": "Currency"
+    "currency": "Currency",
+    "chooseLanguage": "Choose language"
   },
   "common": {
     "loading": "Loading…",
@@ -65,7 +66,8 @@
     "privacy": "Privacy",
     "cookies": "Cookies",
     "terms": "Terms",
-    "legal": "Legal notice"
+    "legal": "Legal notice",
+    "language": "Language"
   },
   "home": {
     "conciergeTitle": "One team.",
@@ -97,7 +99,133 @@
     "tourismTitleEm": "explore all around.",
     "tourismLede": "The coast, the royal palaces, the lagoons, the hills. We arrange the car, the driver and the itinerary — you just look out the window.",
     "closingCta": "Book the apartment",
-    "closingContact": "A question before booking? Write to"
+    "closingContact": "A question before booking? Write to",
+    "conciergeLedger": [
+      {
+        "t": "07:30",
+        "s": "Breakfast delivered",
+        "d": "coffee, bread, seasonal fruit"
+      },
+      {
+        "t": "09:00",
+        "s": "Full housekeeping",
+        "d": "bedrooms, kitchen, terrace"
+      },
+      {
+        "t": "10:15",
+        "s": "Car with driver",
+        "d": "day trip to Ouidah"
+      },
+      {
+        "t": "13:00",
+        "s": "Hairdressing at home",
+        "d": "braids, two people"
+      },
+      {
+        "t": "16:30",
+        "s": "Top-up & transfer",
+        "d": "MTN, transfer received"
+      },
+      {
+        "t": "19:00",
+        "s": "Private chef",
+        "d": "West African dinner, for 4"
+      },
+      {
+        "t": "21:30",
+        "s": "Relaxing massage",
+        "d": "60 min, in the apartment"
+      }
+    ],
+    "tourismPlaces": [
+      {
+        "name": "Ouidah",
+        "when": "on the coast",
+        "note": "The Slave Route, the python temple, the sacred forest of Kpassè."
+      },
+      {
+        "name": "Abomey",
+        "when": "inland",
+        "note": "The royal palaces of Dahomey, a UNESCO World Heritage Site."
+      },
+      {
+        "name": "Lac Noir",
+        "when": "day trip",
+        "note": "Calm waters fringed with greenery, by boat, away from the city."
+      },
+      {
+        "name": "Agouland",
+        "when": "day trip",
+        "note": "Unspoilt nature, for a green day out far from the bustle."
+      },
+      {
+        "name": "Kpalimé",
+        "when": "towards Togo",
+        "note": "Lush hills, waterfalls and plantations, near the border."
+      },
+      {
+        "name": "Lomé",
+        "when": "towards Togo",
+        "note": "The Togolese capital, its great market and its long seafront promenade."
+      }
+    ],
+    "servicesList": [
+      {
+        "slug": "location-voiture",
+        "title": "Car rental",
+        "description": "Modern vehicles, with or without a driver, for all your trips."
+      },
+      {
+        "slug": "entretien",
+        "title": "Housekeeping & upkeep",
+        "description": "Qualified professionals for the cleanliness and order of your apartment."
+      },
+      {
+        "slug": "coiffure-tresses",
+        "title": "Hair & braids",
+        "description": "Professional hairdressers come to you."
+      },
+      {
+        "slug": "cuisinier",
+        "title": "Private chef",
+        "description": "Home-cooked dishes, prepared to your taste."
+      },
+      {
+        "slug": "pedicure-manucure",
+        "title": "Pedicure & manicure",
+        "description": "Professional care for impeccable hands and feet."
+      },
+      {
+        "slug": "massage",
+        "title": "In-home massage",
+        "description": "Expert hands for your well-being and relaxation."
+      },
+      {
+        "slug": "recharge-transactions",
+        "title": "Top-ups & transactions",
+        "description": "MTN, Moov and Celtis top-ups, and fast transactions."
+      },
+      {
+        "slug": "couture",
+        "title": "Tailoring at home",
+        "description": "Professional tailors at your service, wherever you are."
+      },
+      {
+        "slug": "garde-enfants",
+        "title": "Childcare",
+        "description": "Professional, reliable and available nannies."
+      },
+      {
+        "slug": "sur-mesure",
+        "title": "Bespoke",
+        "description": "A specific need? We adapt our services to your request."
+      }
+    ],
+    "reviewsTitle": "They stayed here.",
+    "reviewsLede": "What our guests said, after their stay.",
+    "reviewsCount": "{n} reviews",
+    "reviewsReplyLabel": "Les 2 Palmiers: ",
+    "guestFallback": "Guest"
   },
   "auth": {
     "signinTitle": "Sign in",

@@ -2,6 +2,24 @@ import "server-only";
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { aptImg } from "@/lib/site";
+import { getLocale } from "@/lib/i18n";
+import { DEFAULT_LOCALE } from "@/lib/i18n/languages";
+
+/** Superpose la traduction i18n[locale] sur les champs texte de l'appartement. */
+function i18nApt<T extends { name?: string | null; summary?: string | null; description?: string | null }>(
+  row: T & { i18n?: unknown },
+  locale: string,
+): T {
+  if (locale === DEFAULT_LOCALE) return row;
+  const tr = (row.i18n as Record<string, Record<string, string>> | null)?.[locale];
+  if (!tr) return row;
+  return {
+    ...row,
+    ...(tr.name ? { name: tr.name } : {}),
+    ...(tr.summary ? { summary: tr.summary } : {}),
+    ...(tr.description ? { description: tr.description } : {}),
+  };
+}
 
 export type ApartmentCard = {
   id: string;
@@ -35,12 +53,14 @@ function coverUrl(path: string | null | undefined): string | null {
 /** Appartements publiés, avec photo de couverture, pour la liste. */
 export const listApartments = cache(async (): Promise<ApartmentCard[]> => {
   const supabase = await createClient();
-  const { data: apts } = await supabase
+  const locale = await getLocale();
+  const { data: raw } = await supabase
     .from("apartments")
-    .select("id, slug, name, summary, address, capacity, bedrooms, bathrooms, base_price")
+    .select("id, slug, name, summary, address, capacity, bedrooms, bathrooms, base_price, i18n")
     .eq("status", "published")
     .order("created_at");
-  if (!apts?.length) return [];
+  const apts = (raw ?? []).map((a) => i18nApt(a, locale));
+  if (!apts.length) return [];
 
   const { data: media } = await supabase
     .from("apartment_media")
@@ -51,7 +71,7 @@ export const listApartments = cache(async (): Promise<ApartmentCard[]> => {
     )
     .order("position");
 
-  return apts.map((a) => {
+  return apts.map(({ i18n: _i18n, ...a }) => {
     const own = (media ?? []).filter((m) => m.apartment_id === a.id);
     const cov = own.find((m) => m.is_cover) ?? own[0];
     return { ...a, cover: coverUrl(cov?.storage_path) };
@@ -61,14 +81,16 @@ export const listApartments = cache(async (): Promise<ApartmentCard[]> => {
 /** Un appartement publié complet (galerie + équipements), par slug. */
 export const getApartment = cache(async (slug: string): Promise<ApartmentFull | null> => {
   const supabase = await createClient();
-  const { data: a } = await supabase
+  const locale = await getLocale();
+  const { data: rawApt } = await supabase
     .from("apartments")
     .select(
-      "id, slug, name, summary, description, address, capacity, bedrooms, bathrooms, base_price, cleaning_fee, map_url, checkin_from, checkout_before, cancellation_policy, status",
+      "id, slug, name, summary, description, address, capacity, bedrooms, bathrooms, base_price, cleaning_fee, map_url, checkin_from, checkout_before, cancellation_policy, status, i18n",
     )
     .eq("slug", slug)
     .maybeSingle();
-  if (!a || a.status !== "published") return null;
+  if (!rawApt || rawApt.status !== "published") return null;
+  const a = i18nApt(rawApt, locale);
 
   const [{ data: media }, { data: amenities }] = await Promise.all([
     supabase

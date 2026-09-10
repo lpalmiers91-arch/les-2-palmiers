@@ -10,6 +10,7 @@ import { aptImg } from "@/lib/site";
 import { ServiceIcon } from "@/components/marketing/service-icon";
 import { track } from "@/lib/track";
 import { useT } from "@/lib/i18n/provider";
+import { pickServiceI18n } from "@/lib/services";
 import { useCurrency } from "@/lib/currency";
 import { AvailabilityCalendar } from "./availability-calendar";
 
@@ -35,7 +36,14 @@ type Apt = {
   cover: string | null;
 };
 
-type Svc = { id: string; slug: string; title: string; icon: string | null; base_price: number };
+type Svc = {
+  id: string;
+  slug: string;
+  title: string;
+  icon: string | null;
+  base_price: number;
+  i18n?: unknown;
+};
 
 function iso(offset: number) {
   const d = new Date();
@@ -46,7 +54,7 @@ function iso(offset: number) {
 export function ReservationFunnel({ authed }: { authed: boolean }) {
   const router = useRouter();
   const params = useSearchParams();
-  const { t } = useT();
+  const { t, locale } = useT();
   const { price, currency, enabled: fxOn } = useCurrency();
 
   const [apts, setApts] = useState<Apt[]>([]);
@@ -79,7 +87,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
         supabase.from("apartment_media").select("apartment_id, storage_path, is_cover, position"),
         supabase
           .from("services")
-          .select("id, slug, title, icon, base_price")
+          .select("id, slug, title, icon, base_price, i18n")
           .eq("active", true)
           .eq("pricing_mode", "fixed")
           .order("position"),
@@ -96,7 +104,7 @@ export function ReservationFunnel({ authed }: { authed: boolean }) {
       setApts(list);
       const wanted = params.get("apartment");
       setAptId(list.find((a) => a.slug === wanted)?.id ?? list[0]?.id ?? null);
-      setServices((svcRows ?? []) as Svc[]);
+      setServices(((svcRows ?? []) as Svc[]).map((s) => pickServiceI18n(s, locale)));
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

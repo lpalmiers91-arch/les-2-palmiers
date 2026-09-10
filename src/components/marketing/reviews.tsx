@@ -1,10 +1,12 @@
 import { Star } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { createClient } from "@/lib/supabase/server";
+import { getT } from "@/lib/i18n";
 
 type BlockContent = { title?: string; lede?: string };
 
 export async function Reviews({ content }: { content?: BlockContent }) {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data } = await supabase
     .from("reviews")
@@ -35,15 +37,15 @@ export async function Reviews({ content }: { content?: BlockContent }) {
               ))}
             </span>
             <span className="tnum text-[13px] text-ink-3">
-              {avg.toFixed(1)} · {reviews.length} avis
+              {avg.toFixed(1)} · {t("home.reviewsCount", { n: reviews.length })}
             </span>
           </div>
           <h2 className="display mt-4 text-[2.1rem] leading-[1.06] text-ink sm:text-[2.7rem]">
-            {content?.title ?? "Ils ont séjourné ici."}
+            {content?.title?.trim() || t("home.reviewsTitle")}
           </h2>
-          {content?.lede && (
-            <p className="measure mt-5 text-[1.02rem] leading-relaxed text-ink-2">{content.lede}</p>
-          )}
+          <p className="measure mt-5 text-[1.02rem] leading-relaxed text-ink-2">
+            {content?.lede?.trim() || t("home.reviewsLede")}
+          </p>
         </Reveal>
 
         <Reveal className="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3">
@@ -65,11 +67,11 @@ export async function Reviews({ content }: { content?: BlockContent }) {
                 {r.body}
               </blockquote>
               <figcaption className="mt-3 text-[12px] text-ink-3">
-                {(r.client as { full_name?: string } | null)?.full_name ?? "Client"}
+                {(r.client as { full_name?: string } | null)?.full_name ?? t("home.guestFallback")}
               </figcaption>
               {r.staff_reply && (
                 <p className="mt-3 rounded-[10px] bg-bone-2 px-3 py-2 text-[12.5px] text-ink-2">
-                  <span className="font-medium text-ink">Les 2 Palmiers : </span>
+                  <span className="font-medium text-ink">{t("home.reviewsReplyLabel")}</span>
                   {r.staff_reply}
                 </p>
               )}

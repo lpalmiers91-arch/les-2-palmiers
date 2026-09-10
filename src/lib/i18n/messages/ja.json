@@ -9,7 +9,8 @@
     "menu": "メニュー",
     "close": "閉じる",
     "apartments": "アパートメント",
-    "currency": "通貨"
+    "currency": "通貨",
+    "chooseLanguage": "言語を選択"
   },
   "common": {
     "loading": "読み込み中…",
@@ -65,7 +66,8 @@
     "privacy": "プライバシー",
     "cookies": "Cookie",
     "terms": "利用規約",
-    "legal": "法的通知"
+    "legal": "法的通知",
+    "language": "言語"
   },
   "home": {
     "conciergeTitle": "ひとつのチーム。",
@@ -97,7 +99,133 @@
     "tourismTitleEm": "周辺を巡る。",
     "tourismLede": "海岸、王宮、ラグーン、丘。車、運転手、行程はこちらで手配します。あなたは窓の外を眺めるだけ。",
     "closingCta": "アパートメントを予約",
-    "closingContact": "予約前のご質問は"
+    "closingContact": "予約前のご質問は",
+    "conciergeLedger": [
+      {
+        "t": "07:30",
+        "s": "朝食のお届け",
+        "d": "コーヒー、パン、季節の果物"
+      },
+      {
+        "t": "09:00",
+        "s": "全体の清掃",
+        "d": "寝室、キッチン、テラス"
+      },
+      {
+        "t": "10:15",
+        "s": "運転手付きの車",
+        "d": "ウィダへの日帰り"
+      },
+      {
+        "t": "13:00",
+        "s": "出張ヘアサロン",
+        "d": "編み込み、2 名"
+      },
+      {
+        "t": "16:30",
+        "s": "チャージと送金",
+        "d": "MTN、送金受領"
+      },
+      {
+        "t": "19:00",
+        "s": "専属シェフ",
+        "d": "西アフリカのディナー、4 名分"
+      },
+      {
+        "t": "21:30",
+        "s": "リラクゼーションマッサージ",
+        "d": "60 分、お部屋で"
+      }
+    ],
+    "tourismPlaces": [
+      {
+        "name": "ウィダ",
+        "when": "海岸沿い",
+        "note": "奴隷の道、ニシキヘビの神殿、Kpassè の聖なる森。"
+      },
+      {
+        "name": "アボメー",
+        "when": "内陸",
+        "note": "ダホメ王国の王宮群、ユネスコ世界遺産。"
+      },
+      {
+        "name": "ラック・ノワール",
+        "when": "日帰り",
+        "note": "緑に縁取られた静かな水面へ、ボートで、街の喧騒を離れて。"
+      },
+      {
+        "name": "アグランド",
+        "when": "日帰り",
+        "note": "手つかずの自然。喧騒を離れた緑の一日を。"
+      },
+      {
+        "name": "クパリメ",
+        "when": "トーゴ方面",
+        "note": "緑豊かな丘、滝、プランテーション。国境沿い。"
+      },
+      {
+        "name": "ロメ",
+        "when": "トーゴ方面",
+        "note": "トーゴの首都。大きな市場と長い海沿いの遊歩道。"
+      }
+    ],
+    "servicesList": [
+      {
+        "slug": "location-voiture",
+        "title": "レンタカー",
+        "description": "運転手付き・なしを選べる新しい車で、あらゆる移動を。"
+      },
+      {
+        "slug": "entretien",
+        "title": "清掃とメンテナンス",
+        "description": "お部屋の清潔と整頓を担う、有資格のプロ。"
+      },
+      {
+        "slug": "coiffure-tresses",
+        "title": "ヘア＆編み込み",
+        "description": "プロの美容師がお部屋にうかがいます。"
+      },
+      {
+        "slug": "cuisinier",
+        "title": "出張シェフ",
+        "description": "お好みに合わせて仕上げる、家庭料理。"
+      },
+      {
+        "slug": "pedicure-manucure",
+        "title": "ペディキュア＆マニキュア",
+        "description": "手と足を美しく整える、プロのケア。"
+      },
+      {
+        "slug": "massage",
+        "title": "出張マッサージ",
+        "description": "心身のやすらぎのための、熟練の手技。"
+      },
+      {
+        "slug": "recharge-transactions",
+        "title": "チャージと送金",
+        "description": "MTN・Moov・Celtis のチャージと、すばやい送金。"
+      },
+      {
+        "slug": "couture",
+        "title": "出張仕立て",
+        "description": "どこにいても、プロの仕立て屋がお手伝い。"
+      },
+      {
+        "slug": "garde-enfants",
+        "title": "ベビーシッター",
+        "description": "信頼できる、対応可能なプロのシッター。"
+      },
+      {
+        "slug": "sur-mesure",
+        "title": "オーダーメイド",
+        "description": "特別なご要望は？ ご依頼に合わせてサービスを調整します。"
+      }
+    ],
+    "reviewsTitle": "ここに滞在しました。",
+    "reviewsLede": "ご滞在を終えたお客様の声。",
+    "reviewsCount": "{n} 件のレビュー",
+    "reviewsReplyLabel": "Les 2 Palmiers：",
+    "guestFallback": "ゲスト"
   },
   "auth": {
     "signinTitle": "ログイン",

@@ -5,15 +5,6 @@ import { easeOut } from "@/lib/motion";
 import { Reveal } from "@/components/ui/reveal";
 import { useT } from "@/lib/i18n/provider";
 
-const defaultLedger = [
-  { t: "07:30", s: "Petit-déjeuner déposé", d: "café, pain, fruits de saison" },
-  { t: "09:00", s: "Ménage complet", d: "chambres, cuisine, terrasse" },
-  { t: "10:15", s: "Voiture avec chauffeur", d: "journée à Ouidah" },
-  { t: "13:00", s: "Coiffure à domicile", d: "tresses, deux personnes" },
-  { t: "16:30", s: "Recharge & transaction", d: "MTN, transfert reçu" },
-  { t: "19:00", s: "Cuisinier privé", d: "dîner ouest-africain, pour 4" },
-  { t: "21:30", s: "Massage relaxant", d: "60 min, sur place" },
-];
 const s = (v: unknown, fb: string) => (typeof v === "string" && v.trim() ? v : fb);
 
 const parent = {
@@ -26,10 +17,10 @@ const child = {
 };
 
 export function Concierge({ content = {} }: { content?: Record<string, unknown> }) {
-  const { t } = useT();
+  const { t, tList } = useT();
   const ledger = Array.isArray(content.ledger)
     ? (content.ledger as { t: string; s: string; d: string }[])
-    : defaultLedger;
+    : tList<{ t: string; s: string; d: string }>("home.conciergeLedger");
   return (
     <section className="grain relative overflow-hidden bg-ink text-bone">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">

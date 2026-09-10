@@ -1,7 +1,7 @@
 import "server-only";
 import { cookies, headers } from "next/headers";
 import { DEFAULT_LOCALE, isLocale, type Locale } from "./languages";
-import { translate } from "./translate-client";
+import { translate, translateList } from "./translate-client";
 
 export const LOCALE_COOKIE = "NEXT_LOCALE";
 
@@ -38,5 +38,6 @@ export async function getT() {
     locale,
     messages,
     t: (key: string, vars?: Record<string, string | number>) => translate(messages, key, vars),
+    tList: <T = unknown>(key: string): T[] => translateList<T>(messages, key),
   };
 }

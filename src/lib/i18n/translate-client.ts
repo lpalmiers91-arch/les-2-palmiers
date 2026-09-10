@@ -14,3 +14,17 @@ export function translate(
   if (vars) for (const [k, v] of Object.entries(vars)) out = out.replaceAll(`{${k}}`, String(v));
   return out;
 }
+
+/** Résout une clé pointant vers un tableau (listes traduites : services, étapes, lieux…). */
+export function translateList<T = unknown>(
+  messages: Record<string, unknown>,
+  key: string,
+): T[] {
+  const raw = key.split(".").reduce<unknown>((acc, k) => {
+    if (acc && typeof acc === "object" && k in (acc as Record<string, unknown>)) {
+      return (acc as Record<string, unknown>)[k];
+    }
+    return undefined;
+  }, messages);
+  return Array.isArray(raw) ? (raw as T[]) : [];
+}

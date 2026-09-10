@@ -1,22 +1,13 @@
 import { Reveal } from "@/components/ui/reveal";
 import { getT } from "@/lib/i18n";
 
-const places = [
-  { name: "Ouidah", when: "sur la côte", note: "La route de l'esclave, le temple des pythons, la forêt sacrée de Kpassè." },
-  { name: "Abomey", when: "à l'intérieur", note: "Les palais royaux du Dahomey, classés au patrimoine mondial de l'UNESCO." },
-  { name: "Lac Noir", when: "excursion", note: "Des eaux paisibles bordées de végétation, en barque, à l'écart de la ville." },
-  { name: "Agouland", when: "excursion", note: "Une nature préservée, pour une journée au vert loin de l'agitation." },
-  { name: "Kpalimé", when: "vers le Togo", note: "Des collines verdoyantes, des cascades et des plantations, côté frontière." },
-  { name: "Lomé", when: "vers le Togo", note: "La capitale togolaise, son grand marché et sa longue corniche en bord de mer." },
-];
-
 const tv = (v: unknown, fb: string) => (typeof v === "string" && v.trim() ? v : fb);
 
 export async function Tourism({ content = {} }: { content?: Record<string, unknown> }) {
-  const { t } = await getT();
+  const { t, tList } = await getT();
   const list = Array.isArray(content.places)
     ? (content.places as { name: string; when: string; note: string }[])
-    : places;
+    : tList<{ name: string; when: string; note: string }>("home.tourismPlaces");
   return (
     <section id="le-lieu" className="grain relative overflow-hidden bg-forest text-bone">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">

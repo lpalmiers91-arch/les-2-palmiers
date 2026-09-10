@@ -7,9 +7,15 @@ import { LANGUAGES, type Locale } from "@/lib/i18n/languages";
 import { createClient } from "@/lib/supabase/client";
 import { useT } from "@/lib/i18n/provider";
 
-export function LanguageSwitcher({ tone = "ink" }: { tone?: "ink" | "bone" }) {
+export function LanguageSwitcher({
+  tone = "ink",
+  drop = "down",
+}: {
+  tone?: "ink" | "bone";
+  drop?: "down" | "up";
+}) {
   const router = useRouter();
-  const { locale } = useT();
+  const { t, locale } = useT();
   const [open, setOpen] = useState(false);
   const [pending, start] = useTransition();
 
@@ -39,7 +45,7 @@ export function LanguageSwitcher({ tone = "ink" }: { tone?: "ink" | "bone" }) {
       <button
         onClick={() => setOpen((v) => !v)}
         disabled={pending}
-        aria-label="Choisir la langue"
+        aria-label={t("nav.chooseLanguage")}
         className={`press flex items-center gap-1.5 text-[13px] font-medium transition-colors ${text} disabled:opacity-50`}
       >
         <Globe className="h-4 w-4" />
@@ -50,7 +56,11 @@ export function LanguageSwitcher({ tone = "ink" }: { tone?: "ink" | "bone" }) {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-[12px] border border-line bg-bone py-1 shadow-[0_20px_50px_-18px_rgba(23,19,13,0.35)]">
+          <div
+            className={`absolute right-0 z-50 w-44 overflow-hidden rounded-[12px] border border-line bg-bone py-1 shadow-[0_20px_50px_-18px_rgba(23,19,13,0.35)] ${
+              drop === "up" ? "bottom-full mb-2" : "mt-2"
+            }`}
+          >
             {LANGUAGES.map((l) => (
               <button
                 key={l.code}

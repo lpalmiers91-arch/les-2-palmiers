@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext } from "react";
-import { translate } from "./translate-client";
+import { translate, translateList } from "./translate-client";
 import type { Locale } from "./languages";
 
 type Ctx = {
@@ -26,5 +26,9 @@ export function useT() {
       ctx ? translate(ctx.messages, key, vars) : key,
     [ctx],
   );
-  return { t, locale: ctx?.locale ?? "fr" };
+  const tList = useCallback(
+    <T = unknown>(key: string): T[] => (ctx ? translateList<T>(ctx.messages, key) : []),
+    [ctx],
+  );
+  return { t, tList, locale: ctx?.locale ?? "fr" };
 }

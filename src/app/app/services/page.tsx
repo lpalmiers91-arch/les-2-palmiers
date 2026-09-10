@@ -6,24 +6,26 @@ import { PageTitle, StatusBadge } from "@/components/app/ui";
 import { ServiceIcon } from "@/components/marketing/service-icon";
 import { formatXOF, formatDate } from "@/lib/format";
 import { getT } from "@/lib/i18n";
+import { pickServiceI18n } from "@/lib/services";
 
 export const metadata: Metadata = { title: "Services" };
 
 export default async function ServicesPage() {
-  const { t } = await getT();
+  const { t, locale } = await getT();
   const supabase = await createClient();
 
-  const [{ data: services }, { data: orders }] = await Promise.all([
+  const [{ data: rawServices }, { data: orders }] = await Promise.all([
     supabase
       .from("services")
-      .select("id, slug, title, description, pricing_mode, base_price, icon")
+      .select("id, slug, title, description, pricing_mode, base_price, icon, i18n")
       .eq("active", true)
       .order("position"),
     supabase
       .from("service_orders")
-      .select("id, reference, status, scheduled_for, price, service:services(title)")
+      .select("id, reference, status, scheduled_for, price, service:services(title, i18n)")
       .order("created_at", { ascending: false }),
   ]);
+  const services = (rawServices ?? []).map((s) => pickServiceI18n(s, locale));
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -39,7 +41,10 @@ export default async function ServicesPage() {
               <li key={o.id} className="flex items-center justify-between gap-4 px-5 py-3.5">
                 <div>
                   <p className="text-[14px] text-ink">
-                    {(o.service as { title?: string } | null)?.title ?? t("appServices.service")}
+                    {pickServiceI18n(
+                      (o.service as { title?: string; i18n?: unknown } | null) ?? {},
+                      locale,
+                    )?.title ?? t("appServices.service")}
                   </p>
                   <p className="text-[12px] text-ink-3">
                     {o.scheduled_for ? formatDate(o.scheduled_for) : t("appServices.slotTbd")}

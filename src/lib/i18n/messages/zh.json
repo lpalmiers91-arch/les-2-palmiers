@@ -9,7 +9,8 @@
     "menu": "菜单",
     "close": "关闭",
     "apartments": "公寓",
-    "currency": "货币"
+    "currency": "货币",
+    "chooseLanguage": "选择语言"
   },
   "common": {
     "loading": "加载中…",
@@ -65,7 +66,8 @@
     "privacy": "隐私政策",
     "cookies": "Cookie",
     "terms": "条款",
-    "legal": "法律声明"
+    "legal": "法律声明",
+    "language": "语言"
   },
   "home": {
     "conciergeTitle": "一支团队。",
@@ -97,7 +99,133 @@
     "tourismTitleEm": "尽览周边风光。",
     "tourismLede": "海岸、皇宫、潟湖、山丘。我们安排用车、司机和行程 — 您只需望向窗外。",
     "closingCta": "预订公寓",
-    "closingContact": "预订前有疑问？请联系"
+    "closingContact": "预订前有疑问？请联系",
+    "conciergeLedger": [
+      {
+        "t": "07:30",
+        "s": "早餐送达",
+        "d": "咖啡、面包、时令水果"
+      },
+      {
+        "t": "09:00",
+        "s": "全屋清洁",
+        "d": "卧室、厨房、露台"
+      },
+      {
+        "t": "10:15",
+        "s": "专车带司机",
+        "d": "维达一日游"
+      },
+      {
+        "t": "13:00",
+        "s": "上门美发",
+        "d": "编发，两人"
+      },
+      {
+        "t": "16:30",
+        "s": "充值与转账",
+        "d": "MTN，已收到转账"
+      },
+      {
+        "t": "19:00",
+        "s": "私人厨师",
+        "d": "西非晚餐，4 人份"
+      },
+      {
+        "t": "21:30",
+        "s": "放松按摩",
+        "d": "60 分钟，在公寓内"
+      }
+    ],
+    "tourismPlaces": [
+      {
+        "name": "维达（Ouidah）",
+        "when": "海岸边",
+        "note": "奴隶之路、蟒蛇神庙、Kpassè 圣林。"
+      },
+      {
+        "name": "阿波美（Abomey）",
+        "when": "内陆",
+        "note": "达荷美王宫，联合国教科文组织世界遗产。"
+      },
+      {
+        "name": "黑湖（Lac Noir）",
+        "when": "一日游",
+        "note": "绿意环绕的宁静湖水，乘船前往，远离城市喧嚣。"
+      },
+      {
+        "name": "Agouland",
+        "when": "一日游",
+        "note": "未经雕琢的自然，远离喧嚣的绿色一日游。"
+      },
+      {
+        "name": "Kpalimé",
+        "when": "前往多哥",
+        "note": "苍翠的山丘、瀑布与种植园，靠近边境。"
+      },
+      {
+        "name": "洛美（Lomé）",
+        "when": "前往多哥",
+        "note": "多哥首都，宏大的市场和绵长的海滨长廊。"
+      }
+    ],
+    "servicesList": [
+      {
+        "slug": "location-voiture",
+        "title": "租车",
+        "description": "现代车辆，可配或不配司机，满足您的一切出行。"
+      },
+      {
+        "slug": "entretien",
+        "title": "保洁与维护",
+        "description": "专业人员，保持公寓的整洁与井然。"
+      },
+      {
+        "slug": "coiffure-tresses",
+        "title": "美发与编发",
+        "description": "专业发型师上门服务。"
+      },
+      {
+        "slug": "cuisinier",
+        "title": "私人厨师",
+        "description": "家常菜肴，按您的口味烹制。"
+      },
+      {
+        "slug": "pedicure-manucure",
+        "title": "修足与美甲",
+        "description": "专业护理，让您的手足无可挑剔。"
+      },
+      {
+        "slug": "massage",
+        "title": "上门按摩",
+        "description": "专业之手，助您身心放松。"
+      },
+      {
+        "slug": "recharge-transactions",
+        "title": "充值与交易",
+        "description": "MTN、Moov 和 Celtis 充值，以及快速交易。"
+      },
+      {
+        "slug": "couture",
+        "title": "上门裁缝",
+        "description": "专业裁缝为您服务，无论您身在何处。"
+      },
+      {
+        "slug": "garde-enfants",
+        "title": "儿童看护",
+        "description": "专业、可靠、随时待命的保姆。"
+      },
+      {
+        "slug": "sur-mesure",
+        "title": "量身定制",
+        "description": "有特别需求？我们按您的要求调整服务。"
+      }
+    ],
+    "reviewsTitle": "他们曾在此下榻。",
+    "reviewsLede": "客人入住后的真实反馈。",
+    "reviewsCount": "{n} 条评价",
+    "reviewsReplyLabel": "Les 2 Palmiers：",
+    "guestFallback": "客人"
   },
   "auth": {
     "signinTitle": "登录",

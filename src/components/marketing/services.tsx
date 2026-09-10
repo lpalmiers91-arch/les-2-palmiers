@@ -13,7 +13,12 @@ function priceLabel(s: ServiceFallback, t: (k: string, v?: Record<string, string
 const sv = (v: unknown, fb: string) => (typeof v === "string" && v.trim() ? v : fb);
 
 export async function Services({ content = {} }: { content?: Record<string, unknown> }) {
-  const { t } = await getT();
+  const { t, tList } = await getT();
+  const tr = tList<{ slug: string; title: string; description: string }>("home.servicesList");
+  const items = servicesFallback.map((s) => {
+    const m = tr.find((x) => x.slug === s.slug);
+    return { ...s, title: m?.title ?? s.title, description: m?.description ?? s.description };
+  });
   return (
     <section id="services" className="bg-bone">
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
@@ -32,7 +37,7 @@ export async function Services({ content = {} }: { content?: Record<string, unkn
           </Reveal>
 
           <Reveal as="ul" className="-mt-2">
-            {servicesFallback.map((s) => (
+            {items.map((s) => (
               <li
                 key={s.slug}
                 className="grid grid-cols-[auto_1fr_auto] items-start gap-4 border-b border-line py-5 sm:gap-6"

@@ -394,6 +394,7 @@ export type Database = {
           description: string | null
           geo: unknown
           house_rules: Json
+          i18n: Json
           ical_token: string | null
           id: string
           map_url: string | null
@@ -418,6 +419,7 @@ export type Database = {
           description?: string | null
           geo?: unknown
           house_rules?: Json
+          i18n?: Json
           ical_token?: string | null
           id?: string
           map_url?: string | null
@@ -442,6 +444,7 @@ export type Database = {
           description?: string | null
           geo?: unknown
           house_rules?: Json
+          i18n?: Json
           ical_token?: string | null
           id?: string
           map_url?: string | null
@@ -2215,18 +2218,21 @@ export type Database = {
       }
       service_categories: {
         Row: {
+          i18n: Json
           id: string
           label: string
           position: number
           slug: string
         }
         Insert: {
+          i18n?: Json
           id?: string
           label: string
           position?: number
           slug: string
         }
         Update: {
+          i18n?: Json
           id?: string
           label?: string
           position?: number
@@ -2385,6 +2391,7 @@ export type Database = {
           category_id: string | null
           created_at: string
           description: string | null
+          i18n: Json
           icon: string | null
           id: string
           lead_time_hours: number
@@ -2402,6 +2409,7 @@ export type Database = {
           category_id?: string | null
           created_at?: string
           description?: string | null
+          i18n?: Json
           icon?: string | null
           id?: string
           lead_time_hours?: number
@@ -2419,6 +2427,7 @@ export type Database = {
           category_id?: string | null
           created_at?: string
           description?: string | null
+          i18n?: Json
           icon?: string | null
           id?: string
           lead_time_hours?: number
@@ -2927,6 +2936,7 @@ export type Database = {
           category_id: string | null
           created_at: string
           description: string | null
+          i18n: Json
           icon: string | null
           id: string
           lead_time_hours: number

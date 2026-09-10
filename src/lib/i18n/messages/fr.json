@@ -9,7 +9,8 @@
     "menu": "Menu",
     "close": "Fermer",
     "apartments": "Appartements",
-    "currency": "Devise"
+    "currency": "Devise",
+    "chooseLanguage": "Choisir la langue"
   },
   "common": {
     "loading": "Chargement…",
@@ -65,7 +66,8 @@
     "privacy": "Confidentialité",
     "cookies": "Cookies",
     "terms": "CGV",
-    "legal": "Mentions légales"
+    "legal": "Mentions légales",
+    "language": "Langue"
   },
   "home": {
     "conciergeTitle": "Une seule équipe.",
@@ -97,7 +99,133 @@
     "tourismTitleEm": "explorez tout autour.",
     "tourismLede": "La côte, les palais royaux, les lagunes, les collines. On organise la voiture, le chauffeur et le programme — vous n'avez qu'à regarder par la fenêtre.",
     "closingCta": "Réserver l'appartement",
-    "closingContact": "Une question avant de réserver ? Écrivez à"
+    "closingContact": "Une question avant de réserver ? Écrivez à",
+    "conciergeLedger": [
+      {
+        "t": "07:30",
+        "s": "Petit-déjeuner déposé",
+        "d": "café, pain, fruits de saison"
+      },
+      {
+        "t": "09:00",
+        "s": "Ménage complet",
+        "d": "chambres, cuisine, terrasse"
+      },
+      {
+        "t": "10:15",
+        "s": "Voiture avec chauffeur",
+        "d": "journée à Ouidah"
+      },
+      {
+        "t": "13:00",
+        "s": "Coiffure à domicile",
+        "d": "tresses, deux personnes"
+      },
+      {
+        "t": "16:30",
+        "s": "Recharge & transaction",
+        "d": "MTN, transfert reçu"
+      },
+      {
+        "t": "19:00",
+        "s": "Cuisinier privé",
+        "d": "dîner ouest-africain, pour 4"
+      },
+      {
+        "t": "21:30",
+        "s": "Massage relaxant",
+        "d": "60 min, sur place"
+      }
+    ],
+    "tourismPlaces": [
+      {
+        "name": "Ouidah",
+        "when": "sur la côte",
+        "note": "La route de l'esclave, le temple des pythons, la forêt sacrée de Kpassè."
+      },
+      {
+        "name": "Abomey",
+        "when": "à l'intérieur",
+        "note": "Les palais royaux du Dahomey, classés au patrimoine mondial de l'UNESCO."
+      },
+      {
+        "name": "Lac Noir",
+        "when": "excursion",
+        "note": "Des eaux paisibles bordées de végétation, en barque, à l'écart de la ville."
+      },
+      {
+        "name": "Agouland",
+        "when": "excursion",
+        "note": "Une nature préservée, pour une journée au vert loin de l'agitation."
+      },
+      {
+        "name": "Kpalimé",
+        "when": "vers le Togo",
+        "note": "Des collines verdoyantes, des cascades et des plantations, côté frontière."
+      },
+      {
+        "name": "Lomé",
+        "when": "vers le Togo",
+        "note": "La capitale togolaise, son grand marché et sa longue corniche en bord de mer."
+      }
+    ],
+    "servicesList": [
+      {
+        "slug": "location-voiture",
+        "title": "Location de voiture",
+        "description": "Des véhicules modernes, avec ou sans chauffeur, pour tous vos déplacements."
+      },
+      {
+        "slug": "entretien",
+        "title": "Ménage & entretien",
+        "description": "Des professionnels qualifiés pour la propreté et l'ordre de votre appartement."
+      },
+      {
+        "slug": "coiffure-tresses",
+        "title": "Coiffure & tresses",
+        "description": "Coiffeurs et coiffeuses professionnels se déplacent chez vous."
+      },
+      {
+        "slug": "cuisinier",
+        "title": "Cuisinier à domicile",
+        "description": "Des plats faits maison, préparés selon vos goûts et vos envies."
+      },
+      {
+        "slug": "pedicure-manucure",
+        "title": "Pédicure & manucure",
+        "description": "Soins professionnels pour des mains et des pieds impeccables."
+      },
+      {
+        "slug": "massage",
+        "title": "Massage à domicile",
+        "description": "Des mains expertes pour votre bien-être et votre relaxation."
+      },
+      {
+        "slug": "recharge-transactions",
+        "title": "Recharge & transactions",
+        "description": "Recharge MTN, Moov et Celtis, et transactions rapides."
+      },
+      {
+        "slug": "couture",
+        "title": "Couture à domicile",
+        "description": "Des tailleurs professionnels à votre service, où que vous soyez."
+      },
+      {
+        "slug": "garde-enfants",
+        "title": "Garde d'enfants",
+        "description": "Des nounous professionnelles, fiables et disponibles."
+      },
+      {
+        "slug": "sur-mesure",
+        "title": "Sur mesure",
+        "description": "Un besoin particulier ? Nous adaptons nos services à votre demande."
+      }
+    ],
+    "reviewsTitle": "Ils ont séjourné ici.",
+    "reviewsLede": "Les retours de nos clients, après leur passage.",
+    "reviewsCount": "{n} avis",
+    "reviewsReplyLabel": "Les 2 Palmiers : ",
+    "guestFallback": "Client"
   },
   "auth": {
     "signinTitle": "Se connecter",

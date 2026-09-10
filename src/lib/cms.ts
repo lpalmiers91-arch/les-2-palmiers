@@ -1,6 +1,33 @@
 import "server-only";
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
+import { getLocale } from "@/lib/i18n";
+import { DEFAULT_LOCALE } from "@/lib/i18n/languages";
+
+/**
+ * Localise le contenu d'un bloc CMS : en français on renvoie le contenu tel quel ;
+ * dans les autres langues on superpose `content.i18n[locale]` (rempli au seed pour
+ * les 10 langues). Les champs non traduits retombent, dans les composants, sur les
+ * clés i18n du code. La clé `i18n` elle-même n'est jamais exposée au composant.
+ */
+const PASSTHROUGH = new Set(["image", "images", "video", "href", "url"]);
+
+function localizeContent(
+  content: Record<string, unknown>,
+  locale: string,
+): Record<string, unknown> {
+  const { i18n, ...base } = content as { i18n?: Record<string, Record<string, unknown>> } & Record<
+    string,
+    unknown
+  >;
+  if (locale === DEFAULT_LOCALE) return base;
+  // Autres langues : on ne conserve que les champs non textuels (image…) + les champs
+  // explicitement traduits dans content.i18n[locale]. Tout le reste est laissé vide
+  // pour que le composant retombe sur ses clés i18n (traduites dans les 10 langues).
+  const kept: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(base)) if (PASSTHROUGH.has(k)) kept[k] = v;
+  return { ...kept, ...(i18n?.[locale] ?? {}) };
+}
 
 export type Block = {
   id: string;
@@ -24,7 +51,11 @@ export const getPageBlocks = cache(async (slug: string): Promise<Block[]> => {
     .select("id, type, position, visible, content")
     .eq("page_id", page.id)
     .order("position");
-  return (data ?? []) as Block[];
+  const locale = await getLocale();
+  return (data ?? []).map((b) => ({
+    ...b,
+    content: localizeContent((b.content ?? {}) as Record<string, unknown>, locale),
+  })) as Block[];
 });
 
 /** Contenu d'un bloc d'un type donné sur la page d'accueil (ou {} si absent/masqué). */

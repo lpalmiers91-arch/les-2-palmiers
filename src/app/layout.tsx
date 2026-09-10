@@ -6,6 +6,7 @@ import { getLocale, getT } from "@/lib/i18n";
 import { localeDir } from "@/lib/i18n/languages";
 import { getBranding } from "@/lib/cms";
 import { Analytics } from "@/components/analytics";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -110,6 +111,7 @@ export default async function RootLayout({
           {t("a11y.skipToContent")}
         </a>
         {children}
+        <ScrollToTop />
         <Analytics />
       </body>
     </html>

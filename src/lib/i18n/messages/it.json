@@ -9,7 +9,8 @@
     "menu": "Menu",
     "close": "Chiudi",
     "apartments": "Appartamenti",
-    "currency": "Valuta"
+    "currency": "Valuta",
+    "chooseLanguage": "Scegli la lingua"
   },
   "common": {
     "loading": "Caricamento…",
@@ -65,7 +66,8 @@
     "privacy": "Privacy",
     "cookies": "Cookie",
     "terms": "Condizioni",
-    "legal": "Note legali"
+    "legal": "Note legali",
+    "language": "Lingua"
   },
   "home": {
     "conciergeTitle": "Un solo team.",
@@ -97,7 +99,133 @@
     "tourismTitleEm": "esplora tutt'intorno.",
     "tourismLede": "La costa, i palazzi reali, le lagune, le colline. Organizziamo auto, autista e programma — tu guarda solo dalla finestra.",
     "closingCta": "Prenota l'appartamento",
-    "closingContact": "Una domanda prima di prenotare? Scrivi a"
+    "closingContact": "Una domanda prima di prenotare? Scrivi a",
+    "conciergeLedger": [
+      {
+        "t": "07:30",
+        "s": "Colazione consegnata",
+        "d": "caffè, pane, frutta di stagione"
+      },
+      {
+        "t": "09:00",
+        "s": "Pulizia completa",
+        "d": "camere, cucina, terrazza"
+      },
+      {
+        "t": "10:15",
+        "s": "Auto con autista",
+        "d": "gita a Ouidah"
+      },
+      {
+        "t": "13:00",
+        "s": "Parrucchiere a domicilio",
+        "d": "treccine, due persone"
+      },
+      {
+        "t": "16:30",
+        "s": "Ricarica e transazione",
+        "d": "MTN, bonifico ricevuto"
+      },
+      {
+        "t": "19:00",
+        "s": "Chef privato",
+        "d": "cena dell'Africa occidentale, per 4"
+      },
+      {
+        "t": "21:30",
+        "s": "Massaggio rilassante",
+        "d": "60 min, nell'appartamento"
+      }
+    ],
+    "tourismPlaces": [
+      {
+        "name": "Ouidah",
+        "when": "sulla costa",
+        "note": "La Rotta degli schiavi, il tempio dei pitoni, la foresta sacra di Kpassè."
+      },
+      {
+        "name": "Abomey",
+        "when": "nell'entroterra",
+        "note": "I palazzi reali del Dahomey, Patrimonio Mondiale dell'UNESCO."
+      },
+      {
+        "name": "Lac Noir",
+        "when": "escursione",
+        "note": "Acque tranquille circondate di verde, in barca, lontano dalla città."
+      },
+      {
+        "name": "Agouland",
+        "when": "escursione",
+        "note": "Natura incontaminata, per una giornata verde lontano dal trambusto."
+      },
+      {
+        "name": "Kpalimé",
+        "when": "verso il Togo",
+        "note": "Colline verdeggianti, cascate e piantagioni, vicino al confine."
+      },
+      {
+        "name": "Lomé",
+        "when": "verso il Togo",
+        "note": "La capitale togolese, il suo grande mercato e il suo lungo lungomare."
+      }
+    ],
+    "servicesList": [
+      {
+        "slug": "location-voiture",
+        "title": "Noleggio auto",
+        "description": "Veicoli moderni, con o senza autista, per tutti i tuoi spostamenti."
+      },
+      {
+        "slug": "entretien",
+        "title": "Pulizie e manutenzione",
+        "description": "Professionisti qualificati per la pulizia e l'ordine del tuo appartamento."
+      },
+      {
+        "slug": "coiffure-tresses",
+        "title": "Parrucchiere e treccine",
+        "description": "Parrucchieri professionisti vengono da te."
+      },
+      {
+        "slug": "cuisinier",
+        "title": "Cuoco a domicilio",
+        "description": "Piatti fatti in casa, preparati secondo i tuoi gusti."
+      },
+      {
+        "slug": "pedicure-manucure",
+        "title": "Pedicure e manicure",
+        "description": "Trattamenti professionali per mani e piedi impeccabili."
+      },
+      {
+        "slug": "massage",
+        "title": "Massaggio a domicilio",
+        "description": "Mani esperte per il tuo benessere e il tuo relax."
+      },
+      {
+        "slug": "recharge-transactions",
+        "title": "Ricariche e transazioni",
+        "description": "Ricariche MTN, Moov e Celtis, e transazioni rapide."
+      },
+      {
+        "slug": "couture",
+        "title": "Sartoria a domicilio",
+        "description": "Sarti professionisti al tuo servizio, ovunque tu sia."
+      },
+      {
+        "slug": "garde-enfants",
+        "title": "Babysitting",
+        "description": "Babysitter professionali, affidabili e disponibili."
+      },
+      {
+        "slug": "sur-mesure",
+        "title": "Su misura",
+        "description": "Un'esigenza particolare? Adattiamo i nostri servizi alla tua richiesta."
+      }
+    ],
+    "reviewsTitle": "Hanno soggiornato qui.",
+    "reviewsLede": "I commenti dei nostri ospiti, dopo il soggiorno.",
+    "reviewsCount": "{n} recensioni",
+    "reviewsReplyLabel": "Les 2 Palmiers: ",
+    "guestFallback": "Ospite"
   },
   "auth": {
     "signinTitle": "Accedi",

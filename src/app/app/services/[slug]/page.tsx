@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ServiceOrderForm } from "@/components/app/service-order-form";
 import { formatDate, parseRange } from "@/lib/format";
 import { getT } from "@/lib/i18n";
+import { pickServiceI18n } from "@/lib/services";
 
 export default async function ServiceDetail({
   params,
@@ -12,17 +13,20 @@ export default async function ServiceDetail({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { t } = await getT();
+  const { t, locale } = await getT();
   const supabase = await createClient();
 
-  const { data: service } = await supabase
+  const { data: rawService } = await supabase
     .from("services")
-    .select("id, slug, title, description, pricing_mode, base_price, lead_time_hours, options_schema")
+    .select(
+      "id, slug, title, description, pricing_mode, base_price, lead_time_hours, options_schema, i18n",
+    )
     .eq("slug", slug)
     .eq("active", true)
     .maybeSingle();
 
-  if (!service) notFound();
+  if (!rawService) notFound();
+  const service = pickServiceI18n(rawService, locale);
 
   const { data: res } = await supabase
     .from("reservations")

@@ -9,7 +9,8 @@
     "menu": "Menü",
     "close": "Schließen",
     "apartments": "Apartments",
-    "currency": "Währung"
+    "currency": "Währung",
+    "chooseLanguage": "Sprache wählen"
   },
   "common": {
     "loading": "Wird geladen…",
@@ -65,7 +66,8 @@
     "privacy": "Datenschutz",
     "cookies": "Cookies",
     "terms": "AGB",
-    "legal": "Impressum"
+    "legal": "Impressum",
+    "language": "Sprache"
   },
   "home": {
     "conciergeTitle": "Ein Team.",
@@ -97,7 +99,133 @@
     "tourismTitleEm": "erkunden Sie die Umgebung.",
     "tourismLede": "Die Küste, die Königspaläste, die Lagunen, die Hügel. Wir organisieren Auto, Fahrer und Programm — Sie schauen nur aus dem Fenster.",
     "closingCta": "Wohnung buchen",
-    "closingContact": "Eine Frage vor der Buchung? Schreiben Sie an"
+    "closingContact": "Eine Frage vor der Buchung? Schreiben Sie an",
+    "conciergeLedger": [
+      {
+        "t": "07:30",
+        "s": "Frühstück geliefert",
+        "d": "Kaffee, Brot, Obst der Saison"
+      },
+      {
+        "t": "09:00",
+        "s": "Komplette Reinigung",
+        "d": "Schlafzimmer, Küche, Terrasse"
+      },
+      {
+        "t": "10:15",
+        "s": "Wagen mit Fahrer",
+        "d": "Tagesausflug nach Ouidah"
+      },
+      {
+        "t": "13:00",
+        "s": "Frisör zu Hause",
+        "d": "Zöpfe, zwei Personen"
+      },
+      {
+        "t": "16:30",
+        "s": "Aufladung & Überweisung",
+        "d": "MTN, Überweisung erhalten"
+      },
+      {
+        "t": "19:00",
+        "s": "Privatkoch",
+        "d": "westafrikanisches Abendessen, für 4"
+      },
+      {
+        "t": "21:30",
+        "s": "Entspannungsmassage",
+        "d": "60 Min., in der Wohnung"
+      }
+    ],
+    "tourismPlaces": [
+      {
+        "name": "Ouidah",
+        "when": "an der Küste",
+        "note": "Die Sklavenroute, der Pythontempel, der heilige Wald von Kpassè."
+      },
+      {
+        "name": "Abomey",
+        "when": "im Landesinneren",
+        "note": "Die Königspaläste von Dahomey, UNESCO-Weltkulturerbe."
+      },
+      {
+        "name": "Lac Noir",
+        "when": "Tagesausflug",
+        "note": "Ruhiges, von Grün gesäumtes Wasser, per Boot, abseits der Stadt."
+      },
+      {
+        "name": "Agouland",
+        "when": "Tagesausflug",
+        "note": "Unberührte Natur, für einen grünen Tag fern vom Trubel."
+      },
+      {
+        "name": "Kpalimé",
+        "when": "Richtung Togo",
+        "note": "Grüne Hügel, Wasserfälle und Plantagen, nahe der Grenze."
+      },
+      {
+        "name": "Lomé",
+        "when": "Richtung Togo",
+        "note": "Die Hauptstadt Togos, ihr großer Markt und ihre lange Strandpromenade."
+      }
+    ],
+    "servicesList": [
+      {
+        "slug": "location-voiture",
+        "title": "Autovermietung",
+        "description": "Moderne Fahrzeuge, mit oder ohne Fahrer, für alle Ihre Wege."
+      },
+      {
+        "slug": "entretien",
+        "title": "Reinigung & Instandhaltung",
+        "description": "Qualifizierte Fachkräfte für Sauberkeit und Ordnung Ihrer Wohnung."
+      },
+      {
+        "slug": "coiffure-tresses",
+        "title": "Frisör & Zöpfe",
+        "description": "Professionelle Frisöre kommen zu Ihnen."
+      },
+      {
+        "slug": "cuisinier",
+        "title": "Koch zu Hause",
+        "description": "Hausgemachte Gerichte, nach Ihrem Geschmack zubereitet."
+      },
+      {
+        "slug": "pedicure-manucure",
+        "title": "Pediküre & Maniküre",
+        "description": "Professionelle Pflege für makellose Hände und Füße."
+      },
+      {
+        "slug": "massage",
+        "title": "Massage zu Hause",
+        "description": "Erfahrene Hände für Ihr Wohlbefinden und Ihre Entspannung."
+      },
+      {
+        "slug": "recharge-transactions",
+        "title": "Aufladungen & Transaktionen",
+        "description": "MTN-, Moov- und Celtis-Aufladungen sowie schnelle Transaktionen."
+      },
+      {
+        "slug": "couture",
+        "title": "Schneiderei zu Hause",
+        "description": "Professionelle Schneider zu Ihren Diensten, wo immer Sie sind."
+      },
+      {
+        "slug": "garde-enfants",
+        "title": "Kinderbetreuung",
+        "description": "Professionelle, zuverlässige und verfügbare Betreuerinnen."
+      },
+      {
+        "slug": "sur-mesure",
+        "title": "Maßgeschneidert",
+        "description": "Ein besonderer Wunsch? Wir passen unsere Leistungen an Ihre Anfrage an."
+      }
+    ],
+    "reviewsTitle": "Sie haben hier gewohnt.",
+    "reviewsLede": "Die Rückmeldungen unserer Gäste nach ihrem Aufenthalt.",
+    "reviewsCount": "{n} Bewertungen",
+    "reviewsReplyLabel": "Les 2 Palmiers: ",
+    "guestFallback": "Gast"
   },
   "auth": {
     "signinTitle": "Anmelden",

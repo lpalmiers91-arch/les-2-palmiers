@@ -3,6 +3,7 @@ import { site } from "@/lib/site";
 import { servicesFallback, destinationsFallback } from "@/lib/site";
 import { getT } from "@/lib/i18n";
 import { getBranding } from "@/lib/cms";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 
 export async function SiteFooter() {
   const { t } = await getT();
@@ -88,9 +89,15 @@ export async function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col items-center gap-3 border-t border-line-dark pt-7 text-center text-[12.5px] text-bone/45 sm:flex-row sm:items-center sm:justify-between sm:text-left">
-          <p>© {year} {site.legalName}</p>
-          <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1" aria-label="Legal">
+        <div className="mt-14 flex flex-col items-center gap-4 border-t border-line-dark pt-7 text-center text-[12.5px] text-bone/45 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <p className="order-3 sm:order-1">© {year} {site.legalName}</p>
+          <div className="order-1 text-bone/70 sm:order-2">
+            <LanguageSwitcher tone="bone" drop="up" />
+          </div>
+          <nav
+            className="order-2 flex flex-wrap justify-center gap-x-5 gap-y-1 sm:order-3"
+            aria-label="Legal"
+          >
             <Link href="/legal/confidentialite" className="hover:text-bone/70">
               {t("footer.privacy")}
             </Link>
