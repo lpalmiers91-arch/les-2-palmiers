@@ -23,7 +23,7 @@ export default async function ReservationsPage() {
         sub={t("appRes.sub")}
         action={
           <Link
-            href="/reserver"
+            href="/app/reserver"
             className="press inline-flex h-10 items-center rounded-full bg-ink px-5 text-[13px] font-medium text-bone hover:bg-forest-2"
           >
             {t("appRes.newStay")}
@@ -35,7 +35,7 @@ export default async function ReservationsPage() {
         <EmptyState
           title={t("appRes.emptyT")}
           body={t("appRes.emptyB")}
-          cta={{ href: "/reserver", label: t("appRes.bookStay") }}
+          cta={{ href: "/app/reserver", label: t("appRes.bookStay") }}
         />
       ) : (
         <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">

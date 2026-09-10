@@ -1184,7 +1184,8 @@
     "verifyIdentity": "Verify my identity",
     "signOut": "Sign out",
     "menu": "Menu",
-    "close": "Close"
+    "close": "Close",
+    "apartments": "Apartments"
   },
   "favorites": {
     "title": "My favorites",

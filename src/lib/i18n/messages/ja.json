@@ -1184,7 +1184,8 @@
     "verifyIdentity": "本人確認を行う",
     "signOut": "ログアウト",
     "menu": "メニュー",
-    "close": "閉じる"
+    "close": "閉じる",
+    "apartments": "アパートメント"
   },
   "favorites": {
     "title": "お気に入り",

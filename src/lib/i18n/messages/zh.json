@@ -1184,7 +1184,8 @@
     "verifyIdentity": "验证我的身份",
     "signOut": "退出登录",
     "menu": "菜单",
-    "close": "关闭"
+    "close": "关闭",
+    "apartments": "公寓"
   },
   "favorites": {
     "title": "我的收藏",

@@ -1184,7 +1184,8 @@
     "verifyIdentity": "Подтвердить личность",
     "signOut": "Выйти",
     "menu": "Меню",
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "apartments": "Апартаменты"
   },
   "favorites": {
     "title": "Избранное",

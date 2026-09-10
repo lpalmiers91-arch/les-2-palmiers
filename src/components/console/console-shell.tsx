@@ -77,7 +77,7 @@ const NAVS: Record<"staff" | "admin", NavGroup[]> = {
       items: [
         { href: "/admin", key: "dashboard", icon: LayoutGrid, exact: true },
         { href: "/admin/statistiques", key: "statistics", icon: TrendingUp },
-        { href: "/staff/seo", key: "seo", icon: Search },
+        { href: "/admin/seo", key: "seo", icon: Search },
         { href: "/admin/analytics", key: "analytics", icon: Activity },
         { href: "/admin/paiements", key: "payments", icon: CreditCard },
         { href: "/admin/verifications", key: "verifications", icon: ShieldCheck },

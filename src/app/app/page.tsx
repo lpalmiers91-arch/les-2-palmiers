@@ -122,7 +122,7 @@ export default async function AppHome() {
           <EmptyState
             title={t("appHome.noStayT")}
             body={t("appHome.noStayB")}
-            cta={{ href: "/reserver", label: t("appHome.bookStay") }}
+            cta={{ href: "/app/reserver", label: t("appHome.bookStay") }}
           />
         )}
       </div>

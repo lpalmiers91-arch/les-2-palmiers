@@ -48,7 +48,7 @@ export default async function FavoritesPage() {
           <p className="mt-3 text-[14px] font-medium text-ink">{t("favorites.emptyT")}</p>
           <p className="mt-1 text-[13px] text-ink-3">{t("favorites.emptyB")}</p>
           <Link
-            href="/appartements"
+            href="/app/appartements"
             className="press mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-bone hover:bg-forest-2"
           >
             {t("favorites.browse")} <ArrowRight className="h-4 w-4" />
@@ -59,7 +59,7 @@ export default async function FavoritesPage() {
           {rows.map((a) => (
             <li key={a.id}>
               <Link
-                href={`/appartements/${a.slug}`}
+                href={`/app/appartements/${a.slug}`}
                 className="group flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone transition-colors hover:border-ink/25"
               >
                 <div className="relative aspect-[4/3] bg-bone-2">

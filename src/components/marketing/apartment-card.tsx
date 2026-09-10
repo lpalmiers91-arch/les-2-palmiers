@@ -7,12 +7,12 @@ import { getFavoriteState } from "@/lib/favorites";
 import { FavoriteButton } from "./favorite-button";
 import type { ApartmentCard as Apt } from "@/lib/apartments";
 
-export async function ApartmentCard({ apt }: { apt: Apt }) {
+export async function ApartmentCard({ apt, href }: { apt: Apt; href?: string }) {
   const { t } = await getT();
   const fav = await getFavoriteState();
   return (
     <Link
-      href={`/appartements/${apt.slug}`}
+      href={href ?? `/appartements/${apt.slug}`}
       className="group flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone transition-colors hover:border-ink/25"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-bone-2">

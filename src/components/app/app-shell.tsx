@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   LayoutGrid,
   CalendarDays,
@@ -14,9 +14,11 @@ import {
   Gift,
   Heart,
   Users,
+  Building2,
   LogOut,
   Menu,
   X,
+  ChevronDown,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { PresenceProvider } from "@/lib/presence";
@@ -28,6 +30,7 @@ type Notif = Parameters<typeof NotificationBell>[0]["initial"][number];
 export function AppShell({
   children,
   userName,
+  userEmail = null,
   userId,
   notifications,
   unreadMessages = 0,
@@ -37,6 +40,7 @@ export function AppShell({
 }: {
   children: React.ReactNode;
   userName: string;
+  userEmail?: string | null;
   userId: string;
   notifications: Notif[];
   unreadMessages?: number;
@@ -53,6 +57,7 @@ export function AppShell({
   const nav = [
     { href: "/app", label: t("appNav.overview"), icon: LayoutGrid, exact: true },
     { href: "/app/reservations", label: t("appNav.reservations"), icon: CalendarDays },
+    { href: "/app/appartements", label: t("appNav.apartments"), icon: Building2 },
     { href: "/app/services", label: t("appNav.services"), icon: ConciergeBell },
     { href: "/app/messages", label: t("appNav.messages"), icon: MessageSquare },
     { href: "/app/favoris", label: t("appNav.favorites"), icon: Heart },
@@ -63,7 +68,6 @@ export function AppShell({
           { href: "/app/cartes-cadeaux", label: t("appNav.giftCards"), icon: Gift },
         ]
       : []),
-    { href: "/app/compte", label: t("appNav.account"), icon: UserRound },
   ];
 
   const active = (href: string, exact?: boolean) =>
@@ -108,9 +112,7 @@ export function AppShell({
           href="/app/verification"
           onClick={onNav}
           className={`flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13.5px] transition-colors ${
-            active("/app/verification")
-              ? "bg-brass text-bone"
-              : "text-brass-2 hover:bg-ink/5"
+            active("/app/verification") ? "bg-brass text-bone" : "text-brass-2 hover:bg-ink/5"
           }`}
         >
           <ShieldCheck className="h-[18px] w-[18px]" strokeWidth={1.7} />
@@ -130,32 +132,33 @@ export function AppShell({
           </Link>
           <NotificationBell userId={userId} initial={notifications} align="left" />
         </div>
-        <div className="mt-7 flex-1">
+        <div className="mt-7 flex-1 overflow-y-auto">
           <NavList onNav={() => setOpen(false)} />
         </div>
-        <div className="border-t border-line pt-3">
-          <div className="flex items-center gap-2 px-3 pb-2">
-            <Avatar url={avatarUrl} name={userName} />
-            <span className="truncate text-[12px] text-ink-3">{userName}</span>
-          </div>
-          <button
-            onClick={signOut}
-            className="press flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13.5px] text-ink-2 hover:bg-ink/5"
-          >
-            <LogOut className="h-4 w-4" strokeWidth={1.7} />
-            {t("appNav.signOut")}
-          </button>
+        <div className="border-t border-line pt-2">
+          <UserMenu
+            name={userName}
+            email={userEmail}
+            avatarUrl={avatarUrl}
+            active={active("/app/compte")}
+            onSignOut={signOut}
+            t={t}
+          />
         </div>
       </aside>
 
-      <header className="sticky top-0 z-40 flex items-center justify-between border-b border-line bg-bone/90 px-4 py-3 backdrop-blur-lg lg:hidden">
+      <header className="sticky top-0 z-40 flex items-center justify-between border-b border-line bg-bone/95 px-4 py-2.5 backdrop-blur-lg lg:hidden">
         <Link href="/app" className="flex items-center gap-2 text-ink">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/wordmark.png" alt="Les 2 Palmiers" className="h-5 w-auto" />
         </Link>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           <NotificationBell userId={userId} initial={notifications} align="right" />
-          <button onClick={() => setOpen(true)} aria-label={t("appNav.menu")} className="press p-1 text-ink">
+          <button
+            onClick={() => setOpen(true)}
+            aria-label={t("appNav.menu")}
+            className="press flex h-9 w-9 items-center justify-center text-ink"
+          >
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -164,26 +167,33 @@ export function AppShell({
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-ink/40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-0 h-full w-72 bg-bone p-5">
+          <div className="absolute right-0 top-0 flex h-full w-[82vw] max-w-xs flex-col bg-bone p-5">
             <div className="flex items-center justify-between">
-              <span className="flex items-center gap-2">
-                <Avatar url={avatarUrl} name={userName} />
-                <span className="display truncate text-[1rem] text-ink">{userName}</span>
-              </span>
+              <img src="/brand/wordmark.png" alt="Les 2 Palmiers" className="h-5 w-auto" />
               <button onClick={() => setOpen(false)} aria-label={t("appNav.close")} className="press p-1">
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <div className="mt-6">
+            <div className="mt-6 flex-1 overflow-y-auto">
               <NavList onNav={() => setOpen(false)} />
             </div>
-            <button
-              onClick={signOut}
-              className="press mt-4 flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2.5 text-[14px] text-ink-2 hover:bg-ink/5"
-            >
-              <LogOut className="h-4 w-4" />
-              {t("appNav.signOut")}
-            </button>
+            <div className="mt-3 border-t border-line pt-3">
+              <Link
+                href="/app/compte"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[14px] text-ink-2 hover:bg-ink/5"
+              >
+                <UserRound className="h-[18px] w-[18px]" strokeWidth={1.7} />
+                <span className="min-w-0 flex-1 truncate">{userName}</span>
+              </Link>
+              <button
+                onClick={signOut}
+                className="press mt-0.5 flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-[14px] text-ink-2 hover:bg-ink/5"
+              >
+                <LogOut className="h-[18px] w-[18px]" strokeWidth={1.7} />
+                {t("appNav.signOut")}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -197,11 +207,83 @@ export function AppShell({
   );
 }
 
+function UserMenu({
+  name,
+  email,
+  avatarUrl,
+  active,
+  onSignOut,
+  t,
+}: {
+  name: string;
+  email: string | null;
+  avatarUrl: string | null;
+  active: boolean;
+  onSignOut: () => void;
+  t: (k: string) => string;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const h = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, [open]);
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className={`press flex w-full items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-left transition-colors ${
+          open || active ? "bg-ink/5" : "hover:bg-ink/5"
+        }`}
+        aria-expanded={open}
+        aria-haspopup="menu"
+      >
+        <Avatar url={avatarUrl} name={name} />
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-[12.5px] font-medium text-ink">{name}</span>
+          {email && <span className="block truncate text-[10.5px] text-ink-3">{email}</span>}
+        </span>
+        <ChevronDown
+          className={`h-3.5 w-3.5 shrink-0 text-ink-3 transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className="absolute bottom-[calc(100%+6px)] left-0 right-0 overflow-hidden rounded-[12px] border border-line bg-bone py-1 shadow-[0_18px_44px_-18px_rgba(23,19,13,0.4)]"
+        >
+          <Link
+            href="/app/compte"
+            role="menuitem"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2.5 px-3 py-2 text-[13px] text-ink-2 hover:bg-ink/5"
+          >
+            <UserRound className="h-4 w-4" strokeWidth={1.7} /> {t("appNav.account")}
+          </Link>
+          <button
+            role="menuitem"
+            onClick={onSignOut}
+            className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-ink-2 hover:bg-ink/5"
+          >
+            <LogOut className="h-4 w-4" strokeWidth={1.7} /> {t("appNav.signOut")}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Avatar({ url, name }: { url: string | null; name: string }) {
   return (
-    <span className="relative flex h-7 w-7 shrink-0 overflow-hidden rounded-full bg-bone-2 ring-1 ring-line">
+    <span className="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-full bg-bone-2 ring-1 ring-line">
       {url ? (
-        <Image src={url} alt="" fill sizes="28px" className="object-cover" />
+        <Image src={url} alt="" fill sizes="32px" className="object-cover" />
       ) : (
         <span className="flex h-full w-full items-center justify-center text-[11px] font-medium text-ink-3">
           {name.slice(0, 2).toUpperCase()}

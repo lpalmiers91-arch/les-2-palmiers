@@ -10,6 +10,9 @@ import { I18nProvider } from "@/lib/i18n/provider";
 import { getLocale, getMessages } from "@/lib/i18n";
 import { audienceFromRoles, homeFor } from "@/lib/spaces";
 import { aiSpaceEnabled } from "@/lib/ai";
+import { CurrencyProvider } from "@/lib/currency";
+import { getFxConfig } from "@/lib/fx";
+import { autoCurrency } from "@/lib/geo";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
@@ -42,9 +45,11 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       supabase.from("messages").select("id, sender_id, created_at").neq("sender_id", user.id),
       supabase.rpc("identity_status", { uid: user.id }),
     ]);
-  const [aiOn, { data: loyaltyCfg }] = await Promise.all([
+  const [aiOn, { data: loyaltyCfg }, fx, curr] = await Promise.all([
     aiSpaceEnabled("client"),
     supabase.from("loyalty_settings").select("enabled").eq("id", 1).maybeSingle(),
+    getFxConfig(),
+    autoCurrency(),
   ]);
 
   // messages non lus = messages du staff sans accusé de lecture de ma part
@@ -60,21 +65,24 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
 
   return (
     <I18nProvider locale={locale} messages={messages}>
-      <AppShell
-        userName={profile?.full_name || user.email || "Mon compte"}
-        userId={user.id}
-        notifications={notifs ?? []}
-        unreadMessages={unreadMessages}
-        avatarUrl={profile?.avatar_url ?? null}
-        identityStatus={typeof idStatus === "string" ? idStatus : "none"}
-        loyaltyEnabled={loyaltyCfg?.enabled ?? false}
-      >
-        {children}
-        <LiveRefresh space="client" userId={user.id} />
-        {aiOn && <AssistantWidget space="client" />}
-        <InstallPrompt />
-        <PushSetup />
-      </AppShell>
+      <CurrencyProvider rates={fx.rates} enabled={fx.enabled} initial={curr}>
+        <AppShell
+          userName={profile?.full_name || user.email || "Mon compte"}
+          userEmail={user.email ?? null}
+          userId={user.id}
+          notifications={notifs ?? []}
+          unreadMessages={unreadMessages}
+          avatarUrl={profile?.avatar_url ?? null}
+          identityStatus={typeof idStatus === "string" ? idStatus : "none"}
+          loyaltyEnabled={loyaltyCfg?.enabled ?? false}
+        >
+          {children}
+          <LiveRefresh space="client" userId={user.id} />
+          {aiOn && <AssistantWidget space="client" />}
+          <InstallPrompt />
+          <PushSetup />
+        </AppShell>
+      </CurrencyProvider>
     </I18nProvider>
   );
 }
