@@ -971,5 +971,25 @@
     "errCapacity": "Demasiados hóspedes para este apartamento.",
     "errEmail": "Endereço de e-mail inválido.",
     "errGeneric": "A criação falhou. Tente novamente."
+  },
+  "ical": {
+    "title": "Sincronização de calendário",
+    "lede": "Evite reservas duplicadas entre este site, Airbnb, Booking.com e outros.",
+    "exportLabel": "Link de exportação (cole no Airbnb, Booking…)",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "exportHint": "Este link expõe apenas as datas reservadas e bloqueadas, sem dados pessoais.",
+    "importLabel": "Calendários externos importados aqui",
+    "lastError": "A última sincronização falhou",
+    "lastSync": "{count} período(s) · {date}",
+    "neverSynced": "Nunca sincronizado",
+    "syncNow": "Sincronizar agora",
+    "remove": "Remover",
+    "urlPlaceholder": "https://…/calendar.ics",
+    "labelPlaceholder": "Nome (ex. Airbnb, Booking.com)",
+    "add": "Adicionar",
+    "errUrl": "Introduza um URL válido que comece por http.",
+    "errDup": "Este calendário já foi adicionado.",
+    "errGeneric": "A adição falhou. Tente novamente."
   }
 }

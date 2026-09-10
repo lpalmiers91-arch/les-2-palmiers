@@ -971,5 +971,25 @@
     "errCapacity": "Trop de voyageurs pour cet appartement.",
     "errEmail": "Adresse e-mail invalide.",
     "errGeneric": "La création a échoué. Réessayez."
+  },
+  "ical": {
+    "title": "Synchronisation de calendrier",
+    "lede": "Évitez les doubles réservations entre ce site, Airbnb, Booking.com et les autres.",
+    "exportLabel": "Lien d'export (à coller dans Airbnb, Booking…)",
+    "copy": "Copier",
+    "copied": "Copié",
+    "exportHint": "Ce lien expose les dates réservées et bloquées, sans donnée personnelle.",
+    "importLabel": "Calendriers externes importés ici",
+    "lastError": "Échec de la dernière synchro",
+    "lastSync": "{count} période(s) · {date}",
+    "neverSynced": "Jamais synchronisé",
+    "syncNow": "Synchroniser maintenant",
+    "remove": "Retirer",
+    "urlPlaceholder": "https://…/calendar.ics",
+    "labelPlaceholder": "Nom (ex. Airbnb, Booking.com)",
+    "add": "Ajouter",
+    "errUrl": "Entrez une URL valide commençant par http.",
+    "errDup": "Ce calendrier est déjà ajouté.",
+    "errGeneric": "L'ajout a échoué. Réessayez."
   }
 }

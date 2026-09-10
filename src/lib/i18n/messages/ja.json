@@ -971,5 +971,25 @@
     "errCapacity": "この部屋には人数が多すぎます。",
     "errEmail": "メールアドレスが無効です。",
     "errGeneric": "作成に失敗しました。もう一度お試しください。"
+  },
+  "ical": {
+    "title": "カレンダー同期",
+    "lede": "本サイトと Airbnb、Booking.com などの間の二重予約を防ぎます。",
+    "exportLabel": "エクスポート用リンク(Airbnb・Booking などに貼り付け)",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "exportHint": "このリンクは予約済み・ブロック済みの日付のみを公開し、個人情報は含みません。",
+    "importLabel": "ここに取り込む外部カレンダー",
+    "lastError": "前回の同期に失敗",
+    "lastSync": "{count} 期間 · {date}",
+    "neverSynced": "未同期",
+    "syncNow": "今すぐ同期",
+    "remove": "削除",
+    "urlPlaceholder": "https://…/calendar.ics",
+    "labelPlaceholder": "ラベル(例:Airbnb、Booking.com)",
+    "add": "追加",
+    "errUrl": "http で始まる有効な URL を入力してください。",
+    "errDup": "このカレンダーはすでに追加されています。",
+    "errGeneric": "追加に失敗しました。もう一度お試しください。"
   }
 }

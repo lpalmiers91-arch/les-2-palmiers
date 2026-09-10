@@ -9,6 +9,7 @@ import {
   type MediaRow,
   type BlockRow,
 } from "@/components/console/apartment-editor";
+import { IcalPanel, type IcalFeed } from "@/components/console/ical-panel";
 import { getT } from "@/lib/i18n";
 
 export const metadata: Metadata = { title: "Modifier l'appartement" };
@@ -21,14 +22,14 @@ export default async function ApartmentDetail({ params }: { params: Promise<{ id
   const { data: apartment } = await supabase
     .from("apartments")
     .select(
-      "id, slug, name, summary, description, address, map_url, capacity, bedrooms, bathrooms, base_price, cleaning_fee, checkin_from, checkout_before, cancellation_policy, status",
+      "id, slug, name, summary, description, address, map_url, capacity, bedrooms, bathrooms, base_price, cleaning_fee, checkin_from, checkout_before, cancellation_policy, status, ical_token",
     )
     .eq("id", id)
     .maybeSingle();
 
   if (!apartment) notFound();
 
-  const [{ data: media }, { data: blocks }] = await Promise.all([
+  const [{ data: media }, { data: blocks }, { data: feeds }] = await Promise.all([
     supabase
       .from("apartment_media")
       .select("id, storage_path, alt, position, is_cover")
@@ -39,6 +40,11 @@ export default async function ApartmentDetail({ params }: { params: Promise<{ id
       .select("id, date_range, reason, note")
       .eq("apartment_id", id)
       .order("date_range"),
+    supabase
+      .from("apartment_ical_feeds")
+      .select("id, url, label, active, last_synced_at, last_status, last_count")
+      .eq("apartment_id", id)
+      .order("created_at"),
   ]);
 
   return (
@@ -55,6 +61,11 @@ export default async function ApartmentDetail({ params }: { params: Promise<{ id
           apartment={apartment as ApartmentRow}
           media={(media ?? []) as MediaRow[]}
           blocks={(blocks ?? []) as BlockRow[]}
+        />
+        <IcalPanel
+          apartmentId={apartment.id as string}
+          icalToken={(apartment.ical_token as string) ?? ""}
+          feeds={(feeds ?? []) as IcalFeed[]}
         />
       </div>
     </div>

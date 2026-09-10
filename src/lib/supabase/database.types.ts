@@ -276,6 +276,57 @@ export type Database = {
           },
         ]
       }
+      apartment_ical_feeds: {
+        Row: {
+          active: boolean
+          apartment_id: string
+          created_at: string
+          id: string
+          label: string | null
+          last_count: number | null
+          last_status: string | null
+          last_synced_at: string | null
+          url: string
+        }
+        Insert: {
+          active?: boolean
+          apartment_id: string
+          created_at?: string
+          id?: string
+          label?: string | null
+          last_count?: number | null
+          last_status?: string | null
+          last_synced_at?: string | null
+          url: string
+        }
+        Update: {
+          active?: boolean
+          apartment_id?: string
+          created_at?: string
+          id?: string
+          label?: string | null
+          last_count?: number | null
+          last_status?: string | null
+          last_synced_at?: string | null
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "apartment_ical_feeds_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "apartments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "apartment_ical_feeds_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "v_occupancy_monthly"
+            referencedColumns: ["apartment_id"]
+          },
+        ]
+      }
       apartment_media: {
         Row: {
           alt: string | null
@@ -340,6 +391,7 @@ export type Database = {
           description: string | null
           geo: unknown
           house_rules: Json
+          ical_token: string | null
           id: string
           map_url: string | null
           name: string
@@ -363,6 +415,7 @@ export type Database = {
           description?: string | null
           geo?: unknown
           house_rules?: Json
+          ical_token?: string | null
           id?: string
           map_url?: string | null
           name: string
@@ -386,6 +439,7 @@ export type Database = {
           description?: string | null
           geo?: unknown
           house_rules?: Json
+          ical_token?: string | null
           id?: string
           map_url?: string | null
           name?: string
@@ -2398,11 +2452,31 @@ export type Database = {
     }
     Functions: {
       ai_space_enabled: { Args: { p_space: string }; Returns: boolean }
+      apartment_by_ical_token: {
+        Args: { p_token: string }
+        Returns: {
+          id: string
+          name: string
+        }[]
+      }
       apartment_calendar: {
         Args: { p_apartment: string; p_from?: string; p_to?: string }
         Returns: string[]
       }
+      apartment_ical_events: {
+        Args: { p_apartment: string }
+        Returns: {
+          ends: string
+          starts: string
+          summary: string
+          uid: string
+        }[]
+      }
       apartment_is_visible: { Args: { aid: string }; Returns: boolean }
+      apply_ical_feed: {
+        Args: { p_events: Json; p_feed: string }
+        Returns: number
+      }
       auth_has_permission: { Args: { perm: string }; Returns: boolean }
       auth_has_role: { Args: { role_key: string }; Returns: boolean }
       can_see_stay_info: { Args: { aid: string }; Returns: boolean }
@@ -2648,6 +2722,10 @@ export type Database = {
         Returns: number
       }
       loyalty_tier_for: { Args: { pts: number }; Returns: string }
+      mark_ical_feed_error: {
+        Args: { p_feed: string; p_msg: string }
+        Returns: undefined
+      }
       moderate_review: {
         Args: {
           p_featured?: boolean
@@ -3143,6 +3221,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      trigger_ical_sync: { Args: never; Returns: undefined }
       withdraw_reservation_change: {
         Args: { p_id: string }
         Returns: undefined

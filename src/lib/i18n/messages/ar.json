@@ -971,5 +971,25 @@
     "errCapacity": "عدد الضيوف كبير على هذه الشقة.",
     "errEmail": "عنوان بريد إلكتروني غير صالح.",
     "errGeneric": "فشل الإنشاء. حاول مرة أخرى."
+  },
+  "ical": {
+    "title": "مزامنة التقويم",
+    "lede": "تجنّب الحجوزات المزدوجة بين هذا الموقع وAirbnb وBooking.com وغيرها.",
+    "exportLabel": "رابط التصدير (الصقه في Airbnb وBooking…)",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "exportHint": "يكشف هذا الرابط عن التواريخ المحجوزة والمغلقة فقط، دون بيانات شخصية.",
+    "importLabel": "التقاويم الخارجية المستوردة هنا",
+    "lastError": "فشلت آخر مزامنة",
+    "lastSync": "{count} فترة · {date}",
+    "neverSynced": "لم تتم المزامنة بعد",
+    "syncNow": "مزامنة الآن",
+    "remove": "إزالة",
+    "urlPlaceholder": "https://…/calendar.ics",
+    "labelPlaceholder": "الاسم (مثل Airbnb، Booking.com)",
+    "add": "إضافة",
+    "errUrl": "أدخل رابطاً صحيحاً يبدأ بـ http.",
+    "errDup": "تمت إضافة هذا التقويم بالفعل.",
+    "errGeneric": "فشلت الإضافة. حاول مرة أخرى."
   }
 }

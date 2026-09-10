@@ -971,5 +971,25 @@
     "errCapacity": "Too many guests for this apartment.",
     "errEmail": "Invalid email address.",
     "errGeneric": "Creation failed. Please try again."
+  },
+  "ical": {
+    "title": "Calendar sync",
+    "lede": "Avoid double bookings between this site, Airbnb, Booking.com and others.",
+    "exportLabel": "Export link (paste into Airbnb, Booking…)",
+    "copy": "Copy",
+    "copied": "Copied",
+    "exportHint": "This link exposes booked and blocked dates only, no personal data.",
+    "importLabel": "External calendars imported here",
+    "lastError": "Last sync failed",
+    "lastSync": "{count} period(s) · {date}",
+    "neverSynced": "Never synced",
+    "syncNow": "Sync now",
+    "remove": "Remove",
+    "urlPlaceholder": "https://…/calendar.ics",
+    "labelPlaceholder": "Label (e.g. Airbnb, Booking.com)",
+    "add": "Add",
+    "errUrl": "Enter a valid URL starting with http.",
+    "errDup": "This calendar is already added.",
+    "errGeneric": "Adding failed. Please try again."
   }
 }

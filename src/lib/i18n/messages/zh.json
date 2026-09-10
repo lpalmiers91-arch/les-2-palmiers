@@ -971,5 +971,25 @@
     "errCapacity": "住客人数超过此公寓容量。",
     "errEmail": "邮箱地址无效。",
     "errGeneric": "创建失败。请重试。"
+  },
+  "ical": {
+    "title": "日历同步",
+    "lede": "避免本站与 Airbnb、Booking.com 等平台之间的重复预订。",
+    "exportLabel": "导出链接(粘贴到 Airbnb、Booking…)",
+    "copy": "复制",
+    "copied": "已复制",
+    "exportHint": "此链接仅显示已预订和已封锁的日期,不含个人数据。",
+    "importLabel": "在此导入的外部日历",
+    "lastError": "上次同步失败",
+    "lastSync": "{count} 个时段 · {date}",
+    "neverSynced": "尚未同步",
+    "syncNow": "立即同步",
+    "remove": "移除",
+    "urlPlaceholder": "https://…/calendar.ics",
+    "labelPlaceholder": "名称(如 Airbnb、Booking.com)",
+    "add": "添加",
+    "errUrl": "请输入以 http 开头的有效网址。",
+    "errDup": "此日历已添加。",
+    "errGeneric": "添加失败。请重试。"
   }
 }

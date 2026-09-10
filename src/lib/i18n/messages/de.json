@@ -971,5 +971,25 @@
     "errCapacity": "Zu viele Gäste für diese Wohnung.",
     "errEmail": "Ungültige E-Mail-Adresse.",
     "errGeneric": "Erstellung fehlgeschlagen. Bitte erneut versuchen."
+  },
+  "ical": {
+    "title": "Kalender-Synchronisierung",
+    "lede": "Doppelbuchungen zwischen dieser Seite, Airbnb, Booking.com und anderen vermeiden.",
+    "exportLabel": "Export-Link (in Airbnb, Booking… einfügen)",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "exportHint": "Dieser Link zeigt nur belegte und gesperrte Daten, keine personenbezogenen Daten.",
+    "importLabel": "Hier importierte externe Kalender",
+    "lastError": "Letzte Synchronisierung fehlgeschlagen",
+    "lastSync": "{count} Zeitraum/Zeiträume · {date}",
+    "neverSynced": "Noch nie synchronisiert",
+    "syncNow": "Jetzt synchronisieren",
+    "remove": "Entfernen",
+    "urlPlaceholder": "https://…/calendar.ics",
+    "labelPlaceholder": "Bezeichnung (z. B. Airbnb, Booking.com)",
+    "add": "Hinzufügen",
+    "errUrl": "Geben Sie eine gültige URL ein, die mit http beginnt.",
+    "errDup": "Dieser Kalender ist bereits hinzugefügt.",
+    "errGeneric": "Hinzufügen fehlgeschlagen. Bitte erneut versuchen."
   }
 }
