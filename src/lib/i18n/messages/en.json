@@ -1550,7 +1550,8 @@
     "draft": "Draft with AI",
     "redo": "Rewrite",
     "writing": "Writing…",
-    "error": "Draft unavailable right now."
+    "error": "Draft unavailable right now.",
+    "demoNote": "Demo draft — add an API key for AI-written text."
   },
   "seo": {
     "title": "SEO & search",
@@ -1594,5 +1595,30 @@
       "https": "HTTPS enforced (HSTS)",
       "descLengths": "Descriptions within the right length (80–170)"
     }
+  },
+  "assistant": {
+    "title": "Les 2 Palmiers Assistant",
+    "subtitle": "Automated replies — an advisor is still available",
+    "greeting": "Hello! I can help with the apartment, the services and your booking.",
+    "placeholder": "Your question…",
+    "send": "Send",
+    "open": "Open the assistant",
+    "close": "Close the assistant",
+    "actionReserve": "Book these dates",
+    "actionService": "Prepare the request",
+    "actionMessage": "Open messages",
+    "errUnavailable": "Sorry, the assistant is briefly unavailable. Write to the team and we'll get back to you.",
+    "errConnection": "Connection lost. Please try again.",
+    "demoBadge": "demo",
+    "suggestPublic": [
+      "What time is check-in?",
+      "What services do you offer?",
+      "Is it available in December?"
+    ],
+    "suggestClient": [
+      "Summarise my next booking",
+      "I'd like a chef on Friday evening",
+      "What's the Wi-Fi code?"
+    ]
   }
 }

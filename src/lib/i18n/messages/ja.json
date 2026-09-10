@@ -1550,7 +1550,8 @@
     "draft": "AI で下書き",
     "redo": "書き直す",
     "writing": "作成中…",
-    "error": "下書きを生成できません。"
+    "error": "下書きを生成できません。",
+    "demoNote": "デモ用の下書き — API キーを追加すると AI が文章を作成します。"
   },
   "seo": {
     "title": "SEO・検索対策",
@@ -1594,5 +1595,30 @@
       "https": "HTTPS 強制(HSTS)",
       "descLengths": "説明の文字数が適切(80〜170)"
     }
+  },
+  "assistant": {
+    "title": "Les 2 Palmiers アシスタント",
+    "subtitle": "自動応答 — 担当者も待機しています",
+    "greeting": "こんにちは。お部屋・サービス・ご予約についてご案内します。",
+    "placeholder": "ご質問をどうぞ…",
+    "send": "送信",
+    "open": "アシスタントを開く",
+    "close": "アシスタントを閉じる",
+    "actionReserve": "この日程で予約",
+    "actionService": "依頼を準備",
+    "actionMessage": "メッセージを開く",
+    "errUnavailable": "申し訳ありません。アシスタントは一時的に利用できません。チームへメッセージをお送りください。",
+    "errConnection": "接続が切れました。もう一度お試しください。",
+    "demoBadge": "デモ",
+    "suggestPublic": [
+      "チェックインは何時ですか？",
+      "どんなサービスがありますか？",
+      "12 月は空いていますか？"
+    ],
+    "suggestClient": [
+      "次の予約を要約して",
+      "金曜の夜にシェフをお願いしたい",
+      "Wi-Fi のパスワードは？"
+    ]
   }
 }

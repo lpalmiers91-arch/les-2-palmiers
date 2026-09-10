@@ -22,11 +22,13 @@ export function ReservationChangePanel({
   start,
   end,
   request,
+  allowCancel = true,
 }: {
   reservationId: string;
   start: string;
   end: string;
   request: ChangeRequest | null;
+  allowCancel?: boolean;
 }) {
   const { t } = useT();
   const router = useRouter();
@@ -128,12 +130,14 @@ export function ReservationChangePanel({
           >
             <CalendarClock className="h-4 w-4" /> {t("resChange.askDates")}
           </button>
-          <button
-            onClick={() => setMode("cancel")}
-            className="press inline-flex h-10 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-medium text-danger hover:border-danger/40"
-          >
-            <XCircle className="h-4 w-4" /> {t("resChange.askCancel")}
-          </button>
+          {allowCancel && (
+            <button
+              onClick={() => setMode("cancel")}
+              className="press inline-flex h-10 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-medium text-danger hover:border-danger/40"
+            >
+              <XCircle className="h-4 w-4" /> {t("resChange.askCancel")}
+            </button>
+          )}
         </div>
       )}
 

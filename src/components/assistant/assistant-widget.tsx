@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { MessageCircle, X, ArrowUp, Sparkles } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { easeOut } from "@/lib/motion";
+import { useT } from "@/lib/i18n/provider";
 
 import { FUNCTIONS_URL as FN, SUPABASE_ANON_KEY as ANON } from "@/lib/supabase/config";
 
@@ -17,11 +18,13 @@ type Turn = {
 
 export function AssistantWidget({ space = "public" }: { space?: string }) {
   const router = useRouter();
+  const { t, tList } = useT();
   const [open, setOpen] = useState(false);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
   const [threadId, setThreadId] = useState<string | null>(null);
+  const [demo, setDemo] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,7 +34,7 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
   async function send(text: string) {
     if (!text.trim() || streaming) return;
     setInput("");
-    setTurns((t) => [...t, { role: "user", text }, { role: "assistant", text: "" }]);
+    setTurns((cur) => [...cur, { role: "user", text }, { role: "assistant", text: "" }]);
     setStreaming(true);
 
     try {
@@ -71,8 +74,8 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
             continue;
           }
           if (ev.type === "text") {
-            setTurns((t) => {
-              const copy = [...t];
+            setTurns((cur) => {
+              const copy = [...cur];
               copy[copy.length - 1] = {
                 ...copy[copy.length - 1],
                 text: copy[copy.length - 1].text + (ev.text as string),
@@ -80,8 +83,8 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
               return copy;
             });
           } else if (ev.type === "action") {
-            setTurns((t) => {
-              const copy = [...t];
+            setTurns((cur) => {
+              const copy = [...cur];
               const last = copy[copy.length - 1];
               const act = ev.action as { type: string; payload: Record<string, unknown> };
               copy[copy.length - 1] = { ...last, actions: [...(last.actions ?? []), act] };
@@ -89,12 +92,13 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
             });
           } else if (ev.type === "done") {
             if (ev.threadId) setThreadId(ev.threadId as string);
+            if (ev.provider === "echo") setDemo(true);
           } else if (ev.type === "error") {
-            setTurns((t) => {
-              const copy = [...t];
+            setTurns((cur) => {
+              const copy = [...cur];
               copy[copy.length - 1] = {
                 ...copy[copy.length - 1],
-                text: "Désolé, l'assistant est momentanément indisponible. Écrivez à l'équipe et nous reviendrons vers vous.",
+                text: t("assistant.errUnavailable"),
               };
               return copy;
             });
@@ -102,9 +106,9 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
         }
       }
     } catch {
-      setTurns((t) => {
-        const copy = [...t];
-        copy[copy.length - 1] = { ...copy[copy.length - 1], text: "Connexion interrompue. Réessayez." };
+      setTurns((cur) => {
+        const copy = [...cur];
+        copy[copy.length - 1] = { ...copy[copy.length - 1], text: t("assistant.errConnection") };
         return copy;
       });
     } finally {
@@ -129,16 +133,15 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
     }
   }
 
-  const suggestions =
-    space === "public"
-      ? ["À quelle heure est l'arrivée ?", "Quels services proposez-vous ?", "C'est disponible en décembre ?"]
-      : ["Résume ma prochaine réservation", "Je veux un cuisinier vendredi soir", "Quel est le code wifi ?"];
+  const suggestions = tList<string>(
+    space === "public" ? "assistant.suggestPublic" : "assistant.suggestClient",
+  );
 
   return (
     <>
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Fermer l'assistant" : "Ouvrir l'assistant"}
+        aria-label={open ? t("assistant.close") : t("assistant.open")}
         className="press fixed bottom-4 right-4 z-[70] flex h-[52px] w-[52px] items-center justify-center rounded-full bg-forest text-bone shadow-[0_14px_36px_-10px_rgba(20,30,24,0.6)] sm:bottom-5 sm:right-5"
       >
         {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" strokeWidth={1.8} />}
@@ -159,17 +162,22 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
                 <Sparkles className="h-3.5 w-3.5" />
               </span>
               <div>
-                <p className="text-[13.5px] font-medium text-ink">Assistant Les 2 Palmiers</p>
-                <p className="text-[11px] text-ink-3">Réponses automatiques — un conseiller reste disponible</p>
+                <p className="flex items-center gap-1.5 text-[13.5px] font-medium text-ink">
+                  {t("assistant.title")}
+                  {demo && (
+                    <span className="rounded-full bg-bone-2 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-ink-3">
+                      {t("assistant.demoBadge")}
+                    </span>
+                  )}
+                </p>
+                <p className="text-[11px] text-ink-3">{t("assistant.subtitle")}</p>
               </div>
             </div>
 
             <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
               {turns.length === 0 && (
                 <div className="space-y-2">
-                  <p className="text-[13.5px] text-ink-2">
-                    Bonjour ! Je peux vous renseigner sur l'appartement, les services et la réservation.
-                  </p>
+                  <p className="text-[13.5px] text-ink-2">{t("assistant.greeting")}</p>
                   {suggestions.map((s) => (
                     <button
                       key={s}
@@ -181,25 +189,28 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
                   ))}
                 </div>
               )}
-              {turns.map((t, i) => (
-                <div key={i} className={`flex ${t.role === "user" ? "justify-end" : "justify-start"}`}>
+              {turns.map((turn, i) => (
+                <div
+                  key={i}
+                  className={`flex ${turn.role === "user" ? "justify-end" : "justify-start"}`}
+                >
                   <div
                     className={`max-w-[85%] rounded-[13px] px-3 py-2 text-[13.5px] leading-snug ${
-                      t.role === "user" ? "bg-forest text-bone" : "bg-bone-2 text-ink"
+                      turn.role === "user" ? "bg-forest text-bone" : "bg-bone-2 text-ink"
                     }`}
                   >
-                    {t.text || (streaming && i === turns.length - 1 ? "…" : "")}
-                    {t.actions?.map((a, j) => (
+                    {turn.text || (streaming && i === turns.length - 1 ? "…" : "")}
+                    {turn.actions?.map((a, j) => (
                       <button
                         key={j}
                         onClick={() => runAction(a)}
                         className="press mt-2 block w-full rounded-full bg-ink px-3 py-1.5 text-[12px] font-medium text-bone hover:bg-forest-2"
                       >
                         {a.type === "prefill_reservation"
-                          ? "Réserver ces dates"
+                          ? t("assistant.actionReserve")
                           : a.type === "draft_service_order"
-                            ? "Préparer la commande"
-                            : "Ouvrir la messagerie"}
+                            ? t("assistant.actionService")
+                            : t("assistant.actionMessage")}
                       </button>
                     ))}
                   </div>
@@ -218,13 +229,13 @@ export function AssistantWidget({ space = "public" }: { space?: string }) {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Votre question…"
+                placeholder={t("assistant.placeholder")}
                 className="field h-10 flex-1 text-[13.5px]"
               />
               <button
                 type="submit"
                 disabled={streaming || !input.trim()}
-                aria-label="Envoyer"
+                aria-label={t("assistant.send")}
                 className="press flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest text-bone disabled:opacity-40"
               >
                 <ArrowUp className="h-4 w-4" />

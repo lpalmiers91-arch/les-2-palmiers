@@ -1550,7 +1550,8 @@
     "draft": "Rédiger avec l'IA",
     "redo": "Reformuler",
     "writing": "Rédaction…",
-    "error": "Brouillon indisponible pour le moment."
+    "error": "Brouillon indisponible pour le moment.",
+    "demoNote": "Brouillon de démonstration — ajoutez une clé API pour des textes rédigés par l'IA."
   },
   "seo": {
     "title": "SEO & référencement",
@@ -1594,5 +1595,30 @@
       "https": "HTTPS forcé (HSTS)",
       "descLengths": "Descriptions dans la bonne longueur (80–170)"
     }
+  },
+  "assistant": {
+    "title": "Assistant Les 2 Palmiers",
+    "subtitle": "Réponses automatiques — un conseiller reste disponible",
+    "greeting": "Bonjour ! Je peux vous renseigner sur l'appartement, les services et la réservation.",
+    "placeholder": "Votre question…",
+    "send": "Envoyer",
+    "open": "Ouvrir l'assistant",
+    "close": "Fermer l'assistant",
+    "actionReserve": "Réserver ces dates",
+    "actionService": "Préparer la commande",
+    "actionMessage": "Ouvrir la messagerie",
+    "errUnavailable": "Désolé, l'assistant est momentanément indisponible. Écrivez à l'équipe et nous reviendrons vers vous.",
+    "errConnection": "Connexion interrompue. Réessayez.",
+    "demoBadge": "démo",
+    "suggestPublic": [
+      "À quelle heure est l'arrivée ?",
+      "Quels services proposez-vous ?",
+      "C'est disponible en décembre ?"
+    ],
+    "suggestClient": [
+      "Résume ma prochaine réservation",
+      "Je veux un cuisinier vendredi soir",
+      "Quel est le code wifi ?"
+    ]
   }
 }

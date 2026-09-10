@@ -1550,7 +1550,8 @@
     "draft": "Redactar con IA",
     "redo": "Reformular",
     "writing": "Redactando…",
-    "error": "Borrador no disponible ahora."
+    "error": "Borrador no disponible ahora.",
+    "demoNote": "Borrador de demostración — añada una clave API para textos redactados por la IA."
   },
   "seo": {
     "title": "SEO y posicionamiento",
@@ -1594,5 +1595,30 @@
       "https": "HTTPS forzado (HSTS)",
       "descLengths": "Descripciones con la longitud correcta (80–170)"
     }
+  },
+  "assistant": {
+    "title": "Asistente Les 2 Palmiers",
+    "subtitle": "Respuestas automáticas — un asesor sigue disponible",
+    "greeting": "¡Hola! Puedo informarle sobre el apartamento, los servicios y la reserva.",
+    "placeholder": "Su pregunta…",
+    "send": "Enviar",
+    "open": "Abrir el asistente",
+    "close": "Cerrar el asistente",
+    "actionReserve": "Reservar estas fechas",
+    "actionService": "Preparar el pedido",
+    "actionMessage": "Abrir mensajes",
+    "errUnavailable": "Lo sentimos, el asistente no está disponible por un momento. Escriba al equipo y le responderemos.",
+    "errConnection": "Conexión interrumpida. Inténtelo de nuevo.",
+    "demoBadge": "demo",
+    "suggestPublic": [
+      "¿A qué hora es la entrada?",
+      "¿Qué servicios ofrecen?",
+      "¿Está disponible en diciembre?"
+    ],
+    "suggestClient": [
+      "Resume mi próxima reserva",
+      "Quiero un cocinero el viernes por la noche",
+      "¿Cuál es la clave del wifi?"
+    ]
   }
 }

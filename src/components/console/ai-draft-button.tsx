@@ -30,6 +30,7 @@ export function AiDraftButton({
   const { t } = useT();
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const [demo, setDemo] = useState(false);
 
   async function run() {
     setBusy(true);
@@ -52,6 +53,7 @@ export function AiDraftButton({
         setErr(t("aiDraft.error"));
         return;
       }
+      setDemo(Boolean(j.demo));
       onText(j.text as string);
     } catch {
       setErr(t("aiDraft.error"));
@@ -80,6 +82,9 @@ export function AiDraftButton({
         {busy ? t("aiDraft.writing") : hasText ? t("aiDraft.redo") : t("aiDraft.draft")}
       </button>
       {err && <span className="text-[11.5px] text-danger">{err}</span>}
+      {demo && !err && (
+        <span className="text-[11px] text-ink-3">{t("aiDraft.demoNote")}</span>
+      )}
     </span>
   );
 }

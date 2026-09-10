@@ -1550,7 +1550,8 @@
     "draft": "Redigir com IA",
     "redo": "Reformular",
     "writing": "A redigir…",
-    "error": "Rascunho indisponível de momento."
+    "error": "Rascunho indisponível de momento.",
+    "demoNote": "Rascunho de demonstração — adicione uma chave de API para textos redigidos pela IA."
   },
   "seo": {
     "title": "SEO e pesquisa",
@@ -1594,5 +1595,30 @@
       "https": "HTTPS forçado (HSTS)",
       "descLengths": "Descrições com o comprimento certo (80–170)"
     }
+  },
+  "assistant": {
+    "title": "Assistente Les 2 Palmiers",
+    "subtitle": "Respostas automáticas — um consultor continua disponível",
+    "greeting": "Olá! Posso ajudar com o apartamento, os serviços e a reserva.",
+    "placeholder": "A sua pergunta…",
+    "send": "Enviar",
+    "open": "Abrir o assistente",
+    "close": "Fechar o assistente",
+    "actionReserve": "Reservar estas datas",
+    "actionService": "Preparar o pedido",
+    "actionMessage": "Abrir mensagens",
+    "errUnavailable": "Lamentamos, o assistente está indisponível por instantes. Escreva à equipa e retornaremos.",
+    "errConnection": "Ligação interrompida. Tente novamente.",
+    "demoBadge": "demo",
+    "suggestPublic": [
+      "A que horas é o check-in?",
+      "Que serviços oferecem?",
+      "Está disponível em dezembro?"
+    ],
+    "suggestClient": [
+      "Resume a minha próxima reserva",
+      "Quero um cozinheiro na sexta à noite",
+      "Qual é o código do wi-fi?"
+    ]
   }
 }

@@ -1550,7 +1550,8 @@
     "draft": "Bozza con IA",
     "redo": "Riformula",
     "writing": "Scrittura…",
-    "error": "Bozza non disponibile al momento."
+    "error": "Bozza non disponibile al momento.",
+    "demoNote": "Bozza dimostrativa — aggiungi una chiave API per testi scritti dall'IA."
   },
   "seo": {
     "title": "SEO e posizionamento",
@@ -1594,5 +1595,30 @@
       "https": "HTTPS forzato (HSTS)",
       "descLengths": "Descrizioni della lunghezza giusta (80–170)"
     }
+  },
+  "assistant": {
+    "title": "Assistente Les 2 Palmiers",
+    "subtitle": "Risposte automatiche — un consulente resta disponibile",
+    "greeting": "Ciao! Posso aiutarti con l'appartamento, i servizi e la prenotazione.",
+    "placeholder": "La tua domanda…",
+    "send": "Invia",
+    "open": "Apri l'assistente",
+    "close": "Chiudi l'assistente",
+    "actionReserve": "Prenota queste date",
+    "actionService": "Prepara la richiesta",
+    "actionMessage": "Apri i messaggi",
+    "errUnavailable": "Spiacenti, l'assistente non è disponibile per un momento. Scrivi al team e ti risponderemo.",
+    "errConnection": "Connessione interrotta. Riprova.",
+    "demoBadge": "demo",
+    "suggestPublic": [
+      "A che ora è il check-in?",
+      "Quali servizi offrite?",
+      "È disponibile a dicembre?"
+    ],
+    "suggestClient": [
+      "Riassumi la mia prossima prenotazione",
+      "Vorrei un cuoco venerdì sera",
+      "Qual è la password del wi-fi?"
+    ]
   }
 }

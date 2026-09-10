@@ -1550,7 +1550,8 @@
     "draft": "用 AI 起草",
     "redo": "重新生成",
     "writing": "生成中……",
-    "error": "暂时无法生成草稿。"
+    "error": "暂时无法生成草稿。",
+    "demoNote": "演示草稿——添加 API 密钥即可获得 AI 撰写的文本。"
   },
   "seo": {
     "title": "SEO 与搜索优化",
@@ -1594,5 +1595,30 @@
       "https": "强制 HTTPS(HSTS)",
       "descLengths": "描述长度合适(80–170)"
     }
+  },
+  "assistant": {
+    "title": "Les 2 Palmiers 助手",
+    "subtitle": "自动回复——顾问随时待命",
+    "greeting": "您好！我可以为您介绍公寓、服务与预订事宜。",
+    "placeholder": "您的问题…",
+    "send": "发送",
+    "open": "打开助手",
+    "close": "关闭助手",
+    "actionReserve": "预订这些日期",
+    "actionService": "准备预约",
+    "actionMessage": "打开消息",
+    "errUnavailable": "抱歉，助手暂时不可用。请给团队留言，我们会尽快回复。",
+    "errConnection": "连接中断，请重试。",
+    "demoBadge": "演示",
+    "suggestPublic": [
+      "几点可以入住？",
+      "你们提供哪些服务？",
+      "12 月有空房吗？"
+    ],
+    "suggestClient": [
+      "总结我的下一次预订",
+      "我想周五晚上请一位厨师",
+      "Wi-Fi 密码是多少？"
+    ]
   }
 }

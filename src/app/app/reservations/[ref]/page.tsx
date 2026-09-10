@@ -157,11 +157,12 @@ export default async function ReservationDetail({
             </Card>
           )}
 
-          {["pending_payment", "confirmed"].includes(r.status as string) && (
+          {["pending_payment", "confirmed", "in_stay"].includes(r.status as string) && (
             <ReservationChangePanel
               reservationId={r.id as string}
               start={start}
               end={end}
+              allowCancel={["pending_payment", "confirmed"].includes(r.status as string)}
               request={(changeReq as ChangeRequest | null) ?? null}
             />
           )}

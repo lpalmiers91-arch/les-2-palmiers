@@ -1550,7 +1550,8 @@
     "draft": "Mit KI entwerfen",
     "redo": "Neu formulieren",
     "writing": "Wird geschrieben…",
-    "error": "Entwurf derzeit nicht verfügbar."
+    "error": "Entwurf derzeit nicht verfügbar.",
+    "demoNote": "Demo-Entwurf — API-Schlüssel hinzufügen für KI-geschriebene Texte."
   },
   "seo": {
     "title": "SEO & Suche",
@@ -1594,5 +1595,30 @@
       "https": "HTTPS erzwungen (HSTS)",
       "descLengths": "Beschreibungen in der richtigen Länge (80–170)"
     }
+  },
+  "assistant": {
+    "title": "Les 2 Palmiers Assistent",
+    "subtitle": "Automatische Antworten — ein Berater bleibt erreichbar",
+    "greeting": "Hallo! Ich helfe Ihnen bei Fragen zur Wohnung, den Services und Ihrer Buchung.",
+    "placeholder": "Ihre Frage…",
+    "send": "Senden",
+    "open": "Assistent öffnen",
+    "close": "Assistent schließen",
+    "actionReserve": "Diese Daten buchen",
+    "actionService": "Anfrage vorbereiten",
+    "actionMessage": "Nachrichten öffnen",
+    "errUnavailable": "Entschuldigung, der Assistent ist kurz nicht verfügbar. Schreiben Sie dem Team, wir melden uns.",
+    "errConnection": "Verbindung unterbrochen. Bitte erneut versuchen.",
+    "demoBadge": "Demo",
+    "suggestPublic": [
+      "Wann ist der Check-in?",
+      "Welche Services bieten Sie an?",
+      "Ist es im Dezember verfügbar?"
+    ],
+    "suggestClient": [
+      "Fasse meine nächste Buchung zusammen",
+      "Ich möchte am Freitagabend einen Koch",
+      "Wie lautet der WLAN-Code?"
+    ]
   }
 }
