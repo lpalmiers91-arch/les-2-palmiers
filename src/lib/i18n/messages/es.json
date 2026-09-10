@@ -763,7 +763,13 @@
       "notYet": "no",
       "openDoc": "Abrir el documento",
       "countersign": "Refrendar",
-      "signerName": "Nombre del firmante (equipo)"
+      "signerName": "Nombre del firmante (equipo)",
+      "sendT": "Enviar el contrato al cliente",
+      "sendB": "El cliente solo puede firmar tras recibirlo. Revise antes las cláusulas y el resumen.",
+      "send": "Guardar y enviar",
+      "sentT": "Contrato enviado al cliente",
+      "sentB": "A la espera de su firma. Reenviarlo le avisa de nuevo.",
+      "resend": "Reenviar al cliente"
     },
     "aptEd": {
       "nameMin": "Indica un nombre de al menos 3 caracteres.",
@@ -1338,7 +1344,9 @@
     "invoice": "Factura (PDF)",
     "addService": "Añadir un servicio a esta estancia",
     "askTeam": "¿Una pregunta? Escriba al equipo",
-    "stayInfoSoon": "La clave del wifi y el manual de la casa se le facilitarán al acercarse la llegada."
+    "stayInfoSoon": "La clave del wifi y el manual de la casa se le facilitarán al acercarse la llegada.",
+    "contractPreparing": "En preparación por el equipo",
+    "contractToSign": "Para revisar y firmar"
   },
   "appServices": {
     "title": "Servicios a domicilio",
@@ -1532,7 +1540,10 @@
     "arrivalShort": "Llegada prevista:",
     "requestsShort": "Peticiones:",
     "signedNote": "Contrato firmado. Puede descargarlo con el botón Imprimir / PDF.",
-    "demoFoot": "Entorno de demostración — documento sin valor contractual real."
+    "demoFoot": "Entorno de demostración — documento sin valor contractual real.",
+    "inPrepT": "El contrato se está preparando.",
+    "inPrepB": "El equipo se lo enviará para que lo revise y lo firme. Ya puede contactar con ellos por mensajería si tiene dudas.",
+    "talkToTeam": "Escribir al equipo"
   },
   "acctForm": {
     "photoTooBig": "La foto no debe superar los 5 MB.",

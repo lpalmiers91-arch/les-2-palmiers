@@ -319,7 +319,9 @@ export default async function ReservationDetail({
                 <p className="text-[13.5px] font-medium text-ink">{t("appResDetail.contract")}</p>
                 <p className="text-[12px] text-ink-3">
                   {contract.status === "draft" ? (
-                    t("appResDetail.contractDraft")
+                    t("appResDetail.contractPreparing")
+                  ) : contract.status === "sent" ? (
+                    <span className="font-medium text-brass-2">{t("appResDetail.contractToSign")}</span>
                   ) : (
                     <span className="inline-flex items-center gap-1 text-forest-2">
                       <Check className="h-3 w-3" /> {t("appResDetail.contractSigned")}

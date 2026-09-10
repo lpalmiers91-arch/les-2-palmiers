@@ -763,7 +763,13 @@
       "notYet": "未",
       "openDoc": "書類を開く",
       "countersign": "連署",
-      "signerName": "署名者名（チーム）"
+      "signerName": "署名者名（チーム）",
+      "sendT": "契約書を顧客に送信",
+      "sendB": "顧客は受領後にのみ署名できます。まず条項と概要をご確認ください。",
+      "send": "保存して送信",
+      "sentT": "契約書を顧客に送信済み",
+      "sentB": "署名待ちです。再送すると再度通知されます。",
+      "resend": "顧客に再送"
     },
     "aptEd": {
       "nameMin": "3 文字以上の名前を入力してください。",
@@ -1338,7 +1344,9 @@
     "invoice": "請求書(PDF)",
     "addService": "この滞在にサービスを追加",
     "askTeam": "ご質問はチームへ",
-    "stayInfoSoon": "Wi-Fi パスワードとハウスマニュアルは、到着が近づいたらお知らせします。"
+    "stayInfoSoon": "Wi-Fi パスワードとハウスマニュアルは、到着が近づいたらお知らせします。",
+    "contractPreparing": "チームが準備中",
+    "contractToSign": "確認して署名"
   },
   "appServices": {
     "title": "出張サービス",
@@ -1532,7 +1540,10 @@
     "arrivalShort": "到着予定:",
     "requestsShort": "ご要望:",
     "signedNote": "契約に署名されました。「印刷 / PDF」ボタンからダウンロードできます。",
-    "demoFoot": "デモ環境 — この書類に実際の契約上の効力はありません。"
+    "demoFoot": "デモ環境 — この書類に実際の契約上の効力はありません。",
+    "inPrepT": "契約書を準備中です。",
+    "inPrepB": "チームが確認・署名用にお送りします。ご質問があれば、メッセージからご連絡いただけます。",
+    "talkToTeam": "チームに連絡"
   },
   "acctForm": {
     "photoTooBig": "写真は 5 MB を超えないようにしてください。",

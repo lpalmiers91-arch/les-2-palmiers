@@ -763,7 +763,13 @@
       "notYet": "否",
       "openDoc": "打开文件",
       "countersign": "会签",
-      "signerName": "签署人姓名（团队）"
+      "signerName": "签署人姓名（团队）",
+      "sendT": "将合同发送给客户",
+      "sendB": "客户仅在收到后方可签署。请先核对条款和摘要。",
+      "send": "保存并发送",
+      "sentT": "合同已发送给客户",
+      "sentB": "等待其签署。重新发送会再次通知客户。",
+      "resend": "重新发送给客户"
     },
     "aptEd": {
       "nameMin": "请输入至少 3 个字符的名称。",
@@ -1338,7 +1344,9 @@
     "invoice": "发票(PDF)",
     "addService": "为本次行程添加服务",
     "askTeam": "有疑问?联系团队",
-    "stayInfoSoon": "Wi-Fi 密码和居家手册将在入住临近时提供。"
+    "stayInfoSoon": "Wi-Fi 密码和居家手册将在入住临近时提供。",
+    "contractPreparing": "团队准备中",
+    "contractToSign": "待审阅并签署"
   },
   "appServices": {
     "title": "上门服务",
@@ -1532,7 +1540,10 @@
     "arrivalShort": "预计到达:",
     "requestsShort": "要求:",
     "signedNote": "合同已签署。可通过“打印 / PDF”按钮下载。",
-    "demoFoot": "演示环境 — 本文件无实际合同效力。"
+    "demoFoot": "演示环境 — 本文件无实际合同效力。",
+    "inPrepT": "合同正在准备中。",
+    "inPrepB": "团队会将其发送给您审阅并签署。如有疑问，您现在即可通过消息联系他们。",
+    "talkToTeam": "联系团队"
   },
   "acctForm": {
     "photoTooBig": "照片不得超过 5 MB。",

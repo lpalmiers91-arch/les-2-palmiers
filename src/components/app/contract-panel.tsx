@@ -31,7 +31,7 @@ type Terms = {
 type Contract = {
   id: string;
   reference: string;
-  status: "draft" | "signed" | "countersigned" | "cancelled";
+  status: "draft" | "sent" | "signed" | "countersigned" | "cancelled";
   terms: Terms;
   client_signature_name: string | null;
   client_signed_at: string | null;
@@ -78,7 +78,9 @@ export function ContractPanel({
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  const signed = contract.status !== "draft";
+  const inPrep = contract.status === "draft";
+  const signed = ["signed", "countersigned"].includes(contract.status);
+  const canFill = contract.status === "sent";
 
   async function sign(e: React.FormEvent) {
     e.preventDefault();
@@ -173,8 +175,24 @@ export function ContractPanel({
             </ol>
           </section>
 
+          {/* contrat encore en préparation par l'équipe */}
+          {inPrep && (
+            <section className="mt-6 border-t border-ink/15 pt-5 print:hidden">
+              <div className="rounded-[10px] bg-brass/[0.08] px-4 py-3.5">
+                <p className="text-[13.5px] font-medium text-ink">{tr("contractPanel.inPrepT")}</p>
+                <p className="mt-1 text-[13px] text-ink-2">{tr("contractPanel.inPrepB")}</p>
+                <a
+                  href="/app/messages"
+                  className="mt-3 inline-block text-[12.5px] font-medium text-forest-2 underline underline-offset-2"
+                >
+                  {tr("contractPanel.talkToTeam")}
+                </a>
+              </div>
+            </section>
+          )}
+
           {/* champs remplis par le client */}
-          {!signed ? (
+          {canFill ? (
             <form onSubmit={sign} className="mt-6 border-t border-ink/15 pt-5 print:hidden">
               <h2 className="display text-[1.05rem] text-ink">{tr("contractPanel.fillAndSign")}</h2>
               <div className="mt-4 space-y-4">
@@ -250,7 +268,7 @@ export function ContractPanel({
                 <p className="mt-4 text-[13px] text-ink-3">{tr("contractPanel.onlyHolder")}</p>
               )}
             </form>
-          ) : (
+          ) : signed ? (
             <section className="mt-6 border-t border-ink/15 pt-5">
               <div className="grid gap-4 sm:grid-cols-2">
                 <SignatureBlock
@@ -279,7 +297,7 @@ export function ContractPanel({
                 {tr("contractPanel.signedNote")}
               </p>
             </section>
-          )}
+          ) : null}
 
           <footer className="mt-8 border-t border-ink/15 pt-4 text-[11px] leading-relaxed text-ink-3">
             {site.legalName} · {site.email} · {site.phones[0]}

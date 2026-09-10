@@ -763,7 +763,13 @@
       "notYet": "nein",
       "openDoc": "Dokument öffnen",
       "countersign": "Gegenzeichnen",
-      "signerName": "Name des Unterzeichners (Team)"
+      "signerName": "Name des Unterzeichners (Team)",
+      "sendT": "Vertrag an den Kunden senden",
+      "sendB": "Der Kunde kann erst nach Erhalt unterschreiben. Prüfen Sie zuerst Klauseln und Übersicht.",
+      "send": "Speichern und senden",
+      "sentT": "Vertrag an den Kunden gesendet",
+      "sentB": "Wartet auf die Unterschrift. Erneutes Senden benachrichtigt ihn wieder.",
+      "resend": "Erneut an den Kunden senden"
     },
     "aptEd": {
       "nameMin": "Bitte einen Namen mit mindestens 3 Zeichen eingeben.",
@@ -1338,7 +1344,9 @@
     "invoice": "Rechnung (PDF)",
     "addService": "Service zu diesem Aufenthalt hinzufügen",
     "askTeam": "Eine Frage? Team kontaktieren",
-    "stayInfoSoon": "Der WLAN-Code und das Hausbuch werden Ihnen kurz vor der Ankunft mitgeteilt."
+    "stayInfoSoon": "Der WLAN-Code und das Hausbuch werden Ihnen kurz vor der Ankunft mitgeteilt.",
+    "contractPreparing": "Wird vom Team vorbereitet",
+    "contractToSign": "Zu prüfen und unterschreiben"
   },
   "appServices": {
     "title": "Services vor Ort",
@@ -1532,7 +1540,10 @@
     "arrivalShort": "Erwartete Ankunft:",
     "requestsShort": "Wünsche:",
     "signedNote": "Vertrag unterschrieben. Sie können ihn über die Schaltfläche Drucken / PDF herunterladen.",
-    "demoFoot": "Demo-Umgebung — Dokument ohne echten Vertragswert."
+    "demoFoot": "Demo-Umgebung — Dokument ohne echten Vertragswert.",
+    "inPrepT": "Der Vertrag wird gerade vorbereitet.",
+    "inPrepB": "Das Team sendet ihn Ihnen zum Prüfen und Unterschreiben. Bei Fragen erreichen Sie es bereits über Nachrichten.",
+    "talkToTeam": "Team schreiben"
   },
   "acctForm": {
     "photoTooBig": "Das Foto darf 5 MB nicht überschreiten.",

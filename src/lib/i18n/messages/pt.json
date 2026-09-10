@@ -763,7 +763,13 @@
       "notYet": "não",
       "openDoc": "Abrir o documento",
       "countersign": "Contra-assinar",
-      "signerName": "Nome do signatário (equipa)"
+      "signerName": "Nome do signatário (equipa)",
+      "sendT": "Enviar o contrato ao cliente",
+      "sendB": "O cliente só pode assinar depois de o receber. Verifique antes as cláusulas e o resumo.",
+      "send": "Guardar e enviar",
+      "sentT": "Contrato enviado ao cliente",
+      "sentB": "A aguardar a assinatura. Reenviar notifica-o novamente.",
+      "resend": "Reenviar ao cliente"
     },
     "aptEd": {
       "nameMin": "Indique um nome com pelo menos 3 caracteres.",
@@ -1338,7 +1344,9 @@
     "invoice": "Fatura (PDF)",
     "addService": "Adicionar um serviço a esta estadia",
     "askTeam": "Uma pergunta? Escreva à equipa",
-    "stayInfoSoon": "O código do wi-fi e o manual da casa serão fornecidos à medida que a chegada se aproxima."
+    "stayInfoSoon": "O código do wi-fi e o manual da casa serão fornecidos à medida que a chegada se aproxima.",
+    "contractPreparing": "Em preparação pela equipa",
+    "contractToSign": "Para rever e assinar"
   },
   "appServices": {
     "title": "Serviços ao domicílio",
@@ -1532,7 +1540,10 @@
     "arrivalShort": "Chegada prevista:",
     "requestsShort": "Pedidos:",
     "signedNote": "Contrato assinado. Pode descarregá-lo através do botão Imprimir / PDF.",
-    "demoFoot": "Ambiente de demonstração — documento sem valor contratual real."
+    "demoFoot": "Ambiente de demonstração — documento sem valor contratual real.",
+    "inPrepT": "O contrato está a ser preparado.",
+    "inPrepB": "A equipa vai enviá-lo para leitura e assinatura. Já pode contactá-la por mensagem se tiver dúvidas.",
+    "talkToTeam": "Escrever à equipa"
   },
   "acctForm": {
     "photoTooBig": "A foto não deve exceder 5 MB.",

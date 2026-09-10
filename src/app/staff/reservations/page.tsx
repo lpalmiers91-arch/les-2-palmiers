@@ -88,7 +88,12 @@ export default async function StaffReservations() {
                   <StatusBadge status={r.status as string} />
                 </div>
                 <div className="mt-4 border-t border-line pt-3">
-                  <ReservationActions id={r.id as string} status={r.status as string} />
+                  <ReservationActions
+                    id={r.id as string}
+                    status={r.status as string}
+                    start={start}
+                    end={end}
+                  />
                 </div>
               </li>
             );

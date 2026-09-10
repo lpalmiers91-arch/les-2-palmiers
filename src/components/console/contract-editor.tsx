@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Check, Plus, Trash2, PenLine } from "lucide-react";
+import { Loader2, Check, Plus, Trash2, PenLine, Send } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { formatXOF, formatDate } from "@/lib/format";
 import { useT } from "@/lib/i18n/provider";
@@ -34,6 +34,7 @@ export function ContractEditor({
   const [saved, setSaved] = useState(false);
   const [signName, setSignName] = useState("");
   const [signing, setSigning] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const clauses: Clause[] = Array.isArray(terms.clauses) ? terms.clauses : [];
 
@@ -57,6 +58,15 @@ export function ContractEditor({
       router.refresh();
       setTimeout(() => setSaved(false), 2500);
     }
+  }
+
+  async function sendToClient() {
+    setSending(true);
+    // on enregistre d'abord les modifications en cours, puis on envoie
+    await createClient().rpc("staff_update_contract", { p_contract: contractId, p_terms: terms as never });
+    const { error } = await createClient().rpc("send_contract", { p_contract: contractId });
+    setSending(false);
+    if (!error) router.refresh();
   }
 
   async function countersign() {
@@ -237,6 +247,29 @@ export function ContractEditor({
             {t("console.contractEd.openDoc")}
           </a>
         </div>
+
+        {(status === "draft" || status === "sent") && (
+          <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
+            <p className="text-[13px] font-medium text-ink">
+              {status === "sent"
+                ? t("console.contractEd.sentT")
+                : t("console.contractEd.sendT")}
+            </p>
+            <p className="mt-1 text-[12.5px] text-ink-3">
+              {status === "sent"
+                ? t("console.contractEd.sentB")
+                : t("console.contractEd.sendB")}
+            </p>
+            <button
+              onClick={sendToClient}
+              disabled={sending}
+              className="press mt-3 flex h-10 w-full items-center justify-center gap-2 rounded-full bg-forest px-4 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
+            >
+              {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              {status === "sent" ? t("console.contractEd.resend") : t("console.contractEd.send")}
+            </button>
+          </div>
+        )}
 
         {status === "signed" && (
           <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">

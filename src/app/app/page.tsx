@@ -76,7 +76,7 @@ export default async function AppHome() {
   const next = reservations?.[0];
   const identity = typeof idStatus === "string" ? idStatus : "none";
   const pendingContract = contracts?.find(
-    (c) => c.status === "draft" && reservations?.some((r) => r.id === c.reservation_id),
+    (c) => c.status === "sent" && reservations?.some((r) => r.id === c.reservation_id),
   );
   const convo = convos?.[0];
 

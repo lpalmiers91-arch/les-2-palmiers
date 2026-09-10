@@ -656,6 +656,8 @@ export type Database = {
           id: string
           reference: string
           reservation_id: string | null
+          sent_at: string | null
+          sent_by: string | null
           staff_signature_name: string | null
           status: string
           template_version: string
@@ -672,6 +674,8 @@ export type Database = {
           id?: string
           reference: string
           reservation_id?: string | null
+          sent_at?: string | null
+          sent_by?: string | null
           staff_signature_name?: string | null
           status?: string
           template_version?: string
@@ -688,6 +692,8 @@ export type Database = {
           id?: string
           reference?: string
           reservation_id?: string | null
+          sent_at?: string | null
+          sent_by?: string | null
           staff_signature_name?: string | null
           status?: string
           template_version?: string
@@ -714,6 +720,13 @@ export type Database = {
             columns: ["reservation_id"]
             isOneToOne: false
             referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_sent_by_fkey"
+            columns: ["sent_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -2837,6 +2850,8 @@ export type Database = {
           id: string
           reference: string
           reservation_id: string | null
+          sent_at: string | null
+          sent_by: string | null
           staff_signature_name: string | null
           status: string
           template_version: string
@@ -3423,6 +3438,33 @@ export type Database = {
         Args: { p_key: string; p_max: number; p_window?: string }
         Returns: boolean
       }
+      send_contract: {
+        Args: { p_contract: string }
+        Returns: {
+          client_id: string
+          client_signature_name: string | null
+          client_signed_at: string | null
+          countersigned_at: string | null
+          countersigned_by: string | null
+          created_at: string
+          id: string
+          reference: string
+          reservation_id: string | null
+          sent_at: string | null
+          sent_by: string | null
+          staff_signature_name: string | null
+          status: string
+          template_version: string
+          terms: Json
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "contracts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       send_message: {
         Args: { p_attachments?: Json; p_body: string; p_conversation: string }
         Returns: {
@@ -3475,6 +3517,8 @@ export type Database = {
           id: string
           reference: string
           reservation_id: string | null
+          sent_at: string | null
+          sent_by: string | null
           staff_signature_name: string | null
           status: string
           template_version: string
@@ -3538,6 +3582,8 @@ export type Database = {
           id: string
           reference: string
           reservation_id: string | null
+          sent_at: string | null
+          sent_by: string | null
           staff_signature_name: string | null
           status: string
           template_version: string

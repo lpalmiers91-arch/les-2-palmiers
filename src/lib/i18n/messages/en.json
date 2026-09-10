@@ -763,7 +763,13 @@
       "notYet": "no",
       "openDoc": "Open the document",
       "countersign": "Countersign",
-      "signerName": "Signer name (team)"
+      "signerName": "Signer name (team)",
+      "sendT": "Send the contract to the client",
+      "sendB": "The client can only sign after receiving it. Check the clauses and summary first.",
+      "send": "Save and send",
+      "sentT": "Contract sent to the client",
+      "sentB": "Awaiting their signature. Resending notifies them again.",
+      "resend": "Resend to the client"
     },
     "aptEd": {
       "nameMin": "Enter a name of at least 3 characters.",
@@ -1338,7 +1344,9 @@
     "invoice": "Invoice (PDF)",
     "addService": "Add a service to this stay",
     "askTeam": "A question? Message the team",
-    "stayInfoSoon": "The Wi-Fi code and house manual will be shared as your arrival approaches."
+    "stayInfoSoon": "The Wi-Fi code and house manual will be shared as your arrival approaches.",
+    "contractPreparing": "Being prepared by the team",
+    "contractToSign": "To review and sign"
   },
   "appServices": {
     "title": "Home services",
@@ -1532,7 +1540,10 @@
     "arrivalShort": "Expected arrival:",
     "requestsShort": "Requests:",
     "signedNote": "Contract signed. You can download it via the Print / PDF button.",
-    "demoFoot": "Demonstration environment — document with no real contractual value."
+    "demoFoot": "Demonstration environment — document with no real contractual value.",
+    "inPrepT": "Your contract is being prepared.",
+    "inPrepB": "The team will send it to you to review and sign. You can already reach them by messaging if you have questions.",
+    "talkToTeam": "Message the team"
   },
   "acctForm": {
     "photoTooBig": "The photo must not exceed 5 MB.",
