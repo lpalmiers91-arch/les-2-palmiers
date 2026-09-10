@@ -128,7 +128,9 @@
     "errExists": "An account already exists with this email.",
     "errRate": "Too many attempts. Try again in a few minutes.",
     "errShort": "The password must be at least 8 characters.",
-    "google": "Continue with Google"
+    "google": "Continue with Google",
+    "referralCode": "Referral code",
+    "optional": "optional"
   },
   "console": {
     "space": {
@@ -845,7 +847,9 @@
     "needMore": "You need at least {min} points to redeem.",
     "pointsN": "{n} points",
     "creditAdded": "Credit added",
-    "redeem": "Redeem"
+    "redeem": "Redeem",
+    "rReferral": "Referral",
+    "rGiftCard": "Gift card"
   },
   "a11y": {
     "skipToContent": "Skip to content"
@@ -1032,5 +1036,80 @@
     "multicurrency": "Show prices in multiple currencies",
     "fxNote": "Visitors pick their currency in the header. Charges always stay in XOF.",
     "fxUnit": "Rate expressed in XOF for 1 unit of the currency."
+  },
+  "appNav": {
+    "overview": "Overview",
+    "reservations": "Bookings",
+    "services": "Services",
+    "messages": "Messages",
+    "favorites": "Favorites",
+    "loyalty": "Loyalty",
+    "referral": "Referrals",
+    "giftCards": "Gift cards",
+    "account": "Account",
+    "verifyIdentity": "Verify my identity",
+    "signOut": "Sign out",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "favorites": {
+    "title": "My favorites",
+    "sub": "The apartments you saved.",
+    "save": "Save",
+    "saved": "Saved",
+    "emptyT": "No favorites yet",
+    "emptyB": "Tap the heart on an apartment to find it here.",
+    "browse": "Browse apartments"
+  },
+  "referral": {
+    "title": "Refer your friends",
+    "sub": "Your code, your referrals, your rewards.",
+    "reward": "{referrer} points for you, {referred} points for your friend.",
+    "howItWorks": "Points are credited on your friend's first paid booking.",
+    "shareText": "Book at Les 2 Palmiers with my code {code} and earn points.",
+    "copyCode": "Copy code",
+    "copyLink": "Copy link",
+    "copied": "Copied",
+    "share": "Share",
+    "myReferrals": "My referrals",
+    "qualifiedCount": "{n} of {total} qualified",
+    "none": "No referrals yet.",
+    "aFriend": "A friend",
+    "qualified": "Qualified",
+    "pending": "Pending"
+  },
+  "giftCard": {
+    "title": "Gift cards",
+    "sub": "Gift a stay or services.",
+    "buyTab": "Buy",
+    "redeemTab": "Redeem a code",
+    "amount": "Amount",
+    "recipientEmail": "Recipient email",
+    "recipientName": "Recipient name",
+    "message": "Message",
+    "optional": "optional",
+    "method": "Payment method",
+    "pay": "Pay {amount}",
+    "simNote": "Simulated payment of {amount}. Pick the outcome.",
+    "confirmPay": "Confirm payment",
+    "cancel": "Cancel",
+    "bought": "Gift card created",
+    "boughtBody": "The code is ready to gift to {email}.",
+    "redeemHelp": "Enter the code you received. Its balance is added to your credit and used automatically at checkout.",
+    "redeemBtn": "Redeem card",
+    "redeemed": "{amount} added to your credit",
+    "redeemedBody": "The credit will be deducted automatically from your next payment.",
+    "myCards": "My cards",
+    "footNote": "Gift cards are valid for one year. The balance becomes loyalty credit when redeemed.",
+    "errEmail": "Invalid email address.",
+    "errCode": "Code not found.",
+    "errUnusable": "This card can no longer be used.",
+    "errGeneric": "The operation failed. Please try again.",
+    "status": {
+      "pending": "Awaiting payment",
+      "active": "Active",
+      "depleted": "Used",
+      "void": "Void"
+    }
   }
 }

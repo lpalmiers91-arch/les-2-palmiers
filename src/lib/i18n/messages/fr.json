@@ -128,7 +128,9 @@
     "errExists": "Un compte existe déjà avec cet e-mail.",
     "errRate": "Trop de tentatives. Réessayez dans quelques minutes.",
     "errShort": "Le mot de passe doit faire au moins 8 caractères.",
-    "google": "Continuer avec Google"
+    "google": "Continuer avec Google",
+    "referralCode": "Code de parrainage",
+    "optional": "facultatif"
   },
   "console": {
     "space": {
@@ -845,7 +847,9 @@
     "needMore": "Il vous faut au moins {min} points pour échanger.",
     "pointsN": "{n} points",
     "creditAdded": "Crédit ajouté",
-    "redeem": "Échanger"
+    "redeem": "Échanger",
+    "rReferral": "Parrainage",
+    "rGiftCard": "Carte cadeau"
   },
   "a11y": {
     "skipToContent": "Aller au contenu"
@@ -1032,5 +1036,80 @@
     "multicurrency": "Afficher les prix en plusieurs devises",
     "fxNote": "Le visiteur choisit sa devise dans l'en-tête. Le débit reste toujours en XOF.",
     "fxUnit": "Taux exprimé en XOF pour 1 unité de la devise."
+  },
+  "appNav": {
+    "overview": "Aperçu",
+    "reservations": "Réservations",
+    "services": "Services",
+    "messages": "Messagerie",
+    "favorites": "Favoris",
+    "loyalty": "Fidélité",
+    "referral": "Parrainage",
+    "giftCards": "Cartes cadeaux",
+    "account": "Compte",
+    "verifyIdentity": "Vérifier mon identité",
+    "signOut": "Se déconnecter",
+    "menu": "Menu",
+    "close": "Fermer"
+  },
+  "favorites": {
+    "title": "Mes favoris",
+    "sub": "Les appartements que vous avez enregistrés.",
+    "save": "Enregistrer",
+    "saved": "Enregistré",
+    "emptyT": "Aucun favori pour l'instant",
+    "emptyB": "Touchez le cœur sur un appartement pour le retrouver ici.",
+    "browse": "Voir les appartements"
+  },
+  "referral": {
+    "title": "Parrainez vos proches",
+    "sub": "Votre code, vos filleuls, vos récompenses.",
+    "reward": "{referrer} points pour vous, {referred} points pour votre filleul.",
+    "howItWorks": "Les points sont crédités à la première réservation payée de votre filleul.",
+    "shareText": "Réservez aux 2 Palmiers avec mon code {code} et gagnez des points.",
+    "copyCode": "Copier le code",
+    "copyLink": "Copier le lien",
+    "copied": "Copié",
+    "share": "Partager",
+    "myReferrals": "Mes filleuls",
+    "qualifiedCount": "{n} validé(s) sur {total}",
+    "none": "Aucun filleul pour l'instant.",
+    "aFriend": "Un filleul",
+    "qualified": "Validé",
+    "pending": "En attente"
+  },
+  "giftCard": {
+    "title": "Cartes cadeaux",
+    "sub": "Offrez un séjour ou des services.",
+    "buyTab": "Offrir",
+    "redeemTab": "Utiliser un code",
+    "amount": "Montant",
+    "recipientEmail": "E-mail du destinataire",
+    "recipientName": "Nom du destinataire",
+    "message": "Message",
+    "optional": "facultatif",
+    "method": "Moyen de paiement",
+    "pay": "Payer {amount}",
+    "simNote": "Paiement simulé de {amount}. Choisissez l'issue.",
+    "confirmPay": "Confirmer le paiement",
+    "cancel": "Annuler",
+    "bought": "Carte cadeau créée",
+    "boughtBody": "Le code est prêt à être offert à {email}.",
+    "redeemHelp": "Entrez le code reçu. Son solde est ajouté à votre crédit et utilisé automatiquement au paiement.",
+    "redeemBtn": "Utiliser la carte",
+    "redeemed": "{amount} ajoutés à votre crédit",
+    "redeemedBody": "Le crédit sera déduit automatiquement de votre prochain paiement.",
+    "myCards": "Mes cartes",
+    "footNote": "Les cartes cadeaux sont valables un an. Le solde devient du crédit fidélité à l'utilisation.",
+    "errEmail": "Adresse e-mail invalide.",
+    "errCode": "Code introuvable.",
+    "errUnusable": "Cette carte n'est plus utilisable.",
+    "errGeneric": "L'opération a échoué. Réessayez.",
+    "status": {
+      "pending": "En attente de paiement",
+      "active": "Active",
+      "depleted": "Utilisée",
+      "void": "Annulée"
+    }
   }
 }

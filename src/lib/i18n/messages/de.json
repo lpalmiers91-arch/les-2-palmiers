@@ -128,7 +128,9 @@
     "errExists": "Mit dieser E-Mail existiert bereits ein Konto.",
     "errRate": "Zu viele Versuche. Bitte in einigen Minuten erneut versuchen.",
     "errShort": "Das Passwort muss mindestens 8 Zeichen haben.",
-    "google": "Mit Google fortfahren"
+    "google": "Mit Google fortfahren",
+    "referralCode": "Empfehlungscode",
+    "optional": "optional"
   },
   "console": {
     "space": {
@@ -845,7 +847,9 @@
     "needMore": "Sie brauchen mindestens {min} Punkte zum Einlösen.",
     "pointsN": "{n} Punkte",
     "creditAdded": "Guthaben hinzugefügt",
-    "redeem": "Einlösen"
+    "redeem": "Einlösen",
+    "rReferral": "Empfehlung",
+    "rGiftCard": "Geschenkkarte"
   },
   "a11y": {
     "skipToContent": "Zum Inhalt springen"
@@ -1032,5 +1036,80 @@
     "multicurrency": "Preise in mehreren Währungen anzeigen",
     "fxNote": "Besucher wählen ihre Währung im Header. Abgebucht wird immer in XOF.",
     "fxUnit": "Kurs in XOF pro 1 Einheit der Währung."
+  },
+  "appNav": {
+    "overview": "Übersicht",
+    "reservations": "Buchungen",
+    "services": "Services",
+    "messages": "Nachrichten",
+    "favorites": "Favoriten",
+    "loyalty": "Treue",
+    "referral": "Empfehlungen",
+    "giftCards": "Geschenkkarten",
+    "account": "Konto",
+    "verifyIdentity": "Identität bestätigen",
+    "signOut": "Abmelden",
+    "menu": "Menü",
+    "close": "Schließen"
+  },
+  "favorites": {
+    "title": "Meine Favoriten",
+    "sub": "Die von Ihnen gespeicherten Wohnungen.",
+    "save": "Speichern",
+    "saved": "Gespeichert",
+    "emptyT": "Noch keine Favoriten",
+    "emptyB": "Tippen Sie auf das Herz einer Wohnung, um sie hier wiederzufinden.",
+    "browse": "Wohnungen ansehen"
+  },
+  "referral": {
+    "title": "Empfehlen Sie Ihre Freunde",
+    "sub": "Ihr Code, Ihre Empfohlenen, Ihre Prämien.",
+    "reward": "{referrer} Punkte für Sie, {referred} Punkte für Ihren Freund.",
+    "howItWorks": "Punkte werden bei der ersten bezahlten Buchung Ihres Freundes gutgeschrieben.",
+    "shareText": "Buchen Sie bei Les 2 Palmiers mit meinem Code {code} und sammeln Sie Punkte.",
+    "copyCode": "Code kopieren",
+    "copyLink": "Link kopieren",
+    "copied": "Kopiert",
+    "share": "Teilen",
+    "myReferrals": "Meine Empfohlenen",
+    "qualifiedCount": "{n} von {total} qualifiziert",
+    "none": "Noch keine Empfohlenen.",
+    "aFriend": "Ein Freund",
+    "qualified": "Qualifiziert",
+    "pending": "Ausstehend"
+  },
+  "giftCard": {
+    "title": "Geschenkkarten",
+    "sub": "Verschenken Sie einen Aufenthalt oder Services.",
+    "buyTab": "Kaufen",
+    "redeemTab": "Code einlösen",
+    "amount": "Betrag",
+    "recipientEmail": "E-Mail des Empfängers",
+    "recipientName": "Name des Empfängers",
+    "message": "Nachricht",
+    "optional": "optional",
+    "method": "Zahlungsmethode",
+    "pay": "{amount} zahlen",
+    "simNote": "Simulierte Zahlung von {amount}. Wählen Sie das Ergebnis.",
+    "confirmPay": "Zahlung bestätigen",
+    "cancel": "Abbrechen",
+    "bought": "Geschenkkarte erstellt",
+    "boughtBody": "Der Code kann an {email} verschenkt werden.",
+    "redeemHelp": "Geben Sie den erhaltenen Code ein. Das Guthaben wird Ihrem Konto gutgeschrieben und beim Bezahlen automatisch verwendet.",
+    "redeemBtn": "Karte einlösen",
+    "redeemed": "{amount} zu Ihrem Guthaben hinzugefügt",
+    "redeemedBody": "Das Guthaben wird automatisch von Ihrer nächsten Zahlung abgezogen.",
+    "myCards": "Meine Karten",
+    "footNote": "Geschenkkarten sind ein Jahr gültig. Das Guthaben wird beim Einlösen zu Treueguthaben.",
+    "errEmail": "Ungültige E-Mail-Adresse.",
+    "errCode": "Code nicht gefunden.",
+    "errUnusable": "Diese Karte kann nicht mehr verwendet werden.",
+    "errGeneric": "Der Vorgang ist fehlgeschlagen. Bitte erneut versuchen.",
+    "status": {
+      "pending": "Zahlung ausstehend",
+      "active": "Aktiv",
+      "depleted": "Aufgebraucht",
+      "void": "Storniert"
+    }
   }
 }

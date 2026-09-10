@@ -797,6 +797,122 @@ export type Database = {
         }
         Relationships: []
       }
+      favorites: {
+        Row: {
+          apartment_id: string
+          client_id: string
+          created_at: string
+        }
+        Insert: {
+          apartment_id: string
+          client_id: string
+          created_at?: string
+        }
+        Update: {
+          apartment_id?: string
+          client_id?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "apartments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "favorites_apartment_id_fkey"
+            columns: ["apartment_id"]
+            isOneToOne: false
+            referencedRelation: "v_occupancy_monthly"
+            referencedColumns: ["apartment_id"]
+          },
+          {
+            foreignKeyName: "favorites_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      gift_cards: {
+        Row: {
+          activated_at: string | null
+          amount: number
+          balance: number
+          code: string
+          created_at: string
+          currency: string
+          expires_at: string | null
+          id: string
+          message: string | null
+          payment_id: string | null
+          purchaser_id: string | null
+          recipient_email: string | null
+          recipient_name: string | null
+          redeemed_by: string | null
+          status: string
+        }
+        Insert: {
+          activated_at?: string | null
+          amount: number
+          balance: number
+          code: string
+          created_at?: string
+          currency?: string
+          expires_at?: string | null
+          id?: string
+          message?: string | null
+          payment_id?: string | null
+          purchaser_id?: string | null
+          recipient_email?: string | null
+          recipient_name?: string | null
+          redeemed_by?: string | null
+          status?: string
+        }
+        Update: {
+          activated_at?: string | null
+          amount?: number
+          balance?: number
+          code?: string
+          created_at?: string
+          currency?: string
+          expires_at?: string | null
+          id?: string
+          message?: string | null
+          payment_id?: string | null
+          purchaser_id?: string | null
+          recipient_email?: string | null
+          recipient_name?: string | null
+          redeemed_by?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gift_cards_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "gift_cards_purchaser_id_fkey"
+            columns: ["purchaser_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "gift_cards_redeemed_by_fkey"
+            columns: ["redeemed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       identity_verifications: {
         Row: {
           created_at: string
@@ -1038,6 +1154,8 @@ export type Database = {
           id: number
           min_redeem: number
           redeem_per_point: number
+          referral_referred_points: number
+          referral_referrer_points: number
           review_bonus: number
           signup_bonus: number
           tiers: Json
@@ -1050,6 +1168,8 @@ export type Database = {
           id?: number
           min_redeem?: number
           redeem_per_point?: number
+          referral_referred_points?: number
+          referral_referrer_points?: number
           review_bonus?: number
           signup_bonus?: number
           tiers?: Json
@@ -1062,6 +1182,8 @@ export type Database = {
           id?: number
           min_redeem?: number
           redeem_per_point?: number
+          referral_referred_points?: number
+          referral_referrer_points?: number
           review_bonus?: number
           signup_bonus?: number
           tiers?: Json
@@ -1595,6 +1717,77 @@ export type Database = {
           window_start?: string
         }
         Relationships: []
+      }
+      referral_codes: {
+        Row: {
+          client_id: string
+          code: string
+          created_at: string
+        }
+        Insert: {
+          client_id: string
+          code: string
+          created_at?: string
+        }
+        Update: {
+          client_id?: string
+          code?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referral_codes_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      referrals: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          qualified_at: string | null
+          referred_id: string
+          referrer_id: string
+          status: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          qualified_at?: string | null
+          referred_id: string
+          referrer_id: string
+          status?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          qualified_at?: string | null
+          referred_id?: string
+          referrer_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referrals_referred_id_fkey"
+            columns: ["referred_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "referrals_referrer_id_fkey"
+            columns: ["referrer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       refunds: {
         Row: {
@@ -2559,6 +2752,7 @@ export type Database = {
       auth_has_permission: { Args: { perm: string }; Returns: boolean }
       auth_has_role: { Args: { role_key: string }; Returns: boolean }
       can_see_stay_info: { Args: { aid: string }; Returns: boolean }
+      claim_referral: { Args: { p_code: string }; Returns: undefined }
       clear_notifications: { Args: never; Returns: undefined }
       countersign_contract: {
         Args: { p_contract: string; p_signature_name: string }
@@ -2620,6 +2814,16 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      create_gift_card: {
+        Args: {
+          p_amount: number
+          p_message?: string
+          p_method?: string
+          p_recipient_email: string
+          p_recipient_name?: string
+        }
+        Returns: Json
       }
       create_reservation: {
         Args: {
@@ -2727,6 +2931,8 @@ export type Database = {
       delete_service: { Args: { p_id: string }; Returns: undefined }
       delete_stay_info: { Args: { p_apartment: string }; Returns: undefined }
       fx_config: { Args: never; Returns: Json }
+      gen_gift_code: { Args: never; Returns: string }
+      gen_referral_code: { Args: { p_name: string }; Returns: string }
       get_or_create_invoice: {
         Args: { p_reservation: string }
         Returns: {
@@ -2843,6 +3049,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      my_referral_code: { Args: never; Returns: string }
       notify_anon_key: { Args: never; Returns: string }
       notify_endpoint: { Args: never; Returns: string }
       notify_staff: {
@@ -3079,6 +3286,7 @@ export type Database = {
         Args: { p_apartment: string; p_guests?: number; p_range: unknown }
         Returns: Json
       }
+      redeem_gift_card: { Args: { p_code: string }; Returns: Json }
       redeem_loyalty: {
         Args: { p_points: number }
         Returns: {
@@ -3340,6 +3548,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      toggle_favorite: { Args: { p_apartment: string }; Returns: boolean }
       track_event: {
         Args: {
           p_event: string

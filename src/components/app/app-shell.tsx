@@ -12,6 +12,8 @@ import {
   UserRound,
   ShieldCheck,
   Gift,
+  Heart,
+  Users,
   LogOut,
   Menu,
   X,
@@ -19,14 +21,8 @@ import {
 import { Mark } from "@/components/brand/mark";
 import { createClient } from "@/lib/supabase/client";
 import { PresenceProvider } from "@/lib/presence";
+import { useT } from "@/lib/i18n/provider";
 import { NotificationBell } from "./notification-bell";
-
-const baseNav = [
-  { href: "/app", label: "Aperçu", icon: LayoutGrid, exact: true },
-  { href: "/app/reservations", label: "Réservations", icon: CalendarDays },
-  { href: "/app/services", label: "Services", icon: ConciergeBell },
-  { href: "/app/messages", label: "Messagerie", icon: MessageSquare },
-];
 
 type Notif = Parameters<typeof NotificationBell>[0]["initial"][number];
 
@@ -51,15 +47,24 @@ export function AppShell({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { t } = useT();
   const [open, setOpen] = useState(false);
 
   const showVerify = identityStatus !== "approved";
   const nav = [
-    ...baseNav,
+    { href: "/app", label: t("appNav.overview"), icon: LayoutGrid, exact: true },
+    { href: "/app/reservations", label: t("appNav.reservations"), icon: CalendarDays },
+    { href: "/app/services", label: t("appNav.services"), icon: ConciergeBell },
+    { href: "/app/messages", label: t("appNav.messages"), icon: MessageSquare },
+    { href: "/app/favoris", label: t("appNav.favorites"), icon: Heart },
     ...(loyaltyEnabled
-      ? [{ href: "/app/fidelite", label: "Fidélité", icon: Gift, exact: false }]
+      ? [
+          { href: "/app/fidelite", label: t("appNav.loyalty"), icon: Gift, exact: false },
+          { href: "/app/parrainage", label: t("appNav.referral"), icon: Users },
+          { href: "/app/cartes-cadeaux", label: t("appNav.giftCards"), icon: Gift },
+        ]
       : []),
-    { href: "/app/compte", label: "Compte", icon: UserRound },
+    { href: "/app/compte", label: t("appNav.account"), icon: UserRound },
   ];
 
   const active = (href: string, exact?: boolean) =>
@@ -106,7 +111,7 @@ export function AppShell({
           }`}
         >
           <ShieldCheck className="h-[18px] w-[18px]" strokeWidth={1.7} />
-          <span className="flex-1">Vérifier mon identité</span>
+          <span className="flex-1">{t("appNav.verifyIdentity")}</span>
         </Link>
       )}
     </nav>
@@ -135,7 +140,7 @@ export function AppShell({
             className="press flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13.5px] text-ink-2 hover:bg-ink/5"
           >
             <LogOut className="h-4 w-4" strokeWidth={1.7} />
-            Se déconnecter
+            {t("appNav.signOut")}
           </button>
         </div>
       </aside>
@@ -147,7 +152,7 @@ export function AppShell({
         </Link>
         <div className="flex items-center gap-1">
           <NotificationBell userId={userId} initial={notifications} align="right" />
-          <button onClick={() => setOpen(true)} aria-label="Menu" className="press p-1 text-ink">
+          <button onClick={() => setOpen(true)} aria-label={t("appNav.menu")} className="press p-1 text-ink">
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -162,7 +167,7 @@ export function AppShell({
                 <Avatar url={avatarUrl} name={userName} />
                 <span className="display truncate text-[1rem] text-ink">{userName}</span>
               </span>
-              <button onClick={() => setOpen(false)} aria-label="Fermer" className="press p-1">
+              <button onClick={() => setOpen(false)} aria-label={t("appNav.close")} className="press p-1">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -174,7 +179,7 @@ export function AppShell({
               className="press mt-4 flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2.5 text-[14px] text-ink-2 hover:bg-ink/5"
             >
               <LogOut className="h-4 w-4" />
-              Se déconnecter
+              {t("appNav.signOut")}
             </button>
           </div>
         </div>

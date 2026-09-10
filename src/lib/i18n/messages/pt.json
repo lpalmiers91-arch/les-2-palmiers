@@ -128,7 +128,9 @@
     "errExists": "Já existe uma conta com este e-mail.",
     "errRate": "Demasiadas tentativas. Tente novamente dentro de alguns minutos.",
     "errShort": "A palavra-passe deve ter pelo menos 8 caracteres.",
-    "google": "Continuar com o Google"
+    "google": "Continuar com o Google",
+    "referralCode": "Código de indicação",
+    "optional": "opcional"
   },
   "console": {
     "space": {
@@ -845,7 +847,9 @@
     "needMore": "Precisa de pelo menos {min} pontos para trocar.",
     "pointsN": "{n} pontos",
     "creditAdded": "Crédito adicionado",
-    "redeem": "Trocar"
+    "redeem": "Trocar",
+    "rReferral": "Indicação",
+    "rGiftCard": "Cartão-presente"
   },
   "a11y": {
     "skipToContent": "Ir para o conteúdo"
@@ -1032,5 +1036,80 @@
     "multicurrency": "Mostrar os preços em várias moedas",
     "fxNote": "O visitante escolhe a moeda no cabeçalho. A cobrança é sempre em XOF.",
     "fxUnit": "Taxa expressa em XOF por 1 unidade da moeda."
+  },
+  "appNav": {
+    "overview": "Resumo",
+    "reservations": "Reservas",
+    "services": "Serviços",
+    "messages": "Mensagens",
+    "favorites": "Favoritos",
+    "loyalty": "Fidelidade",
+    "referral": "Indicações",
+    "giftCards": "Cartões-presente",
+    "account": "Conta",
+    "verifyIdentity": "Verificar a minha identidade",
+    "signOut": "Terminar sessão",
+    "menu": "Menu",
+    "close": "Fechar"
+  },
+  "favorites": {
+    "title": "Os meus favoritos",
+    "sub": "Os apartamentos que guardou.",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "emptyT": "Ainda sem favoritos",
+    "emptyB": "Toque no coração de um apartamento para o encontrar aqui.",
+    "browse": "Ver os apartamentos"
+  },
+  "referral": {
+    "title": "Indique os seus amigos",
+    "sub": "O seu código, os seus indicados, as suas recompensas.",
+    "reward": "{referrer} pontos para si, {referred} pontos para o seu indicado.",
+    "howItWorks": "Os pontos são creditados na primeira reserva paga do seu indicado.",
+    "shareText": "Reserve nos 2 Palmiers com o meu código {code} e ganhe pontos.",
+    "copyCode": "Copiar código",
+    "copyLink": "Copiar link",
+    "copied": "Copiado",
+    "share": "Partilhar",
+    "myReferrals": "Os meus indicados",
+    "qualifiedCount": "{n} de {total} validados",
+    "none": "Ainda sem indicados.",
+    "aFriend": "Um indicado",
+    "qualified": "Validado",
+    "pending": "Pendente"
+  },
+  "giftCard": {
+    "title": "Cartões-presente",
+    "sub": "Ofereça uma estadia ou serviços.",
+    "buyTab": "Comprar",
+    "redeemTab": "Usar um código",
+    "amount": "Valor",
+    "recipientEmail": "E-mail do destinatário",
+    "recipientName": "Nome do destinatário",
+    "message": "Mensagem",
+    "optional": "opcional",
+    "method": "Método de pagamento",
+    "pay": "Pagar {amount}",
+    "simNote": "Pagamento simulado de {amount}. Escolha o resultado.",
+    "confirmPay": "Confirmar o pagamento",
+    "cancel": "Cancelar",
+    "bought": "Cartão-presente criado",
+    "boughtBody": "O código está pronto para oferecer a {email}.",
+    "redeemHelp": "Introduza o código recebido. O saldo é adicionado ao seu crédito e usado automaticamente no pagamento.",
+    "redeemBtn": "Usar o cartão",
+    "redeemed": "{amount} adicionados ao seu crédito",
+    "redeemedBody": "O crédito será deduzido automaticamente do seu próximo pagamento.",
+    "myCards": "Os meus cartões",
+    "footNote": "Os cartões-presente são válidos por um ano. O saldo torna-se crédito de fidelidade ao ser usado.",
+    "errEmail": "Endereço de e-mail inválido.",
+    "errCode": "Código não encontrado.",
+    "errUnusable": "Este cartão já não pode ser usado.",
+    "errGeneric": "A operação falhou. Tente novamente.",
+    "status": {
+      "pending": "A aguardar pagamento",
+      "active": "Ativo",
+      "depleted": "Usado",
+      "void": "Anulado"
+    }
   }
 }

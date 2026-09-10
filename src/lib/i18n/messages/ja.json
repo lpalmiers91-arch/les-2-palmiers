@@ -128,7 +128,9 @@
     "errExists": "このメールアドレスのアカウントはすでに存在します。",
     "errRate": "試行回数が多すぎます。数分後にもう一度お試しください。",
     "errShort": "パスワードは8文字以上必要です。",
-    "google": "Google で続ける"
+    "google": "Google で続ける",
+    "referralCode": "紹介コード",
+    "optional": "任意"
   },
   "console": {
     "space": {
@@ -845,7 +847,9 @@
     "needMore": "交換には最低 {min} ポイントが必要です。",
     "pointsN": "{n} ポイント",
     "creditAdded": "クレジットを追加しました",
-    "redeem": "交換する"
+    "redeem": "交換する",
+    "rReferral": "友達紹介",
+    "rGiftCard": "ギフトカード"
   },
   "a11y": {
     "skipToContent": "本文へスキップ"
@@ -1032,5 +1036,80 @@
     "multicurrency": "複数通貨で価格を表示する",
     "fxNote": "訪問者はヘッダーで通貨を選びます。決済は常に XOF です。",
     "fxUnit": "レートは通貨1単位あたりの XOF で表します。"
+  },
+  "appNav": {
+    "overview": "概要",
+    "reservations": "予約",
+    "services": "サービス",
+    "messages": "メッセージ",
+    "favorites": "お気に入り",
+    "loyalty": "ロイヤルティ",
+    "referral": "友達紹介",
+    "giftCards": "ギフトカード",
+    "account": "アカウント",
+    "verifyIdentity": "本人確認を行う",
+    "signOut": "ログアウト",
+    "menu": "メニュー",
+    "close": "閉じる"
+  },
+  "favorites": {
+    "title": "お気に入り",
+    "sub": "保存したお部屋。",
+    "save": "保存",
+    "saved": "保存済み",
+    "emptyT": "お気に入りはまだありません",
+    "emptyB": "お部屋のハートをタップすると、ここに表示されます。",
+    "browse": "お部屋を見る"
+  },
+  "referral": {
+    "title": "友達を紹介する",
+    "sub": "コード・紹介した人・特典。",
+    "reward": "あなたに {referrer} ポイント、ご友人に {referred} ポイント。",
+    "howItWorks": "ポイントはご友人の初回有料予約時に付与されます。",
+    "shareText": "私のコード {code} で Les 2 Palmiers を予約するとポイントがもらえます。",
+    "copyCode": "コードをコピー",
+    "copyLink": "リンクをコピー",
+    "copied": "コピーしました",
+    "share": "共有",
+    "myReferrals": "紹介した人",
+    "qualifiedCount": "{total} 人中 {n} 人成立",
+    "none": "まだ紹介した人はいません。",
+    "aFriend": "ご友人",
+    "qualified": "成立",
+    "pending": "保留中"
+  },
+  "giftCard": {
+    "title": "ギフトカード",
+    "sub": "ご滞在やサービスを贈りましょう。",
+    "buyTab": "購入",
+    "redeemTab": "コードを使う",
+    "amount": "金額",
+    "recipientEmail": "受取人のメール",
+    "recipientName": "受取人の名前",
+    "message": "メッセージ",
+    "optional": "任意",
+    "method": "お支払い方法",
+    "pay": "{amount} を支払う",
+    "simNote": "{amount} の模擬決済です。結果を選んでください。",
+    "confirmPay": "支払いを確定",
+    "cancel": "キャンセル",
+    "bought": "ギフトカードを作成しました",
+    "boughtBody": "コードを {email} に贈る準備ができました。",
+    "redeemHelp": "受け取ったコードを入力してください。残高はクレジットに加算され、支払い時に自動的に使われます。",
+    "redeemBtn": "カードを使う",
+    "redeemed": "{amount} をクレジットに追加しました",
+    "redeemedBody": "クレジットは次回のお支払いから自動的に差し引かれます。",
+    "myCards": "マイカード",
+    "footNote": "ギフトカードの有効期限は1年です。利用時に残高はロイヤルティクレジットになります。",
+    "errEmail": "メールアドレスが無効です。",
+    "errCode": "コードが見つかりません。",
+    "errUnusable": "このカードは使用できません。",
+    "errGeneric": "処理に失敗しました。もう一度お試しください。",
+    "status": {
+      "pending": "支払い待ち",
+      "active": "有効",
+      "depleted": "使用済み",
+      "void": "無効"
+    }
   }
 }

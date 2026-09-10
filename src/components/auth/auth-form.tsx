@@ -16,6 +16,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const params = useSearchParams();
   const { t } = useT();
   const suite = params.get("suite") || "/app";
+  const [ref, setRef] = useState(params.get("ref") ?? "");
 
   const copy: Record<Mode, { title: string; cta: string; foot: string }> = {
     signin: { title: t("auth.signinTitle"), cta: t("auth.signinCta"), foot: t("auth.signinFoot") },
@@ -51,7 +52,10 @@ export function AuthForm({ mode }: { mode: Mode }) {
           email,
           password,
           options: {
-            data: { full_name: name || null },
+            data: {
+              full_name: name || null,
+              ...(ref.trim() ? { referral_code: ref.trim().toUpperCase() } : {}),
+            },
             emailRedirectTo: `${location.origin}/auth/confirm?suite=${encodeURIComponent(suite)}`,
           },
         });
@@ -151,6 +155,21 @@ export function AuthForm({ mode }: { mode: Mode }) {
               <span className="mt-1.5 block text-[12px] text-danger">{t("auth.mismatch")}</span>
             )}
           </div>
+        )}
+
+        {mode === "signup" && (
+          <label className="block">
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
+              {t("auth.referralCode")} <span className="text-ink-3">({t("auth.optional")})</span>
+            </span>
+            <input
+              value={ref}
+              onChange={(e) => setRef(e.target.value)}
+              placeholder="PALM-0000"
+              autoComplete="off"
+              className="field uppercase"
+            />
+          </label>
         )}
 
         {error && (

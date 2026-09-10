@@ -14,6 +14,7 @@ function reasonLabel(t: (k: string) => string, r: string) {
     signup: t("loyaltyPage.rSignup"), reservation: t("loyaltyPage.rReservation"),
     payment: t("loyaltyPage.rPayment"), review: t("loyaltyPage.rReview"),
     redeem: t("loyaltyPage.rRedeem"), credit_used: t("loyaltyPage.rCreditUsed"),
+    referral: t("loyaltyPage.rReferral"), gift_card: t("loyaltyPage.rGiftCard"),
     manual: t("loyaltyPage.rManual"),
   };
   return map[r] ?? r;

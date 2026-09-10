@@ -8,6 +8,8 @@ import { ApartmentCard } from "@/components/marketing/apartment-card";
 import { AMENITY } from "@/lib/amenities";
 import { getT } from "@/lib/i18n";
 import { Price } from "@/lib/currency";
+import { getFavoriteState } from "@/lib/favorites";
+import { FavoriteButton } from "@/components/marketing/favorite-button";
 import { createClient } from "@/lib/supabase/server";
 import { JsonLd, apartmentLd, breadcrumbLd } from "@/components/seo/json-ld";
 import { site } from "@/lib/site";
@@ -44,6 +46,7 @@ export default async function ApartmentDetail({
   const paras = (apt.description ?? "").split(/\n{2,}/).filter(Boolean);
 
   const supabase = await createClient();
+  const fav = await getFavoriteState();
   const { data: rev } = await supabase
     .from("reviews")
     .select("rating")
@@ -95,13 +98,23 @@ export default async function ApartmentDetail({
               </span>
             </p>
           </div>
-          <Link
-            href={`/reserver?apartment=${apt.slug}`} data-track="reserver-apartment"
-            className="press inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[14px] font-medium text-bone hover:bg-forest-2"
-          >
-            {t("aptPub.from")} <Price xof={apt.base_price} />{t("aptPub.perNight")}
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+          <div className="flex items-center gap-2">
+            {fav.authed && (
+              <FavoriteButton
+                apartmentId={apt.id}
+                initial={fav.ids.has(apt.id)}
+                authed={fav.authed}
+                variant="full"
+              />
+            )}
+            <Link
+              href={`/reserver?apartment=${apt.slug}`} data-track="reserver-apartment"
+              className="press inline-flex h-12 items-center gap-2 rounded-full bg-ink px-6 text-[14px] font-medium text-bone hover:bg-forest-2"
+            >
+              {t("aptPub.from")} <Price xof={apt.base_price} />{t("aptPub.perNight")}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </header>
 
         <div className="mt-8">

@@ -128,7 +128,9 @@
     "errExists": "Esiste già un account con questa e-mail.",
     "errRate": "Troppi tentativi. Riprova tra qualche minuto.",
     "errShort": "La password deve avere almeno 8 caratteri.",
-    "google": "Continua con Google"
+    "google": "Continua con Google",
+    "referralCode": "Codice invito",
+    "optional": "facoltativo"
   },
   "console": {
     "space": {
@@ -845,7 +847,9 @@
     "needMore": "Servono almeno {min} punti per convertire.",
     "pointsN": "{n} punti",
     "creditAdded": "Credito aggiunto",
-    "redeem": "Converti"
+    "redeem": "Converti",
+    "rReferral": "Invito",
+    "rGiftCard": "Carta regalo"
   },
   "a11y": {
     "skipToContent": "Vai al contenuto"
@@ -1032,5 +1036,80 @@
     "multicurrency": "Mostra i prezzi in più valute",
     "fxNote": "Il visitatore sceglie la valuta nell'intestazione. L'addebito resta sempre in XOF.",
     "fxUnit": "Tasso espresso in XOF per 1 unità della valuta."
+  },
+  "appNav": {
+    "overview": "Panoramica",
+    "reservations": "Prenotazioni",
+    "services": "Servizi",
+    "messages": "Messaggi",
+    "favorites": "Preferiti",
+    "loyalty": "Fedeltà",
+    "referral": "Invita amici",
+    "giftCards": "Carte regalo",
+    "account": "Account",
+    "verifyIdentity": "Verifica la mia identità",
+    "signOut": "Esci",
+    "menu": "Menu",
+    "close": "Chiudi"
+  },
+  "favorites": {
+    "title": "I miei preferiti",
+    "sub": "Gli appartamenti che hai salvato.",
+    "save": "Salva",
+    "saved": "Salvato",
+    "emptyT": "Ancora nessun preferito",
+    "emptyB": "Tocca il cuore su un appartamento per ritrovarlo qui.",
+    "browse": "Sfoglia gli appartamenti"
+  },
+  "referral": {
+    "title": "Invita i tuoi amici",
+    "sub": "Il tuo codice, i tuoi invitati, i tuoi premi.",
+    "reward": "{referrer} punti per te, {referred} punti per il tuo invitato.",
+    "howItWorks": "I punti vengono accreditati alla prima prenotazione pagata del tuo invitato.",
+    "shareText": "Prenota a Les 2 Palmiers con il mio codice {code} e guadagna punti.",
+    "copyCode": "Copia codice",
+    "copyLink": "Copia link",
+    "copied": "Copiato",
+    "share": "Condividi",
+    "myReferrals": "I miei invitati",
+    "qualifiedCount": "{n} di {total} validati",
+    "none": "Ancora nessun invitato.",
+    "aFriend": "Un invitato",
+    "qualified": "Validato",
+    "pending": "In attesa"
+  },
+  "giftCard": {
+    "title": "Carte regalo",
+    "sub": "Regala un soggiorno o dei servizi.",
+    "buyTab": "Acquista",
+    "redeemTab": "Usa un codice",
+    "amount": "Importo",
+    "recipientEmail": "E-mail del destinatario",
+    "recipientName": "Nome del destinatario",
+    "message": "Messaggio",
+    "optional": "facoltativo",
+    "method": "Metodo di pagamento",
+    "pay": "Paga {amount}",
+    "simNote": "Pagamento simulato di {amount}. Scegli l'esito.",
+    "confirmPay": "Conferma il pagamento",
+    "cancel": "Annulla",
+    "bought": "Carta regalo creata",
+    "boughtBody": "Il codice è pronto da regalare a {email}.",
+    "redeemHelp": "Inserisci il codice ricevuto. Il saldo viene aggiunto al tuo credito e usato automaticamente al pagamento.",
+    "redeemBtn": "Usa la carta",
+    "redeemed": "{amount} aggiunti al tuo credito",
+    "redeemedBody": "Il credito sarà detratto automaticamente dal tuo prossimo pagamento.",
+    "myCards": "Le mie carte",
+    "footNote": "Le carte regalo sono valide un anno. Il saldo diventa credito fedeltà al momento dell'uso.",
+    "errEmail": "Indirizzo e-mail non valido.",
+    "errCode": "Codice non trovato.",
+    "errUnusable": "Questa carta non è più utilizzabile.",
+    "errGeneric": "Operazione non riuscita. Riprova.",
+    "status": {
+      "pending": "In attesa di pagamento",
+      "active": "Attiva",
+      "depleted": "Utilizzata",
+      "void": "Annullata"
+    }
   }
 }

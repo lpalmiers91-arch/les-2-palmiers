@@ -128,7 +128,9 @@
     "errExists": "该邮箱已注册账户。",
     "errRate": "尝试次数过多。请几分钟后再试。",
     "errShort": "密码至少需要 8 个字符。",
-    "google": "使用 Google 继续"
+    "google": "使用 Google 继续",
+    "referralCode": "推荐码",
+    "optional": "可选"
   },
   "console": {
     "space": {
@@ -845,7 +847,9 @@
     "needMore": "兑换至少需要 {min} 积分。",
     "pointsN": "{n} 积分",
     "creditAdded": "余额已添加",
-    "redeem": "兑换"
+    "redeem": "兑换",
+    "rReferral": "推荐好友",
+    "rGiftCard": "礼品卡"
   },
   "a11y": {
     "skipToContent": "跳到主要内容"
@@ -1032,5 +1036,80 @@
     "multicurrency": "以多种货币显示价格",
     "fxNote": "访客在页头选择货币。扣款始终以 XOF 进行。",
     "fxUnit": "汇率以每 1 单位外币折合多少 XOF 表示。"
+  },
+  "appNav": {
+    "overview": "概览",
+    "reservations": "预订",
+    "services": "服务",
+    "messages": "消息",
+    "favorites": "收藏",
+    "loyalty": "会员积分",
+    "referral": "推荐好友",
+    "giftCards": "礼品卡",
+    "account": "账户",
+    "verifyIdentity": "验证我的身份",
+    "signOut": "退出登录",
+    "menu": "菜单",
+    "close": "关闭"
+  },
+  "favorites": {
+    "title": "我的收藏",
+    "sub": "您已收藏的公寓。",
+    "save": "收藏",
+    "saved": "已收藏",
+    "emptyT": "暂无收藏",
+    "emptyB": "点击公寓上的爱心即可将其保存在这里。",
+    "browse": "浏览公寓"
+  },
+  "referral": {
+    "title": "推荐给亲友",
+    "sub": "您的推荐码、被推荐人和奖励。",
+    "reward": "您获得 {referrer} 积分,被推荐人获得 {referred} 积分。",
+    "howItWorks": "被推荐人首次完成付费预订后即发放积分。",
+    "shareText": "使用我的推荐码 {code} 在 Les 2 Palmiers 预订并赢取积分。",
+    "copyCode": "复制推荐码",
+    "copyLink": "复制链接",
+    "copied": "已复制",
+    "share": "分享",
+    "myReferrals": "我推荐的人",
+    "qualifiedCount": "{total} 人中 {n} 人已达标",
+    "none": "暂无被推荐人。",
+    "aFriend": "一位好友",
+    "qualified": "已达标",
+    "pending": "待定"
+  },
+  "giftCard": {
+    "title": "礼品卡",
+    "sub": "赠送住宿或服务。",
+    "buyTab": "购买",
+    "redeemTab": "兑换",
+    "amount": "金额",
+    "recipientEmail": "收件人邮箱",
+    "recipientName": "收件人姓名",
+    "message": "留言",
+    "optional": "可选",
+    "method": "支付方式",
+    "pay": "支付 {amount}",
+    "simNote": "{amount} 的模拟付款。请选择结果。",
+    "confirmPay": "确认付款",
+    "cancel": "取消",
+    "bought": "礼品卡已创建",
+    "boughtBody": "礼品码已可赠送给 {email}。",
+    "redeemHelp": "输入收到的代码。其余额将计入您的余额,并在结账时自动使用。",
+    "redeemBtn": "兑换礼品卡",
+    "redeemed": "已向您的余额添加 {amount}",
+    "redeemedBody": "余额将在您下次付款时自动抵扣。",
+    "myCards": "我的礼品卡",
+    "footNote": "礼品卡有效期一年。兑换后余额转为会员积分余额。",
+    "errEmail": "邮箱地址无效。",
+    "errCode": "未找到该代码。",
+    "errUnusable": "此礼品卡已无法使用。",
+    "errGeneric": "操作失败。请重试。",
+    "status": {
+      "pending": "待付款",
+      "active": "有效",
+      "depleted": "已使用",
+      "void": "已作废"
+    }
   }
 }
