@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { SendHorizonal, Loader2, Paperclip, X, FileText, Trash2 } from "lucide-react";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 import { useIsOnline } from "@/lib/presence";
 import { formatDate } from "@/lib/format";
@@ -37,6 +38,7 @@ export function MessagesThread({
   peerId?: string | null;
   peerName?: string;
 }) {
+  const { t } = useT();
   const [messages, setMessages] = useState<Msg[]>(initial);
   const [text, setText] = useState("");
   const [convId, setConvId] = useState(conversationId);
@@ -148,7 +150,7 @@ export function MessagesThread({
       const uploaded: Attachment[] = [];
       for (const file of files) {
         if (file.size > 15 * 1024 * 1024) {
-          setErr("Chaque fichier doit faire moins de 15 Mo.");
+          setErr(t("thread.fileTooBig"));
           continue;
         }
         const ext = file.name.split(".").pop()?.toLowerCase() || "bin";
@@ -161,7 +163,7 @@ export function MessagesThread({
       }
       setPending((p) => [...p, ...uploaded]);
     } catch {
-      setErr("Le téléversement a échoué.");
+      setErr(t("thread.uploadFailed"));
     } finally {
       setUploading(false);
     }
@@ -192,7 +194,7 @@ export function MessagesThread({
       setText("");
       setPending([]);
     } catch {
-      setErr("Envoi impossible. Réessayez.");
+      setErr(t("thread.sendFailed"));
     } finally {
       setSending(false);
     }
@@ -203,21 +205,21 @@ export function MessagesThread({
       <div className="flex items-center gap-2 border-b border-line px-4 py-3 sm:px-6">
         <span className={`h-2 w-2 rounded-full ${peerOnline ? "bg-forest-2" : "bg-ink-3/40"}`} />
         <p className="text-[13px] font-medium text-ink">
-          {variant === "staff" ? peerName || "Client" : "Équipe Les 2 Palmiers"}
+          {variant === "staff" ? peerName || t("thread.client") : t("thread.team")}
         </p>
         <p className="text-[12px] text-ink-3">
           {peerOnline
-            ? "en ligne"
+            ? t("thread.online")
             : variant === "staff"
-              ? "hors ligne"
-              : "vous répondra dès que possible"}
+              ? t("thread.offline")
+              : t("thread.willReply")}
         </p>
       </div>
 
       <div className="flex-1 space-y-3 overflow-y-auto p-4 sm:p-6">
         {messages.length === 0 && (
           <p className="mt-8 text-center text-[13.5px] text-ink-3">
-            Écrivez à l&apos;équipe : arrivée, services, preuve de paiement, questions sur le séjour.
+            {t("thread.emptyHint")}
           </p>
         )}
         {messages.map((m) => {
@@ -237,7 +239,7 @@ export function MessagesThread({
               {mine && canDelete && (
                 <button
                   onClick={() => deleteMessage(m.id)}
-                  aria-label="Supprimer le message"
+                  aria-label={t("thread.deleteMsg")}
                   className="press mb-4 shrink-0 p-1 text-ink-3 opacity-0 transition-opacity hover:text-danger group-hover:opacity-100"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
@@ -254,12 +256,11 @@ export function MessagesThread({
               >
                 {deleted ? (
                   <p className="text-[13px]">
-                    Message supprimé{" "}
                     {deletedByMe
-                      ? "par vous"
+                      ? t("thread.deletedByYou")
                       : variant === "staff"
-                        ? "par le client"
-                        : "par l'équipe"}
+                        ? t("thread.deletedByClient")
+                        : t("thread.deletedByTeam")}
                   </p>
                 ) : (
                   <>
@@ -281,7 +282,7 @@ export function MessagesThread({
               {!mine && canDelete && (
                 <button
                   onClick={() => deleteMessage(m.id)}
-                  aria-label="Supprimer le message"
+                  aria-label={t("thread.deleteMsg")}
                   className="press mb-4 shrink-0 p-1 text-ink-3 opacity-0 transition-opacity hover:text-danger group-hover:opacity-100"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
@@ -320,7 +321,7 @@ export function MessagesThread({
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          aria-label="Joindre un fichier"
+          aria-label={t("thread.attach")}
           className="press flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full text-ink-3 hover:bg-ink/5 hover:text-ink"
         >
           <Paperclip className="h-[18px] w-[18px]" />
@@ -343,13 +344,13 @@ export function MessagesThread({
             }
           }}
           rows={1}
-          placeholder="Votre message…"
+          placeholder={t("thread.placeholder")}
           className="field max-h-32 min-h-[46px] flex-1 resize-none py-3"
         />
         <button
           type="submit"
           disabled={sending || (!text.trim() && pending.length === 0)}
-          aria-label="Envoyer"
+          aria-label={t("thread.send")}
           className="press flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full bg-ink text-bone hover:bg-forest-2 disabled:opacity-40"
         >
           {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <SendHorizonal className="h-4 w-4" />}

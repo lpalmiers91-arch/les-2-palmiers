@@ -7,6 +7,7 @@ import { Loader2, Check, Camera, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { LANGUAGES } from "@/lib/i18n/languages";
 import { PasswordField } from "@/components/auth/password-field";
+import { useT } from "@/lib/i18n/provider";
 
 type Profile = {
   full_name: string;
@@ -32,6 +33,7 @@ export function AccountForm({
   initial: Profile;
 }) {
   const router = useRouter();
+  const { t } = useT();
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [p, setP] = useState<Profile>(initial);
@@ -55,7 +57,7 @@ export function AccountForm({
     e.target.value = "";
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) {
-      setErr("La photo ne doit pas dépasser 5 Mo.");
+      setErr(t("acctForm.photoTooBig"));
       return;
     }
     setUploading(true);
@@ -73,7 +75,7 @@ export function AccountForm({
       setAvatar(data.publicUrl);
       router.refresh();
     } catch {
-      setErr("Le téléversement de la photo a échoué.");
+      setErr(t("acctForm.photoFailed"));
     } finally {
       setUploading(false);
     }
@@ -109,7 +111,7 @@ export function AccountForm({
       .eq("id", userId);
     setSaving(false);
     if (error) {
-      setErr("Enregistrement impossible. Réessayez.");
+      setErr(t("acctForm.saveFailed"));
       return;
     }
     setSaved(true);
@@ -121,7 +123,7 @@ export function AccountForm({
     e.preventDefault();
     if (pw.length < 8) return;
     if (pw !== pw2) {
-      setPwMsg("Les deux mots de passe ne correspondent pas.");
+      setPwMsg(t("acctForm.pwMismatch"));
       return;
     }
     setPwBusy(true);
@@ -130,7 +132,7 @@ export function AccountForm({
     setPwBusy(false);
     setPw("");
     setPw2("");
-    setPwMsg(error ? "Impossible de modifier le mot de passe." : "Mot de passe mis à jour.");
+    setPwMsg(error ? t("acctForm.pwFailed") : t("acctForm.pwUpdated"));
   }
 
   const initials = (p.full_name || email).slice(0, 2).toUpperCase();
@@ -138,7 +140,7 @@ export function AccountForm({
   return (
     <div className="space-y-8">
       <form onSubmit={saveProfile} className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
-        <h2 className="display text-[1.15rem] text-ink">Profil</h2>
+        <h2 className="display text-[1.15rem] text-ink">{t("acctForm.profile")}</h2>
 
         {/* photo */}
         <div className="mt-5 flex items-center gap-4">
@@ -163,7 +165,7 @@ export function AccountForm({
               disabled={uploading}
               className="press flex h-9 items-center gap-1.5 rounded-full border border-line px-4 text-[13px] font-medium text-ink hover:border-ink/30 disabled:opacity-50"
             >
-              <Camera className="h-3.5 w-3.5" /> {avatar ? "Changer" : "Ajouter une photo"}
+              <Camera className="h-3.5 w-3.5" /> {avatar ? t("acctForm.change") : t("acctForm.addPhoto")}
             </button>
             {avatar && (
               <button
@@ -172,7 +174,7 @@ export function AccountForm({
                 disabled={uploading}
                 className="press flex h-9 items-center gap-1.5 rounded-full px-3 text-[13px] text-ink-3 hover:text-danger disabled:opacity-50"
               >
-                <Trash2 className="h-3.5 w-3.5" /> Retirer
+                <Trash2 className="h-3.5 w-3.5" /> {t("acctForm.remove")}
               </button>
             )}
             <input
@@ -186,10 +188,10 @@ export function AccountForm({
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <Field label="Nom complet">
+          <Field label={t("acctForm.fullName")}>
             <input className="field" value={p.full_name} onChange={(e) => set("full_name", e.target.value)} />
           </Field>
-          <Field label="Téléphone" hint="non vérifié">
+          <Field label={t("acctForm.phone")} hint={t("acctForm.unverified")}>
             <input
               className="field tnum"
               value={p.phone}
@@ -197,10 +199,10 @@ export function AccountForm({
               placeholder="+229 …"
             />
           </Field>
-          <Field label="Adresse e-mail">
+          <Field label={t("acctForm.email")}>
             <input className="field" value={email} disabled />
           </Field>
-          <Field label="Date de naissance">
+          <Field label={t("acctForm.dob")}>
             <input
               type="date"
               className="field"
@@ -208,15 +210,15 @@ export function AccountForm({
               onChange={(e) => set("date_of_birth", e.target.value)}
             />
           </Field>
-          <Field label="Nationalité">
+          <Field label={t("acctForm.nationality")}>
             <input
               className="field"
               value={p.nationality}
               onChange={(e) => set("nationality", e.target.value)}
-              placeholder="Béninoise, Française…"
+              placeholder={t("acctForm.nationalityPlaceholder")}
             />
           </Field>
-          <Field label="Langue">
+          <Field label={t("acctForm.language")}>
             <select className="field" value={p.locale} onChange={(e) => set("locale", e.target.value)}>
               {LANGUAGES.map((l) => (
                 <option key={l.code} value={l.code}>
@@ -225,21 +227,21 @@ export function AccountForm({
               ))}
             </select>
           </Field>
-          <Field label="Adresse" className="sm:col-span-2">
+          <Field label={t("acctForm.address")} className="sm:col-span-2">
             <input className="field" value={p.address} onChange={(e) => set("address", e.target.value)} />
           </Field>
-          <Field label="Ville">
+          <Field label={t("acctForm.city")}>
             <input className="field" value={p.city} onChange={(e) => set("city", e.target.value)} />
           </Field>
-          <Field label="Pays">
+          <Field label={t("acctForm.country")}>
             <input className="field" value={p.country} onChange={(e) => set("country", e.target.value)} />
           </Field>
-          <Field label="À propos de vous" hint="facultatif" className="sm:col-span-2">
+          <Field label={t("acctForm.about")} hint={t("acctForm.optional")} className="sm:col-span-2">
             <textarea
               className="field min-h-[80px] resize-y"
               value={p.bio}
               onChange={(e) => set("bio", e.target.value)}
-              placeholder="Une préférence, une allergie, un rythme de voyage…"
+              placeholder={t("acctForm.aboutPlaceholder")}
             />
           </Field>
         </div>
@@ -254,30 +256,28 @@ export function AccountForm({
           {saving && <Loader2 className="h-4 w-4 animate-spin" />}
           {saved ? (
             <>
-              <Check className="h-4 w-4" /> Enregistré
+              <Check className="h-4 w-4" /> {t("acctForm.saved")}
             </>
           ) : (
-            "Enregistrer"
+            t("acctForm.save")
           )}
         </button>
       </form>
 
       <form onSubmit={changePassword} className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
-        <h2 className="display text-[1.15rem] text-ink">Mot de passe</h2>
-        <p className="mt-1 text-[13px] text-ink-3">
-          Définissez un mot de passe si vous vous connectez habituellement par lien e-mail.
-        </p>
+        <h2 className="display text-[1.15rem] text-ink">{t("acctForm.password")}</h2>
+        <p className="mt-1 text-[13px] text-ink-3">{t("acctForm.pwHelp")}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <PasswordField
-            label="Nouveau mot de passe"
+            label={t("acctForm.newPassword")}
             value={pw}
             onChange={setPw}
             required={false}
             autoComplete="new-password"
-            placeholder="8 caractères minimum"
+            placeholder={t("acctForm.pwHint")}
           />
           <PasswordField
-            label="Confirmer"
+            label={t("acctForm.confirm")}
             value={pw2}
             onChange={setPw2}
             required={false}
@@ -292,7 +292,7 @@ export function AccountForm({
           className="press mt-4 flex h-11 items-center justify-center gap-2 rounded-full border border-line px-6 text-[13.5px] font-medium text-ink hover:border-ink/30 disabled:opacity-50"
         >
           {pwBusy && <Loader2 className="h-4 w-4 animate-spin" />}
-          Modifier le mot de passe
+          {t("acctForm.changePassword")}
         </button>
       </form>
     </div>

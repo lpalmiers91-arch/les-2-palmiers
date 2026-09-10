@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { ServiceOrderForm } from "@/components/app/service-order-form";
 import { formatDate, parseRange } from "@/lib/format";
+import { getT } from "@/lib/i18n";
 
 export default async function ServiceDetail({
   params,
@@ -11,6 +12,7 @@ export default async function ServiceDetail({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const { t } = await getT();
   const supabase = await createClient();
 
   const { data: service } = await supabase
@@ -42,7 +44,7 @@ export default async function ServiceDetail({
         href="/app/services"
         className="inline-flex items-center gap-1.5 text-[13px] text-ink-3 hover:text-ink"
       >
-        <ArrowLeft className="h-4 w-4" /> Tous les services
+        <ArrowLeft className="h-4 w-4" /> {t("appServices.allServices")}
       </Link>
       <div className="mt-5">
         <ServiceOrderForm service={service} reservations={reservations} />

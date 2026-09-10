@@ -3,12 +3,16 @@ import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { ContractPanel } from "@/components/app/contract-panel";
 import { RowRefresh } from "@/components/realtime/row-refresh";
+import { I18nProvider } from "@/lib/i18n/provider";
+import { getLocale, getMessages } from "@/lib/i18n";
 
 export const metadata: Metadata = { title: "Contrat de séjour", robots: { index: false } };
 
 export default async function ContractPage({ params }: { params: Promise<{ ref: string }> }) {
   const { ref } = await params;
   const supabase = await createClient();
+  const locale = await getLocale();
+  const messages = await getMessages(locale);
 
   const {
     data: { user },
@@ -32,7 +36,7 @@ export default async function ContractPage({ params }: { params: Promise<{ ref: 
     .maybeSingle();
 
   return (
-    <>
+    <I18nProvider locale={locale} messages={messages}>
       <RowRefresh table="contracts" value={contract.id} />
       <ContractPanel
         contract={contract as never}
@@ -43,6 +47,6 @@ export default async function ContractPage({ params }: { params: Promise<{ ref: 
         }}
         canSign={contract.client_id === user.id}
       />
-    </>
+    </I18nProvider>
   );
 }

@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/client";
 import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 import { useIsOnline } from "@/lib/presence";
 import { formatDate } from "@/lib/format";
+import { useT } from "@/lib/i18n/provider";
 
 export function MessagingCard({
   conversationId,
@@ -21,6 +22,7 @@ export function MessagingCard({
   lastAt: string | null;
   unread: number;
 }) {
+  const { t } = useT();
   const router = useRouter();
   const [liveAt, setLiveAt] = useState(lastAt);
   const staffOnline = useIsOnline()("staff");
@@ -63,7 +65,7 @@ export function MessagingCard({
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <p className="text-[14px] font-medium text-ink">Messagerie avec l&apos;équipe</p>
+            <p className="text-[14px] font-medium text-ink">{t("msgCard.title")}</p>
             {unread > 0 && (
               <span className="tnum rounded-full bg-brass px-1.5 text-[11px] font-semibold text-ink">
                 {unread}
@@ -74,13 +76,11 @@ export function MessagingCard({
             <span
               className={`h-1.5 w-1.5 rounded-full ${staffOnline ? "bg-forest-2" : "bg-ink-3/40"}`}
             />
-            {staffOnline
-              ? "Un conseiller est en ligne"
-              : "Laissez un message, l'équipe vous répond vite"}
+            {staffOnline ? t("msgCard.online") : t("msgCard.offline")}
           </p>
           {liveAt && (
             <p className="mt-1 text-[12px] text-ink-3">
-              Dernier échange : {formatDate(liveAt, { day: "numeric", month: "short" })}
+              {t("msgCard.lastExchange")} {formatDate(liveAt, { day: "numeric", month: "short" })}
               {subject ? ` · ${subject}` : ""}
             </p>
           )}
@@ -90,7 +90,7 @@ export function MessagingCard({
         href="/app/messages"
         className="press mt-4 flex h-10 w-full items-center justify-center gap-1.5 rounded-full bg-ink text-[13px] font-medium text-bone hover:bg-forest-2"
       >
-        {conversationId ? "Ouvrir la conversation" : "Écrire à l'équipe"}
+        {conversationId ? t("msgCard.open") : t("msgCard.write")}
         <ArrowRight className="h-4 w-4" />
       </Link>
     </div>

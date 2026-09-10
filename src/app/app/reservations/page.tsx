@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, StatusBadge, EmptyState } from "@/components/app/ui";
+import { getT } from "@/lib/i18n";
 import { formatXOF, formatDate, parseRange } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Réservations" };
 
 export default async function ReservationsPage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const { data: rows } = await supabase
     .from("reservations")
@@ -17,23 +19,23 @@ export default async function ReservationsPage() {
   return (
     <div className="mx-auto max-w-3xl">
       <PageTitle
-        title="Vos réservations"
-        sub="Séjours à venir, en cours et passés."
+        title={t("appRes.title")}
+        sub={t("appRes.sub")}
         action={
           <Link
             href="/reserver"
             className="press inline-flex h-10 items-center rounded-full bg-ink px-5 text-[13px] font-medium text-bone hover:bg-forest-2"
           >
-            Nouveau séjour
+            {t("appRes.newStay")}
           </Link>
         }
       />
 
       {!rows || rows.length === 0 ? (
         <EmptyState
-          title="Pas encore de réservation"
-          body="Réservez l'appartement et retrouvez ici tous les détails de votre séjour."
-          cta={{ href: "/reserver", label: "Réserver un séjour" }}
+          title={t("appRes.emptyT")}
+          body={t("appRes.emptyB")}
+          cta={{ href: "/reserver", label: t("appRes.bookStay") }}
         />
       ) : (
         <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
@@ -54,9 +56,11 @@ export default async function ReservationsPage() {
                       <StatusBadge status={r.status as string} />
                     </div>
                     <p className="mt-0.5 text-[12.5px] text-ink-3">
-                      Réf. {r.reference} · {r.guests_count} voyageur
-                      {(r.guests_count as number) > 1 ? "s" : ""} ·{" "}
-                      <span className="tnum">{formatXOF(r.total_amount as number)}</span>
+                      {t("appRes.rowMeta", {
+                        ref: r.reference as string,
+                        guests: r.guests_count as number,
+                      })}{" "}
+                      · <span className="tnum">{formatXOF(r.total_amount as number)}</span>
                     </p>
                   </div>
                   <ChevronRight className="h-4 w-4 shrink-0 text-ink-3" />

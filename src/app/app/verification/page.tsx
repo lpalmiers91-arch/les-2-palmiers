@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle } from "@/components/app/ui";
 import { IdentityForm } from "@/components/app/identity-form";
+import { getT } from "@/lib/i18n";
 
 export const metadata: Metadata = { title: "Vérification d'identité" };
 
 export default async function VerificationPage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const {
     data: { user },
@@ -29,8 +31,8 @@ export default async function VerificationPage() {
   return (
     <div className="mx-auto max-w-2xl">
       <PageTitle
-        title="Vérification d'identité"
-        sub="Nous vérifions l'identité de chaque client avant la première réservation. Vos documents restent confidentiels."
+        title={t("appVerif.title")}
+        sub={t("appVerif.sub")}
       />
       <div className="mt-6">
         <IdentityForm

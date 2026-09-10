@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Star, Loader2, Check } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
 export function ReviewForm({
   reservationId,
@@ -13,6 +14,7 @@ export function ReviewForm({
   existing: { rating: number; title: string | null; body: string; status: string } | null;
 }) {
   const router = useRouter();
+  const { t } = useT();
   const [rating, setRating] = useState(existing?.rating ?? 0);
   const [hover, setHover] = useState(0);
   const [title, setTitle] = useState(existing?.title ?? "");
@@ -24,7 +26,7 @@ export function ReviewForm({
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setErr(null);
-    if (rating < 1) return setErr("Choisissez une note.");
+    if (rating < 1) return setErr(t("reviewForm.pickRating"));
     setBusy(true);
     try {
       const { error } = await createClient().rpc("submit_review", {
@@ -37,7 +39,7 @@ export function ReviewForm({
       setDone(true);
       router.refresh();
     } catch {
-      setErr("Envoi impossible. Réessayez.");
+      setErr(t("reviewForm.errSend"));
     } finally {
       setBusy(false);
     }
@@ -47,12 +49,12 @@ export function ReviewForm({
     return (
       <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
         <p className="flex items-center gap-2 text-[14px] font-medium text-ink">
-          <Check className="h-4 w-4 text-forest-2" /> Merci pour votre avis
+          <Check className="h-4 w-4 text-forest-2" /> {t("reviewForm.thanks")}
         </p>
         <p className="mt-1 text-[13px] text-ink-3">
           {existing?.status === "published"
-            ? "Il est publié sur notre site."
-            : "Il sera publié après validation."}
+            ? t("reviewForm.published")
+            : t("reviewForm.pendingReview")}
         </p>
       </div>
     );
@@ -61,7 +63,7 @@ export function ReviewForm({
   return (
     <form onSubmit={submit} className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
       <p className="text-[14px] font-medium text-ink">
-        {existing ? "Modifier mon avis" : "Donner mon avis"}
+        {existing ? t("reviewForm.edit") : t("reviewForm.give")}
       </p>
       <div className="mt-3 flex gap-1">
         {[1, 2, 3, 4, 5].map((i) => (
@@ -72,7 +74,7 @@ export function ReviewForm({
             onMouseLeave={() => setHover(0)}
             onClick={() => setRating(i)}
             className="press p-0.5"
-            aria-label={`${i} étoile${i > 1 ? "s" : ""}`}
+            aria-label={t("reviewForm.starsN", { n: i })}
           >
             <Star
               className={`h-6 w-6 ${
@@ -84,13 +86,13 @@ export function ReviewForm({
       </div>
       <input
         className="field mt-3"
-        placeholder="Titre (facultatif)"
+        placeholder={t("reviewForm.titlePlaceholder")}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <textarea
         className="field mt-2 min-h-[90px] resize-y"
-        placeholder="Votre expérience…"
+        placeholder={t("reviewForm.bodyPlaceholder")}
         value={body}
         onChange={(e) => setBody(e.target.value)}
       />
@@ -101,7 +103,7 @@ export function ReviewForm({
         className="press mt-3 flex h-10 items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
       >
         {busy && <Loader2 className="h-4 w-4 animate-spin" />}
-        Envoyer
+        {t("reviewForm.send")}
       </button>
     </form>
   );

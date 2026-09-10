@@ -7,6 +7,7 @@ import { PaymentPanel } from "@/components/app/payment-panel";
 import { ReviewForm } from "@/components/app/review-form";
 import { ReservationChangePanel, type ChangeRequest } from "@/components/app/reservation-change-panel";
 import { formatXOF, formatDate, parseRange, nightsBetween } from "@/lib/format";
+import { getT } from "@/lib/i18n";
 
 export default async function ReservationDetail({
   params,
@@ -14,6 +15,7 @@ export default async function ReservationDetail({
   params: Promise<{ ref: string }>;
 }) {
   const { ref } = await params;
+  const { t } = await getT();
   const supabase = await createClient();
 
   const { data: r } = await supabase
@@ -78,7 +80,7 @@ export default async function ReservationDetail({
         href="/app/reservations"
         className="inline-flex items-center gap-1.5 text-[13px] text-ink-3 hover:text-ink"
       >
-        <ArrowLeft className="h-4 w-4" /> Toutes les réservations
+        <ArrowLeft className="h-4 w-4" /> {t("appResDetail.allReservations")}
       </Link>
 
       <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
@@ -87,8 +89,7 @@ export default async function ReservationDetail({
             {formatDate(start, { day: "numeric", month: "long" })} — {formatDate(end)}
           </h1>
           <p className="mt-1 text-[13px] text-ink-3">
-            Réf. {r.reference} · {nights} nuit{nights > 1 ? "s" : ""} · {String(r.guests_count)}{" "}
-            voyageur{(r.guests_count as number) > 1 ? "s" : ""}
+            {t("appResDetail.metaLine", { ref: r.reference as string, nights, guests: String(r.guests_count) })}
           </p>
         </div>
         <StatusBadge status={r.status as string} />
@@ -101,16 +102,13 @@ export default async function ReservationDetail({
               <div className="flex items-start gap-3">
                 <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brass-2" />
                 <div>
-                  <p className="text-[14px] font-medium text-ink">Vérifiez votre identité pour payer</p>
-                  <p className="mt-0.5 text-[13px] text-ink-3">
-                    Le règlement d&apos;une réservation n&apos;est possible qu&apos;une fois votre
-                    identité confirmée.
-                  </p>
+                  <p className="text-[14px] font-medium text-ink">{t("appResDetail.idT")}</p>
+                  <p className="mt-0.5 text-[13px] text-ink-3">{t("appResDetail.idB")}</p>
                   <Link
                     href="/app/verification"
                     className="press mt-3 inline-flex h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12.5px] font-medium text-bone hover:bg-forest-2"
                   >
-                    Commencer la vérification
+                    {t("appResDetail.idCta")}
                   </Link>
                 </div>
               </div>
@@ -125,23 +123,23 @@ export default async function ReservationDetail({
               purpose="balance"
               targetId={r.id as string}
               amountDue={balance}
-              label="Régler le solde"
+              label={t("appResDetail.payBalance")}
             />
           )}
 
           {stay && (stay.wifi_ssid || stay.house_manual || stay.checkin_notes) && (
             <Card>
               <h2 className="flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-                <Wifi className="h-3.5 w-3.5" /> Infos séjour
+                <Wifi className="h-3.5 w-3.5" /> {t("appResDetail.stayInfo")}
               </h2>
               <dl className="mt-3 space-y-2 text-[13.5px]">
-                {stay.wifi_ssid && <Line label="Wi-Fi">{stay.wifi_ssid}</Line>}
+                {stay.wifi_ssid && <Line label={t("appResDetail.wifi")}>{stay.wifi_ssid}</Line>}
                 {stay.wifi_password && (
-                  <Line label="Mot de passe">
+                  <Line label={t("appResDetail.wifiPass")}>
                     <span className="tnum select-all">{stay.wifi_password}</span>
                   </Line>
                 )}
-                {stay.emergency_contact && <Line label="Urgence">{stay.emergency_contact}</Line>}
+                {stay.emergency_contact && <Line label={t("appResDetail.emergency")}>{stay.emergency_contact}</Line>}
               </dl>
               {stay.checkin_notes && (
                 <p className="mt-3 whitespace-pre-wrap border-t border-line-soft pt-3 text-[13px] text-ink-2">
@@ -151,7 +149,7 @@ export default async function ReservationDetail({
               {stay.house_manual && (
                 <details className="mt-2">
                   <summary className="cursor-pointer text-[13px] font-medium text-ink">
-                    Manuel de la maison
+                    {t("appResDetail.houseManual")}
                   </summary>
                   <p className="mt-2 whitespace-pre-wrap text-[13px] text-ink-2">{stay.house_manual}</p>
                 </details>
@@ -186,27 +184,27 @@ export default async function ReservationDetail({
 
           <Card>
             <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-              Détail du prix
+              {t("appResDetail.priceDetail")}
             </h2>
             <dl className="mt-4 space-y-2 text-[14px]">
-              <Line label={`Hébergement · ${nights} nuit${nights > 1 ? "s" : ""}`}>
+              <Line label={t("appResDetail.lodgingN", { n: nights })}>
                 {formatXOF((r.nightly_price as number) * nights)}
               </Line>
               {fees.cleaning_fee != null && (
-                <Line label="Ménage">{formatXOF(fees.cleaning_fee)}</Line>
+                <Line label={t("appResDetail.cleaning")}>{formatXOF(fees.cleaning_fee)}</Line>
               )}
               {(r.discount_amount as number) > 0 && (
-                <Line label="Remise">
+                <Line label={t("appResDetail.discount")}>
                   <span className="text-forest-2">−{formatXOF(r.discount_amount as number)}</span>
                 </Line>
               )}
               <div className="flex justify-between border-t border-line pt-2 font-medium text-ink">
-                <dt>Total</dt>
+                <dt>{t("appResDetail.total")}</dt>
                 <dd className="tnum">{formatXOF(r.total_amount as number)}</dd>
               </div>
-              <Line label="Déjà réglé">{formatXOF(paid)}</Line>
+              <Line label={t("appResDetail.alreadyPaid")}>{formatXOF(paid)}</Line>
               {balance > 0 && (
-                <Line label="Reste à régler">
+                <Line label={t("appResDetail.remaining")}>
                   <span className="font-medium text-ink">{formatXOF(balance)}</span>
                 </Line>
               )}
@@ -216,7 +214,7 @@ export default async function ReservationDetail({
           {payments && payments.length > 0 && (
             <Card>
               <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-                Paiements
+                {t("appResDetail.payments")}
               </h2>
               <ul className="mt-3 divide-y divide-line">
                 {payments.map((p) => (
@@ -234,7 +232,7 @@ export default async function ReservationDetail({
                           target="_blank"
                           className="text-[12px] text-ink-3 underline underline-offset-2 hover:text-ink"
                         >
-                          Reçu
+                          {t("appResDetail.receipt")}
                         </Link>
                       )}
                     </span>
@@ -248,12 +246,12 @@ export default async function ReservationDetail({
         <aside className="space-y-4">
           <Card>
             <h3 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-              Votre séjour
+              {t("appResDetail.yourStay")}
             </h3>
             <dl className="mt-3 space-y-2 text-[13.5px]">
-              <Line label="Arrivée">à partir de 14 h</Line>
-              <Line label="Départ">avant 11 h</Line>
-              <Line label="Adresse">communiquée avant l'arrivée</Line>
+              <Line label={t("appResDetail.checkin")}>{t("appResDetail.checkinVal")}</Line>
+              <Line label={t("appResDetail.checkout")}>{t("appResDetail.checkoutVal")}</Line>
+              <Line label={t("appResDetail.address")}>{t("appResDetail.addressVal")}</Line>
             </dl>
           </Card>
 
@@ -264,13 +262,13 @@ export default async function ReservationDetail({
             >
               <FileText className="h-5 w-5 shrink-0 text-forest-2" />
               <div className="min-w-0">
-                <p className="text-[13.5px] font-medium text-ink">Contrat de séjour</p>
+                <p className="text-[13.5px] font-medium text-ink">{t("appResDetail.contract")}</p>
                 <p className="text-[12px] text-ink-3">
                   {contract.status === "draft" ? (
-                    "À compléter et signer"
+                    t("appResDetail.contractDraft")
                   ) : (
                     <span className="inline-flex items-center gap-1 text-forest-2">
-                      <Check className="h-3 w-3" /> Signé
+                      <Check className="h-3 w-3" /> {t("appResDetail.contractSigned")}
                     </span>
                   )}
                 </p>
@@ -282,19 +280,19 @@ export default async function ReservationDetail({
             target="_blank"
             className="press flex items-center justify-center rounded-[var(--radius-lg)] border border-line bg-bone px-5 py-4 text-[13.5px] font-medium text-ink hover:border-ink/25"
           >
-            Facture (PDF)
+            {t("appResDetail.invoice")}
           </Link>
           <Link
             href="/app/services"
             className="press flex items-center justify-center rounded-[var(--radius-lg)] border border-line bg-bone px-5 py-4 text-[13.5px] font-medium text-ink hover:border-ink/25"
           >
-            Ajouter un service à ce séjour
+            {t("appResDetail.addService")}
           </Link>
           <Link
             href="/app/messages"
             className="block text-center text-[13px] text-ink-3 underline underline-offset-2 hover:text-ink"
           >
-            Une question ? Écrire à l'équipe
+            {t("appResDetail.askTeam")}
           </Link>
         </aside>
       </div>

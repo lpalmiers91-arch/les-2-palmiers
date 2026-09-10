@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ShieldCheck, ShieldAlert, ShieldQuestion, ArrowRight } from "lucide-react";
+import { ShieldCheck, ShieldAlert, ShieldQuestion, ArrowRight, type LucideIcon } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle } from "@/components/app/ui";
 import { AccountForm } from "@/components/app/account-form";
 import { NotificationPrefs } from "@/components/app/notification-prefs";
+import { getT } from "@/lib/i18n";
 
 export const metadata: Metadata = { title: "Compte" };
 
+type T = (k: string, v?: Record<string, string | number>) => string;
+
 export default async function ComptePage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const {
     data: { user },
@@ -36,9 +40,9 @@ export default async function ComptePage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <PageTitle title="Votre compte" />
+      <PageTitle title={t("appAccount.title")} />
 
-      <IdentityCard status={status} reason={verif?.rejection_reason ?? null} />
+      <IdentityCard status={status} reason={verif?.rejection_reason ?? null} t={t} />
 
       <div className="mt-8">
         <NotificationPrefs initialEmail={notif.email !== false} initialPush={notif.push !== false} />
@@ -67,38 +71,41 @@ export default async function ComptePage() {
   );
 }
 
-function IdentityCard({ status, reason }: { status: string; reason: string | null }) {
-  const map = {
+function IdentityCard({ status, reason, t }: { status: string; reason: string | null; t: T }) {
+  const map: Record<
+    string,
+    { icon: LucideIcon; tone: string; title: string; body: string; cta: { href: string; label: string } | null }
+  > = {
     approved: {
       icon: ShieldCheck,
       tone: "text-forest-2",
-      title: "Identité vérifiée",
-      body: "Votre compte est confirmé. Vous pouvez réserver et régler en ligne.",
+      title: t("appAccount.idApprovedT"),
+      body: t("appAccount.idApprovedB"),
       cta: null,
     },
     pending: {
       icon: ShieldQuestion,
       tone: "text-brass-2",
-      title: "Vérification en cours",
-      body: "Nos équipes examinent vos documents. Vous serez notifié dès validation.",
+      title: t("appAccount.idPendingT"),
+      body: t("appAccount.idPendingB"),
       cta: null,
     },
     rejected: {
       icon: ShieldAlert,
       tone: "text-danger",
-      title: "Vérification refusée",
-      body: reason || "Merci de soumettre à nouveau des documents lisibles.",
-      cta: { href: "/app/verification", label: "Recommencer" },
+      title: t("appAccount.idRejectedT"),
+      body: reason || t("appAccount.idRejectedB"),
+      cta: { href: "/app/verification", label: t("appAccount.idRestart") },
     },
     none: {
       icon: ShieldAlert,
       tone: "text-brass-2",
-      title: "Vérifiez votre identité",
-      body: "Une étape rapide, obligatoire avant de finaliser une réservation.",
-      cta: { href: "/app/verification", label: "Commencer la vérification" },
+      title: t("appAccount.idNoneT"),
+      body: t("appAccount.idNoneB"),
+      cta: { href: "/app/verification", label: t("appAccount.idStart") },
     },
-  } as const;
-  const s = map[status as keyof typeof map] ?? map.none;
+  };
+  const s = map[status] ?? map.none;
   const Icon = s.icon;
   return (
     <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">

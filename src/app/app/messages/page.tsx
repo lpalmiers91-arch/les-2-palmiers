@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { MessagesThread } from "@/components/app/messages-thread";
+import { getT } from "@/lib/i18n";
 
 export const metadata: Metadata = { title: "Messages" };
 
 export default async function MessagesPage() {
+  const { t } = await getT();
   const supabase = await createClient();
   const {
     data: { user },
@@ -31,7 +33,7 @@ export default async function MessagesPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="display mb-5 text-[1.7rem] text-ink sm:text-[2rem]">Messagerie</h1>
+      <h1 className="display mb-5 text-[1.7rem] text-ink sm:text-[2rem]">{t("appNav.messages")}</h1>
       <MessagesThread conversationId={conv?.id ?? null} initial={initial as never} meId={user!.id} />
     </div>
   );

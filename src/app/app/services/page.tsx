@@ -5,10 +5,12 @@ import { createClient } from "@/lib/supabase/server";
 import { PageTitle, StatusBadge } from "@/components/app/ui";
 import { ServiceIcon } from "@/components/marketing/service-icon";
 import { formatXOF, formatDate } from "@/lib/format";
+import { getT } from "@/lib/i18n";
 
 export const metadata: Metadata = { title: "Services" };
 
 export default async function ServicesPage() {
+  const { t } = await getT();
   const supabase = await createClient();
 
   const [{ data: services }, { data: orders }] = await Promise.all([
@@ -25,22 +27,22 @@ export default async function ServicesPage() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <PageTitle title="Services à domicile" sub="Commandez ce dont vous avez besoin, quand vous en avez besoin." />
+      <PageTitle title={t("appServices.title")} sub={t("appServices.sub")} />
 
       {orders && orders.length > 0 && (
         <section className="mb-9">
           <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            Vos demandes
+            {t("appServices.yourRequests")}
           </h2>
           <ul className="mt-3 divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
             {orders.map((o) => (
               <li key={o.id} className="flex items-center justify-between gap-4 px-5 py-3.5">
                 <div>
                   <p className="text-[14px] text-ink">
-                    {(o.service as { title?: string } | null)?.title ?? "Service"}
+                    {(o.service as { title?: string } | null)?.title ?? t("appServices.service")}
                   </p>
                   <p className="text-[12px] text-ink-3">
-                    {o.scheduled_for ? formatDate(o.scheduled_for) : "Créneau à définir"}
+                    {o.scheduled_for ? formatDate(o.scheduled_for) : t("appServices.slotTbd")}
                     {o.price ? ` · ${formatXOF(o.price)}` : ""}
                   </p>
                 </div>
@@ -52,7 +54,7 @@ export default async function ServicesPage() {
       )}
 
       <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-        Tout le catalogue
+        {t("appServices.catalog")}
       </h2>
       <ul className="mt-3 divide-y divide-line overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bone">
         {(services ?? []).map((s) => (
@@ -72,8 +74,8 @@ export default async function ServicesPage() {
                 {s.pricing_mode === "fixed" && s.base_price
                   ? formatXOF(s.base_price)
                   : s.pricing_mode === "metered"
-                    ? "au réel"
-                    : "sur devis"}
+                    ? t("appServices.metered")
+                    : t("appServices.quote")}
               </span>
               <ChevronRight className="h-4 w-4 shrink-0 text-ink-3" />
             </Link>

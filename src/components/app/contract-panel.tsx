@@ -8,6 +8,7 @@ import { PrintButton } from "@/components/app/print-button";
 import { Mark } from "@/components/brand/mark";
 import { site } from "@/lib/site";
 import { formatXOF, formatDate } from "@/lib/format";
+import { useT } from "@/lib/i18n/provider";
 
 type Clause = { title: string; body: string };
 type Terms = {
@@ -61,11 +62,12 @@ export function ContractPanel({
   canSign: boolean;
 }) {
   const router = useRouter();
+  const { t: tr } = useT();
   const [contract, setContract] = useState(initial);
   const t = contract.terms || {};
   const clauses: [string, string][] =
     Array.isArray(t.clauses) && t.clauses.length > 0
-      ? t.clauses.map((c) => [c.title || "Clause", c.body || ""])
+      ? t.clauses.map((c) => [c.title || tr("contractPanel.clause"), c.body || ""])
       : DEFAULT_CLAUSES;
 
   const [occupants, setOccupants] = useState(t.occupants ?? client.name);
@@ -82,11 +84,11 @@ export function ContractPanel({
     e.preventDefault();
     setErr(null);
     if (!accept) {
-      setErr("Vous devez accepter les conditions du contrat.");
+      setErr(tr("contractPanel.mustAccept"));
       return;
     }
     if (signature.trim().length < 3) {
-      setErr("Signez en saisissant votre nom complet.");
+      setErr(tr("contractPanel.signYourName"));
       return;
     }
     setBusy(true);
@@ -104,7 +106,7 @@ export function ContractPanel({
       setContract((c) => ({ ...c, ...(data as Contract) }));
       router.refresh();
     } catch {
-      setErr("Signature impossible pour le moment. Réessayez.");
+      setErr(tr("contractPanel.errSign"));
     } finally {
       setBusy(false);
     }
@@ -118,7 +120,7 @@ export function ContractPanel({
             href={canSign ? "/app/reservations" : "/staff/reservations"}
             className="text-[13px] text-ink-3 hover:text-ink"
           >
-            ← {canSign ? "Mes réservations" : "Réservations"}
+            ← {canSign ? tr("contractPanel.myReservations") : tr("contractPanel.reservations")}
           </a>
           {signed && <PrintButton />}
         </div>
@@ -135,27 +137,27 @@ export function ContractPanel({
               </div>
             </div>
             <div className="text-right">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-ink-3">Contrat de séjour</p>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-ink-3">{tr("contractPanel.title")}</p>
               <p className="tnum text-[13px] font-medium text-ink">{contract.reference}</p>
             </div>
           </header>
 
           <section className="mt-5 grid gap-x-6 gap-y-2 text-[13px] sm:grid-cols-2">
-            <Row label="Bailleur">{site.legalName}</Row>
-            <Row label="Client">{client.name || "—"}</Row>
-            <Row label="Logement">{t.apartment ?? "Appartement Les 2 Palmiers"}</Row>
-            <Row label="Adresse">{t.address ?? "Communiquée à la réservation"}</Row>
-            <Row label="Arrivée">{t.checkin ? formatDate(t.checkin) : "—"}</Row>
-            <Row label="Départ">{t.checkout ? formatDate(t.checkout) : "—"}</Row>
-            <Row label="Nuits">{t.nights ?? "—"}</Row>
-            <Row label="Voyageurs">{t.guests ?? "—"}</Row>
-            <Row label="Montant total">
+            <Row label={tr("contractPanel.landlord")}>{site.legalName}</Row>
+            <Row label={tr("contractPanel.client")}>{client.name || "—"}</Row>
+            <Row label={tr("contractPanel.dwelling")}>{t.apartment ?? "Appartement Les 2 Palmiers"}</Row>
+            <Row label={tr("contractPanel.address")}>{t.address ?? tr("contractPanel.addressTbd")}</Row>
+            <Row label={tr("contractPanel.checkin")}>{t.checkin ? formatDate(t.checkin) : "—"}</Row>
+            <Row label={tr("contractPanel.checkout")}>{t.checkout ? formatDate(t.checkout) : "—"}</Row>
+            <Row label={tr("contractPanel.nights")}>{t.nights ?? "—"}</Row>
+            <Row label={tr("contractPanel.guests")}>{t.guests ?? "—"}</Row>
+            <Row label={tr("contractPanel.total")}>
               {t.total_amount != null ? formatXOF(Number(t.total_amount)) : "—"}
             </Row>
-            <Row label="Acompte">
+            <Row label={tr("contractPanel.deposit")}>
               {t.deposit_amount != null ? formatXOF(Number(t.deposit_amount)) : "—"}
             </Row>
-            <Row label="Réservation">{t.reservation_reference ?? "—"}</Row>
+            <Row label={tr("contractPanel.reservation")}>{t.reservation_reference ?? "—"}</Row>
           </section>
 
           <section className="mt-6 border-t border-ink/15 pt-5">
@@ -174,11 +176,11 @@ export function ContractPanel({
           {/* champs remplis par le client */}
           {!signed ? (
             <form onSubmit={sign} className="mt-6 border-t border-ink/15 pt-5 print:hidden">
-              <h2 className="display text-[1.05rem] text-ink">Compléter et signer</h2>
+              <h2 className="display text-[1.05rem] text-ink">{tr("contractPanel.fillAndSign")}</h2>
               <div className="mt-4 space-y-4">
                 <label className="block">
                   <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-                    Occupants (noms des personnes présentes)
+                    {tr("contractPanel.occupants")}
                   </span>
                   <textarea
                     className="field min-h-[64px] resize-y"
@@ -188,7 +190,7 @@ export function ContractPanel({
                 </label>
                 <label className="block">
                   <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-                    Heure d&apos;arrivée prévue <span className="text-ink-3">(facultatif)</span>
+                    {tr("contractPanel.arrivalTime")} <span className="text-ink-3">({tr("contractPanel.optional")})</span>
                   </span>
                   <input
                     type="time"
@@ -199,7 +201,7 @@ export function ContractPanel({
                 </label>
                 <label className="block">
                   <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-                    Demandes particulières <span className="text-ink-3">(facultatif)</span>
+                    {tr("contractPanel.specialRequests")} <span className="text-ink-3">({tr("contractPanel.optional")})</span>
                   </span>
                   <textarea
                     className="field min-h-[64px] resize-y"
@@ -216,20 +218,19 @@ export function ContractPanel({
                     className="mt-0.5 h-4 w-4"
                   />
                   <span>
-                    Je reconnais avoir lu et accepté l&apos;ensemble des clauses ci-dessus et je
-                    confirme l&apos;exactitude des informations fournies.
+                    {tr("contractPanel.acceptText")}
                   </span>
                 </label>
 
                 <label className="block">
                   <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-                    Signature — saisissez votre nom complet
+                    {tr("contractPanel.signatureLabel")}
                   </span>
                   <input
                     className="field"
                     value={signature}
                     onChange={(e) => setSignature(e.target.value)}
-                    placeholder={client.name || "Prénom Nom"}
+                    placeholder={client.name || tr("contractPanel.namePlaceholder")}
                   />
                 </label>
               </div>
@@ -243,19 +244,17 @@ export function ContractPanel({
                   className="press mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-[14px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
                 >
                   {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <PenLine className="h-4 w-4" />}
-                  Signer le contrat
+                  {tr("contractPanel.signBtn")}
                 </button>
               ) : (
-                <p className="mt-4 text-[13px] text-ink-3">
-                  Seul le titulaire de la réservation peut signer ce contrat.
-                </p>
+                <p className="mt-4 text-[13px] text-ink-3">{tr("contractPanel.onlyHolder")}</p>
               )}
             </form>
           ) : (
             <section className="mt-6 border-t border-ink/15 pt-5">
               <div className="grid gap-4 sm:grid-cols-2">
                 <SignatureBlock
-                  role="Le client"
+                  role={tr("contractPanel.theClient")}
                   name={contract.client_signature_name}
                   at={contract.client_signed_at}
                 />
@@ -263,21 +262,21 @@ export function ContractPanel({
                   role="Les 2 Palmiers"
                   name={contract.staff_signature_name}
                   at={contract.countersigned_at}
-                  pending="En attente de contreseing"
+                  pending={tr("contractPanel.awaitingCountersign")}
                 />
               </div>
               {(t.occupants || t.arrival_time || t.notes) && (
                 <div className="mt-5 space-y-1 text-[12.5px] text-ink-2">
-                  {t.occupants && <p><span className="text-ink-3">Occupants :</span> {t.occupants}</p>}
+                  {t.occupants && <p><span className="text-ink-3">{tr("contractPanel.occupantsShort")}</span> {t.occupants}</p>}
                   {t.arrival_time && (
-                    <p><span className="text-ink-3">Arrivée prévue :</span> {t.arrival_time}</p>
+                    <p><span className="text-ink-3">{tr("contractPanel.arrivalShort")}</span> {t.arrival_time}</p>
                   )}
-                  {t.notes && <p><span className="text-ink-3">Demandes :</span> {t.notes}</p>}
+                  {t.notes && <p><span className="text-ink-3">{tr("contractPanel.requestsShort")}</span> {t.notes}</p>}
                 </div>
               )}
               <p className="mt-4 rounded-[10px] bg-ok/10 px-3 py-2 text-[13px] text-forest-2 print:hidden">
                 <Check className="mr-1 inline h-3.5 w-3.5" />
-                Contrat signé. Vous pouvez le télécharger via le bouton Imprimer / PDF.
+                {tr("contractPanel.signedNote")}
               </p>
             </section>
           )}
@@ -285,7 +284,7 @@ export function ContractPanel({
           <footer className="mt-8 border-t border-ink/15 pt-4 text-[11px] leading-relaxed text-ink-3">
             {site.legalName} · {site.email} · {site.phones[0]}
             <br />
-            Environnement de démonstration — document sans valeur contractuelle réelle.
+            {tr("contractPanel.demoFoot")}
           </footer>
         </article>
       </div>

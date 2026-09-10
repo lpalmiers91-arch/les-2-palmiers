@@ -4,12 +4,13 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Check, Upload, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { useT } from "@/lib/i18n/provider";
 
 const DOC_TYPES = [
-  { value: "id_card", label: "Carte nationale d'identité" },
-  { value: "passport", label: "Passeport" },
-  { value: "residence_permit", label: "Titre de séjour" },
-  { value: "drivers_license", label: "Permis de conduire" },
+  { value: "id_card", label: "idForm.docIdCard" },
+  { value: "passport", label: "idForm.docPassport" },
+  { value: "residence_permit", label: "idForm.docResidence" },
+  { value: "drivers_license", label: "idForm.docLicense" },
 ];
 
 type Upload = { path: string; name: string } | null;
@@ -27,6 +28,7 @@ export function IdentityForm({
   defaultNationality: string;
   status: string;
 }) {
+  const { t } = useT();
   const router = useRouter();
   const [name, setName] = useState(defaultName);
   const [dob, setDob] = useState(defaultDob);
@@ -63,7 +65,7 @@ export function IdentityForm({
       e.target.value = "";
       if (!file) return;
       if (file.size > 10 * 1024 * 1024) {
-        setErr("Chaque fichier doit faire moins de 10 Mo.");
+        setErr(t("idForm.fileTooBig"));
         return;
       }
       setErr(null);
@@ -71,7 +73,7 @@ export function IdentityForm({
       try {
         setter(await uploadTo(kind, file));
       } catch {
-        setErr("Le téléversement a échoué. Réessayez.");
+        setErr(t("idForm.uploadFailed"));
       } finally {
         setBusy(false);
       }
@@ -82,11 +84,11 @@ export function IdentityForm({
     e.preventDefault();
     setErr(null);
     if (!name.trim() || !docNum.trim()) {
-      setErr("Renseignez votre nom légal et le numéro du document.");
+      setErr(t("idForm.needNameAndNum"));
       return;
     }
     if (!selfie || !front) {
-      setErr("Ajoutez au minimum un selfie et le recto de votre pièce.");
+      setErr(t("idForm.needDocs"));
       return;
     }
     setBusy(true);
@@ -109,8 +111,8 @@ export function IdentityForm({
       const m = e instanceof Error ? e.message : "";
       setErr(
         /already_verified/.test(m)
-          ? "Votre identité est déjà vérifiée."
-          : "Envoi impossible. Réessayez dans un instant.",
+          ? t("idForm.alreadyVerified")
+          : t("idForm.errSend"),
       );
     } finally {
       setBusy(false);
@@ -121,8 +123,8 @@ export function IdentityForm({
     return (
       <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-6 text-center">
         <ShieldCheck className="mx-auto h-8 w-8 text-forest-2" />
-        <p className="mt-3 text-[15px] font-medium text-ink">Identité vérifiée</p>
-        <p className="mt-1 text-[13px] text-ink-3">Aucune action supplémentaire n&apos;est nécessaire.</p>
+        <p className="mt-3 text-[15px] font-medium text-ink">{t("idForm.verifiedT")}</p>
+        <p className="mt-1 text-[13px] text-ink-3">{t("idForm.verifiedB")}</p>
       </div>
     );
   }
@@ -131,10 +133,8 @@ export function IdentityForm({
     return (
       <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-6 text-center">
         <Loader2 className="mx-auto h-7 w-7 animate-spin text-brass-2" />
-        <p className="mt-3 text-[15px] font-medium text-ink">Dossier reçu</p>
-        <p className="mt-1 text-[13px] text-ink-3">
-          Nos équipes vérifient vos documents. Vous recevrez une notification dès validation.
-        </p>
+        <p className="mt-3 text-[15px] font-medium text-ink">{t("idForm.receivedT")}</p>
+        <p className="mt-1 text-[13px] text-ink-3">{t("idForm.receivedB")}</p>
       </div>
     );
   }
@@ -143,44 +143,44 @@ export function IdentityForm({
     <form onSubmit={submit} className="space-y-6">
       {status === "rejected" && (
         <p className="rounded-[10px] bg-danger/10 px-3 py-2 text-[13px] text-danger">
-          Votre précédent dossier a été refusé. Merci de renvoyer des documents nets et lisibles.
+          {t("idForm.rejectedNote")}
         </p>
       )}
 
       <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
-        <h2 className="display text-[1.1rem] text-ink">Vos informations</h2>
+        <h2 className="display text-[1.1rem] text-ink">{t("idForm.yourInfo")}</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <label className="block sm:col-span-2">
             <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-              Nom complet (tel qu&apos;il figure sur la pièce)
+              {t("idForm.fullNameLabel")}
             </span>
             <input className="field" value={name} onChange={(e) => setName(e.target.value)} required />
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Date de naissance</span>
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("idForm.dob")}</span>
             <input type="date" className="field" value={dob} onChange={(e) => setDob(e.target.value)} />
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Nationalité</span>
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("idForm.nationality")}</span>
             <input className="field" value={nat} onChange={(e) => setNat(e.target.value)} />
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Type de document</span>
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("idForm.docType")}</span>
             <select className="field" value={docType} onChange={(e) => setDocType(e.target.value)}>
               {DOC_TYPES.map((d) => (
                 <option key={d.value} value={d.value}>
-                  {d.label}
+                  {t(d.label)}
                 </option>
               ))}
             </select>
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">Numéro du document</span>
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("idForm.docNum")}</span>
             <input className="field" value={docNum} onChange={(e) => setDocNum(e.target.value)} required />
           </label>
           <label className="block">
             <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-              Date d&apos;expiration <span className="text-ink-3">(facultatif)</span>
+              {t("idForm.docExp")} <span className="text-ink-3">({t("idForm.optional")})</span>
             </span>
             <input type="date" className="field" value={docExp} onChange={(e) => setDocExp(e.target.value)} />
           </label>
@@ -188,16 +188,14 @@ export function IdentityForm({
       </div>
 
       <div className="rounded-[var(--radius-lg)] border border-line bg-bone p-5 sm:p-6">
-        <h2 className="display text-[1.1rem] text-ink">Vos documents</h2>
-        <p className="mt-1 text-[12.5px] text-ink-3">
-          Photos ou PDF, 10 Mo maximum par fichier. Stockage privé et chiffré.
-        </p>
+        <h2 className="display text-[1.1rem] text-ink">{t("idForm.yourDocs")}</h2>
+        <p className="mt-1 text-[12.5px] text-ink-3">{t("idForm.docsHint")}</p>
         <div className="mt-4 space-y-3">
-          <FilePick label="Selfie" hint="visage bien visible" value={selfie} onChange={pick("selfie", setSelfie)} capture />
-          <FilePick label="Pièce d'identité — recto" value={front} onChange={pick("front", setFront)} />
+          <FilePick label={t("idForm.selfie")} hint={t("idForm.selfieHint")} value={selfie} onChange={pick("selfie", setSelfie)} capture />
+          <FilePick label={t("idForm.docFront")} value={front} onChange={pick("front", setFront)} />
           <FilePick
-            label="Pièce d'identité — verso"
-            hint="si carte d'identité"
+            label={t("idForm.docBack")}
+            hint={t("idForm.docBackHint")}
             value={back}
             onChange={pick("back", setBack)}
           />
@@ -212,7 +210,7 @@ export function IdentityForm({
         className="press flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-[14px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
       >
         {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
-        Envoyer pour vérification
+        {t("idForm.submit")}
       </button>
     </form>
   );
@@ -232,6 +230,7 @@ function FilePick({
   capture?: boolean;
 }) {
   const ref = useRef<HTMLInputElement>(null);
+  const { t: tf } = useT();
   return (
     <div className="flex items-center justify-between gap-3 rounded-[10px] border border-line-soft bg-bone-2 px-4 py-3">
       <div className="min-w-0">
@@ -246,7 +245,7 @@ function FilePick({
         className="press flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-line bg-bone px-3.5 text-[12.5px] font-medium text-ink hover:border-ink/30"
       >
         {value ? <Check className="h-3.5 w-3.5 text-forest-2" /> : <Upload className="h-3.5 w-3.5" />}
-        {value ? "Remplacer" : "Choisir"}
+        {value ? tf("idForm.replace") : tf("idForm.choose")}
       </button>
       <input
         ref={ref}
