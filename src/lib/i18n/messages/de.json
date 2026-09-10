@@ -991,5 +991,21 @@
     "errUrl": "Geben Sie eine gültige URL ein, die mit http beginnt.",
     "errDup": "Dieser Kalender ist bereits hinzugefügt.",
     "errGeneric": "Hinzufügen fehlgeschlagen. Bitte erneut versuchen."
+  },
+  "invoice": {
+    "title": "Rechnung",
+    "lineLodging": "Unterkunft · {n} Nacht/Nächte",
+    "lineCleaning": "Reinigungsgebühr",
+    "lineServices": "Vorausbezahlte Services",
+    "lineDiscount": "Rabatt",
+    "billedTo": "Rechnung an",
+    "stay": "Aufenthalt",
+    "ref": "Ref.",
+    "guestsN": "{n} Gäste",
+    "total": "Gesamt",
+    "paid": "Bereits bezahlt",
+    "balanceDue": "Restbetrag",
+    "payments": "Zahlungen",
+    "demoNote": "Demo-Umgebung — simulierte Transaktion. Dieses Dokument hat keinen steuerlichen Wert."
   }
 }

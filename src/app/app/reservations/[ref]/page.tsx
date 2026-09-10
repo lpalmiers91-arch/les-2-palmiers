@@ -278,6 +278,13 @@ export default async function ReservationDetail({
             </Link>
           )}
           <Link
+            href={`/facture/${encodeURIComponent(r.reference as string)}`}
+            target="_blank"
+            className="press flex items-center justify-center rounded-[var(--radius-lg)] border border-line bg-bone px-5 py-4 text-[13.5px] font-medium text-ink hover:border-ink/25"
+          >
+            Facture (PDF)
+          </Link>
+          <Link
             href="/app/services"
             className="press flex items-center justify-center rounded-[var(--radius-lg)] border border-line bg-bone px-5 py-4 text-[13.5px] font-medium text-ink hover:border-ink/25"
           >

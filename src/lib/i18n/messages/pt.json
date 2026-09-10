@@ -991,5 +991,21 @@
     "errUrl": "Introduza um URL válido que comece por http.",
     "errDup": "Este calendário já foi adicionado.",
     "errGeneric": "A adição falhou. Tente novamente."
+  },
+  "invoice": {
+    "title": "Fatura",
+    "lineLodging": "Alojamento · {n} noite(s)",
+    "lineCleaning": "Taxa de limpeza",
+    "lineServices": "Serviços pré-pagos",
+    "lineDiscount": "Desconto",
+    "billedTo": "Faturado a",
+    "stay": "Estadia",
+    "ref": "Ref.",
+    "guestsN": "{n} hóspede(s)",
+    "total": "Total",
+    "paid": "Já pago",
+    "balanceDue": "Saldo em dívida",
+    "payments": "Pagamentos",
+    "demoNote": "Ambiente de demonstração — transação simulada. Este documento não tem valor fiscal."
   }
 }

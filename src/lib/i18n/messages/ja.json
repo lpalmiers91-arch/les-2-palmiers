@@ -991,5 +991,21 @@
     "errUrl": "http で始まる有効な URL を入力してください。",
     "errDup": "このカレンダーはすでに追加されています。",
     "errGeneric": "追加に失敗しました。もう一度お試しください。"
+  },
+  "invoice": {
+    "title": "請求書",
+    "lineLodging": "宿泊 · {n} 泊",
+    "lineCleaning": "清掃料",
+    "lineServices": "前払いサービス",
+    "lineDiscount": "割引",
+    "billedTo": "請求先",
+    "stay": "ご滞在",
+    "ref": "予約番号",
+    "guestsN": "{n} 名",
+    "total": "合計",
+    "paid": "支払い済み",
+    "balanceDue": "残額",
+    "payments": "お支払い",
+    "demoNote": "デモ環境 — 模擬取引です。この書類に税務上の効力はありません。"
   }
 }

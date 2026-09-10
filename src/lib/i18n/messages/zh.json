@@ -991,5 +991,21 @@
     "errUrl": "请输入以 http 开头的有效网址。",
     "errDup": "此日历已添加。",
     "errGeneric": "添加失败。请重试。"
+  },
+  "invoice": {
+    "title": "发票",
+    "lineLodging": "住宿 · {n} 晚",
+    "lineCleaning": "清洁费",
+    "lineServices": "预付服务",
+    "lineDiscount": "折扣",
+    "billedTo": "付款方",
+    "stay": "行程",
+    "ref": "编号",
+    "guestsN": "{n} 位住客",
+    "total": "总计",
+    "paid": "已付款",
+    "balanceDue": "应付余额",
+    "payments": "付款记录",
+    "demoNote": "演示环境 — 模拟交易。本文件不具税务效力。"
   }
 }

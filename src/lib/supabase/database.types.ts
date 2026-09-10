@@ -875,6 +875,35 @@ export type Database = {
           },
         ]
       }
+      invoices: {
+        Row: {
+          id: string
+          issued_at: string
+          number: string
+          reservation_id: string
+        }
+        Insert: {
+          id?: string
+          issued_at?: string
+          number: string
+          reservation_id: string
+        }
+        Update: {
+          id?: string
+          issued_at?: string
+          number?: string
+          reservation_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_reservation_id_fkey"
+            columns: ["reservation_id"]
+            isOneToOne: true
+            referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       kb_articles: {
         Row: {
           audience: string
@@ -2647,6 +2676,13 @@ export type Database = {
       delete_review: { Args: { p_id: string }; Returns: undefined }
       delete_service: { Args: { p_id: string }; Returns: undefined }
       delete_stay_info: { Args: { p_apartment: string }; Returns: undefined }
+      get_or_create_invoice: {
+        Args: { p_reservation: string }
+        Returns: {
+          issued_at: string
+          number: string
+        }[]
+      }
       has_permission: { Args: { perm: string; uid: string }; Returns: boolean }
       has_role: { Args: { role_key: string; uid: string }; Returns: boolean }
       heartbeat: { Args: never; Returns: undefined }

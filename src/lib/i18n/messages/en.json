@@ -991,5 +991,21 @@
     "errUrl": "Enter a valid URL starting with http.",
     "errDup": "This calendar is already added.",
     "errGeneric": "Adding failed. Please try again."
+  },
+  "invoice": {
+    "title": "Invoice",
+    "lineLodging": "Accommodation · {n} night(s)",
+    "lineCleaning": "Cleaning fee",
+    "lineServices": "Prepaid services",
+    "lineDiscount": "Discount",
+    "billedTo": "Billed to",
+    "stay": "Stay",
+    "ref": "Ref.",
+    "guestsN": "{n} guest(s)",
+    "total": "Total",
+    "paid": "Already paid",
+    "balanceDue": "Balance due",
+    "payments": "Payments",
+    "demoNote": "Demonstration environment — simulated transaction. This document has no fiscal value."
   }
 }
