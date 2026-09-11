@@ -11,9 +11,13 @@ import { updateSession } from "@/lib/supabase/middleware";
 // Toutes les routes de ce projet sont déjà en rendu dynamique (session
 // Supabase lue partout), donc le passage au nonce n'a aucun coût de
 // static-generation ici (pas de régression de perf/caching à attendre).
-const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
-  ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).host
-  : "zmobadwgoqcwkryefciq.supabase.co";
+// Pas de repli en dur sur le projet Supabase réel : une variable manquante
+// doit faire échouer bruyamment, pas connecter silencieusement l'app à un
+// backend de production (voir src/lib/supabase/config.ts, même règle).
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()) {
+  throw new Error("[proxy] variable d'environnement manquante : NEXT_PUBLIC_SUPABASE_URL");
+}
+const supabaseHost = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).host;
 
 function buildCsp(nonce: string, isDev: boolean): string {
   return [

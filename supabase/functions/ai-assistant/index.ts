@@ -17,6 +17,37 @@ const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const MAX_TOOL_ROUNDS = 3;
 const MAX_MESSAGE_LENGTH = 4000;
 
+// CORRECTIF 9 : plafond de débit pour les appelants NON authentifiés
+// (espace "public") — le quota existant (ai_usage) n'est vérifié que si
+// userId est présent, donc un script anonyme pouvait appeler cette fonction
+// sans aucune limite. 20 messages/heure/IP couvre largement un visiteur
+// légitime tout en bloquant l'abus scripté.
+const ANON_HOURLY_LIMIT = 20;
+
+// Estimation prudente du coût (USD / 1000 tokens de sortie) par fournisseur,
+// utilisée uniquement pour alimenter le coupe-circuit AI_MONTHLY_BUDGET_USD.
+// Ce n'est pas une facturation exacte (elle dépend du modèle précis) : le
+// but est de ne jamais SOUS-estimer significativement, pas de compter au
+// centime — à ajuster si le modèle configuré est connu pour être plus cher.
+const COST_PER_1K_TOKENS_OUT_USD: Record<string, number> = {
+  anthropic: 0.015,
+  openai: 0.01,
+  mistral: 0.006,
+  groq: 0.001,
+  openrouter: 0.01,
+  "openai-compatible": 0.01,
+  echo: 0,
+};
+
+function clientIp(req: Request): string {
+  const h = req.headers;
+  return (
+    h.get("x-real-ip") ||
+    h.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    "unknown"
+  );
+}
+
 // CORRECTIF 6 : garde-fou anti-prompt-injection, ajouté à la fin de TOUT
 // system prompt effectif — qu'il vienne de DEFAULT_PROMPTS ou d'un prompt
 // personnalisé en base (ai_settings.system_prompts) — puisqu'un admin qui
@@ -69,6 +100,22 @@ Deno.serve(async (req) => {
     const { data: userRes } = await supa.auth.getUser();
     const userId = userRes?.user?.id ?? null;
 
+    // CORRECTIF 9 : un appelant anonyme n'a pas de quota ai_usage (il n'a
+    // pas de userId) — on lui applique un plafond par IP, appliqué AVANT
+    // tout appel au fournisseur IA. Un utilisateur connecté reste couvert
+    // par le quota par espace ci-dessous (settings.quotas).
+    if (!userId) {
+      const ip = clientIp(req);
+      const { data: allowed } = await admin.rpc("rl_hit", {
+        p_key: `ai_public:${ip}`,
+        p_max: ANON_HOURLY_LIMIT,
+        p_window: "1 hour",
+      });
+      if (allowed === false) {
+        return json({ error: "quota atteint, réessayez plus tard" }, 429);
+      }
+    }
+
     let roles: string[] = [];
     if (userId) {
       const { data } = await supa.from("user_roles").select("role_id").eq("user_id", userId);
@@ -102,6 +149,18 @@ Deno.serve(async (req) => {
         if ((usage?.messages ?? 0) >= quota) {
           return json({ error: "quota quotidien atteint" }, 429);
         }
+      }
+    }
+
+    // CORRECTIF 9 : coupe-circuit de coût mensuel (couvre authentifié +
+    // anonyme). AI_MONTHLY_BUDGET_USD était documenté dans .env.example
+    // mais jamais lu par le code — le total réel (public.ai_monthly_cost_usd)
+    // agrège ai_usage + ai_usage_anon, alimentés en fin de requête ci-dessous.
+    const monthlyBudget = Number(Deno.env.get("AI_MONTHLY_BUDGET_USD") ?? 0);
+    if (monthlyBudget > 0) {
+      const { data: spent } = await admin.rpc("ai_monthly_cost_usd");
+      if (Number(spent ?? 0) >= monthlyBudget) {
+        return json({ error: "budget IA mensuel atteint, réessayez le mois prochain" }, 503);
       }
     }
 
@@ -209,12 +268,26 @@ Deno.serve(async (req) => {
             });
             await admin.from("ai_threads").update({ last_message_at: new Date().toISOString() }).eq("id", thread);
           }
+          // CORRECTIF 9 : estimation de coût (voir COST_PER_1K_TOKENS_OUT_USD)
+          // persistée pour le coupe-circuit AI_MONTHLY_BUDGET_USD — pour
+          // authentifié ET anonyme (ai_usage_anon), sinon un anonyme ne
+          // contribue jamais au budget mensuel qu'il consomme pourtant.
+          const tokensOut = Math.ceil(full.length / 4);
+          const costUsd = (tokensOut / 1000) * (COST_PER_1K_TOKENS_OUT_USD[usedProvider] ?? 0.01);
           if (userId) {
             try {
               await admin.rpc("increment_ai_usage", {
                 p_user: userId,
                 p_tokens_in: 0,
-                p_tokens_out: Math.ceil(full.length / 4),
+                p_tokens_out: tokensOut,
+                p_cost_usd: costUsd,
+              });
+            } catch { /* usage non bloquant */ }
+          } else {
+            try {
+              await admin.rpc("increment_ai_usage_anon", {
+                p_tokens_out: tokensOut,
+                p_cost_usd: costUsd,
               });
             } catch { /* usage non bloquant */ }
           }

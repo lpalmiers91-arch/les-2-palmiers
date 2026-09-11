@@ -17,7 +17,8 @@ export function pushSupported(): boolean {
     typeof window !== "undefined" &&
     "serviceWorker" in navigator &&
     "PushManager" in window &&
-    "Notification" in window
+    "Notification" in window &&
+    VAPID_PUBLIC_KEY.length > 0
   );
 }
 

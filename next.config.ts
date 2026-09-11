@@ -1,8 +1,14 @@
 import type { NextConfig } from "next";
 
-const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
-  ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).host
-  : "zmobadwgoqcwkryefciq.supabase.co";
+// Pas de repli en dur sur le projet Supabase réel : une variable manquante
+// doit faire échouer le build, pas connecter silencieusement l'app à un
+// backend de production (voir src/lib/supabase/config.ts, même règle).
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()) {
+  throw new Error(
+    "[next.config] variable d'environnement manquante : NEXT_PUBLIC_SUPABASE_URL",
+  );
+}
+const supabaseHost = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).host;
 
 // SEC-03 : la Content-Security-Policy n'est PLUS définie ici (valeur figée,
 // incompatible avec un nonce par requête). Elle est générée dans
