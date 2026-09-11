@@ -183,7 +183,7 @@ export function ArrivalSlip() {
         <button
           type="submit"
           disabled={nights < 1}
-          className="press mt-1.5 flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-[14px] bg-brass px-6 text-[13.5px] font-medium text-bone transition-colors hover:bg-brass-2 disabled:opacity-40 sm:mt-0 sm:h-auto sm:self-stretch sm:px-5"
+          className="press mt-1.5 flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-[14px] bg-brass px-6 text-[13.5px] font-medium text-bone transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-brass-2 hover:shadow-[0_14px_28px_-10px_rgba(170,101,72,0.55)] disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:shadow-none sm:mt-0 sm:h-auto sm:self-stretch sm:px-5"
         >
           {t("arrival.checkAvailability")}
           <ArrowRight className="h-4 w-4 shrink-0" />

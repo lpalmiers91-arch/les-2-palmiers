@@ -30,16 +30,27 @@ function buildCsp(nonce: string, isDev: boolean): string {
     // seuls les scripts nonce'és (et ceux qu'ils chargent) peuvent s'exécuter.
     // 'unsafe-eval' uniquement en dev (HMR / stack traces React) — jamais en prod.
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ""}`,
-    // CORRECTIF 3 — même logique que script-src : dès qu'un nonce est présent
-    // dans une directive CSP2+, les navigateurs modernes IGNORENT
-    // 'unsafe-inline' dans CETTE MÊME directive. C'est le comportement
-    // RECHERCHÉ (durcissement), pas un problème à éviter : un nonce par
-    // requête est strictement plus sûr qu'un 'unsafe-inline' qui autorise
-    // n'importe quel <style> injecté. Next.js applique lui-même ce nonce à
-    // ses propres styles générés/injectés (voir commentaire en tête de
-    // fichier) ; seul un <style> écrit à la main dans le code applicatif doit
-    // porter l'attribut nonce explicitement (cf. src/app/layout.tsx).
-    `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
+    // style-src-elem / style-src-attr séparés (correction post-CORRECTIF 3) :
+    // un nonce authentifie des balises <style nonce="…"> (style-src-elem),
+    // JAMAIS un attribut style="" (style-src-attr) — un attribut n'a pas
+    // d'emplacement pour porter un nonce, seul 'unsafe-inline' (ou un hash
+    // par valeur exacte, impraticable ici) peut l'autoriser. Un style-src
+    // nonce-only, sans cette distinction, bloque donc TOUT attribut style=""
+    // posé par du code applicatif normal (next/image `fill`, Motion, tout
+    // `style={{...}}` React) — constaté en direct : next/image ne dimensionne
+    // plus rien (position:absolute/width/height ignorés par le navigateur,
+    // erreurs console "Applying inline style violates... style-src").
+    // Les balises <style> (celle de src/app/layout.tsx, celles générées par
+    // Next) restent donc protégées par le nonce ; les attributs style=""
+    // (très répandus, non contrôlables par un attaquant sans XSS préalable
+    // ailleurs — à ce stade `script-src` nonce+strict-dynamic est déjà le
+    // vrai rempart) restent autorisés.
+    `style-src-elem 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
+    `style-src-attr 'unsafe-inline'`,
+    // repli pour les navigateurs ne comprenant pas style-src-elem/-attr
+    // (ils retombent alors sur style-src pour les deux usages) : au moins
+    // aussi permissif que style-src-attr, pour ne rien casser chez eux.
+    `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com data:`,
     `img-src 'self' data: blob: https://${supabaseHost}`,
     `media-src 'self' https://${supabaseHost}`,
