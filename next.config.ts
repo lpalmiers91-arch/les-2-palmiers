@@ -1,14 +1,13 @@
 import type { NextConfig } from "next";
 
-// Pas de repli en dur sur le projet Supabase réel : une variable manquante
-// doit faire échouer le build, pas connecter silencieusement l'app à un
-// backend de production (voir src/lib/supabase/config.ts, même règle).
-if (!process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()) {
-  throw new Error(
-    "[next.config] variable d'environnement manquante : NEXT_PUBLIC_SUPABASE_URL",
-  );
-}
-const supabaseHost = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).host;
+// INCIDENT 2026-09-11 : un throw ici (variable manquante -> build cassé) a
+// fait échouer deux déploiements Vercel de suite — next.config.ts est exécuté
+// tel quel par le CLI Next.js, donc l'erreur arrête `next build` avant même
+// la moindre page. Repli restauré (voir src/lib/supabase/config.ts, même
+// valeur, même raisonnement).
+const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()
+  ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).host
+  : "zmobadwgoqcwkryefciq.supabase.co";
 
 // SEC-03 : la Content-Security-Policy n'est PLUS définie ici (valeur figée,
 // incompatible avec un nonce par requête). Elle est générée dans
