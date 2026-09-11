@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, Loader2, Minus, Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { site } from "@/lib/site";
 import { easeOut } from "@/lib/motion";
 import { useT } from "@/lib/i18n/provider";
 import { useCurrency } from "@/lib/currency";
@@ -17,7 +16,7 @@ function isoPlus(days: number) {
 }
 
 type Apt = { id: string; base_price: number; capacity: number };
-type Result = { available: number; total: number; nightly: number } | null;
+type Result = { available: number; total: number } | null;
 
 export function ArrivalSlip() {
   const router = useRouter();
@@ -74,16 +73,15 @@ export function ArrivalSlip() {
         );
         if (id !== seq.current) return;
         const ok = quotes.filter((q) => q?.available && typeof q.total === "number") as { total: number }[];
-        if (ok.length > 0) {
-          const total = Math.min(...ok.map((q) => q.total));
-          setResult({ available: ok.length, total, nightly: Math.round(total / nights) });
-        } else {
-          setResult({ available: 0, total: 0, nightly: 0 });
-        }
+        setResult(
+          ok.length > 0
+            ? { available: ok.length, total: Math.min(...ok.map((q) => q.total)) }
+            : { available: 0, total: 0 },
+        );
       } catch {
         if (id === seq.current) {
           const nightly = Math.min(...apts.map((a) => a.base_price));
-          setResult({ available: apts.length, total: nightly * nights, nightly });
+          setResult({ available: apts.length, total: nightly * nights });
         }
       } finally {
         if (id === seq.current) setLoading(false);
@@ -99,122 +97,99 @@ export function ArrivalSlip() {
     router.push(`/reserver?${p.toString()}`);
   }
 
+  const onStartChange = (v: string) => {
+    setStart(v);
+    if (end && new Date(end) <= new Date(v)) {
+      const d = new Date(v);
+      d.setDate(d.getDate() + 3);
+      setEnd(d.toISOString().slice(0, 10));
+    }
+  };
+
   return (
-    <form
-      onSubmit={submit}
-      aria-label={t("arrival.title")}
-      className="w-full max-w-[380px] rounded-[22px] bg-bone p-2 text-ink shadow-[0_30px_70px_-28px_rgba(15,20,17,0.55)] ring-1 ring-ink/[0.06]"
-    >
-      <div className="flex items-baseline justify-between px-3.5 pb-2.5 pt-3">
-        <span className="display text-[15px] text-ink">{t("arrival.title")}</span>
-        <span className="text-[11.5px] text-ink-3">
-          {site.city} · {site.country}
-        </span>
-      </div>
-
-      {/* dates : deux colonnes séparées par un filet */}
-      <div className="grid grid-cols-2 overflow-hidden rounded-[15px] bg-bone-2/60">
-        <label className="group flex flex-col gap-1 px-3.5 py-3 transition-colors focus-within:bg-bone">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            {t("arrival.arrival")}
-          </span>
-          <input
-            type="date"
-            value={start}
-            min={isoPlus(1)}
-            onChange={(e) => {
-              setStart(e.target.value);
-              if (end && new Date(end) <= new Date(e.target.value)) {
-                const d = new Date(e.target.value);
-                d.setDate(d.getDate() + 3);
-                setEnd(d.toISOString().slice(0, 10));
-              }
-            }}
-            className="slip-input text-[13.5px] font-medium"
-          />
-        </label>
-        <label className="flex flex-col gap-1 border-l border-ink/10 px-3.5 py-3 transition-colors focus-within:bg-bone">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            {t("arrival.departure")}
-          </span>
-          <input
-            type="date"
-            value={end}
-            min={start ? isoPlus(2) : isoPlus(2)}
-            onChange={(e) => setEnd(e.target.value)}
-            className="slip-input text-[13.5px] font-medium"
-          />
-        </label>
-      </div>
-
-      {/* voyageurs */}
-      <div className="mt-1.5 flex items-center justify-between rounded-[15px] bg-bone-2/60 px-3.5 py-2.5">
-        <div className="flex flex-col gap-0.5">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">
-            {t("arrival.guests")}
-          </span>
-          <span className="tnum text-[13.5px] font-medium text-ink">{guests}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Step onClick={() => setGuests((g) => Math.max(1, g - 1))} disabled={guests <= 1} label={t("arrival.guestMinus")}>
-            <Minus className="h-3.5 w-3.5" />
-          </Step>
-          <Step
-            onClick={() => setGuests((g) => Math.min(maxGuests, g + 1))}
-            disabled={guests >= maxGuests}
-            label={t("arrival.guestPlus")}
-          >
-            <Plus className="h-3.5 w-3.5" />
-          </Step>
-        </div>
-      </div>
-
-      {/* résultat */}
-      <div className="flex min-h-[46px] items-center px-3.5 py-2.5">
+    <div className="w-full">
+      {/* ligne de disponibilité, sur l'image */}
+      <div className="mb-2.5 flex min-h-[20px] items-center px-1">
         <AnimatePresence mode="wait" initial={false}>
           {nights < 1 ? (
-            <motion.p key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[12.5px] text-ink-3">
+            <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[12.5px] text-bone/70">
               {t("arrival.pickDates")}
-            </motion.p>
+            </motion.span>
           ) : result === null || loading ? (
-            <motion.p key="load" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2 text-[12.5px] text-ink-3">
-              <Loader2 className="h-3.5 w-3.5 animate-spin" /> {t("arrival.checking")}
-            </motion.p>
+            <motion.span key="load" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-1.5 text-[12.5px] text-bone/70">
+              <Loader2 className="h-3 w-3 animate-spin" /> {t("arrival.checking")}
+            </motion.span>
           ) : result.available > 0 ? (
-            <motion.div
+            <motion.span
               key={`ok-${result.total}`}
-              initial={{ opacity: 0, y: 5 }}
+              initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.28, ease: easeOut }}
-              className="flex w-full items-center justify-between"
+              transition={{ duration: 0.25, ease: easeOut }}
+              className="flex items-center gap-2 text-[12.5px] text-bone/90"
             >
-              <span className="flex items-center gap-1.5 text-[12.5px] font-medium text-forest-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-forest-2" />
-                {result.available > 1 ? t("arrival.nAvailable", { n: result.available }) : t("arrival.oneAvailable")}
+              <span className="h-1.5 w-1.5 rounded-full bg-sand" />
+              {result.available > 1
+                ? t("arrival.nAvailable", { n: result.available })
+                : t("arrival.oneAvailable")}
+              <span className="text-bone/50">·</span>
+              <span>
+                {t("arrival.fromLabel")} <span className="tnum font-semibold text-bone">{price(result.total)}</span>
               </span>
-              <span className="text-[12.5px] text-ink-3">
-                {t("arrival.fromLabel")}{" "}
-                <span className="tnum font-semibold text-ink">{price(result.total)}</span>
-              </span>
-            </motion.div>
+            </motion.span>
           ) : (
-            <motion.p key="full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[12.5px] text-ink-2">
+            <motion.span key="full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-[12.5px] text-bone/75">
               {t("arrival.fullDates")}
-            </motion.p>
+            </motion.span>
           )}
         </AnimatePresence>
       </div>
 
-      <button
-        type="submit"
-        disabled={nights < 1}
-        className="press flex h-12 w-full items-center justify-center gap-2 rounded-[15px] bg-ink text-[13.5px] font-medium text-bone transition-colors hover:bg-forest-2 disabled:opacity-40"
+      {/* barre de réservation */}
+      <form
+        onSubmit={submit}
+        aria-label={t("arrival.title")}
+        className="rounded-[20px] bg-bone p-2 shadow-[0_24px_60px_-20px_rgba(10,14,11,0.6)] ring-1 ring-ink/[0.05] sm:flex sm:items-stretch sm:gap-1.5 sm:p-2"
       >
-        {t("arrival.checkAvailability")}
-        <ArrowRight className="h-4 w-4" />
-      </button>
-    </form>
+        {/* dates */}
+        <div className="grid grid-cols-2 sm:flex sm:flex-1">
+          <label className="flex flex-col gap-0.5 rounded-[13px] px-4 py-2.5 transition-colors focus-within:bg-bone-2/70 sm:flex-1">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">{t("arrival.arrival")}</span>
+            <input type="date" value={start} min={isoPlus(1)} onChange={(e) => onStartChange(e.target.value)} className="slip-input text-[13.5px] font-medium" />
+          </label>
+          <label className="flex flex-col gap-0.5 rounded-[13px] border-l border-ink/10 px-4 py-2.5 transition-colors focus-within:bg-bone-2/70 sm:flex-1">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">{t("arrival.departure")}</span>
+            <input type="date" value={end} min={isoPlus(2)} onChange={(e) => setEnd(e.target.value)} className="slip-input text-[13.5px] font-medium" />
+          </label>
+        </div>
+
+        {/* voyageurs */}
+        <div className="flex items-center justify-between gap-2 rounded-[13px] border-t border-ink/10 px-4 py-2.5 sm:border-l sm:border-t-0 sm:min-w-[150px]">
+          <span className="flex flex-col gap-0.5">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-3">{t("arrival.guests")}</span>
+            <span className="tnum text-[13.5px] font-medium text-ink">{guests}</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Step onClick={() => setGuests((g) => Math.max(1, g - 1))} disabled={guests <= 1} label={t("arrival.guestMinus")}>
+              <Minus className="h-3.5 w-3.5" />
+            </Step>
+            <Step onClick={() => setGuests((g) => Math.min(maxGuests, g + 1))} disabled={guests >= maxGuests} label={t("arrival.guestPlus")}>
+              <Plus className="h-3.5 w-3.5" />
+            </Step>
+          </span>
+        </div>
+
+        {/* CTA */}
+        <button
+          type="submit"
+          disabled={nights < 1}
+          className="press mt-1.5 flex h-12 items-center justify-center gap-2 rounded-[14px] bg-brass px-6 text-[13.5px] font-medium text-bone transition-colors hover:bg-brass-2 disabled:opacity-40 sm:mt-0 sm:h-auto sm:self-stretch"
+        >
+          {t("arrival.checkAvailability")}
+          <ArrowRight className="h-4 w-4" />
+        </button>
+      </form>
+    </div>
   );
 }
 

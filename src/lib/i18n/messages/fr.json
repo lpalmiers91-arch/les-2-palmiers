@@ -387,7 +387,7 @@
       "fidelite": "Barème de points, bonus et paliers.",
       "messages": "Conversations avec les clients.",
       "paiements": "Preuves de paiement à valider et historique.",
-      "reservations": "Toutes les réservations, du plus récent séjour au plus ancien.",
+      "reservations": "Ouvrez une fiche pour gérer les frais de séjour, le contrat et le paiement.",
       "sejour": "Codes wifi, manuel de la maison, consignes.",
       "site": "Modifiez le contenu du site. L'aperçu se met à jour à la publication.",
       "verifications": "Validez ou refusez les pièces d'identité soumises par les clients.",
@@ -944,6 +944,10 @@
       "err": "L'envoi a échoué. Réessayez.",
       "send": "Envoyer dans la conversation",
       "cancel": "Annuler"
+    },
+    "resvList": {
+      "openFile": "Ouvrir la fiche",
+      "pendingCharges": "{n} frais à régler"
     }
   },
   "notifPrefs": {

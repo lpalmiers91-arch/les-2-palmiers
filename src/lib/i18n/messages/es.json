@@ -387,7 +387,7 @@
       "fidelite": "Escala de puntos, bonificaciones y niveles.",
       "messages": "Conversaciones con los clientes.",
       "paiements": "Comprobantes de pago por validar e historial.",
-      "reservations": "Todas las reservas, de la estancia más reciente a la más antigua.",
+      "reservations": "Abre una ficha para gestionar los gastos de la estancia, el contrato y el pago.",
       "sejour": "Códigos wifi, manual de la casa, instrucciones.",
       "site": "Edita el contenido del sitio. La vista previa se actualiza al publicar.",
       "verifications": "Aprueba o rechaza los documentos de identidad enviados por los clientes.",
@@ -944,6 +944,10 @@
       "err": "El envío ha fallado. Inténtalo de nuevo.",
       "send": "Enviar en la conversación",
       "cancel": "Cancelar"
+    },
+    "resvList": {
+      "openFile": "Abrir la ficha",
+      "pendingCharges": "{n} gastos por pagar"
     }
   },
   "notifPrefs": {

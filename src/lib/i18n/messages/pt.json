@@ -387,7 +387,7 @@
       "fidelite": "Escala de pontos, bónus e níveis.",
       "messages": "Conversas com os clientes.",
       "paiements": "Comprovativos de pagamento a validar e histórico.",
-      "reservations": "Todas as reservas, da estadia mais recente à mais antiga.",
+      "reservations": "Abra uma ficha para gerir os encargos da estadia, o contrato e o pagamento.",
       "sejour": "Códigos wi-fi, manual da casa, instruções.",
       "site": "Edite o conteúdo do site. A pré-visualização atualiza ao publicar.",
       "verifications": "Aprove ou recuse os documentos de identidade enviados pelos clientes.",
@@ -944,6 +944,10 @@
       "err": "O envio falhou. Tente novamente.",
       "send": "Enviar na conversa",
       "cancel": "Cancelar"
+    },
+    "resvList": {
+      "openFile": "Abrir ficha",
+      "pendingCharges": "{n} encargos a pagar"
     }
   },
   "notifPrefs": {

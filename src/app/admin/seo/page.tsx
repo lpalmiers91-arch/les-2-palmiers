@@ -16,7 +16,6 @@ const STATIC_ROUTES: { path: string; labelKey: string }[] = [
   { path: "/", labelKey: "seo.route.home" },
   { path: "/appartements", labelKey: "seo.route.apartments" },
   { path: "/services", labelKey: "seo.route.services" },
-  { path: "/le-lieu", labelKey: "seo.route.place" },
   { path: "/contact", labelKey: "seo.route.contact" },
 ];
 

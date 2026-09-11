@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight, Wallet } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { PageTitle, StatusBadge, EmptyState } from "@/components/app/ui";
 import { getT } from "@/lib/i18n";
@@ -36,6 +36,16 @@ export default async function StaffReservations() {
     .in("status", ["published", "draft"])
     .order("created_at");
 
+  const { data: pendingCharges } = await supabase
+    .from("reservation_charges")
+    .select("reservation_id")
+    .eq("status", "pending");
+  const chargeCount = new Map<string, number>();
+  for (const c of pendingCharges ?? []) {
+    const k = c.reservation_id as string;
+    chargeCount.set(k, (chargeCount.get(k) ?? 0) + 1);
+  }
+
   const pendingChanges: PendingChange[] = (changeRows ?? []).map((c) => {
     const res = c.reservation as {
       reference?: string;
@@ -69,17 +79,15 @@ export default async function StaffReservations() {
           {rows.map((r) => {
             const { start, end } = parseRange(r.date_range as string);
             const g = r.guest as { full_name?: string; phone?: string } | null;
+            const href = `/staff/reservations/${encodeURIComponent(r.reference as string)}`;
+            const nCharges = chargeCount.get(r.id as string) ?? 0;
             return (
               <li key={r.id} className="rounded-[var(--radius-lg)] border border-line bg-bone p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <Link
-                      href={`/staff/reservations/${encodeURIComponent(r.reference as string)}`}
-                      className="group inline-flex items-center gap-1 text-[14.5px] font-medium text-ink hover:text-forest-2"
-                    >
+                    <Link href={href} className="text-[14.5px] font-medium text-ink hover:text-forest-2">
                       {formatDate(start, { day: "numeric", month: "short" })} —{" "}
                       {formatDate(end, { day: "numeric", month: "short", year: "numeric" })}
-                      <ChevronRight className="h-4 w-4 text-ink-3 transition-transform group-hover:translate-x-0.5" />
                     </Link>
                     <p className="mt-0.5 text-[12.5px] text-ink-3">
                       {g?.full_name ?? t("console.lists.client")} {g?.phone ? `· ${g.phone}` : ""} ·{" "}
@@ -91,15 +99,30 @@ export default async function StaffReservations() {
                       {t("console.lists.paidOf")}
                     </p>
                   </div>
-                  <StatusBadge status={r.status as string} />
+                  <div className="flex flex-col items-end gap-1.5">
+                    <StatusBadge status={r.status as string} />
+                    {nCharges > 0 && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-warn/14 px-2 py-0.5 text-[10.5px] font-medium text-warn">
+                        <Wallet className="h-3 w-3" />
+                        {t("console.resvList.pendingCharges", { n: nCharges })}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <div className="mt-4 border-t border-line pt-3">
+                <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-3">
                   <ReservationActions
                     id={r.id as string}
                     status={r.status as string}
                     start={start}
                     end={end}
                   />
+                  <Link
+                    href={href}
+                    className="press ml-auto inline-flex h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[12.5px] font-medium text-bone hover:bg-forest-2"
+                  >
+                    {t("console.resvList.openFile")}
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
                 </div>
               </li>
             );

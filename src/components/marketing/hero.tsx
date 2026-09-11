@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { getT } from "@/lib/i18n";
 import { getHomeBlock, pick, cmsImg } from "@/lib/cms";
+import { HeroIn } from "./hero-in";
 import { ArrivalSlip } from "./arrival-slip";
 
 export async function Hero() {
   const { t } = await getT();
   const c = await getHomeBlock("hero");
+
   const stats = Array.isArray(c.stats)
     ? (c.stats as { value: string; label: string }[])
     : [
@@ -16,65 +18,57 @@ export async function Hero() {
       ];
 
   return (
-    <section className="grain relative overflow-hidden bg-forest text-bone">
+    <section className="relative isolate min-h-[620px] h-[88svh] max-h-[900px] w-full overflow-hidden bg-ink">
+      <Image
+        src={cmsImg(pick(c.image, "terrace-palms.jpg"))}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-[50%_58%]"
+      />
+      {/* voiles : léger sur toute la surface (lisibilité de l'en-tête) + dégradé bas plus dense */}
+      <div aria-hidden className="absolute inset-0 bg-ink/25" />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-40 right-[-12%] h-[560px] w-[560px] rounded-full opacity-40"
+        className="absolute inset-0"
         style={{
-          background: "radial-gradient(closest-side, rgba(230,197,139,0.20), transparent 70%)",
+          background:
+            "linear-gradient(to top, rgba(22,19,15,0.92) 0%, rgba(22,19,15,0.55) 34%, rgba(22,19,15,0.05) 70%)",
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-[112px] md:px-8 md:pb-24 md:pt-[128px]">
-        <div className="grid items-start gap-x-14 gap-y-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="lg:pt-6">
-            <p className="text-[13px] font-medium tracking-tight text-sand">
-              {pick(c.eyebrow, t("hero.eyebrow"))}
-            </p>
-            <h1 className="display mt-5 text-[2.6rem] leading-[1.04] sm:text-[3.1rem] md:text-[3.5rem]">
-              {pick(c.titleA, t("hero.titleA"))} {pick(c.titleB, t("hero.titleB"))}
-              <span className="mt-2 block text-[1.9rem] font-normal italic text-brass-3 sm:text-[2.2rem] md:text-[2.5rem]">
-                {pick(c.titleEm, t("hero.titleEm"))}
-              </span>
-            </h1>
-            <p className="measure mt-7 text-[1.03rem] leading-relaxed text-bone/75">
-              {pick(c.lede, t("hero.lede"))}
-            </p>
+      <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-11 pt-28 md:px-8 md:pb-16">
+        <HeroIn as="p" className="text-[12px] font-medium uppercase tracking-[0.22em] text-bone/70">
+          {pick(c.eyebrow, t("hero.eyebrow"))}
+        </HeroIn>
 
-            <dl className="mt-9 flex flex-wrap gap-x-9 gap-y-4 text-[13px]">
-              {stats.map((s, i) => (
-                <div key={i}>
-                  <dt className="tnum display text-[1.25rem] text-bone">{s.value}</dt>
-                  <dd className="mt-0.5 text-bone/55">{s.label}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+        <HeroIn delay={0.05}>
+          <h1 className="display mt-4 max-w-3xl text-balance text-[2.5rem] leading-[1.02] text-bone sm:text-[3.2rem] md:text-[3.9rem]">
+            {pick(c.titleA, t("hero.titleA"))} {pick(c.titleB, t("hero.titleB"))}
+            <span className="mt-1.5 block font-normal italic text-brass-3">
+              {pick(c.titleEm, t("hero.titleEm"))}
+            </span>
+          </h1>
+        </HeroIn>
 
-          <div className="relative flex flex-col items-center lg:items-end">
-            <div className="relative aspect-[3/4] max-h-[500px] w-full max-w-[420px] overflow-hidden rounded-[var(--radius-lg)] ring-1 ring-bone/15">
-              <Image
-                src={cmsImg(pick(c.image, "terrace-palms.jpg"))}
-                alt=""
-                fill
-                priority
-                sizes="(max-width: 1024px) 90vw, 440px"
-                className="object-cover object-[50%_78%]"
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0"
-                style={{
-                  background: "linear-gradient(to top, rgba(18,28,22,0.45), transparent 40%)",
-                }}
-              />
-            </div>
+        <HeroIn as="p" delay={0.1} className="mt-5 max-w-lg text-[0.98rem] leading-relaxed text-bone/78">
+          {pick(c.lede, t("hero.lede"))}
+        </HeroIn>
 
-            <div className="z-10 -mt-14 w-full max-w-sm px-1 sm:-mt-16 sm:px-0">
-              <ArrivalSlip />
-            </div>
-          </div>
-        </div>
+        <HeroIn delay={0.16} className="mt-8 w-full max-w-[680px]">
+          <ArrivalSlip />
+        </HeroIn>
+
+        <HeroIn delay={0.24} className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-1.5 text-[12px] text-bone/55">
+          {stats.map((s, i) => (
+            <span key={i} className="inline-flex items-baseline gap-1.5">
+              <span className="tnum font-semibold text-bone/80">{s.value}</span>
+              {s.label}
+              {i < stats.length - 1 && <span className="ml-4 hidden text-bone/25 sm:inline">·</span>}
+            </span>
+          ))}
+        </HeroIn>
       </div>
     </section>
   );

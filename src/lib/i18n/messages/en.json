@@ -387,7 +387,7 @@
       "fidelite": "Points scheme, bonuses and tiers.",
       "messages": "Conversations with clients.",
       "paiements": "Payment proofs to review and history.",
-      "reservations": "All reservations, from the most recent stay to the oldest.",
+      "reservations": "Open a file to manage stay charges, the contract and payment.",
       "sejour": "Wi-Fi codes, house manual, instructions.",
       "site": "Edit the site content. The preview updates on publish.",
       "verifications": "Approve or reject the identity documents submitted by clients.",
@@ -944,6 +944,10 @@
       "err": "Sending failed. Please try again.",
       "send": "Send in the conversation",
       "cancel": "Cancel"
+    },
+    "resvList": {
+      "openFile": "Open file",
+      "pendingCharges": "{n} charges due"
     }
   },
   "notifPrefs": {

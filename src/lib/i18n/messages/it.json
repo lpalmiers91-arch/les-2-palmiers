@@ -387,7 +387,7 @@
       "fidelite": "Scala punti, bonus e livelli.",
       "messages": "Conversazioni con i clienti.",
       "paiements": "Prove di pagamento da validare e cronologia.",
-      "reservations": "Tutte le prenotazioni, dal soggiorno più recente al più vecchio.",
+      "reservations": "Apri una scheda per gestire le spese del soggiorno, il contratto e il pagamento.",
       "sejour": "Codici wi-fi, manuale della casa, istruzioni.",
       "site": "Modifica i contenuti del sito. L'anteprima si aggiorna alla pubblicazione.",
       "verifications": "Approva o rifiuta i documenti d'identità inviati dai clienti.",
@@ -944,6 +944,10 @@
       "err": "Invio non riuscito. Riprova.",
       "send": "Invia nella conversazione",
       "cancel": "Annulla"
+    },
+    "resvList": {
+      "openFile": "Apri la scheda",
+      "pendingCharges": "{n} spese da saldare"
     }
   },
   "notifPrefs": {

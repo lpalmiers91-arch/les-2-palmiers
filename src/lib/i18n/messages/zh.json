@@ -387,7 +387,7 @@
       "fidelite": "积分规则、奖励与等级。",
       "messages": "与客户的对话。",
       "paiements": "待核验的付款凭证与历史记录。",
-      "reservations": "全部预订，从最近的入住到最早的。",
+      "reservations": "打开详情以管理住宿费用、合同和付款。",
       "sejour": "Wi-Fi 密码、住宿手册、注意事项。",
       "site": "编辑网站内容。预览会在发布时更新。",
       "verifications": "批准或驳回客户提交的身份证件。",
@@ -944,6 +944,10 @@
       "err": "发送失败，请重试。",
       "send": "发送到对话",
       "cancel": "取消"
+    },
+    "resvList": {
+      "openFile": "打开详情",
+      "pendingCharges": "{n} 项待付费用"
     }
   },
   "notifPrefs": {

@@ -17,7 +17,6 @@ export async function SiteFooter() {
       links: [
         { href: "/#appartement", label: t("nav.apartment") },
         { href: "/reserver", label: t("nav.book") },
-        { href: "/le-lieu", label: t("nav.place") },
         { href: "/contact", label: t("nav.contact") },
         { href: "/connexion", label: t("nav.clientArea") },
       ],

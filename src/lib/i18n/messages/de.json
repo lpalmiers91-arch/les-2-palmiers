@@ -387,7 +387,7 @@
       "fidelite": "Punktesystem, Boni und Stufen.",
       "messages": "Unterhaltungen mit Kunden.",
       "paiements": "Zu prüfende Zahlungsnachweise und Verlauf.",
-      "reservations": "Alle Reservierungen, vom jüngsten zum ältesten Aufenthalt.",
+      "reservations": "Öffnen Sie eine Datei, um Aufenthaltskosten, Vertrag und Zahlung zu verwalten.",
       "sejour": "WLAN-Codes, Hausanleitung, Hinweise.",
       "site": "Website-Inhalte bearbeiten. Die Vorschau aktualisiert sich beim Veröffentlichen.",
       "verifications": "Von Kunden eingereichte Ausweisdokumente bestätigen oder ablehnen.",
@@ -944,6 +944,10 @@
       "err": "Senden fehlgeschlagen. Bitte erneut versuchen.",
       "send": "In die Unterhaltung senden",
       "cancel": "Abbrechen"
+    },
+    "resvList": {
+      "openFile": "Datei öffnen",
+      "pendingCharges": "{n} offene Kosten"
     }
   },
   "notifPrefs": {
