@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { getLocale, getT } from "@/lib/i18n";
@@ -78,6 +79,10 @@ export default async function RootLayout({
   const locale = await getLocale();
   const b = await getBranding();
   const { t } = await getT();
+  // CORRECTIF 3 : style-src n'autorise plus 'unsafe-inline' (nonce présent
+  // dans la directive) — ce <style> écrit à la main doit donc porter le
+  // nonce de la requête, posé par src/proxy.ts dans l'en-tête x-nonce.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   // VULN-11 : la charte (accent, police) est éditable en console — on ne
   // l'injecte dans <style>/<link> qu'après validation stricte du format.
@@ -113,7 +118,7 @@ export default async function RootLayout({
           />
         )}
         {overrides.length > 0 && (
-          <style dangerouslySetInnerHTML={{ __html: `:root{${overrides.join("")}}` }} />
+          <style nonce={nonce} dangerouslySetInnerHTML={{ __html: `:root{${overrides.join("")}}` }} />
         )}
       </head>
       <body>

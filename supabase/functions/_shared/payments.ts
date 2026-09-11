@@ -44,6 +44,31 @@ async function hmacSha256Hex(secret: string, payload: string): Promise<string> {
   return [...new Uint8Array(mac)].map((x) => x.toString(16).padStart(2, "0")).join("");
 }
 
+// CORRECTIF 2 : `returnUrl` doit toujours pointer vers notre propre origine.
+// Le seul appelant actuel (payment-checkout) la construit lui-même depuis
+// APP_URL (aucune entrée utilisateur), mais ces adaptateurs sont une
+// frontière de confiance partagée : on valide ici, pas seulement chez
+// l'appelant, pour que toute future évolution ne puisse pas ouvrir un
+// redirect externe via un PSP. Échec explicite (pas de repli silencieux).
+function validateReturnUrl(url: string, allowedOrigin: string): string {
+  let parsed: URL;
+  let allowed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    throw new Error("invalid_return_url");
+  }
+  try {
+    allowed = new URL(allowedOrigin);
+  } catch {
+    throw new Error("invalid_allowed_origin");
+  }
+  if (parsed.origin !== allowed.origin) {
+    throw new Error("return_url_origin_mismatch");
+  }
+  return url;
+}
+
 /** Vérifie une signature type Stripe / FedaPay : header `t=<ts>,s=<hex>` ou `t=<ts>,v1=<hex>`. */
 async function verifyTimestampedHmac(
   body: string,
@@ -75,6 +100,12 @@ export const fedapay = {
   async checkout(i: CheckoutInput): Promise<{ url: string } | { error: string }> {
     const key = Deno.env.get("FEDAPAY_SECRET_KEY");
     if (!key) return { error: "missing_secret" };
+    let returnUrl: string;
+    try {
+      returnUrl = validateReturnUrl(i.returnUrl, Deno.env.get("APP_URL") ?? "https://les2palmiers.site");
+    } catch (e) {
+      return { error: e instanceof Error ? e.message : "invalid_return_url" };
+    }
     const base = i.mode === "live" ? "https://api.fedapay.com" : "https://sandbox-api.fedapay.com";
     const res = await fetch(`${base}/v1/transactions`, {
       method: "POST",
@@ -83,7 +114,7 @@ export const fedapay = {
         description: i.description,
         amount: i.amount,
         currency: { iso: i.currency },
-        callback_url: i.returnUrl,
+        callback_url: returnUrl,
         customer: i.customerEmail
           ? { email: i.customerEmail, firstname: i.customerName ?? "Client" }
           : undefined,
@@ -138,10 +169,17 @@ export const fedapay = {
 
 // -------------------------------------------------------------------- KkiaPay
 export const kkiapay = {
-  async checkout(_i: CheckoutInput): Promise<{ url: string } | { error: string }> {
+  async checkout(i: CheckoutInput): Promise<{ url: string } | { error: string }> {
     // KkiaPay est un widget côté client : on renvoie une URL de page hébergée
     // qui ouvre le widget avec la clé publique. Ici on signale au client de
     // basculer sur le widget (pas de redirection serveur possible sans compte).
+    // Validée même si non utilisée aujourd'hui : ce garde-fou doit rester en
+    // place si cet adaptateur gagne un jour une vraie redirection serveur.
+    try {
+      validateReturnUrl(i.returnUrl, Deno.env.get("APP_URL") ?? "https://les2palmiers.site");
+    } catch (e) {
+      return { error: e instanceof Error ? e.message : "invalid_return_url" };
+    }
     return { error: "client_widget" };
   },
   async webhook(req: Request): Promise<WebhookResult> {
@@ -164,10 +202,16 @@ export const stripe = {
   async checkout(i: CheckoutInput): Promise<{ url: string } | { error: string }> {
     const key = Deno.env.get("STRIPE_SECRET_KEY");
     if (!key) return { error: "missing_secret" };
+    let returnUrl: string;
+    try {
+      returnUrl = validateReturnUrl(i.returnUrl, Deno.env.get("APP_URL") ?? "https://les2palmiers.site");
+    } catch (e) {
+      return { error: e instanceof Error ? e.message : "invalid_return_url" };
+    }
     const form = new URLSearchParams();
     form.set("mode", "payment");
-    form.set("success_url", i.returnUrl);
-    form.set("cancel_url", i.returnUrl);
+    form.set("success_url", returnUrl);
+    form.set("cancel_url", returnUrl);
     form.set("client_reference_id", i.internalRef);
     form.set("metadata[internal_ref]", i.internalRef);
     if (i.customerEmail) form.set("customer_email", i.customerEmail);

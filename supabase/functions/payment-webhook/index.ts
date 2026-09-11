@@ -18,6 +18,8 @@ Deno.serve(async (req) => {
   const adapter = adapterFor(provider);
   if (!adapter) return new Response("unknown provider", { status: 404, headers: securityHeaders });
 
+  const admin = createClient(SUPABASE_URL, SERVICE_KEY);
+
   const result = await adapter.webhook(req);
   if (!result.ok) {
     // config manquante -> 500 (le PSP retentera, l'incident est visible)
@@ -28,13 +30,38 @@ Deno.serve(async (req) => {
       : result.reason.startsWith("bad_") || result.reason.startsWith("no_")
       ? 400
       : 200;
+
+    // CORRECTIF 7 : trace un rejet de signature/corps — ces deux cas sont
+    // les seuls qui indiquent une tentative de forgerie (une signature
+    // absente/invalide ou un corps illisible), par opposition à un webhook
+    // légitime mais ignoré (ignored_*) ou une config serveur manquante.
+    // Colonnes réelles de audit_log (vérifiées dans 20260909180001) :
+    // actor_id/actor_role/action/entity/entity_id/before/after/at — PAS
+    // table_name/record_id/new_data. Non bloquant : un échec d'écriture du
+    // log ne doit jamais empêcher de répondre au PSP.
+    if (result.reason === "bad_signature" || result.reason === "bad_body") {
+      try {
+        await admin.from("audit_log").insert({
+          actor_id: null,
+          actor_role: "webhook",
+          action: "webhook_rejected",
+          entity: "payment_webhook",
+          entity_id: provider,
+          after: {
+            reason: result.reason,
+            ip: req.headers.get("x-forwarded-for") ?? req.headers.get("x-real-ip") ?? null,
+            user_agent: req.headers.get("user-agent"),
+          },
+        });
+      } catch { /* audit non bloquant */ }
+    }
+
     return new Response(JSON.stringify({ ignored: result.reason }), {
       status,
       headers: JSON_HEADERS,
     });
   }
 
-  const admin = createClient(SUPABASE_URL, SERVICE_KEY);
   if (result.status === "paid") {
     await admin.rpc("payment_mark_paid_external", {
       p_internal_ref: result.ref,

@@ -26,9 +26,16 @@ function buildCsp(nonce: string, isDev: boolean): string {
     // seuls les scripts nonce'és (et ceux qu'ils chargent) peuvent s'exécuter.
     // 'unsafe-eval' uniquement en dev (HMR / stack traces React) — jamais en prod.
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ""}`,
-    // style-src garde 'unsafe-inline' (styles générés par Next / CSS-in-JS) :
-    // pas de nonce ici, sinon les navigateurs ignoreraient 'unsafe-inline'.
-    `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
+    // CORRECTIF 3 — même logique que script-src : dès qu'un nonce est présent
+    // dans une directive CSP2+, les navigateurs modernes IGNORENT
+    // 'unsafe-inline' dans CETTE MÊME directive. C'est le comportement
+    // RECHERCHÉ (durcissement), pas un problème à éviter : un nonce par
+    // requête est strictement plus sûr qu'un 'unsafe-inline' qui autorise
+    // n'importe quel <style> injecté. Next.js applique lui-même ce nonce à
+    // ses propres styles générés/injectés (voir commentaire en tête de
+    // fichier) ; seul un <style> écrit à la main dans le code applicatif doit
+    // porter l'attribut nonce explicitement (cf. src/app/layout.tsx).
+    `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com data:`,
     `img-src 'self' data: blob: https://${supabaseHost}`,
     `media-src 'self' https://${supabaseHost}`,
