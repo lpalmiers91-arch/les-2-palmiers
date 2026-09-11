@@ -188,7 +188,7 @@
   <p class="csub">Description complète de la solution logicielle développée pour Les 2 Palmiers — Appartement de Rêve, Cotonou.</p>
   <dl class="meta">
     <dt>Référence</dt><dd>L2P-DT-001</dd>
-    <dt>Version</dt><dd>1.1</dd>
+    <dt>Version</dt><dd>1.2</dd>
     <dt>Date</dt><dd>Septembre 2026</dd>
     <dt>Développeur de la solution</dt><dd>Welman GBAGUIDI</dd>
     <dt>Rédaction</dt><dd>Welman GBAGUIDI</dd>
@@ -218,6 +218,7 @@
   <tbody>
     <tr><td class="k">1.0</td><td>Sept. 2026</td><td>W. GBAGUIDI</td><td>Première version, à la livraison de la plateforme.</td></tr>
     <tr><td class="k">1.1</td><td>Sept. 2026</td><td>W. GBAGUIDI</td><td>Ajouts&nbsp;: frais de séjour, compte client prépayé, envoi des coordonnées de paiement, étape d'envoi du contrat, sélection des avis publiés, pages intégrées à l'espace client, correctifs (notifications mobiles, suppression de message visible).</td></tr>
+    <tr><td class="k">1.2</td><td>Sept. 2026</td><td>W. GBAGUIDI</td><td>Trois audits de sécurité successifs (section 5 entièrement révisée)&nbsp;: cloisonnement des accès anonymes, limitation des abus renforcée, vérification des signatures, politique de sécurité du contenu, frontières réseau des fonctions serveur, garde-fous propres à l'assistant conversationnel, journal d'audit infalsifiable. Refonte visuelle de la page d'accueil. Jeu de données ramené aux seuls comptes de démonstration avant diffusion.</td></tr>
   </tbody>
 </table>
 </figure>
@@ -297,13 +298,13 @@
   <thead><tr><th>Élément</th><th style="width:26mm">Quantité</th></tr></thead>
   <tbody>
     <tr><td>Écrans (pages applicatives et points d'accès techniques)</td><td class="num">72</td></tr>
-    <tr><td>Tables dans la base de données</td><td class="num">64</td></tr>
-    <tr><td>Fonctions de base de données (règles métier)</td><td class="num">117</td></tr>
-    <tr><td>Politiques de sécurité au niveau des lignes</td><td class="num">92</td></tr>
+    <tr><td>Tables dans la base de données</td><td class="num">60</td></tr>
+    <tr><td>Fonctions de base de données (règles métier)</td><td class="num">126</td></tr>
+    <tr><td>Politiques de sécurité au niveau des lignes</td><td class="num">91</td></tr>
     <tr><td>Traitements serveur (fonctions Edge)</td><td class="num">9</td></tr>
     <tr><td>Langues d'interface</td><td class="num">10</td></tr>
-    <tr><td>Clés de traduction, identiques dans chaque langue</td><td class="num">1&nbsp;513</td></tr>
-    <tr><td>Migrations de schéma versionnées</td><td class="num">63</td></tr>
+    <tr><td>Clés de traduction, identiques dans chaque langue</td><td class="num">1&nbsp;549</td></tr>
+    <tr><td>Migrations de schéma versionnées</td><td class="num">75</td></tr>
     <tr><td>Lignes de code, hors bibliothèques</td><td class="num">≈ 34&nbsp;000</td></tr>
   </tbody>
 </table>
@@ -565,22 +566,34 @@
 
 <!-- ============================ 5 ============================ -->
 <h1 id="s5"><span class="hn">5</span> Sécurité</h1>
-<p class="lead">La sécurité ne repose pas sur une seule barrière. Elle combine le cloisonnement au niveau de la base, la séparation des espaces, la limitation des abus et la traçabilité.</p>
+<p class="lead">La sécurité ne repose pas sur une seule barrière. Elle combine le cloisonnement au niveau de la base, la séparation des espaces, la limitation des abus, la vérification des messages entrants, les frontières réseau et la traçabilité. Trois campagnes de revue successives, menées selon la classification OWASP des risques applicatifs les plus courants, ont durci chacun de ces axes au fil du projet&nbsp;; ce chapitre en présente l'état final, pas leur chronologie.</p>
 
 <h2>5.1&ensp;Contrôle d'accès au niveau des données</h2>
 <p>Chaque table porte ses propres règles d'accès. La base refuse d'elle-même de renvoyer à un utilisateur ce qui ne lui revient pas, indépendamment de l'interface. Un client ne voit que ses réservations, ses paiements, ses messages. Un membre de l'équipe voit selon ses permissions&nbsp;: un coordinateur peut traiter les réservations mais pas toucher aux réglages de paiement.</p>
+<p>Un audit table par table a par ailleurs vérifié qu'aucune donnée sensible n'hérite d'un accès anonyme non voulu par simple effet de plateforme&nbsp;: un visiteur non connecté ne peut lire que le contenu authentiquement public du site — appartements publiés, services actifs, avis modérés, pages et blocs publiés — jamais les profils, réservations, paiements, messages ou journaux internes, même indirectement.</p>
 
 <h2>5.2&ensp;Séparation des espaces</h2>
 <p>L'espace client et l'espace équipe ont deux connexions distinctes. La page d'entrée de l'équipe n'est pas indexée par les moteurs. Le contrôle du rôle se fait dans les pages serveur, pas seulement dans le proxy, afin qu'aucune lenteur ne puisse renvoyer quelqu'un dans le mauvais espace. Une séparation par sous-domaine est prévue dans le code mais n'a pas été activée&nbsp;; elle se règle par variables d'environnement.</p>
 
 <h2>5.3&ensp;Limitation des abus</h2>
-<p>Plusieurs actions sont plafonnées&nbsp;: le formulaire de contact, la remontée des statistiques, la création de réservations, l'envoi d'e-mails d'authentification. Le formulaire de contact comporte en plus un champ piège invisible pour les robots.</p>
+<p>Plusieurs actions sont plafonnées par adresse&nbsp;IP ou par compte&nbsp;: le formulaire de contact, la remontée des statistiques, la création de réservations, l'envoi d'e-mails d'authentification, l'échange d'une carte cadeau — avec, pour cette dernière, une limite supplémentaire par adresse&nbsp;IP en plus de la limite par compte, pour qu'une série de comptes jetables ne permette pas de la contourner — et les appels à l'assistant conversationnel effectués sans être connecté, plafonnés à vingt messages par heure et par adresse&nbsp;IP. Le formulaire de contact comporte en plus un champ piège invisible pour les robots.</p>
+<p>Le compteur partagé qui porte ces limites a fait l'objet d'une vérification de bout en bout&nbsp;: un essai en conditions réelles a montré qu'un écart d'arrondi entre deux calculs de date pouvait, dans de rares cas, scinder une même fenêtre horaire en deux compteurs distincts et donc doubler la limite effective sans qu'aucune règle ne soit désactivée. La correction a été vérifiée par le même essai, rejoué jusqu'à obtenir le blocage attendu au vingt-et-unième appel.</p>
 
 <h2>5.4&ensp;Gestion des secrets</h2>
-<p>Aucune clé secrète ne se trouve côté navigateur. Les clés des prestataires, des services d'e-mail et d'IA vivent dans les secrets des fonctions serveur. Les seules clés enregistrées en base sont les clés <em>publiques</em> des prestataires de paiement, celles qui sont destinées à être exposées.</p>
+<p>Aucune clé secrète ne se trouve côté navigateur. Les clés des prestataires, des services d'e-mail et d'IA vivent dans les secrets des fonctions serveur, de même que deux secrets internes qui authentifient les appels que la base adresse elle-même à ces fonctions — un secret que l'API de la base ne peut jamais lire, quel que soit le compte utilisé. Les seules clés enregistrées en base sont les clés <em>publiques</em> des prestataires de paiement, celles qui sont destinées à être exposées.</p>
 
-<h2>5.5&ensp;Vérification des signatures</h2>
-<p>Les messages entrants sensibles sont authentifiés. Les confirmations de paiement sont vérifiées avec la signature du prestataire. Le mécanisme d'envoi des e-mails d'authentification vérifie une signature standard avant de traiter la demande.</p>
+<h2>5.5&ensp;Vérification des signatures et des origines</h2>
+<p>Les confirmations de paiement sont vérifiées avec la signature du prestataire, comparée d'une façon qui ne révèle rien par le temps de calcul, et assorties d'une fenêtre de validité de cinq minutes qui rend inopérant un message intercepté puis rejoué plus tard. Une confirmation dont la signature ne correspond pas est rejetée sans être traitée&nbsp;; la tentative est consignée dans le journal d'audit avec le prestataire concerné et l'adresse d'origine. Le mécanisme d'envoi des e-mails d'authentification vérifie de même une signature standard avant de traiter la demande. La récupération d'un lien de synchronisation de calendrier fourni par le client vérifie que l'adresse ne pointe pas vers le réseau interne de l'hébergeur, limite la taille récupérée et refuse toute redirection&nbsp;: une protection contre le détournement d'un appel serveur vers une destination inattendue.</p>
+
+<h2>5.6&ensp;Politique de sécurité du contenu et frontières réseau</h2>
+<p>Chaque page est servie avec une politique de sécurité du contenu stricte&nbsp;: script et feuilles de style intégrés portent un jeton à usage unique régénéré à chaque affichage, de sorte qu'un script introduit par une faille tierce ne puisse pas s'exécuter faute de porter le bon jeton. Cette politique distingue les balises de style, soumises au jeton, des attributs de style posés par l'interface elle-même, qui restent autorisés&nbsp;: la distinction évite qu'un durcissement mal calibré n'empêche l'affichage normal des pages.</p>
+<p>Les fonctions serveur appelées depuis un navigateur — invitation d'un membre d'équipe, réservation au comptoir, assistant conversationnel, aide à la rédaction, synchronisation des calendriers, notifications — ne répondent qu'aux origines explicitement autorisées, réglées par variable d'environnement, plutôt qu'à n'importe quel site qui tenterait de les appeler au nom d'un utilisateur connecté.</p>
+
+<h2>5.7&ensp;Garde-fous propres à l'assistant conversationnel</h2>
+<p>Au-delà du plafond d'appels anonymes déjà cité, l'assistant borne la longueur d'un message entrant, vérifie qu'un fil de discussion appartient bien à l'utilisateur qui cherche à le consulter, et porte à la fin de chaque consigne de rôle une règle explicite lui interdisant de révéler ses instructions internes ou de changer de rôle sur simple demande d'un visiteur. Un coupe-circuit de budget mensuel, vérifié avant tout appel à un fournisseur payant, arrête l'assistant si le montant cumulé — authentifié et anonyme confondus — atteint le plafond fixé dans les réglages&nbsp;; il reste inactif tant qu'aucun plafond n'est renseigné.</p>
+
+<h2>5.8&ensp;Journal d'audit</h2>
+<p>Le journal d'audit ne peut être ni modifié ni supprimé, y compris par un compte administrateur&nbsp;: l'interdiction est posée au niveau de la base elle-même, par un mécanisme qui s'applique quelle que soit l'interface utilisée pour tenter l'opération. Les rejets de confirmation de paiement pour signature invalide y sont consignés au même titre que les actions métier, avec le prestataire, l'adresse d'origine et l'horodatage.</p>
 
 <!-- ============================ 6 ============================ -->
 <h1 id="s6"><span class="hn">6</span> Langues et internationalisation</h1>
@@ -673,7 +686,7 @@
 <h2>10.3&ensp;Sauvegardes</h2>
 <p>Les sauvegardes de la base sont assurées par Supabase, avec une capacité de retour à un instant donné selon la formule souscrite. C'est un point à confirmer avant la mise en production.</p>
 <h2>10.4&ensp;Comptes de démonstration</h2>
-<p>Trois comptes permettent de parcourir la plateforme&nbsp;: un client, un membre d'équipe, un administrateur. Les identifiants figurent dans le guide d'utilisation.</p>
+<p>Trois comptes permettent de parcourir la plateforme&nbsp;: un client, un membre d'équipe, un administrateur. Les identifiants figurent dans le guide d'utilisation. La base ne conserve que ces trois comptes et leurs données propres&nbsp;: les comptes créés au fil des essais, et tout ce qui s'y rattachait — réservations, paiements, conversations —, en ont été retirés avant diffusion.</p>
 
 <!-- ============================ 11 ============================ -->
 <h1 id="s11"><span class="hn">11</span> Perspectives de mise en production</h1>
