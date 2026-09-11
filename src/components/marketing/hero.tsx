@@ -18,54 +18,62 @@ export async function Hero() {
       ];
 
   return (
-    <section className="relative isolate min-h-[620px] h-[88svh] max-h-[900px] w-full overflow-hidden bg-ink">
+    <section className="relative isolate flex min-h-[640px] w-full flex-col overflow-hidden bg-ink sm:min-h-[86svh]">
       <Image
         src={cmsImg(pick(c.image, "terrace-palms.jpg"))}
         alt=""
         fill
         priority
         sizes="100vw"
-        className="object-cover object-[50%_58%]"
+        className="object-cover object-[50%_54%]"
       />
-      {/* voiles : léger sur toute la surface (lisibilité de l'en-tête) + dégradé bas plus dense */}
-      <div aria-hidden className="absolute inset-0 bg-ink/25" />
+      {/* voiles : base + dégradé bas + dégradé gauche (colonne de texte) */}
+      <div aria-hidden className="absolute inset-0 bg-ink/35" />
       <div
         aria-hidden
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to top, rgba(22,19,15,0.92) 0%, rgba(22,19,15,0.55) 34%, rgba(22,19,15,0.05) 70%)",
+            "linear-gradient(to top, rgba(22,19,15,0.94) 4%, rgba(22,19,15,0.5) 42%, rgba(22,19,15,0.12) 78%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to right, rgba(22,19,15,0.62) 0%, rgba(22,19,15,0.18) 52%, transparent 78%)",
         }}
       />
 
-      <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-11 pt-28 md:px-8 md:pb-16">
-        <HeroIn as="p" className="text-[12px] font-medium uppercase tracking-[0.22em] text-bone/70">
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-end px-5 pb-10 pt-28 md:px-8 md:pb-16">
+        <HeroIn as="p" className="text-[11px] font-medium uppercase tracking-[0.2em] text-bone/65 sm:text-[12px] sm:tracking-[0.22em]">
           {pick(c.eyebrow, t("hero.eyebrow"))}
         </HeroIn>
 
         <HeroIn delay={0.05}>
-          <h1 className="display mt-4 max-w-3xl text-balance text-[2.5rem] leading-[1.02] text-bone sm:text-[3.2rem] md:text-[3.9rem]">
+          <h1 className="display mt-3.5 max-w-3xl text-balance text-[2.05rem] leading-[1.04] text-bone sm:text-[3rem] sm:leading-[1.02] md:text-[3.8rem]">
             {pick(c.titleA, t("hero.titleA"))} {pick(c.titleB, t("hero.titleB"))}
-            <span className="mt-1.5 block font-normal italic text-brass-3">
+            <span className="mt-1.5 block text-[1.45rem] font-normal italic text-brass-3 sm:text-[1.9rem] md:text-[2.4rem]">
               {pick(c.titleEm, t("hero.titleEm"))}
             </span>
           </h1>
         </HeroIn>
 
-        <HeroIn as="p" delay={0.1} className="mt-5 max-w-lg text-[0.98rem] leading-relaxed text-bone/78">
+        <HeroIn as="p" delay={0.1} className="mt-4 hidden max-w-lg text-[0.98rem] leading-relaxed text-bone/78 sm:block">
           {pick(c.lede, t("hero.lede"))}
         </HeroIn>
 
-        <HeroIn delay={0.16} className="mt-8 w-full max-w-[680px]">
+        <HeroIn delay={0.16} className="mt-7 w-full max-w-[700px]">
           <ArrivalSlip />
         </HeroIn>
 
-        <HeroIn delay={0.24} className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-1.5 text-[12px] text-bone/55">
+        <HeroIn delay={0.24} className="mt-5 hidden flex-wrap items-center gap-x-7 gap-y-1.5 text-[12px] text-bone/55 sm:flex">
           {stats.map((s, i) => (
             <span key={i} className="inline-flex items-baseline gap-1.5">
               <span className="tnum font-semibold text-bone/80">{s.value}</span>
               {s.label}
-              {i < stats.length - 1 && <span className="ml-4 hidden text-bone/25 sm:inline">·</span>}
+              {i < stats.length - 1 && <span className="ml-3 text-bone/25">·</span>}
             </span>
           ))}
         </HeroIn>
