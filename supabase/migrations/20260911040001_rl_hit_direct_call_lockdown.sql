@@ -1,0 +1,31 @@
+-- =====================================================================
+--  CORRECTIF 10 (MOYEN) — rl_hit() appelable directement par n'importe qui
+--
+--  Constat (revue ligne par ligne post-CORRECTIF 9) : depuis SA TOUTE
+--  PREMIÈRE version (20260910100001_contact_and_ratelimit.sql), rl_hit()
+--  est accordée directement à `anon, authenticated` :
+--    grant execute on function public.rl_hit(text, int, interval) to anon, authenticated;
+--  Or `p_key` est un texte ENTIÈREMENT choisi par l'appelant, sans aucun
+--  lien vérifié avec son identité. N'importe qui peut donc appeler
+--  `supabase.rpc('rl_hit', { p_key: 'contact:<ip-de-la-victime>', p_max: 1,
+--  p_window: '1 hour' })` (ou 'book:<uid-victime>', 'gift_redeem:<uid-victime>',
+--  'evt:<session-victime>', 'ai_public:<ip-victime>') pour faire grimper le
+--  compteur PARTAGÉ d'un tiers et le faire passer en "rate_limited" avant
+--  même qu'il n'ait fait une seule vraie requête — déni de service ciblé
+--  sur le formulaire de contact, les réservations, les cartes cadeaux, le
+--  tracking ou l'assistant IA de la victime.
+--
+--  Ce n'est PAS nécessaire au fonctionnement de l'app : tous les appelants
+--  légitimes (submit_contact_message, track_event, create_booking,
+--  redeem_gift_card) sont SECURITY DEFINER — leurs appels internes à
+--  rl_hit() s'exécutent dans le contexte du PROPRIÉTAIRE de la fonction
+--  (postgres), pas de l'appelant HTTP, donc un rôle "propriétaire" garde
+--  l'accès même après ce retrait. Le seul appel DIRECT en RPC (hors SQL
+--  interne) est celui de l'Edge Function ai-assistant, qui utilise déjà la
+--  clé service_role (voir supabase/functions/ai-assistant/index.ts).
+--  Vérifié : aucun autre appel direct `rpc('rl_hit', ...)` dans src/ ni
+--  supabase/functions/.
+-- =====================================================================
+
+revoke execute on function public.rl_hit(text, int, interval) from public, anon, authenticated;
+grant  execute on function public.rl_hit(text, int, interval) to service_role;
