@@ -269,7 +269,9 @@
     "errShort": "La contraseña debe tener al menos 8 caracteres.",
     "google": "Continuar con Google",
     "referralCode": "Código de recomendación",
-    "optional": "opcional"
+    "optional": "opcional",
+    "errTeamAccount": "Esta cuenta pertenece al equipo. Inicia sesión desde el espacio del equipo.",
+    "errInvalidLink": "Este enlace ya no es válido. Vuelve a intentarlo."
   },
   "console": {
     "space": {

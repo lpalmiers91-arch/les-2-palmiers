@@ -269,7 +269,9 @@
     "errShort": "A palavra-passe deve ter pelo menos 8 caracteres.",
     "google": "Continuar com o Google",
     "referralCode": "Código de indicação",
-    "optional": "opcional"
+    "optional": "opcional",
+    "errTeamAccount": "Esta conta pertence à equipa. Inicie sessão a partir do espaço da equipa.",
+    "errInvalidLink": "Esta ligação já não é válida. Tente novamente."
   },
   "console": {
     "space": {

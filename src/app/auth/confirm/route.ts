@@ -39,21 +39,34 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL("/app/compte?reset=1", request.url));
   }
 
-  // aiguillage par rôle : un membre de l'équipe ne va jamais dans l'espace client
+  // Cloisonnement strict : cette route sert les flux client (confirmation
+  // d'inscription, retour Google OAuth — le bouton Google n'existe que sur
+  // /connexion, jamais sur /equipe) ET l'acceptation d'invitation d'un nouveau
+  // membre d'équipe (admin-invite), seule exception légitime : à ce moment-là
+  // le rôle est déjà attribué en base (voir admin-invite/index.ts) alors que
+  // la personne ne s'est encore jamais connectée nulle part. En dehors de ce
+  // cas précis, un compte équipe qui s'authentifie par ce chemin est refusé,
+  // symétrique du contrôle posé dans auth-form.tsx et déjà en place côté
+  // équipe dans team-auth-form.tsx.
   const { data: roleRows } = await supabase
     .from("user_roles")
     .select("role_id")
     .eq("user_id", user.id);
   const roles = (roleRows ?? []).map((r) => r.role_id as string);
   const isTeam = roles.some((r) => ["admin", "staff", "coordinator"].includes(r));
+  const isInviteAcceptance = type === "invite";
+
+  if (isTeam && !isInviteAcceptance) {
+    await supabase.auth.signOut();
+    return NextResponse.redirect(new URL("/connexion?erreur=compte-equipe", request.url));
+  }
 
   let dest = suite;
   if (isTeam) {
+    // acceptation d'invitation uniquement, ici : direction légitime vers l'espace équipe.
     dest = suite.startsWith("/staff") || suite.startsWith("/admin")
       ? suite
-      : roles.includes("admin")
-        ? "/admin"
-        : "/staff";
+      : roles.includes("admin") ? "/admin" : "/staff";
   } else if (dest.startsWith("/staff") || dest.startsWith("/admin") || dest === "/equipe") {
     dest = "/app";
   }

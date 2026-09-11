@@ -269,7 +269,9 @@
     "errShort": "パスワードは8文字以上必要です。",
     "google": "Google で続ける",
     "referralCode": "紹介コード",
-    "optional": "任意"
+    "optional": "任意",
+    "errTeamAccount": "このアカウントはチームに属しています。チーム用ログインからサインインしてください。",
+    "errInvalidLink": "このリンクは無効になりました。もう一度お試しください。"
   },
   "console": {
     "space": {

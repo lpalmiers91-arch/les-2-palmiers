@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { sanitizeInternalRedirect } from "@/lib/spaces";
+import { audienceFromRoles, sanitizeInternalRedirect } from "@/lib/spaces";
 import { useT } from "@/lib/i18n/provider";
 import { PasswordField } from "./password-field";
 import { GoogleButton } from "./google-button";
@@ -30,7 +30,12 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(() => {
+    const code = params.get("erreur");
+    if (code === "compte-equipe") return t("auth.errTeamAccount");
+    if (code === "lien-invalide") return t("auth.errInvalidLink");
+    return null;
+  });
   const [notice, setNotice] = useState<string | null>(null);
 
   const c = copy[mode];
@@ -72,17 +77,27 @@ export function AuthForm({ mode }: { mode: Mode }) {
       } else {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        let dest = suite;
-        if (suite === "/app" && data.user) {
-          const { data: roleRows } = await supabase
-            .from("user_roles")
-            .select("role_id")
-            .eq("user_id", data.user.id);
-          const roles = (roleRows ?? []).map((r) => r.role_id);
-          if (roles.includes("admin")) dest = "/admin";
-          else if (roles.some((r) => ["staff", "coordinator"].includes(r))) dest = "/staff";
+
+        // Cloisonnement strict : /connexion n'authentifie que l'espace client.
+        // Un compte équipe (admin/staff/coordinateur) qui s'y connecte est
+        // reconnu par ses identifiants (l'authentification elle-même réussit),
+        // mais la session est immédiatement refermée — aucun accès, aucune
+        // redirection vers son espace. Symétrique du contrôle déjà en place
+        // côté équipe (voir team-auth-form.tsx).
+        const { data: roleRows } = await supabase
+          .from("user_roles")
+          .select("role_id")
+          .eq("user_id", data.user.id);
+        const roles = (roleRows ?? []).map((r) => r.role_id);
+
+        if (audienceFromRoles(roles) === "team") {
+          await supabase.auth.signOut();
+          setError(t("auth.errTeamAccount"));
+          setLoading(false);
+          return;
         }
-        router.push(sanitizeInternalRedirect(dest, "/app"));
+
+        router.push(sanitizeInternalRedirect(suite, "/app"));
         router.refresh();
         return;
       }

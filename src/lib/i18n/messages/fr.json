@@ -269,7 +269,9 @@
     "errShort": "Le mot de passe doit faire au moins 8 caractères.",
     "google": "Continuer avec Google",
     "referralCode": "Code de parrainage",
-    "optional": "facultatif"
+    "optional": "facultatif",
+    "errTeamAccount": "Ce compte fait partie de l'équipe. Connectez-vous depuis l'espace équipe.",
+    "errInvalidLink": "Ce lien n'est plus valable. Réessayez."
   },
   "console": {
     "space": {

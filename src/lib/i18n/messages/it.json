@@ -269,7 +269,9 @@
     "errShort": "La password deve avere almeno 8 caratteri.",
     "google": "Continua con Google",
     "referralCode": "Codice invito",
-    "optional": "facoltativo"
+    "optional": "facoltativo",
+    "errTeamAccount": "Questo account appartiene al team. Accedi dall'area team.",
+    "errInvalidLink": "Questo link non è più valido. Riprova."
   },
   "console": {
     "space": {
