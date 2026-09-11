@@ -4,7 +4,7 @@
 //   kind : "client_reply" | "contact_reply" | "review_reply" | "service_reply"
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
-import { corsHeaders, preflight } from "../_shared/cors.ts";
+import { corsHeaders, preflight, securityHeaders } from "../_shared/cors.ts";
 import { chatWithFallback, providerConfigFromEnv, type ChatMessage } from "../_shared/ai/index.ts";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
@@ -40,7 +40,7 @@ Deno.serve(async (req) => {
   const pf = preflight(req);
   if (pf) return pf;
   const json = (o: unknown, s = 200) =>
-    new Response(JSON.stringify(o), { status: s, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    new Response(JSON.stringify(o), { status: s, headers: { ...corsHeaders(req), ...securityHeaders, "Content-Type": "application/json" } });
 
   try {
     const jwt = (req.headers.get("Authorization") ?? "").replace(/^Bearer\s+/i, "");

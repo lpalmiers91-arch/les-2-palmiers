@@ -23,7 +23,9 @@ const PUBLIC_CONNECTION = new Set(["/connexion", "/inscription", "/mot-de-passe"
 const LEGACY_HOST = "les-2-palmiers.vercel.app";
 const CANONICAL_ORIGIN = process.env.CANONICAL_ORIGIN?.trim() || "https://les2palmiers.site";
 
-export async function updateSession(request: NextRequest) {
+// `requestHeaders` (optionnel) : en-têtes enrichis à transmettre au rendu
+// (nonce CSP — voir src/proxy.ts). Sans lui, on retombe sur request.headers.
+export async function updateSession(request: NextRequest, requestHeaders?: Headers) {
   const path = request.nextUrl.pathname;
   const space = classify(path);
 
@@ -66,11 +68,11 @@ export async function updateSession(request: NextRequest) {
     space === "client-auth" ||
     space === "shared"; // /auth/* a besoin du rafraîchissement de cookie
   if (!needsSession) {
-    return NextResponse.next({ request });
+    return NextResponse.next({ request: { headers: requestHeaders ?? request.headers } });
   }
 
   // 3. Session Supabase + gardes "non connecté" --------------------------
-  let response = NextResponse.next({ request });
+  let response = NextResponse.next({ request: { headers: requestHeaders ?? request.headers } });
   try {
     const supabase = createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       cookies: {
@@ -79,7 +81,7 @@ export async function updateSession(request: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          response = NextResponse.next({ request });
+          response = NextResponse.next({ request: { headers: requestHeaders ?? request.headers } });
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options),
           );

@@ -4,7 +4,7 @@
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import webpush from "npm:web-push@3.6.7";
-import { corsHeaders, preflight } from "../_shared/cors.ts";
+import { corsHeaders, preflight, securityHeaders } from "../_shared/cors.ts";
 
 const VAPID_PUBLIC = Deno.env.get("VAPID_PUBLIC_KEY") ?? "";
 const VAPID_PRIVATE = Deno.env.get("VAPID_PRIVATE_KEY") ?? "";
@@ -38,6 +38,12 @@ function timingSafeEqual(a: string, b: string): boolean {
 Deno.serve(async (req) => {
   const pf = preflight(req);
   if (pf) return pf;
+
+  const json = (o: unknown, s = 200) =>
+    new Response(JSON.stringify(o), {
+      status: s,
+      headers: { ...corsHeaders(req), ...securityHeaders, "Content-Type": "application/json" },
+    });
 
   // fail-closed : sans secret configuré, la function refuse tout.
   if (!INTERNAL_SECRET) {
@@ -222,10 +228,4 @@ async function sendEmail(
 
 function escapeHtml(s: string) {
   return s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));
-}
-
-function json(obj: unknown, status = 200) {
-  return new Response(JSON.stringify(obj), {
-    status, headers: { ...corsHeaders, "Content-Type": "application/json" },
-  });
 }

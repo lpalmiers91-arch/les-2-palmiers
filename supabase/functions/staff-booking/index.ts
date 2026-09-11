@@ -4,7 +4,7 @@
 //        channel, mark_paid: "none"|"deposit"|"full", note }
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
-import { corsHeaders, preflight } from "../_shared/cors.ts";
+import { corsHeaders, preflight, securityHeaders } from "../_shared/cors.ts";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
@@ -14,7 +14,7 @@ Deno.serve(async (req) => {
   const pf = preflight(req);
   if (pf) return pf;
   const json = (o: unknown, s = 200) =>
-    new Response(JSON.stringify(o), { status: s, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    new Response(JSON.stringify(o), { status: s, headers: { ...corsHeaders(req), ...securityHeaders, "Content-Type": "application/json" } });
 
   try {
     const jwt = (req.headers.get("Authorization") ?? "").replace(/^Bearer\s+/i, "");
@@ -38,9 +38,15 @@ Deno.serve(async (req) => {
     if (!body.apartment_id || !body.start || !body.end) return json({ error: "champs_manquants" }, 400);
 
     // 1. compte invité : retrouvé ou créé
+    // SEC-06 : recherche ciblée (index sur auth.users.email), jamais un
+    // listUsers({perPage:1000}) qui chargerait des milliers de comptes en
+    // mémoire à chaque réservation saisie au comptoir.
     let guestId: string | null = null;
-    const { data: existing } = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-    guestId = existing.users.find((u) => u.email?.toLowerCase() === email)?.id ?? null;
+    const { data: foundId, error: lookupErr } = await admin.rpc("admin_find_user_by_email", {
+      p_email: email,
+    });
+    if (lookupErr) return json({ error: "lookup_failed" }, 500);
+    guestId = (foundId as string | null) ?? null;
 
     if (!guestId) {
       const { data: created, error: cErr } = await admin.auth.admin.createUser({

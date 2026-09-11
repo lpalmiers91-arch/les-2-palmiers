@@ -83,7 +83,14 @@ function actionOf(t: string): AuthAction {
   return "magiclink";
 }
 
-const J = { "Content-Type": "application/json" };
+// SEC-10 : en-têtes de sécurité de base (pas de CORS ici — appelée uniquement
+// serveur à serveur par le hook Supabase Auth, jamais depuis un navigateur).
+const J = {
+  "Content-Type": "application/json",
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+};
 const jr = (obj: unknown, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: J });
 

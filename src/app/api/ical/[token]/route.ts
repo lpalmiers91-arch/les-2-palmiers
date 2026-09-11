@@ -12,6 +12,16 @@ function stamp(d: Date): string {
 function dateOnly(iso: string): string {
   return iso.replace(/-/g, "").slice(0, 8);
 }
+// SEC-09 : jamais de fragment du jeton dans le nom de fichier téléchargé
+// (apparaît sinon dans les logs HTTP / l'historique du navigateur et
+// faciliterait une reconstitution partielle par un attaquant ayant accès aux logs).
+function slugify(s: string): string {
+  const cleaned = s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return cleaned || "calendrier";
+}
 function fold(line: string): string {
   // RFC 5545 : lignes repliées à 75 octets
   if (line.length <= 75) return line;
@@ -65,11 +75,14 @@ export async function GET(_req: Request, ctx: { params: Promise<{ token: string 
   }
   lines.push("END:VCALENDAR");
 
+  // SEC-09 : nom de fichier sans fragment du jeton ; calendrier privé, jamais
+  // mis en cache par un CDN/proxy partagé.
+  const filename = `${slugify((apt as { name: string }).name)}-calendar.ics`;
   return new Response(lines.join("\r\n") + "\r\n", {
     headers: {
       "Content-Type": "text/calendar; charset=utf-8",
-      "Content-Disposition": `attachment; filename="les2palmiers-${token.slice(0, 8)}.ics"`,
-      "Cache-Control": "public, max-age=1800",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Cache-Control": "private, max-age=1800",
     },
   });
 }

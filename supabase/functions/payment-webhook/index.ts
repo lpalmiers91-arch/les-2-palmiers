@@ -5,15 +5,18 @@
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import { adapterFor } from "../_shared/payments.ts";
+import { securityHeaders } from "../_shared/cors.ts";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+// SEC-10 : pas de CORS ici — callbacks serveur à serveur des PSP uniquement.
+const JSON_HEADERS = { "Content-Type": "application/json", ...securityHeaders };
 
 Deno.serve(async (req) => {
   const url = new URL(req.url);
   const provider = url.pathname.split("/").filter(Boolean).pop() ?? "";
   const adapter = adapterFor(provider);
-  if (!adapter) return new Response("unknown provider", { status: 404 });
+  if (!adapter) return new Response("unknown provider", { status: 404, headers: securityHeaders });
 
   const result = await adapter.webhook(req);
   if (!result.ok) {
@@ -27,7 +30,7 @@ Deno.serve(async (req) => {
       : 200;
     return new Response(JSON.stringify({ ignored: result.reason }), {
       status,
-      headers: { "Content-Type": "application/json" },
+      headers: JSON_HEADERS,
     });
   }
 
@@ -46,5 +49,5 @@ Deno.serve(async (req) => {
     });
   }
 
-  return new Response(JSON.stringify({ ok: true }), { headers: { "Content-Type": "application/json" } });
+  return new Response(JSON.stringify({ ok: true }), { headers: JSON_HEADERS });
 });

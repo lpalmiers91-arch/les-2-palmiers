@@ -31,13 +31,33 @@ export function IcalPanel({
   const { t } = useT();
   const router = useRouter();
   const [feeds, setFeeds] = useState(initial);
+  const [token, setToken] = useState(icalToken);
   const [copied, setCopied] = useState(false);
   const [url, setUrl] = useState("");
   const [label, setLabel] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
+  const [rotating, setRotating] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  const exportUrl = `${site.url}/api/ical/${icalToken}`;
+  const exportUrl = `${site.url}/api/ical/${token}`;
+
+  async function rotate() {
+    if (!window.confirm(t("ical.rotateConfirm"))) return;
+    setRotating(true);
+    setErr(null);
+    try {
+      const { data, error } = await createClient().rpc("rotate_ical_token", {
+        p_apartment: apartmentId,
+      });
+      if (error) throw error;
+      setToken(data as string);
+      router.refresh();
+    } catch {
+      setErr(t("ical.rotateErr"));
+    } finally {
+      setRotating(false);
+    }
+  }
 
   async function copy() {
     try {
@@ -126,6 +146,14 @@ export function IcalPanel({
           </button>
         </div>
         <p className="mt-1 text-[11.5px] text-ink-3">{t("ical.exportHint")}</p>
+        <button
+          onClick={rotate}
+          disabled={rotating}
+          className="press mt-2 inline-flex h-8 items-center gap-1.5 rounded-full border border-line px-3 text-[12px] font-medium text-ink-3 hover:border-danger/40 hover:text-danger disabled:opacity-50"
+        >
+          {rotating ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="h-3.5 w-3.5" />}
+          {t("ical.rotate")}
+        </button>
       </div>
 
       {/* import */}

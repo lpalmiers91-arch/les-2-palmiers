@@ -1233,7 +1233,10 @@
     "add": "添加",
     "errUrl": "请输入以 http 开头的有效网址。",
     "errDup": "此日历已添加。",
-    "errGeneric": "添加失败。请重试。"
+    "errGeneric": "添加失败。请重试。",
+    "rotate": "重新生成链接",
+    "rotateConfirm": "重新生成此链接？旧链接将立即失效（请在所有使用处更新）。",
+    "rotateErr": "重新生成失败，请重试。"
   },
   "invoice": {
     "title": "发票",

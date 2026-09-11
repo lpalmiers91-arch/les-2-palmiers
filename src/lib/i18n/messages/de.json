@@ -1233,7 +1233,10 @@
     "add": "Hinzufügen",
     "errUrl": "Geben Sie eine gültige URL ein, die mit http beginnt.",
     "errDup": "Dieser Kalender ist bereits hinzugefügt.",
-    "errGeneric": "Hinzufügen fehlgeschlagen. Bitte erneut versuchen."
+    "errGeneric": "Hinzufügen fehlgeschlagen. Bitte erneut versuchen.",
+    "rotate": "Link erneuern",
+    "rotateConfirm": "Diesen Link erneuern? Der alte funktioniert danach sofort nicht mehr (überall aktualisieren, wo er verwendet wird).",
+    "rotateErr": "Erneuern fehlgeschlagen. Bitte erneut versuchen."
   },
   "invoice": {
     "title": "Rechnung",

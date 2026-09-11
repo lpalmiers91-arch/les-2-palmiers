@@ -1233,7 +1233,10 @@
     "add": "Add",
     "errUrl": "Enter a valid URL starting with http.",
     "errDup": "This calendar is already added.",
-    "errGeneric": "Adding failed. Please try again."
+    "errGeneric": "Adding failed. Please try again.",
+    "rotate": "Regenerate link",
+    "rotateConfirm": "Regenerate this link? The old one will stop working immediately (update it everywhere it's used).",
+    "rotateErr": "Regeneration failed. Please try again."
   },
   "invoice": {
     "title": "Invoice",

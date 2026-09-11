@@ -3,7 +3,7 @@
 // manuellement (POST { feed_id } pour un seul flux).
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
-import { corsHeaders, preflight } from "../_shared/cors.ts";
+import { corsHeaders, preflight, securityHeaders } from "../_shared/cors.ts";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -98,16 +98,25 @@ function parseIcs(text: string): Ev[] {
   return events;
 }
 
+const MAX_FEED_BYTES = 5 * 1024 * 1024; // SEC-05 : 5 Mo max
+
 async function syncFeed(admin: ReturnType<typeof createClient>, feed: { id: string; url: string }) {
   try {
     if (!isSafeFeedUrl(feed.url)) throw new Error("url_rejected");
     const res = await fetch(feed.url, {
-      headers: { Accept: "text/calendar" },
+      headers: { Accept: "text/calendar", "User-Agent": "les2palmiers-ical-sync/1.0" },
       redirect: "error", // pas de suivi de redirection (contournement SSRF)
       signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
+    // SEC-05 : même avec redirect:"error", res.url doit rester une cible sûre
+    // (certains runtimes peuvent exposer une URL finale différente en cas de
+    // redirection interne au serveur d'origine, ex. réécriture applicative).
+    if (res.url && !isSafeFeedUrl(res.url)) throw new Error("url_rejected");
+
+    const buf = await res.arrayBuffer();
+    if (buf.byteLength > MAX_FEED_BYTES) throw new Error("feed_too_large");
+    const text = new TextDecoder().decode(buf);
     if (!/BEGIN:VCALENDAR/i.test(text)) throw new Error("not an iCalendar feed");
     const events = parseIcs(text);
     const { data, error } = await admin.rpc("apply_ical_feed", { p_feed: feed.id, p_events: events });
@@ -123,7 +132,7 @@ Deno.serve(async (req) => {
   const pf = preflight(req);
   if (pf) return pf;
   const json = (o: unknown, s = 200) =>
-    new Response(JSON.stringify(o), { status: s, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    new Response(JSON.stringify(o), { status: s, headers: { ...corsHeaders(req), ...securityHeaders, "Content-Type": "application/json" } });
 
   // VULN-09 : authentification obligatoire.
   //  * appel planifié (pg_cron)  -> header x-cron-secret

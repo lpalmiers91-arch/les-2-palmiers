@@ -2991,6 +2991,7 @@ export type Database = {
       }
     }
     Functions: {
+      admin_find_user_by_email: { Args: { p_email: string }; Returns: string }
       ai_space_enabled: { Args: { p_space: string }; Returns: boolean }
       analytics_countries: {
         Args: { p_days?: number }
@@ -3687,6 +3688,7 @@ export type Database = {
         Args: { p_key: string; p_max: number; p_window?: string }
         Returns: boolean
       }
+      rotate_ical_token: { Args: { p_apartment: string }; Returns: string }
       send_contract: {
         Args: { p_contract: string }
         Returns: {

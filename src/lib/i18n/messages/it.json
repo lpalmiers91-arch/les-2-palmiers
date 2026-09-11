@@ -1233,7 +1233,10 @@
     "add": "Aggiungi",
     "errUrl": "Inserisci un URL valido che inizi con http.",
     "errDup": "Questo calendario è già aggiunto.",
-    "errGeneric": "Aggiunta non riuscita. Riprova."
+    "errGeneric": "Aggiunta non riuscita. Riprova.",
+    "rotate": "Rigenera il link",
+    "rotateConfirm": "Rigenerare questo link? Quello vecchio smetterà subito di funzionare (aggiornalo ovunque sia usato).",
+    "rotateErr": "Rigenerazione non riuscita. Riprova."
   },
   "invoice": {
     "title": "Fattura",

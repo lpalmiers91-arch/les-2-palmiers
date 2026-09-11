@@ -3,7 +3,7 @@
 // Réponse : flux SSE  data: {type:"text"|"action"|"tool"|"done"|"error", ...}
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
-import { corsHeaders, preflight } from "../_shared/cors.ts";
+import { corsHeaders, preflight, securityHeaders } from "../_shared/cors.ts";
 import {
   type ChatMessage,
   chatWithFallback,
@@ -32,6 +32,11 @@ Deno.serve(async (req) => {
   if (pf) return pf;
 
   const sse = (obj: unknown) => `data: ${JSON.stringify(obj)}\n\n`;
+  const json = (obj: unknown, status = 200) =>
+    new Response(JSON.stringify(obj), {
+      status,
+      headers: { ...corsHeaders(req), ...securityHeaders, "Content-Type": "application/json" },
+    });
 
   try {
     const authHeader = req.headers.get("Authorization") ?? "";
@@ -210,16 +215,14 @@ Deno.serve(async (req) => {
     });
 
     return new Response(stream, {
-      headers: { ...corsHeaders, "Content-Type": "text/event-stream", "Cache-Control": "no-cache" },
+      headers: {
+        ...corsHeaders(req),
+        ...securityHeaders,
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+      },
     });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
 });
-
-function json(obj: unknown, status = 200) {
-  return new Response(JSON.stringify(obj), {
-    status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
-  });
-}
