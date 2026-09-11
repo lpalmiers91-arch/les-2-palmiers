@@ -5,8 +5,11 @@ export function JsonLd({ data }: { data: Record<string, unknown> | Record<string
   return (
     <script
       type="application/ld+json"
-      // contenu contrôlé côté serveur, pas d'entrée utilisateur brute
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      // VULN-11 : neutralise toute tentative de fermeture de balise <script>
+      // via un champ dérivé de contenu éditable (nom d'appartement, etc.).
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }

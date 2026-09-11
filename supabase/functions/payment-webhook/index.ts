@@ -17,9 +17,16 @@ Deno.serve(async (req) => {
 
   const result = await adapter.webhook(req);
   if (!result.ok) {
-    // 200 pour éviter les retombées de retry sur un évènement ignoré volontairement
+    // config manquante -> 500 (le PSP retentera, l'incident est visible)
+    // signature / corps invalides -> 400 (rejet ferme)
+    // ignored_* -> 200 (évènement volontairement non traité, pas de retry)
+    const status = result.reason === "missing_secret_config"
+      ? 500
+      : result.reason.startsWith("bad_") || result.reason.startsWith("no_")
+      ? 400
+      : 200;
     return new Response(JSON.stringify({ ignored: result.reason }), {
-      status: result.reason.startsWith("bad_") ? 400 : 200,
+      status,
       headers: { "Content-Type": "application/json" },
     });
   }

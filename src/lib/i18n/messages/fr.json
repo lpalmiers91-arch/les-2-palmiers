@@ -1783,7 +1783,7 @@
   },
   "wallet": {
     "title": "Mon compte",
-    "sub": "Rechargez votre compte et réglez vos séjours et vos frais en un geste.",
+    "sub": "Rechargez votre compte par preuve de virement et réglez vos séjours et vos frais en un geste.",
     "balance": "Solde disponible",
     "balanceHint": "Utilisable pour vos réservations et vos frais de séjour.",
     "topUp": "Recharger le compte",
@@ -1816,6 +1816,7 @@
       "adjust": "Ajustement"
     },
     "footNote": "Le solde est utilisable au moment du paiement d'un séjour ou d'un frais.",
-    "footLink": "Voir mes réservations"
+    "footLink": "Voir mes réservations",
+    "rechargeHelp": "Effectuez le virement / dépôt Mobile Money, puis joignez la capture : l'équipe valide et crédite votre compte."
   }
 }

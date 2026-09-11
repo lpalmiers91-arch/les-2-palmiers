@@ -27,13 +27,35 @@ function b64ToBytes(b64: string): Uint8Array {
   return out;
 }
 
-/** Vérifie une signature « standard webhooks » (format Supabase). */
+/** Comparaison à temps constant. */
+function timingSafeEqual(a: string, b: string): boolean {
+  const te = new TextEncoder();
+  const ba = te.encode(a);
+  const bb = te.encode(b);
+  const len = Math.max(ba.length, bb.length, 1);
+  let diff = ba.length ^ bb.length;
+  for (let i = 0; i < len; i++) diff |= (ba[i] ?? 0) ^ (bb[i] ?? 0);
+  return diff === 0;
+}
+
+/** Vérifie une signature « standard webhooks » (format Supabase). Fail-closed. */
 async function verify(payload: string, headers: Headers): Promise<boolean> {
-  if (!HOOK_SECRET) return true; // pas de secret configuré => on ne bloque pas
+  // VULN-08 : sans secret configuré, on REFUSE (fail-closed).
+  if (!HOOK_SECRET) {
+    console.error("[auth-email] SEND_EMAIL_HOOK_SECRET manquant — requête refusée");
+    return false;
+  }
   const id = headers.get("webhook-id") ?? "";
   const ts = headers.get("webhook-timestamp") ?? "";
   const sigHeader = headers.get("webhook-signature") ?? "";
   if (!id || !ts || !sigHeader) return false;
+
+  // anti-rejeu : l'horodatage ne doit pas dépasser 5 minutes.
+  const age = Math.abs(Date.now() / 1000 - Number(ts));
+  if (!Number.isFinite(age) || age > 300) {
+    console.error("[auth-email] horodatage webhook hors tolérance (rejeu ?)");
+    return false;
+  }
 
   const secret = HOOK_SECRET.replace(/^v1,?/, "").replace(/^whsec_/, "");
   const key = await crypto.subtle.importKey(
@@ -47,8 +69,8 @@ async function verify(payload: string, headers: Headers): Promise<boolean> {
   const expected = btoa(String.fromCharCode(...new Uint8Array(mac)));
   return sigHeader
     .split(" ")
-    .map((p) => p.split(",")[1])
-    .some((s) => s === expected);
+    .map((p) => p.split(",")[1] ?? "")
+    .some((s) => timingSafeEqual(s, expected));
 }
 
 function actionOf(t: string): AuthAction {

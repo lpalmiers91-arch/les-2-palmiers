@@ -1783,7 +1783,7 @@
   },
   "wallet": {
     "title": "A minha conta",
-    "sub": "Carregue a sua conta e pague as suas estadias e encargos num só gesto.",
+    "sub": "Carregue a sua conta com um comprovativo de transferência e pague as suas estadias e encargos num só gesto.",
     "balance": "Saldo disponível",
     "balanceHint": "Utilizável nas suas reservas e encargos da estadia.",
     "topUp": "Carregar a conta",
@@ -1816,6 +1816,7 @@
       "adjust": "Ajuste"
     },
     "footNote": "O saldo pode ser usado ao pagar uma estadia ou um encargo.",
-    "footLink": "Ver as minhas reservas"
+    "footLink": "Ver as minhas reservas",
+    "rechargeHelp": "Faça a transferência / depósito Mobile Money e anexe a captura: a equipa valida e credita a sua conta."
   }
 }

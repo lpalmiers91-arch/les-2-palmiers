@@ -3027,6 +3027,15 @@ export type Database = {
           uid: string
         }[]
       }
+      apartment_ical_events_by_token: {
+        Args: { p_token: string }
+        Returns: {
+          ends: string
+          starts: string
+          summary: string
+          uid: string
+        }[]
+      }
       apartment_is_visible: { Args: { aid: string }; Returns: boolean }
       apply_ical_feed: {
         Args: { p_events: Json; p_feed: string }

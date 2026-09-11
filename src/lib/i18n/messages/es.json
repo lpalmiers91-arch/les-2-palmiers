@@ -1783,7 +1783,7 @@
   },
   "wallet": {
     "title": "Mi cuenta",
-    "sub": "Recarga tu cuenta y paga tus estancias y gastos con un solo gesto.",
+    "sub": "Recarga tu cuenta con un comprobante de transferencia y paga tus estancias y gastos con un solo gesto.",
     "balance": "Saldo disponible",
     "balanceHint": "Utilizable para tus reservas y gastos de la estancia.",
     "topUp": "Recargar la cuenta",
@@ -1816,6 +1816,7 @@
       "adjust": "Ajuste"
     },
     "footNote": "El saldo se puede usar al pagar una estancia o un gasto.",
-    "footLink": "Ver mis reservas"
+    "footLink": "Ver mis reservas",
+    "rechargeHelp": "Haz la transferencia / depósito Mobile Money y adjunta la captura: el equipo valida y acredita tu cuenta."
   }
 }

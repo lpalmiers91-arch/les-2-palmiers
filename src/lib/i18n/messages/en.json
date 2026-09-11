@@ -1783,7 +1783,7 @@
   },
   "wallet": {
     "title": "My account",
-    "sub": "Top up your account and settle your stays and charges in one tap.",
+    "sub": "Top up your account with a transfer proof and settle your stays and charges in one tap.",
     "balance": "Available balance",
     "balanceHint": "Usable for your reservations and stay charges.",
     "topUp": "Top up",
@@ -1816,6 +1816,7 @@
       "adjust": "Adjustment"
     },
     "footNote": "The balance can be used when paying for a stay or a charge.",
-    "footLink": "View my reservations"
+    "footLink": "View my reservations",
+    "rechargeHelp": "Make the transfer / Mobile Money deposit, then attach the screenshot: the team validates and credits your account."
   }
 }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { sanitizeInternalRedirect } from "@/lib/spaces";
 import { useT } from "@/lib/i18n/provider";
 import { PasswordField } from "./password-field";
 import { GoogleButton } from "./google-button";
@@ -15,7 +16,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const router = useRouter();
   const params = useSearchParams();
   const { t, locale } = useT();
-  const suite = params.get("suite") || "/app";
+  const suite = sanitizeInternalRedirect(params.get("suite"), "/app");
   const [ref, setRef] = useState(params.get("ref") ?? "");
 
   const copy: Record<Mode, { title: string; cta: string; foot: string }> = {
@@ -81,7 +82,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
           if (roles.includes("admin")) dest = "/admin";
           else if (roles.some((r) => ["staff", "coordinator"].includes(r))) dest = "/staff";
         }
-        router.push(dest);
+        router.push(sanitizeInternalRedirect(dest, "/app"));
         router.refresh();
         return;
       }

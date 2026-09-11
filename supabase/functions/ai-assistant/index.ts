@@ -88,9 +88,21 @@ Deno.serve(async (req) => {
     }
 
     // --- fil de discussion ---
-    let thread = threadId as string | undefined;
+    // VULN-06 (IDOR) : un threadId fourni doit appartenir au caller.
+    // Un utilisateur anonyme n'a aucun fil persistant.
+    let thread: string | undefined;
     if (userId) {
-      if (!thread) {
+      const wanted = typeof threadId === "string" && threadId ? threadId : undefined;
+      if (wanted) {
+        const { data: owned } = await admin
+          .from("ai_threads")
+          .select("id")
+          .eq("id", wanted)
+          .eq("user_id", userId)
+          .maybeSingle();
+        if (!owned) return json({ error: "fil introuvable" }, 403);
+        thread = owned.id as string;
+      } else {
         const { data } = await admin
           .from("ai_threads")
           .insert({ user_id: userId, space, title: message.slice(0, 60) })

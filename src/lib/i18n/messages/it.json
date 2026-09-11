@@ -1783,7 +1783,7 @@
   },
   "wallet": {
     "title": "Il mio conto",
-    "sub": "Ricarica il tuo conto e salda soggiorni e spese con un gesto.",
+    "sub": "Ricarica il tuo conto con una prova di bonifico e salda soggiorni e spese con un gesto.",
     "balance": "Saldo disponibile",
     "balanceHint": "Utilizzabile per le prenotazioni e le spese del soggiorno.",
     "topUp": "Ricarica il conto",
@@ -1816,6 +1816,7 @@
       "adjust": "Rettifica"
     },
     "footNote": "Il saldo può essere usato al pagamento di un soggiorno o di una spesa.",
-    "footLink": "Vedi le mie prenotazioni"
+    "footLink": "Vedi le mie prenotazioni",
+    "rechargeHelp": "Effettua il bonifico / deposito Mobile Money, poi allega lo screenshot: il team convalida e accredita il tuo conto."
   }
 }

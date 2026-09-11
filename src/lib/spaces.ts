@@ -34,6 +34,32 @@ export function classify(pathname: string): Space {
   return "shared"; // /auth/*, /recu/*, /contrat/*, assets…
 }
 
+// Caractères de contrôle (0x00–0x1F), espace (0x20) et DEL (0x7F) : interdits
+// dans une destination de redirection (évite le smuggling d'en-tête / le bypass).
+const CTRL_OR_SPACE = new RegExp("[\\x00-\\x20\\x7f]");
+
+/**
+ * Assainit une destination de redirection interne (paramètre `suite`, `next`, …).
+ * Empêche l'open redirect (VULN-05) : on n'accepte qu'un chemin absolu du site.
+ *  - doit commencer par "/"
+ *  - PAS "//" ni "/\" (URL protocole-relative)
+ *  - aucun "://", "\" ni caractère de contrôle
+ */
+export function sanitizeInternalRedirect(
+  dest: string | null | undefined,
+  fallback = "/app",
+): string {
+  if (typeof dest !== "string") return fallback;
+  const d = dest.trim();
+  if (d.length === 0 || d.length > 512) return fallback;
+  if (!d.startsWith("/")) return fallback;
+  if (d.startsWith("//") || d.startsWith("/\\")) return fallback;
+  const low = d.toLowerCase();
+  if (low.startsWith("/%2f") || low.startsWith("/%5c") || low.startsWith("/%09")) return fallback;
+  if (d.includes("://") || d.includes("\\") || CTRL_OR_SPACE.test(d)) return fallback;
+  return d;
+}
+
 /** Où envoyer un utilisateur connecté qui arrive sur une page de connexion / racine. */
 export function homeFor(audience: Audience, roles: readonly string[] | null | undefined): string {
   if (audience === "team") {

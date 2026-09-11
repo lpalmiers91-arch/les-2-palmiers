@@ -35,8 +35,10 @@ export async function GET(_req: Request, ctx: { params: Promise<{ token: string 
 
   if (!apt) return new Response("Not found", { status: 404 });
 
-  const { data: events } = await supabase.rpc("apartment_ical_events", {
-    p_apartment: (apt as { id: string }).id,
+  // VULN-10 : les évènements sont résolus PAR LE JETON, jamais par l'UUID
+  // de l'appartement (fin de l'énumération des plannings par UUID).
+  const { data: events } = await supabase.rpc("apartment_ical_events_by_token", {
+    p_token: token,
   });
 
   const now = stamp(new Date());

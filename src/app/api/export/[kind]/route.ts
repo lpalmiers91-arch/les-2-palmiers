@@ -5,14 +5,20 @@ export const dynamic = "force-dynamic";
 
 type Row = Record<string, unknown>;
 
+// VULN-07 : neutralisation de l'injection de formules (CSV / tableur).
+// Une cellule qui commence par un caractère déclencheur est préfixée d'une
+// apostrophe pour que le tableur la traite comme du texte.
+const FORMULA_TRIGGERS = new Set(["=", "+", "-", "@", "\t", "\r"]);
+
 function csv(rows: Row[]): string {
   if (rows.length === 0) return "";
   const cols = Object.keys(rows[0]);
   const esc = (v: unknown) => {
-    const s = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v);
-    return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    let s = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v);
+    if (s.length > 0 && FORMULA_TRIGGERS.has(s[0])) s = `'${s}`;
+    return /[",\n\r;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
-  return [cols.join(","), ...rows.map((r) => cols.map((c) => esc(r[c])).join(","))].join("\r\n");
+  return [cols.map(esc).join(","), ...rows.map((r) => cols.map((c) => esc(r[c])).join(","))].join("\r\n");
 }
 
 const QUERIES: Record<string, (s: Awaited<ReturnType<typeof createClient>>) => Promise<Row[]>> = {

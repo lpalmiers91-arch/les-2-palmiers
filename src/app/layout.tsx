@@ -79,10 +79,23 @@ export default async function RootLayout({
   const b = await getBranding();
   const { t } = await getT();
 
+  // VULN-11 : la charte (accent, police) est éditable en console — on ne
+  // l'injecte dans <style>/<link> qu'après validation stricte du format.
+  const HEX_COLOR = /^#[0-9a-fA-F]{3,8}$/;
+  const FONT_NAME = /^[A-Za-z0-9 _-]{1,48}$/;
+  const safeAccent = typeof b.accent === "string" && HEX_COLOR.test(b.accent.trim())
+    ? b.accent.trim()
+    : null;
+  const safeFont =
+    typeof b.font_display === "string" &&
+    FONT_NAME.test(b.font_display.trim()) &&
+    !/[<>"'`]|<\/?style/i.test(b.font_display)
+      ? b.font_display.trim()
+      : null;
+
   const overrides: string[] = [];
-  if (b.accent) overrides.push(`--brass:${b.accent};--brass-2:${b.accent};`);
-  if (b.font_display)
-    overrides.push(`--font-display:"${b.font_display}",Georgia,serif;`);
+  if (safeAccent) overrides.push(`--brass:${safeAccent};--brass-2:${safeAccent};`);
+  if (safeFont) overrides.push(`--font-display:"${safeFont}",Georgia,serif;`);
 
   return (
     <html
@@ -91,11 +104,11 @@ export default async function RootLayout({
       className={`${bricolage.variable} ${hanken.variable}`}
     >
       <head>
-        {b.font_display && (
+        {safeFont && (
           <link
             rel="stylesheet"
             href={`https://fonts.googleapis.com/css2?family=${encodeURIComponent(
-              b.font_display,
+              safeFont,
             )}:wght@400;500;600&display=swap`}
           />
         )}

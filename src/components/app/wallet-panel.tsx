@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { RealtimeChannel } from "@supabase/supabase-js";
-import { Wallet, Loader2, Check, X, Upload, Plus, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { Wallet, Loader2, Check, Upload, Plus, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { ensureRealtimeAuth } from "@/lib/supabase/realtime";
 import { formatXOF, formatDate } from "@/lib/format";
@@ -129,11 +129,8 @@ export function WalletPanel({
 function TopUp() {
   const { t } = useT();
   const router = useRouter();
-  const [mode, setMode] = useState<"sim" | "proof">("sim");
   const [amount, setAmount] = useState(25000);
   const [method, setMethod] = useState<(typeof METHODS)[number]>("mtn");
-  const [step, setStep] = useState<"form" | "confirm" | "done">("form");
-  const [payId, setPayId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -143,51 +140,6 @@ function TopUp() {
   const [note, setNote] = useState("");
   const [proofDone, setProofDone] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-
-  async function startSim() {
-    if (amount < 500) return setErr(t("wallet.amountTooLow"));
-    setBusy(true);
-    setErr(null);
-    try {
-      const { data, error } = await createClient().rpc("wallet_topup_sim", {
-        p_amount: amount,
-        p_method: method,
-        p_outcome: "pending",
-      });
-      if (error) throw error;
-      setPayId((data as { id: string }).id);
-      setStep("confirm");
-    } catch {
-      setErr(t("wallet.err"));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function resolveSim(outcome: "success" | "failure") {
-    if (!payId) return;
-    setBusy(true);
-    setErr(null);
-    try {
-      const { error } = await createClient().rpc("payment_resolve", {
-        p_payment: payId,
-        p_outcome: outcome,
-      });
-      if (error) throw error;
-      if (outcome === "success") {
-        setStep("done");
-        setPayId(null);
-        router.refresh();
-      } else {
-        setStep("form");
-        setPayId(null);
-      }
-    } catch {
-      setErr(t("wallet.err"));
-    } finally {
-      setBusy(false);
-    }
-  }
 
   async function upload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -245,20 +197,7 @@ function TopUp() {
         {t("wallet.topUp")}
       </h2>
 
-      {step === "done" ? (
-        <div className="mt-4 text-center">
-          <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-forest text-bone">
-            <Check className="h-6 w-6" />
-          </span>
-          <p className="mt-3 text-[15px] font-medium text-ink">{t("wallet.topUpDone")}</p>
-          <button
-            onClick={() => setStep("form")}
-            className="press mt-3 h-9 rounded-full border border-line px-4 text-[12.5px] text-ink-2"
-          >
-            {t("wallet.topUpAgain")}
-          </button>
-        </div>
-      ) : proofDone ? (
+      {proofDone ? (
         <div className="mt-4 text-center">
           <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-warn/15 text-warn">
             <Upload className="h-5 w-5" />
@@ -267,143 +206,98 @@ function TopUp() {
           <p className="mt-1 text-[13px] text-ink-3">{t("wallet.proofSentB")}</p>
         </div>
       ) : (
-        <>
-          <div className="mt-4 flex gap-1.5 rounded-full bg-bone-2 p-1 text-[12.5px] font-medium">
-            <button
-              onClick={() => setMode("sim")}
-              className={`press flex-1 rounded-full py-2 ${mode === "sim" ? "bg-bone text-ink shadow-sm" : "text-ink-3"}`}
-            >
-              {t("wallet.payOnline")}
-            </button>
-            <button
-              onClick={() => setMode("proof")}
-              className={`press flex-1 rounded-full py-2 ${mode === "proof" ? "bg-bone text-ink shadow-sm" : "text-ink-3"}`}
-            >
-              {t("wallet.alreadyPaid")}
-            </button>
+        <div className="mt-4 space-y-3">
+          <p className="rounded-[10px] bg-bone-2 px-3 py-2 text-[12.5px] text-ink-3">
+            {t("wallet.rechargeHelp")}
+          </p>
+          <div>
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("wallet.amount")}</span>
+            <div className="grid grid-cols-4 gap-2">
+              {PRESETS.map((a) => (
+                <button
+                  key={a}
+                  onClick={() => setAmount(a)}
+                  className={`press tnum rounded-[10px] border py-2 text-[12.5px] font-medium transition-colors ${
+                    amount === a ? "border-forest bg-forest/[0.05] text-ink" : "border-line text-ink-2"
+                  }`}
+                >
+                  {(a / 1000).toLocaleString("fr-FR")}k
+                </button>
+              ))}
+            </div>
+            <input
+              type="number"
+              min={500}
+              step={500}
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value) || 0)}
+              className="field tnum mt-2"
+            />
           </div>
 
-          {step === "confirm" ? (
-            <div className="mt-4">
-              <div className="rounded-[12px] border border-dashed border-brass/40 bg-brass/[0.05] p-4 text-[13px] text-ink-2">
-                {t("wallet.simNote", { amount: formatXOF(amount) })}
-              </div>
-              <div className="mt-4 grid gap-2.5">
-                <button
-                  onClick={() => resolveSim("success")}
-                  disabled={busy}
-                  className="press flex h-11 items-center justify-center gap-2 rounded-full bg-forest text-[13.5px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
-                >
-                  {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
-                  {t("wallet.confirmPay")}
-                </button>
-                <button
-                  onClick={() => resolveSim("failure")}
-                  disabled={busy}
-                  className="press flex h-10 items-center justify-center gap-1.5 rounded-full border border-line text-[13px] text-ink-2 disabled:opacity-50"
-                >
-                  <X className="h-3.5 w-3.5" /> {t("wallet.cancel")}
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="mt-4 space-y-3">
-              <div>
-                <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("wallet.amount")}</span>
-                <div className="grid grid-cols-4 gap-2">
-                  {PRESETS.map((a) => (
-                    <button
-                      key={a}
-                      onClick={() => setAmount(a)}
-                      className={`press tnum rounded-[10px] border py-2 text-[12.5px] font-medium transition-colors ${
-                        amount === a ? "border-forest bg-forest/[0.05] text-ink" : "border-line text-ink-2"
-                      }`}
-                    >
-                      {(a / 1000).toLocaleString("fr-FR")}k
-                    </button>
-                  ))}
-                </div>
-                <input
-                  type="number"
-                  min={500}
-                  step={500}
-                  value={amount}
-                  onChange={(e) => setAmount(Number(e.target.value) || 0)}
-                  className="field tnum mt-2"
-                />
-              </div>
+          <label className="block">
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("wallet.method")}</span>
+            <select
+              className="field"
+              value={method}
+              onChange={(e) => setMethod(e.target.value as (typeof METHODS)[number])}
+            >
+              {METHODS.map((m) => (
+                <option key={m} value={m}>
+                  {m === "card" ? t("payPanel.card") : m.toUpperCase()}
+                </option>
+              ))}
+            </select>
+          </label>
 
-              <label className="block">
-                <span className="mb-1.5 block text-[13px] font-medium text-ink-2">{t("wallet.method")}</span>
-                <select
-                  className="field"
-                  value={method}
-                  onChange={(e) => setMethod(e.target.value as (typeof METHODS)[number])}
-                >
-                  {METHODS.map((m) => (
-                    <option key={m} value={m}>
-                      {m === "card" ? t("payPanel.card") : m.toUpperCase()}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              {mode === "proof" && (
+          <div>
+            <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
+              {t("wallet.screenshot")}
+            </span>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*,application/pdf"
+              className="hidden"
+              onChange={upload}
+            />
+            <button
+              type="button"
+              onClick={() => fileRef.current?.click()}
+              disabled={uploading}
+              className="press flex h-11 w-full items-center justify-center gap-2 rounded-[11px] border border-dashed border-line text-[13px] text-ink-2 hover:border-ink/30 disabled:opacity-50"
+            >
+              {uploading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : proofName ? (
                 <>
-                  <div>
-                    <span className="mb-1.5 block text-[13px] font-medium text-ink-2">
-                      {t("wallet.screenshot")}
-                    </span>
-                    <input
-                      ref={fileRef}
-                      type="file"
-                      accept="image/*,application/pdf"
-                      className="hidden"
-                      onChange={upload}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => fileRef.current?.click()}
-                      disabled={uploading}
-                      className="press flex h-11 w-full items-center justify-center gap-2 rounded-[11px] border border-dashed border-line text-[13px] text-ink-2 hover:border-ink/30 disabled:opacity-50"
-                    >
-                      {uploading ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : proofName ? (
-                        <>
-                          <Check className="h-4 w-4 text-green-2" /> {proofName}
-                        </>
-                      ) : (
-                        <>
-                          <Upload className="h-4 w-4" /> {t("wallet.chooseFile")}
-                        </>
-                      )}
-                    </button>
-                  </div>
-                  <input
-                    className="field"
-                    placeholder={t("wallet.notePlaceholder")}
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                  />
+                  <Check className="h-4 w-4 text-green-2" /> {proofName}
+                </>
+              ) : (
+                <>
+                  <Upload className="h-4 w-4" /> {t("wallet.chooseFile")}
                 </>
               )}
+            </button>
+          </div>
+          <input
+            className="field"
+            placeholder={t("wallet.notePlaceholder")}
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+          />
 
-              {err && <p className="text-[12.5px] text-danger">{err}</p>}
+          {err && <p className="text-[12.5px] text-danger">{err}</p>}
 
-              <button
-                onClick={mode === "sim" ? startSim : submitProof}
-                disabled={busy}
-                className="press flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-[14px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
-              >
-                {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
-                {mode === "sim"
-                  ? t("wallet.topUpCta", { amount: formatXOF(amount) })
-                  : t("wallet.sendProof")}
-              </button>
-            </div>
-          )}
-        </>
+          <button
+            onClick={submitProof}
+            disabled={busy}
+            className="press flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-[14px] font-medium text-bone hover:bg-forest-2 disabled:opacity-50"
+          >
+            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+            {t("wallet.sendProof")}
+          </button>
+        </div>
       )}
 
       <p className="mt-4 border-t border-line-soft pt-3 text-[12px] text-ink-3">

@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
+import { sanitizeInternalRedirect } from "@/lib/spaces";
 
 // Cible des liens e-mail (confirmation, réinitialisation, changement d'adresse)
 // ET du retour OAuth (Google) : flux ?code= (PKCE), flux token_hash, ou session
@@ -10,7 +11,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get("code");
   const token_hash = searchParams.get("token_hash");
   const type = (searchParams.get("type") || "") as EmailOtpType | "";
-  const suite = searchParams.get("suite") || "/app";
+  const suite = sanitizeInternalRedirect(searchParams.get("suite"), "/app");
   const supabase = await createClient();
 
   if (code) {
@@ -57,5 +58,6 @@ export async function GET(request: NextRequest) {
     dest = "/app";
   }
 
-  return NextResponse.redirect(new URL(dest, request.url));
+  // filet de sécurité : la destination finale reste un chemin interne.
+  return NextResponse.redirect(new URL(sanitizeInternalRedirect(dest, "/app"), request.url));
 }

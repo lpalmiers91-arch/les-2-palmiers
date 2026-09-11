@@ -1783,7 +1783,7 @@
   },
   "wallet": {
     "title": "Mein Konto",
-    "sub": "Laden Sie Ihr Konto auf und begleichen Sie Aufenthalte und Kosten mit einem Klick.",
+    "sub": "Laden Sie Ihr Konto mit einem Überweisungsnachweis auf und begleichen Sie Aufenthalte und Kosten mit einem Klick.",
     "balance": "Verfügbares Guthaben",
     "balanceHint": "Verwendbar für Reservierungen und Aufenthaltskosten.",
     "topUp": "Konto aufladen",
@@ -1816,6 +1816,7 @@
       "adjust": "Anpassung"
     },
     "footNote": "Das Guthaben kann bei der Zahlung eines Aufenthalts oder einer Gebühr verwendet werden.",
-    "footLink": "Meine Reservierungen ansehen"
+    "footLink": "Meine Reservierungen ansehen",
+    "rechargeHelp": "Führen Sie die Überweisung / Mobile-Money-Einzahlung durch und hängen Sie den Screenshot an: Das Team prüft und schreibt Ihrem Konto gut."
   }
 }

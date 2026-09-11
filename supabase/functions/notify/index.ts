@@ -21,10 +21,32 @@ const EMAIL_PROVIDER = Deno.env.get("EMAIL_PROVIDER") ?? (RESEND_KEY ? "resend" 
 const APP_URL = Deno.env.get("APP_URL") ?? "https://les2palmiers.site";
 // hôte dédié à l'espace équipe (si séparation par hôte activée)
 const STAFF_URL = Deno.env.get("STAFF_URL") ?? Deno.env.get("APP_URL") ?? "https://les2palmiers.site";
+// VULN-08 : secret partagé interne — seuls les appels DB (trigger) ou backend
+// connaissent cette valeur ; empêche un tiers de déclencher des e-mails.
+const INTERNAL_SECRET = Deno.env.get("NOTIFY_INTERNAL_SECRET") ?? "";
+
+function timingSafeEqual(a: string, b: string): boolean {
+  const te = new TextEncoder();
+  const ba = te.encode(a);
+  const bb = te.encode(b);
+  const len = Math.max(ba.length, bb.length, 1);
+  let diff = ba.length ^ bb.length;
+  for (let i = 0; i < len; i++) diff |= (ba[i] ?? 0) ^ (bb[i] ?? 0);
+  return diff === 0;
+}
 
 Deno.serve(async (req) => {
   const pf = preflight(req);
   if (pf) return pf;
+
+  // fail-closed : sans secret configuré, la function refuse tout.
+  if (!INTERNAL_SECRET) {
+    return json({ error: "missing_secret_config" }, 503);
+  }
+  const provided = req.headers.get("x-internal-secret") ?? "";
+  if (!timingSafeEqual(provided, INTERNAL_SECRET)) {
+    return json({ error: "forbidden" }, 403);
+  }
 
   const admin = createClient(SUPABASE_URL, SERVICE_KEY);
   const payload = await req.json().catch(() => ({}));
